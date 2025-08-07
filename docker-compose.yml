@@ -1,0 +1,140 @@
+version: '3.8'
+
+services:
+  # CRSET Solutions Frontend (Next.js)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crset-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_BACKEND_URL=https://crset-api-production.up.railway.app
+      - NEXT_PUBLIC_API_BASE_URL=https://crset-api-production.up.railway.app/api
+      - NEXT_PUBLIC_CONTACT_ENDPOINT=/api/contact
+      - NEXT_PUBLIC_SERVICES_ENDPOINT=/api/services
+      - NEXT_PUBLIC_WHATSAPP_NUMBER=351999999999
+      - NEXT_PUBLIC_WHATSAPP_MESSAGE=Olá! Gostaria de saber mais sobre os serviços da CRSET Solutions.
+      - NEXT_PUBLIC_SITE_URL=https://crsetsolutions.com
+      - NEXT_PUBLIC_SITE_NAME=CRSET Solutions
+      - NEXT_PUBLIC_SITE_DESCRIPTION=Soluções Digitais Inteligentes
+    networks:
+      - crset-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(\`localhost\`)"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+
+  # Local Backend (Optional - for development)
+  backend:
+    image: python:3.11-slim
+    container_name: crset-backend-local
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_APP=main.py
+      - CORS_ORIGINS=http://localhost:3000,https://crsetsolutions.com
+      - DATABASE_URL=postgresql://crset_user:crset_password@postgres:5432/crset_db
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    command: >
+      sh -c "
+        pip install flask flask-cors python-dotenv requests &&
+        python main.py
+      "
+    networks:
+      - crset-network
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # PostgreSQL Database (Optional - for local development)
+  postgres:
+    image: postgres:15-alpine
+    container_name: crset-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=crset_db
+      - POSTGRES_USER=crset_user
+      - POSTGRES_PASSWORD=crset_password
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - crset-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U crset_user -d crset_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis (Optional - for caching and sessions)
+  redis:
+    image: redis:7-alpine
+    container_name: crset-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - crset-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx (Optional - for reverse proxy and load balancing)
+  nginx:
+    image: nginx:alpine
+    container_name: crset-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    networks:
+      - crset-network
+    restart: unless-stopped
+    depends_on:
+      - frontend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  crset-network:
+    driver: bridge
+    name: crset-solutions-network
+
+volumes:
+  postgres_data:
+    name: crset-postgres-data
+  redis_data:
+    name: crset-redis-data
+

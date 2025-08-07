@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # CRSET Solutions Frontend (Next.js) - Production Only
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crset-frontend-prod
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_BACKEND_URL=https://crset-api-production.up.railway.app
+      - NEXT_PUBLIC_API_BASE_URL=https://crset-api-production.up.railway.app/api
+      - NEXT_PUBLIC_CONTACT_ENDPOINT=/api/contact
+      - NEXT_PUBLIC_SERVICES_ENDPOINT=/api/services
+      - NEXT_PUBLIC_WHATSAPP_NUMBER=351999999999
+      - NEXT_PUBLIC_WHATSAPP_MESSAGE=Olá! Gostaria de saber mais sobre os serviços da CRSET Solutions.
+      - NEXT_PUBLIC_SITE_URL=https://crsetsolutions.com
+      - NEXT_PUBLIC_SITE_NAME=CRSET Solutions
+      - NEXT_PUBLIC_SITE_DESCRIPTION=Soluções Digitais Inteligentes
+    networks:
+      - crset-prod-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "com.crset.service=frontend"
+      - "com.crset.version=1.0.0"
+      - "com.crset.environment=production"
+
+networks:
+  crset-prod-network:
+    driver: bridge
+    name: crset-production-network
+
