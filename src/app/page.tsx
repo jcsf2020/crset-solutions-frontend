@@ -451,6 +451,17 @@ export default function Home() {
           <p className="text-gray-500 text-sm">
             Soluções Digitais Inteligentes com Boris, Laya e Irina
           </p>
+          
+          {/* Convite Beta - Link Discreto */}
+          <div className="mt-6">
+            <a 
+              href="/convite" 
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-red-500/20 to-red-600/20 border border-red-500/30 text-red-300 hover:text-red-200 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105"
+            >
+              <span className="animate-pulse">🔥</span>
+              <span>Convite Beta Exclusivo</span>
+            </a>
+          </div>
         </div>
       </footer>
     </div>
