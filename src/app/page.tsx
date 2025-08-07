@@ -63,27 +63,27 @@ export default function Home() {
         {
           id: 1,
           name: 'Website Essencial',
-          description: 'Perfeito para começar',
-          price: '€197',
+          description: 'Perfeito para começar com credibilidade',
+          price: '€397',
           mascot: 'Laya',
-          features: ['Website institucional', 'Domínio incluído', 'SSL certificado', 'Suporte 3 meses']
+          features: ['Website institucional completo', 'Domínio incluído', 'SSL configurado', 'Suporte técnico 3 meses']
         },
         {
           id: 2,
           name: 'Website Profissional',
-          description: 'Ideal para negócios em crescimento',
-          price: '€347',
+          description: 'Ideal para negócios que querem escalar',
+          price: '€697',
           mascot: 'Boris',
           popular: true,
-          features: ['Website com e-commerce básico', 'SEO otimizado', 'Branding parcial', 'Suporte 6 meses']
+          features: ['Website com e-commerce', 'Otimização SEO', 'Branding parcial', 'Suporte técnico 6 meses']
         },
         {
           id: 3,
           name: 'Solução White Label',
-          description: 'Branding e funcionalidades personalizadas',
-          price: '€947',
+          description: 'Plataforma CRSET personalizada para revenda ou empresas com equipa',
+          price: '€1.497',
           mascot: 'Irina',
-          features: ['Website com personalização total', 'Branding completo', 'Integrações avançadas', 'Suporte 12 meses + deploy com domínio próprio']
+          features: ['Personalização total (layout, mascotes, domínio próprio)', 'Branding completo', 'Integrações técnicas avançadas', 'Suporte prioritário 12 meses', 'Deploy pronto a usar']
         }
       ]
     },
@@ -93,27 +93,27 @@ export default function Home() {
         {
           id: 4,
           name: 'Starter',
-          description: 'Dashboard básico',
-          price: '€19/mês',
+          description: 'Dashboard básico para equipas pequenas',
+          price: '€29/mês',
           mascot: 'Laya',
-          features: ['Até 1000 utilizadores', 'Suporte por email']
+          features: ['Até 1.000 utilizadores', 'Acesso a estatísticas essenciais', 'Suporte por email']
         },
         {
           id: 5,
           name: 'Profissional',
-          description: 'Mais poder e flexibilidade',
-          price: '€39/mês',
+          description: 'Ideal para negócios em crescimento',
+          price: '€59/mês',
           mascot: 'Boris',
           popular: true,
-          features: ['Dashboard avançado', 'Até 5000 utilizadores', 'Suporte prioritário']
+          features: ['Até 5.000 utilizadores', 'Dashboard com automações e mascotes', 'Suporte prioritário']
         },
         {
           id: 6,
           name: 'Premium',
-          description: 'Máximo desempenho',
-          price: '€79/mês',
+          description: 'Máxima performance, IA e personalização',
+          price: '€99/mês',
           mascot: 'Irina',
-          features: ['Dashboard com IA integrada', 'Utilizadores ilimitados', 'Suporte 24/7']
+          features: ['Utilizadores ilimitados', 'IA integrada (Análise + Leads + Mascotes)', 'Suporte 24/7', 'Acesso a atualizações e melhorias']
         }
       ]
     }
