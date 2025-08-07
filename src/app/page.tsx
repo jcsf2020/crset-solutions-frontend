@@ -161,6 +161,7 @@ export default function Home() {
               <a href="#inicio" className="text-white hover:text-blue-300 transition-colors">📱</a>
               <a href="#inicio" className="text-white hover:text-blue-300 transition-colors">Início</a>
               <a href="#mascotes" className="text-white hover:text-blue-300 transition-colors">Mascotes</a>
+              <a href="#agi" className="text-white hover:text-blue-300 transition-colors">AGI Commander</a>
               <a href="#precos" className="text-white hover:text-blue-300 transition-colors">Preços</a>
               <a href="#contato" className="text-white hover:text-blue-300 transition-colors">Contato</a>
             </div>
@@ -231,6 +232,75 @@ export default function Home() {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AGI Commander Section */}
+      <section id="agi" className="py-20 px-6 bg-gradient-to-br from-indigo-900/30 to-purple-900/30">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              🤖 AGI Commander
+            </h2>
+            <h3 className="text-2xl md:text-3xl font-semibold text-blue-300 mb-6">
+              Automação com Inteligência Artificial
+            </h3>
+            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              Conversas inteligentes, mascotes personalizadas e decisões automatizadas. 
+              A próxima geração da tua empresa começa aqui.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+            <div className="crset-glass-card p-8 text-center hover:scale-105 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">🛡️</span>
+              </div>
+              <h4 className="text-2xl font-bold text-white mb-3">Boris</h4>
+              <p className="text-blue-300 font-semibold mb-4">Segurança & Automação</p>
+              <p className="text-gray-300 leading-relaxed">
+                Automatiza processos complexos, garante a segurança dos sistemas e otimiza fluxos de trabalho com inteligência artificial avançada.
+              </p>
+            </div>
+            
+            <div className="crset-glass-card p-8 text-center hover:scale-105 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">💬</span>
+              </div>
+              <h4 className="text-2xl font-bold text-white mb-3">Laya</h4>
+              <p className="text-blue-300 font-semibold mb-4">Comunicação & Organização</p>
+              <p className="text-gray-300 leading-relaxed">
+                Organiza e otimiza a comunicação digital, gere equipas remotas e coordena projetos com eficiência máxima.
+              </p>
+            </div>
+            
+            <div className="crset-glass-card p-8 text-center hover:scale-105 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">📊</span>
+              </div>
+              <h4 className="text-2xl font-bold text-white mb-3">Irina</h4>
+              <p className="text-blue-300 font-semibold mb-4">Analytics & Insights</p>
+              <p className="text-gray-300 leading-relaxed">
+                Analisa dados em tempo real, fornece insights estratégicos e toma decisões inteligentes baseadas em IA.
+              </p>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <a 
+              href="https://mzhyi8cd6vxg.manus.space" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="crset-button-primary text-xl px-12 py-6 inline-flex items-center space-x-3 hover:scale-105 transition-transform duration-300"
+            >
+              <span>🚀</span>
+              <span>Ver Demonstração AGI</span>
+              <span>→</span>
+            </a>
+            <p className="text-gray-400 mt-4 text-sm">
+              Abre numa nova janela • Sistema AGI em produção
+            </p>
           </div>
         </div>
       </section>
