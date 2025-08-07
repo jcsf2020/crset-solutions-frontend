@@ -1,5 +1,4 @@
 'use client'
-
 import React, { useState } from 'react'
 import Image from 'next/image'
 
@@ -44,34 +43,47 @@ export default function Home() {
     })
   }
 
+  const handlePlanClick = (planName: string, planPrice: string) => {
+    // Scroll para formulário de contacto
+    const contactSection = document.getElementById('contato')
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' })
+      // Preencher mensagem automaticamente
+      setFormData(prev => ({
+        ...prev,
+        message: `Olá! Tenho interesse no plano ${planName} (${planPrice}). Gostaria de saber mais detalhes.`
+      }))
+    }
+  }
+
   const pricingPlans = [
     {
       category: "Setup Solutions",
       plans: [
         {
           id: 1,
-          name: 'Essencial',
+          name: 'Website Essencial',
           description: 'Perfeito para começar',
           price: '€197',
           mascot: 'Laya',
-          features: ['Website básico', 'Domínio incluído', 'SSL certificado', 'Suporte 3 meses']
+          features: ['Website institucional', 'Domínio incluído', 'SSL certificado', 'Suporte 3 meses']
         },
         {
           id: 2,
-          name: 'Profissional',
-          description: 'Para negócios em crescimento',
-          price: '€297',
+          name: 'Website Profissional',
+          description: 'Ideal para negócios em crescimento',
+          price: '€347',
           mascot: 'Boris',
           popular: true,
-          features: ['Website avançado', 'E-commerce básico', 'SEO otimizado', 'Suporte 6 meses']
+          features: ['Website com e-commerce básico', 'SEO otimizado', 'Branding parcial', 'Suporte 6 meses']
         },
         {
           id: 3,
-          name: 'White Label',
-          description: 'Solução completa personalizada',
-          price: '€597',
+          name: 'Solução White Label',
+          description: 'Branding e funcionalidades personalizadas',
+          price: '€947',
           mascot: 'Irina',
-          features: ['Solução personalizada', 'Branding completo', 'Integração avançada', 'Suporte 12 meses']
+          features: ['Website com personalização total', 'Branding completo', 'Integrações avançadas', 'Suporte 12 meses + deploy com domínio próprio']
         }
       ]
     },
@@ -80,28 +92,28 @@ export default function Home() {
       plans: [
         {
           id: 4,
-          name: 'Base',
-          description: 'Funcionalidades essenciais',
+          name: 'Starter',
+          description: 'Dashboard básico',
           price: '€19/mês',
           mascot: 'Laya',
-          features: ['Dashboard básico', 'Até 1000 utilizadores', 'Suporte email', 'Relatórios básicos']
+          features: ['Até 1000 utilizadores', 'Suporte por email']
         },
         {
           id: 5,
-          name: 'Plus',
+          name: 'Profissional',
           description: 'Mais poder e flexibilidade',
           price: '€39/mês',
           mascot: 'Boris',
           popular: true,
-          features: ['Dashboard avançado', 'Até 5000 utilizadores', 'Suporte prioritário', 'Analytics avançados']
+          features: ['Dashboard avançado', 'Até 5000 utilizadores', 'Suporte prioritário']
         },
         {
           id: 6,
-          name: 'Pro',
+          name: 'Premium',
           description: 'Máximo desempenho',
           price: '€79/mês',
           mascot: 'Irina',
-          features: ['Dashboard premium', 'Utilizadores ilimitados', 'Suporte 24/7', 'IA integrada']
+          features: ['Dashboard com IA integrada', 'Utilizadores ilimitados', 'Suporte 24/7']
         }
       ]
     }
@@ -127,63 +139,61 @@ export default function Home() {
       role: 'Especialista em Segurança',
       description: 'Protege os seus dados e fornece insights inteligentes',
       image: '/images/irina.png',
-      color: 'from-orange-400 to-red-600'
+      color: 'from-purple-500 to-purple-700'
     }
   ]
 
   return (
-    <div className="min-h-screen">
-      {/* WhatsApp Button */}
-      <a 
-        href="https://wa.me/351914423688?text=Olá! Gostaria de saber mais sobre os serviços da CRSET Solutions." 
-        className="whatsapp-btn"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        📱
-      </a>
-
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 header-glass z-50">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center font-bold text-white text-xl">
-              C
-            </div>
-            <div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full z-50 crset-glass-nav">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center font-bold text-white">
+                C
+              </div>
               <span className="text-xl font-bold text-white">CRSET Solutions</span>
-              <div className="text-sm text-gray-300">Soluções Digitais Inteligentes</div>
+              <span className="text-sm text-blue-300 hidden md:block">Soluções Digitais Inteligentes</span>
+            </div>
+            
+            <div className="hidden md:flex space-x-8">
+              <a href="#inicio" className="text-white hover:text-blue-300 transition-colors">📱</a>
+              <a href="#inicio" className="text-white hover:text-blue-300 transition-colors">Início</a>
+              <a href="#mascotes" className="text-white hover:text-blue-300 transition-colors">Mascotes</a>
+              <a href="#precos" className="text-white hover:text-blue-300 transition-colors">Preços</a>
+              <a href="#contato" className="text-white hover:text-blue-300 transition-colors">Contato</a>
             </div>
           </div>
-          <nav className="hidden md:flex space-x-6 items-center">
-            <a href="#inicio" className="text-gray-300 hover:text-white transition-colors">Início</a>
-            <a href="#mascotes" className="text-gray-300 hover:text-white transition-colors">Mascotes</a>
-            <a href="#precos" className="text-gray-300 hover:text-white transition-colors">Preços</a>
-            <a href="#contato" className="text-gray-300 hover:text-white transition-colors">Contato</a>
-          </nav>
         </div>
-      </header>
+      </nav>
 
       {/* Hero Section */}
       <section id="inicio" className="pt-32 pb-20 px-6">
         <div className="container mx-auto text-center">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
             Transforme o Seu Negócio com<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+            <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
               Tecnologia Inteligente
             </span>
           </h1>
           
-          <p className="text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-            Soluções digitais personalizadas com as nossas mascotes especializadas: 
-            Boris, Laya e Irina. Automatização, comunicação e segurança para o seu sucesso.
+          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+            Soluções digitais personalizadas com as nossas mascotes especializadas: Boris, Laya e Irina. 
+            Automatização, comunicação e segurança para o seu sucesso.
           </p>
-
-          <div className="flex flex-col md:flex-row gap-6 justify-center">
-            <button className="crset-button-primary text-lg px-8 py-4">
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <button 
+              onClick={() => handlePlanClick('Consulta Gratuita', 'Grátis')}
+              className="crset-button-primary text-lg px-8 py-4"
+            >
               Começar Agora ⚡
             </button>
-            <button className="crset-button-secondary text-lg px-8 py-4">
+            <button 
+              onClick={() => document.getElementById('precos')?.scrollIntoView({ behavior: 'smooth' })}
+              className="crset-button-secondary text-lg px-8 py-4"
+            >
               Ver Preços 💰
             </button>
           </div>
@@ -248,32 +258,28 @@ export default function Home() {
                       <div className="popular-badge">⭐ Popular</div>
                     )}
                     
-                    <div className="flex items-center mb-6">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-4 text-white font-bold">
+                    <div className="text-center mb-6">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center font-bold text-white text-xl">
                         {plan.mascot[0]}
                       </div>
-                      <div>
-                        <h4 className="text-xl font-bold text-white">{plan.name}</h4>
-                        <p className="text-gray-300 text-sm">{plan.description}</p>
-                      </div>
+                      <h4 className="text-2xl font-bold text-white mb-2">{plan.name}</h4>
+                      <p className="text-gray-300 mb-4">{plan.description}</p>
+                      <div className="text-4xl font-bold text-white mb-6">{plan.price}</div>
                     </div>
                     
-                    <div className="text-4xl font-bold text-white mb-6">{plan.price}</div>
-                    
                     <ul className="space-y-3 mb-8">
-                      {plan.features.map((feature, index) => (
-                        <li key={index} className="text-gray-300 flex items-center">
-                          <span className="text-green-400 mr-3 text-lg">✓</span>
+                      {plan.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-center text-gray-300">
+                          <span className="text-green-400 mr-3">✓</span>
                           {feature}
                         </li>
                       ))}
                     </ul>
                     
-                    <button className={`w-full py-4 px-6 rounded-lg font-semibold transition-all duration-300 ${
-                      plan.popular 
-                        ? 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-300 hover:to-yellow-500' 
-                        : 'crset-button-primary'
-                    }`}>
+                    <button 
+                      onClick={() => handlePlanClick(plan.name, plan.price)}
+                      className="crset-button-primary w-full"
+                    >
                       Quero este plano
                     </button>
                   </div>
@@ -286,17 +292,16 @@ export default function Home() {
 
       {/* Contact Section */}
       <section id="contato" className="py-20 px-6">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-6">
+        <div className="container mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
             Pronto para Começar?
           </h2>
-          <p className="text-xl text-gray-300 text-center mb-16">
-            Entre em contacto connosco e descubra como as nossas soluções 
-            podem transformar o seu negócio digital.
+          <p className="text-xl text-gray-300 text-center mb-16 max-w-3xl mx-auto">
+            Entre em contacto connosco e descubra como as nossas soluções podem transformar o seu negócio digital.
           </p>
           
-          <div className="crset-glass-card max-w-2xl mx-auto p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="max-w-2xl mx-auto">
+            <form onSubmit={handleSubmit} className="crset-glass-card p-8 space-y-6">
               <div>
                 <label className="block text-white font-semibold mb-3 text-lg">
                   Nome
