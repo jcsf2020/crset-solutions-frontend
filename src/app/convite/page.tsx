@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function ConvitePage() {
   useEffect(() => {
@@ -79,8 +80,15 @@ export default function ConvitePage() {
           <h2 className="text-3xl font-bold text-blue-400 mb-8 text-center">🤖 Conhece as Nossas Mascotes AGI</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="crset-glass-card p-6 text-center hover:transform hover:-translate-y-2 transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🛡️</span>
+              <div className="relative mb-4">
+                <Image
+                  src="/images/boris-new.png"
+                  alt="Boris - Mascote AGI"
+                  width={80}
+                  height={80}
+                  className="mx-auto rounded-full"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700 opacity-20 rounded-full blur-xl"></div>
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Boris</h3>
               <p className="text-blue-300 font-semibold mb-2">Segurança & Automação</p>
@@ -90,8 +98,15 @@ export default function ConvitePage() {
             </div>
             
             <div className="crset-glass-card p-6 text-center hover:transform hover:-translate-y-2 transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">💬</span>
+              <div className="relative mb-4">
+                <Image
+                  src="/images/laya-new.png"
+                  alt="Laya - Mascote AGI"
+                  width={80}
+                  height={80}
+                  className="mx-auto rounded-full"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-700 opacity-20 rounded-full blur-xl"></div>
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Laya</h3>
               <p className="text-orange-300 font-semibold mb-2">Comunicação & Organização</p>
@@ -101,8 +116,15 @@ export default function ConvitePage() {
             </div>
             
             <div className="crset-glass-card p-6 text-center hover:transform hover:-translate-y-2 transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">📊</span>
+              <div className="relative mb-4">
+                <Image
+                  src="/images/irina-new.png"
+                  alt="Irina - Mascote AGI"
+                  width={80}
+                  height={80}
+                  className="mx-auto rounded-full"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-700 opacity-20 rounded-full blur-xl"></div>
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Irina</h3>
               <p className="text-purple-300 font-semibold mb-2">Analytics & Insights</p>
