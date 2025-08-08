@@ -82,7 +82,7 @@ export default function ConvitePage() {
             <div className="crset-glass-card p-6 text-center hover:transform hover:-translate-y-2 transition-all duration-300">
               <div className="relative mb-4">
                 <Image
-                  src="/images/boris-new.png"
+                  src="/images/boris-convite.png"
                   alt="Boris - Mascote AGI"
                   width={80}
                   height={80}
@@ -100,7 +100,7 @@ export default function ConvitePage() {
             <div className="crset-glass-card p-6 text-center hover:transform hover:-translate-y-2 transition-all duration-300">
               <div className="relative mb-4">
                 <Image
-                  src="/images/laya-new.png"
+                  src="/images/laya-convite.png"
                   alt="Laya - Mascote AGI"
                   width={80}
                   height={80}
@@ -118,7 +118,7 @@ export default function ConvitePage() {
             <div className="crset-glass-card p-6 text-center hover:transform hover:-translate-y-2 transition-all duration-300">
               <div className="relative mb-4">
                 <Image
-                  src="/images/irina-new.png"
+                  src="/images/irina-convite.png"
                   alt="Irina - Mascote AGI"
                   width={80}
                   height={80}

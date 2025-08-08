@@ -124,21 +124,21 @@ export default function Home() {
       name: 'Boris',
       role: 'Especialista em Automação',
       description: 'Automatiza processos complexos e garante a segurança dos seus sistemas',
-      image: '/images/boris-new.png',
+      image: '/images/boris.png',
       color: 'from-blue-500 to-blue-700'
     },
     {
       name: 'Laya',
       role: 'Especialista em Comunicação',
       description: 'Organiza e otimiza a comunicação digital da sua empresa',
-      image: '/images/laya-new.png',
+      image: '/images/laya.png',
       color: 'from-orange-500 to-orange-700'
     },
     {
       name: 'Irina',
       role: 'Especialista em Segurança',
       description: 'Protege os seus dados e fornece insights inteligentes',
-      image: '/images/irina-new.png',
+      image: '/images/irina.png',
       color: 'from-purple-500 to-purple-700'
     }
   ]
