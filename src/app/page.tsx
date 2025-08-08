@@ -371,7 +371,7 @@ export default function Home() {
           </p>
           
           <div className="max-w-2xl mx-auto">
-            <form onSubmit={handleSubmit} className="crset-glass-card p-8 space-y-6">
+            <form onSubmit={handleSubmit} method="post" className="crset-glass-card p-8 space-y-6">
               <div>
                 <label className="block text-white font-semibold mb-3 text-lg">
                   Nome

@@ -9,6 +9,19 @@ export const metadata: Metadata = {
   description: 'Soluções digitais personalizadas com as nossas mascotes especializadas: Boris, Laya e Irina. Automatização, organização e insights para o seu sucesso.',
   keywords: 'desenvolvimento web, aplicações mobile, automação, e-commerce, soluções cloud, consultoria tech',
   authors: [{ name: 'CRSET Solutions' }],
+  icons: {
+    icon: [
+      { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/favicon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { url: '/favicon/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/favicon/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+  },
   openGraph: {
     title: 'CRSET Solutions - Soluções Digitais Inteligentes',
     description: 'Transforme o seu negócio com tecnologia inteligente',
@@ -35,6 +48,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   )
