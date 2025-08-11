@@ -7,8 +7,12 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'CRSET Solutions - Soluções Digitais Inteligentes',
   description: 'Soluções digitais personalizadas com as nossas mascotes especializadas: Boris, Laya e Irina. Automatização, organização e insights para o seu sucesso.',
-  keywords: 'desenvolvimento web, aplicações mobile, automação, e-commerce, soluções cloud, consultoria tech',
+  keywords: 'desenvolvimento web, aplicações mobile, automação, e-commerce, soluções cloud, consultoria tech, IA, inteligência artificial, mascotes digitais',
   authors: [{ name: 'CRSET Solutions' }],
+  metadataBase: new URL('https://crsetsolutions.com'),
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: [
       { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
@@ -24,20 +28,36 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'CRSET Solutions - Soluções Digitais Inteligentes',
-    description: 'Transforme o seu negócio com tecnologia inteligente',
+    description: 'Transforme o seu negócio com tecnologia inteligente. Boris, Laya e Irina trabalham para o seu sucesso.',
     url: 'https://crsetsolutions.com',
     siteName: 'CRSET Solutions',
     locale: 'pt_PT',
     type: 'website',
+    images: [
+      {
+        url: '/images/crset-social-share.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'CRSET Solutions - Boris, Laya e Irina',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'CRSET Solutions - Soluções Digitais Inteligentes',
     description: 'Transforme o seu negócio com tecnologia inteligente',
+    images: ['/images/crset-social-share.jpg'],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 

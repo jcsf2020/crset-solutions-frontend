@@ -66,6 +66,7 @@ export default function Home() {
           description: 'Perfeito para começar com credibilidade',
           price: '€397',
           mascot: 'Laya',
+          cta: 'Começar Website €397 →',
           features: ['Website institucional completo', 'Domínio incluído', 'SSL configurado', 'Suporte técnico 3 meses']
         },
         {
@@ -75,6 +76,7 @@ export default function Home() {
           price: '€697',
           mascot: 'Boris',
           popular: true,
+          cta: 'Escalar Negócio €697 →',
           features: ['Website com e-commerce', 'Otimização SEO', 'Branding parcial', 'Suporte técnico 6 meses']
         },
         {
@@ -83,6 +85,7 @@ export default function Home() {
           description: 'Plataforma CRSET personalizada para revenda ou empresas com equipa',
           price: '€1.497',
           mascot: 'Irina',
+          cta: 'Dominar Mercado €1.497 →',
           features: ['Personalização total (layout, mascotes, domínio próprio)', 'Branding completo', 'Integrações técnicas avançadas', 'Suporte prioritário 12 meses', 'Deploy pronto a usar']
         }
       ]
@@ -96,6 +99,7 @@ export default function Home() {
           description: 'Dashboard básico para equipas pequenas',
           price: '€29/mês',
           mascot: 'Laya',
+          cta: 'Testar Starter €29/mês →',
           features: ['Até 1.000 utilizadores', 'Acesso a estatísticas essenciais', 'Suporte por email']
         },
         {
@@ -105,6 +109,7 @@ export default function Home() {
           price: '€59/mês',
           mascot: 'Boris',
           popular: true,
+          cta: 'Crescer Profissional €59/mês →',
           features: ['Até 5.000 utilizadores', 'Dashboard com automações e mascotes', 'Suporte prioritário']
         },
         {
@@ -113,6 +118,7 @@ export default function Home() {
           description: 'Máxima performance, IA e personalização',
           price: '€99/mês',
           mascot: 'Irina',
+          cta: 'Maximizar Premium €99/mês →',
           features: ['Utilizadores ilimitados', 'IA integrada (Análise + Leads + Mascotes)', 'Suporte 24/7', 'Acesso a atualizações e melhorias']
         }
       ]
@@ -145,6 +151,57 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Dados Estruturados JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "CRSET Solutions",
+            "description": "Soluções digitais personalizadas com mascotes especializadas: Boris, Laya e Irina. Automatização, organização e insights para o seu sucesso.",
+            "url": "https://crsetsolutions.com",
+            "logo": "https://crsetsolutions.com/images/crset-logo.png",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+351-914-423-688",
+              "contactType": "customer service",
+              "availableLanguage": "Portuguese"
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "PT"
+            },
+            "sameAs": [
+              "https://crsetsolutions.com"
+            ],
+            "offers": [
+              {
+                "@type": "Offer",
+                "name": "Website Essencial",
+                "price": "397",
+                "priceCurrency": "EUR",
+                "description": "Website institucional completo com domínio e SSL"
+              },
+              {
+                "@type": "Offer", 
+                "name": "Website Profissional",
+                "price": "697",
+                "priceCurrency": "EUR",
+                "description": "Website com e-commerce e otimização SEO"
+              },
+              {
+                "@type": "Offer",
+                "name": "Starter SaaS",
+                "price": "29",
+                "priceCurrency": "EUR",
+                "description": "Dashboard básico para equipas pequenas"
+              }
+            ]
+          })
+        }}
+      />
+      
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 crset-glass-nav">
         <div className="container mx-auto px-6 py-4">
@@ -368,7 +425,7 @@ export default function Home() {
                       onClick={() => handlePlanClick(plan.name, plan.price)}
                       className="crset-button-primary w-full"
                     >
-                      Quero este plano
+                      {plan.cta || 'Quero este plano'}
                     </button>
                   </div>
                 ))}
