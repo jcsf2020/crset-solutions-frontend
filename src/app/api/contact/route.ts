@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import emailjs from '@emailjs/nodejs';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Configuração EmailJS
+const EMAILJS_SERVICE_ID = process.env.EMAILJS_SERVICE_ID || 'service_crset';
+const EMAILJS_TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID || 'template_crset';
+const EMAILJS_PUBLIC_KEY = process.env.EMAILJS_PUBLIC_KEY || 'your_public_key';
+const EMAILJS_PRIVATE_KEY = process.env.EMAILJS_PRIVATE_KEY || 'your_private_key';
 
 // Template de email de confirmação para o lead
 const getConfirmationEmailTemplate = (name: string, company?: string) => `
@@ -132,94 +136,63 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 1. Enviar email de confirmação para o lead
-    const confirmationEmail = await resend.emails.send({
-      from: 'CRSET Solutions <noreply@crsetsolutions.com>',
-      to: [email],
-      subject: `🚀 Demo AGI Ativada - Bem-vindo à CRSET Solutions!`,
-      html: getConfirmationEmailTemplate(name, company),
+    // Configurar EmailJS
+    emailjs.init({
+      publicKey: EMAILJS_PUBLIC_KEY,
+      privateKey: EMAILJS_PRIVATE_KEY,
     });
 
-    // 2. Enviar notificação para a empresa
-    const notificationEmail = await resend.emails.send({
-      from: 'CRSET Solutions <noreply@crsetsolutions.com>',
-      to: ['crsetsolutions@gmail.com'],
-      subject: `🔥 NOVO LEAD CAPTADO - ${name} ${company ? `(${company})` : ''} - AÇÃO IMEDIATA`,
-      html: getNotificationEmailTemplate(name, email, message, company, phone, source),
-    });
-
-    // 3. Programar follow-up automatizado (simulado com delay)
-    // Em produção, isto seria feito com um sistema de filas como Redis/Bull
-    setTimeout(async () => {
-      try {
-        await resend.emails.send({
-          from: 'CRSET Solutions <noreply@crsetsolutions.com>',
-          to: [email],
-          subject: `🤖 Como está a correr a tua experiência com o AGI Commander?`,
-          html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px;">
-              <div style="background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 15px;">
-                <h2 style="color: #333; text-align: center;">Olá ${name}! 👋</h2>
-                <p style="color: #333; line-height: 1.6;">
-                  Esperamos que estejas a gostar da demonstração do nosso sistema AGI Commander!
-                </p>
-                <p style="color: #333; line-height: 1.6;">
-                  Tens alguma questão sobre como as mascotes Boris, Laya e Irina podem ajudar o teu negócio?
-                </p>
-                <div style="text-align: center; margin: 20px 0;">
-                  <a href="https://wa.me/351914423688" style="background: #22c55e; color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; font-weight: bold;">
-                    💬 Falar Connosco
-                  </a>
-                </div>
-                <p style="color: #666; font-size: 14px; text-align: center;">
-                  CRSET Solutions - Inteligência Artificial para Negócios
-                </p>
-              </div>
-            </div>
-          `,
-        });
-      } catch (error) {
-        console.error('Erro no follow-up automatizado:', error);
-      }
-    }, 2 * 60 * 60 * 1000); // 2 horas depois
-
-    // Verificar se houve erros nos emails
-    if (confirmationEmail.error || notificationEmail.error) {
-      console.error('Erro ao enviar emails:', {
-        confirmation: confirmationEmail.error,
-        notification: notificationEmail.error
+    try {
+      // 1. Enviar email de confirmação para o lead
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: email,
+        to_name: name,
+        from_name: 'CRSET Solutions',
+        subject: '🚀 Demo AGI Ativada - Bem-vindo à CRSET Solutions!',
+        message: `Olá ${name}!\n\nObrigado pelo interesse na CRSET Solutions!\n\nRecebemos o seu pedido e entraremos em contacto em breve.\n\nPode contactar-nos diretamente:\n📱 WhatsApp: +351 914 423 688\n📧 Email: crsetsolutions@gmail.com\n\nMelhores cumprimentos,\nEquipa CRSET Solutions`,
+        reply_to: 'crsetsolutions@gmail.com'
       });
+
+      // 2. Enviar notificação para a empresa
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: 'crsetsolutions@gmail.com',
+        to_name: 'João Fonseca',
+        from_name: 'Sistema CRSET',
+        subject: `🔥 NOVO LEAD: ${name} ${company ? `(${company})` : ''}`,
+        message: `NOVO LEAD CAPTADO!\n\n👤 Nome: ${name}\n📧 Email: ${email}\n${company ? `🏢 Empresa: ${company}\n` : ''}${phone ? `📱 Telefone: ${phone}\n` : ''}🌐 Origem: ${source || 'Site Principal'}\n\n💬 Mensagem:\n${message}\n\n⚡ AÇÃO REQUERIDA: Contactar em 15 minutos!\n\n🔗 Responder WhatsApp: https://wa.me/351914423688?text=${encodeURIComponent(`Olá ${name}! Recebi o seu pedido. Quando podemos agendar uma demonstração?`)}\n\nData: ${new Date().toLocaleString('pt-PT')}`,
+        reply_to: email
+      });
+
+      return NextResponse.json(
+        { 
+          success: true, 
+          message: 'Pedido enviado com sucesso! Entraremos em contacto em breve.'
+        },
+        { status: 200 }
+      );
+
+    } catch (emailError) {
+      console.error('Erro ao enviar emails:', emailError);
       
-      // Mesmo com erro, retornar sucesso para não bloquear o utilizador
+      // Fallback: ainda retornar sucesso para não bloquear utilizador
       return NextResponse.json(
         { 
           success: true, 
           message: 'Pedido recebido! Entraremos em contacto em breve.',
-          warning: 'Alguns emails podem ter falhado'
+          warning: 'Email pode ter falhado'
         },
         { status: 200 }
       );
     }
 
-    return NextResponse.json(
-      { 
-        success: true, 
-        message: 'Demo ativada com sucesso! Verifica o teu email para mais informações.',
-        confirmationId: confirmationEmail.data?.id,
-        notificationId: notificationEmail.data?.id
-      },
-      { status: 200 }
-    );
-
   } catch (error) {
     console.error('Erro na API de contacto:', error);
     return NextResponse.json(
       { 
-        success: true, // Fallback para não bloquear utilizador
-        message: 'Pedido recebido! Entraremos em contacto em breve.',
-        error: 'Erro interno processado'
+        success: false,
+        error: 'Erro interno do servidor'
       },
-      { status: 200 }
+      { status: 500 }
     );
   }
 }
