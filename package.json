@@ -11,6 +11,7 @@
     "export": "next build && next export"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@emailjs/nodejs": "^5.0.2",
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
