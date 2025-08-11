@@ -124,21 +124,21 @@ export default function Home() {
       name: 'Boris',
       role: 'Especialista em Automação',
       description: 'Automatiza processos complexos e garante a segurança dos seus sistemas',
-      image: '/images/boris.png',
+      image: '/images/boris-real.png',
       color: 'from-blue-500 to-blue-700'
     },
     {
       name: 'Laya',
       role: 'Especialista em Comunicação',
       description: 'Organiza e otimiza a comunicação digital da sua empresa',
-      image: '/images/laya.png',
+      image: '/images/laya-real.png',
       color: 'from-orange-500 to-orange-700'
     },
     {
       name: 'Irina',
       role: 'Especialista em Segurança',
       description: 'Protege os seus dados e fornece insights inteligentes',
-      image: '/images/irina.png',
+      image: '/images/irina-real.png',
       color: 'from-purple-500 to-purple-700'
     }
   ]
@@ -254,8 +254,14 @@ export default function Home() {
           
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
             <div className="crset-glass-card p-8 text-center hover:scale-105 transition-transform duration-300">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🛡️</span>
+              <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 overflow-hidden">
+                <Image
+                  src="/images/boris-real.png"
+                  alt="Boris - Mascote de Segurança e Automação"
+                  width={80}
+                  height={80}
+                  className="object-cover"
+                />
               </div>
               <h4 className="text-2xl font-bold text-white mb-3">Boris</h4>
               <p className="text-blue-300 font-semibold mb-4">Segurança & Automação</p>
@@ -265,8 +271,14 @@ export default function Home() {
             </div>
             
             <div className="crset-glass-card p-8 text-center hover:scale-105 transition-transform duration-300">
-              <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">💬</span>
+              <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 overflow-hidden">
+                <Image
+                  src="/images/laya-real.png"
+                  alt="Laya - Mascote de Comunicação e Organização"
+                  width={80}
+                  height={80}
+                  className="object-cover"
+                />
               </div>
               <h4 className="text-2xl font-bold text-white mb-3">Laya</h4>
               <p className="text-blue-300 font-semibold mb-4">Comunicação & Organização</p>
@@ -276,8 +288,14 @@ export default function Home() {
             </div>
             
             <div className="crset-glass-card p-8 text-center hover:scale-105 transition-transform duration-300">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">📊</span>
+              <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 overflow-hidden">
+                <Image
+                  src="/images/irina-real.png"
+                  alt="Irina - Mascote de Analytics e Insights"
+                  width={80}
+                  height={80}
+                  className="object-cover"
+                />
               </div>
               <h4 className="text-2xl font-bold text-white mb-3">Irina</h4>
               <p className="text-blue-300 font-semibold mb-4">Analytics & Insights</p>
