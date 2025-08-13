@@ -45,14 +45,34 @@ export default function Home() {
         const result = await response.json();
         
         // Track lead generation
-        if (typeof window !== 'undefined' && (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag) {
-          (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', 'generate_lead', {
-            lead_id: result.id,
-            event_category: 'engagement',
-            event_label: 'contact_form'
-          });
+        if (typeof window !== 'undefined') {
+          // Google Analytics
+          if ((window as any).gtag) {
+            (window as any).gtag('event', 'generate_lead', {
+              lead_id: result.id,
+              value: 397,
+              currency: 'EUR',
+              event_category: 'Lead Generation',
+              event_label: 'Hero Form'
+            });
+          }
+          
+          // Meta Pixel
+          if ((window as any).fbq) {
+            (window as any).fbq('track', 'Lead', {
+              content_name: 'Análise Gratuita',
+              content_category: 'Lead Generation',
+              value: 397,
+              currency: 'EUR'
+            });
+          }
+          
+          // LinkedIn
+          if ((window as any).lintrk) {
+            (window as any).lintrk('track', { conversion_id: 'XXXXXXX' });
+          }
         }
-
+        
         setSubmitStatus('success');
         setFormData({ email: '', company: '', name: '', message: '' });
       } else {
