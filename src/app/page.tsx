@@ -23,11 +23,9 @@ export default function Home() {
 
     try {
       const submitData = {
-        name: formData.name || 'Lead Hero',
+        name: formData.company || 'Empresa não informada',
         email: formData.email,
-        company: formData.company || '',
-        phone: '',
-        message: formData.message || 'Solicitação de análise gratuita',
+        message: `Análise gratuita solicitada para: ${formData.company || 'empresa'}`,
         utm_source: 'go_crset',
         utm_medium: 'frontend',
         utm_campaign: 'production'
