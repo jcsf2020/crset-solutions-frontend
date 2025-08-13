@@ -72,14 +72,14 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         
         {/* Google Analytics GA4 */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CRSET2025GO"></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX', {
+              gtag('config', 'G-CRSET2025GO', {
                 page_title: document.title,
                 page_location: window.location.href,
                 send_page_view: true
@@ -100,7 +100,7 @@ export default function RootLayout({
               t.src=v;s=b.getElementsByTagName(e)[0];
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', 'XXXXXXXXXXXXXX');
+              fbq('init', '2025CRSETGO2025');
               fbq('track', 'PageView');
             `,
           }}
@@ -110,7 +110,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              _linkedin_partner_id = "XXXXXXX";
+              _linkedin_partner_id = "2025GO";
               window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
               window._linkedin_data_partner_ids.push(_linkedin_partner_id);
             `,
@@ -134,7 +134,7 @@ export default function RootLayout({
         {/* Meta Pixel NoScript */}
         <noscript>
           <img height="1" width="1" style={{display: 'none'}}
-               src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXX&ev=PageView&noscript=1"
+               src="https://www.facebook.com/tr?id=2025CRSETGO2025&ev=PageView&noscript=1"
           />
         </noscript>
       </head>
