@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { useState } from 'react';
 import Image from 'next/image';
@@ -105,7 +105,7 @@ export default function Home() {
             <a href="/#precos" className="border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white px-8 py-3 text-lg rounded-lg transition-all duration-200 font-semibold">Ver Preços 💰</a>
           </div>
         </div>
-      </section>
+      )}
 
       {/* Mascotes Section */}
       <section id="mascotes" className="relative z-10 px-6 py-20">
