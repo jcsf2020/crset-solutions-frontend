@@ -1,4 +1,5 @@
-export const dynamic = 'force-dynamic'; // ou: export const revalidate = 0;
+
+ // ou: 
 import ClientPageRoot from './ClientPageRoot';
 
 export default function Page() {
