@@ -370,9 +370,9 @@ export default function Home() {
             </div>
           </div>
 
-          <button className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 text-lg mb-4">
-            🚀 Ver Demonstração AGI→
-          </button>
+            <a href="/convite" target="_blank" rel="noopener" className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 text-lg mb-4">
+              🚀 Ver Demonstração AGI→
+            </a>
           <p className="text-blue-300 text-sm">Abre numa nova janela • Sistema AGI em produção</p>
         </div>
       </section>
@@ -403,9 +403,9 @@ export default function Home() {
                   <li>✓ SSL configurado</li>
                   <li>✓ Suporte técnico 3 meses</li>
                 </ul>
-                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                <a href="/#contato" className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
                   Começar Website €397 →
-                </button>
+                </a>
               </div>
 
               {/* Website Profissional */}
@@ -427,9 +427,9 @@ export default function Home() {
                   <li>✓ Branding parcial</li>
                   <li>✓ Suporte técnico 6 meses</li>
                 </ul>
-                <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                <a href="/#contato" className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
                   Escalar Negócio €697 →
-                </button>
+                </a>
               </div>
 
               {/* Solução White Label */}
@@ -447,9 +447,9 @@ export default function Home() {
                   <li>✓ Suporte prioritário 12 meses</li>
                   <li>✓ Deploy pronto a usar</li>
                 </ul>
-                <button className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                <a href="/#contato" className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
                   Dominar Mercado €1.497 →
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -471,9 +471,9 @@ export default function Home() {
                   <li>✓ Acesso a estatísticas essenciais</li>
                   <li>✓ Suporte por email</li>
                 </ul>
-                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                <a href="/#contato" className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
                   Testar Starter €29/mês →
-                </button>
+                </a>
               </div>
 
               {/* Profissional */}
@@ -494,9 +494,9 @@ export default function Home() {
                   <li>✓ Dashboard com automações e mascotes</li>
                   <li>✓ Suporte prioritário</li>
                 </ul>
-                <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                <a href="/#contato" className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
                   Crescer Profissional €59/mês →
-                </button>
+                </a>
               </div>
 
               {/* Premium */}
@@ -513,9 +513,9 @@ export default function Home() {
                   <li>✓ Suporte 24/7</li>
                   <li>✓ Acesso a atualizações e melhorias</li>
                 </ul>
-                <button className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                <a href="/#contato" className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
                   Maximizar Premium €99/mês →
-                </button>
+                </a>
               </div>
             </div>
           </div>
