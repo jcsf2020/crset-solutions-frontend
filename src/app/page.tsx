@@ -623,9 +623,7 @@ export default function Home() {
           <p className="text-blue-300 text-sm">Soluções Digitais Inteligentes com Boris, Laya e Irina</p>
           
           <div className="mt-6">
-            <button className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold py-2 px-6 rounded-lg transition-all duration-200">
-              🔥 Convite Beta Exclusivo
-            </button>
+            <a href="/convite" className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold py-2 px-6 rounded-lg transition-all duration-200">🔥 Convite Beta Exclusivo</a>
           </div>
         </div>
       </footer>
