@@ -116,11 +116,7 @@ export default function RootLayout({
         />
 
         {/* Meta Pixel NoScript */}
-        <noscript>
-          <img height="1" width="1" style={{display: 'none'}}
-               src="https://www.facebook.com/tr?id=2025CRSETGO2025&ev=PageView&noscript=1"
-          />
-        </noscript>
+          {/* Meta Pixel NoScript desativado */}
       </head>
       <body className={inter.className}>{children}</body>
     </html>

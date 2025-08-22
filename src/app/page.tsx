@@ -99,7 +99,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
       {/* Discount Popup */}
       {showDiscount && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-8 max-w-md w-full relative">
             <button 
               onClick={() => setShowDiscount(false)}
