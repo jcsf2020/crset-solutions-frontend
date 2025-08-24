@@ -75,3 +75,15 @@ tmp/
 temp/
 
 .vercel
+
+# Ignore secrets & env
+.env*
+.resend.key
+.railway.vars.json
+health.json
+
+# Ignore secrets & env
+.env*
+.resend.key
+.railway.vars.json
+health.json
