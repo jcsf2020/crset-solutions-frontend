@@ -1,30 +1,26 @@
-import { NextResponse } from 'next/server'
-
 export async function GET() {
-  try {
-    // Basic health check
-    const healthCheck = {
-      status: 'ok',
-      timestamp: new Date().toISOString(),
-      service: 'CRSET Solutions Frontend',
-      version: '1.0.0',
-      environment: process.env.NODE_ENV || 'development',
-      uptime: process.uptime(),
+  const urls = [
+    { name: 'fe_leads',   url: `${process.env.NEXT_PUBLIC_API_BASE_URL || ''}/api/leads` || '/api/leads' },
+    { name: 'fe_metrics', url: `${process.env.NEXT_PUBLIC_API_BASE_URL || ''}/api/metrics` || '/api/metrics' },
+    { name: 'be_health',  url: 'https://crset-api-production.up.railway.app/health' },
+  ];
+
+  const checks = await Promise.all(urls.map(async (u) => {
+    try {
+      const r = await fetch(u.url, { cache: 'no-store' });
+      return { name: u.name, url: u.url, ok: r.ok, status: r.status };
+    } catch (e:any) {
+      return { name: u.name, url: u.url, ok: false, status: 0, error: String(e?.message || e) };
     }
+  }));
 
-    return NextResponse.json(healthCheck, { status: 200 })
-  } catch (error) {
-    console.error('Health check failed:', error)
-    
-    return NextResponse.json(
-      {
-        status: 'error',
-        timestamp: new Date().toISOString(),
-        service: 'CRSET Solutions Frontend',
-        error: 'Health check failed'
-      },
-      { status: 500 }
-    )
-  }
+  return Response.json({
+    ts: new Date().toISOString(),
+    env: process.env.ENVIRONMENT || 'production',
+    checks,
+  }, {
+    headers: {
+      'Cache-Control': 'no-store, max-age=0, must-revalidate',
+    }
+  });
 }
-
