@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 export const config = { matcher: ['/admin/:path*'] };
 
 export function middleware(req: NextRequest) {
-  const user = process.env.ADMIN_USER;
-  const pass = process.env.ADMIN_PASS;
+  const wantUser = (process.env.ADMIN_USER ?? '').trim();
+  const wantPass = (process.env.ADMIN_PASS ?? '').trim();
 
   const unauthorized = () =>
     new NextResponse('Auth required', {
@@ -15,19 +15,21 @@ export function middleware(req: NextRequest) {
       },
     });
 
-  // Se faltar env, não bloqueia (para evitar lockout), mas marca noindex
-  if (!user || !pass) {
+  // se faltar env, não bloqueia (evita lockout), mas marca noindex
+  if (!wantUser || !wantPass) {
     const res = NextResponse.next();
     res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
     return res;
   }
 
   const auth = req.headers.get('authorization');
-  if (!auth || !auth.startsWith('Basic ')) return unauthorized();
+  if (!auth?.startsWith('Basic ')) return unauthorized();
 
-  // Edge runtime: usar atob para decodificar
-  const [u, p] = atob(auth.split(' ')[1]).split(':');
-  if (u !== user || p !== pass) return unauthorized();
+  const token = auth.split(' ')[1] ?? '';
+  const [gotUser, gotPassRaw = ''] = atob(token).split(':');
+  const gotPass = gotPassRaw.trim();
+
+  if (gotUser !== wantUser || gotPass !== wantPass) return unauthorized();
 
   const res = NextResponse.next();
   res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
