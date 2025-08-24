@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'https://3dhkilceovoq.manus.space';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || '''';
 
 export default function Home() {
   const [formData, setFormData] = useState({

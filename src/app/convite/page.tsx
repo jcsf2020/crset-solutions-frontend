@@ -181,7 +181,7 @@ export default function ConvitePage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
               <a 
-                href="https://crset-solutions-frontend.vercel.app/demo" 
+                href="https://crsetsolutions.com/demo" 
                 className="cta-button crset-button-primary text-lg px-8 py-4 inline-block"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -190,7 +190,7 @@ export default function ConvitePage() {
               </a>
               
               <a 
-                href="https://mzhyi8cd6vxg.manus.space/" 
+                href="https://crsetsolutions.com/" 
                 className="cta-button bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-8 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 inline-block"
                 target="_blank"
                 rel="noopener noreferrer"

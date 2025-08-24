@@ -44,7 +44,7 @@ export default function DemoPage() {
         
         // Redirect to AGI demo after 3 seconds
         setTimeout(() => {
-          window.open('https://mzhyi8cd6vxg.manus.space/', '_blank')
+          window.open('https://crsetsolutions.com/', '_blank')
         }, 3000)
       } else {
         setSubmitStatus('error')
@@ -179,7 +179,7 @@ export default function DemoPage() {
               </p>
               <div className="space-y-4">
                 <a 
-                  href="https://mzhyi8cd6vxg.manus.space/" 
+                  href="https://crsetsolutions.com/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="crset-button-primary inline-block"

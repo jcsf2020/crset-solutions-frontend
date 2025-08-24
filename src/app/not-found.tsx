@@ -38,7 +38,7 @@ export default function NotFound() {
             </Link>
             
             <Link 
-              href="https://mzhyi8cd6vxg.manus.space/"
+              href="https://crsetsolutions.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full bg-gradient-to-r from-green-500 to-teal-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-green-600 hover:to-teal-700 transition-all duration-300 transform hover:scale-105"
