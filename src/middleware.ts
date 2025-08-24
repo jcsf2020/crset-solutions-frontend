@@ -12,15 +12,15 @@ export function middleware(req: NextRequest) {
       headers: {
         'WWW-Authenticate': 'Basic realm="CRSET Admin", charset="UTF-8"',
         'X-Robots-Tag': 'noindex, nofollow, noarchive',
-        'Cache-Control': 'no-store, max-age=0',
+        'Cache-Control': 'no-store, max-age=0, must-revalidate',
       },
     });
 
-  // Sem envs → não bloqueia (evita lockout), mas marca noindex e no-store
+  // Sem env → não bloqueia (evita lockout), mas marca noindex e no-store
   if (!wantUser || !wantPass) {
     const res = NextResponse.next();
     res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-    res.headers.set('Cache-Control', 'no-store, max-age=0');
+    res.headers.set('Cache-Control', 'no-store, max-age=0, must-revalidate');
     return res;
   }
 
@@ -35,6 +35,6 @@ export function middleware(req: NextRequest) {
 
   const res = NextResponse.next();
   res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-  res.headers.set('Cache-Control', 'no-store, max-age=0');
+  res.headers.set('Cache-Control', 'no-store, max-age=0, must-revalidate');
   return res;
 }
