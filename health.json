@@ -1,0 +1,1 @@
+{"ts":"2025-08-24T15:19:03.794Z","env":"production","checks":[{"name":"fe_leads","url":"https://crset-api-production.up.railway.app/api/leads","ok":false,"status":404},{"name":"fe_metrics","url":"https://crset-api-production.up.railway.app/api/metrics","ok":false,"status":404},{"name":"be_health","url":"https://crset-api-production.up.railway.app/health","ok":true,"status":200}]}
