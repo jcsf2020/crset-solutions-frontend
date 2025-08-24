@@ -1,4 +1,5 @@
 'use client';
+import '../force-dynamic'
 import { useEffect, useState } from 'react';
 import Gate from '../_components/Gate';
 
