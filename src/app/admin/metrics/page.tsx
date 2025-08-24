@@ -35,13 +35,15 @@ export default function MetricsPage() {
       <main style={{ padding: 24, fontFamily: 'system-ui', maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16 }}>
           <h1 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>CRSET — Métricas</h1>
-          <button onClick={load} disabled={loading} style={{ marginLeft: 'auto', border: '1px solid #ddd', borderRadius: 10, padding: '6px 10px' }}>
+          <button onClick={load} disabled={loading}
+            style={{ marginLeft: 'auto', border: '1px solid #ddd', borderRadius: 10, padding: '6px 10px' }}>
             {loading ? 'A atualizar…' : 'Atualizar'}
           </button>
         </div>
 
         {err && <div style={{ color: 'crimson', marginBottom: 12 }}>Erro: {err}</div>}
 
+        {/* KPIs */}
         <section style={{ display: 'grid', gridTemplateColumns: 'repeat(12,minmax(0,1fr))', gap: 12, marginBottom: 16 }}>
           <div style={{ gridColumn: 'span 4', border: '1px solid #eee', borderRadius: 12, padding: 12 }}>
             <div style={{ opacity: .6, fontSize: 12 }}>Total</div>
@@ -56,6 +58,7 @@ export default function MetricsPage() {
             <div style={{ fontSize: 26, fontWeight: 800 }}>{m?.last7d ?? '—'}</div>
           </div>
 
+          {/* Série 14 dias (mini-barras) */}
           <div style={{ gridColumn: 'span 12', border: '1px solid #eee', borderRadius: 12, padding: 12 }}>
             <div style={{ opacity: .6, fontSize: 12, marginBottom: 6 }}>Série (14 dias)</div>
             <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 44 }}>
@@ -66,14 +69,20 @@ export default function MetricsPage() {
             </div>
           </div>
 
+          {/* Top UTM */}
           <div style={{ gridColumn: 'span 12', border: '1px solid #eee', borderRadius: 12, padding: 12 }}>
             <div style={{ opacity: .6, fontSize: 12, marginBottom: 8 }}>Top UTM</div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-              {(m?.top_utm ?? []).length ? m!.top_utm.map(([k, c], i) => (
-                <span key={i} style={{ border: '1px solid #ddd', borderRadius: 999, padding: '4px 8px', fontSize: 12 }}>
-                  {k} • {c}
+              {(m?.top_utm?.length ? m.top_utm : []).map(([label, qty], i) => (
+                <span key={i}
+                  style={{
+                    border: '1px solid #ddd', borderRadius: 999, padding: '4px 10px',
+                    fontSize: 12, background: '#fafafa'
+                  }}>
+                  {label} — <strong>{qty}</strong>
                 </span>
-              )) : <span style={{ opacity: .6, fontSize: 12 }}>—</span>}
+              ))}
+              {(!m?.top_utm || m.top_utm.length === 0) && <span style={{ opacity: .6, fontSize: 12 }}>—</span>}
             </div>
           </div>
         </section>
