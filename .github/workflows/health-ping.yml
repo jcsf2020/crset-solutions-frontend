@@ -1,17 +1,14 @@
 name: Health Ping
-
 on:
   schedule:
-    - cron: '*/10 * * * *' # a cada 10 min (UTC)
+    - cron: "*/10 * * * *"
   workflow_dispatch:
-
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Hit CRSET health cron
+      - name: Check /api/health
         run: |
-          set -e
-          echo "Pinging /api/cron/health @ $(date -u)"
-          curl -sS "https://crsetsolutions.com/api/cron/health" | tee response.json
-          echo "OK"
+          URL="https://crsetsolutions.com/api/health"
+          code=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+          [ "$code" = "200" ] || { echo "Health check failed ($code)"; exit 1; }
