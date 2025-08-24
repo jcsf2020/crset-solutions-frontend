@@ -1,27 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export const config = {
-  matcher: ['/admin/:path*'],
-};
+export const config = { matcher: ['/admin/:path*'] };
 
 export function middleware(req: NextRequest) {
   const user = process.env.ADMIN_USER;
   const pass = process.env.ADMIN_PASS;
 
-  // Sem envs? deixa passar (evita lockout). Configure já na Vercel antes do deploy.
-  if (!user || !pass) return NextResponse.next();
+  const unauthorized = () =>
+    new NextResponse('Auth required', {
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="CRSET Admin", charset="UTF-8"',
+        'X-Robots-Tag': 'noindex, nofollow, noarchive',
+      },
+    });
 
-  const auth = req.headers.get('authorization') || '';
-  if (auth.startsWith('Basic ')) {
-    const base64 = auth.slice(6).trim();
-    try {
-      const [u, p] = atob(base64).split(':');
-      if (u === user && p === pass) return NextResponse.next();
-    } catch {}
+  // Se faltar env, não bloqueia (para evitar lockout), mas marca noindex
+  if (!user || !pass) {
+    const res = NextResponse.next();
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    return res;
   }
 
-  return new NextResponse('Auth required', {
-    status: 401,
-    headers: { 'WWW-Authenticate': 'Basic realm="CRSET Admin", charset="UTF-8"' },
-  });
+  const auth = req.headers.get('authorization');
+  if (!auth || !auth.startsWith('Basic ')) return unauthorized();
+
+  // Edge runtime: usar atob para decodificar
+  const [u, p] = atob(auth.split(' ')[1]).split(':');
+  if (u !== user || p !== pass) return unauthorized();
+
+  const res = NextResponse.next();
+  res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+  return res;
 }
