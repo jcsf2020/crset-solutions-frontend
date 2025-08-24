@@ -32,24 +32,59 @@ const INITIAL_PINGS: Ping[] = [
 
 export default function Hub() {
   const [pings, setPings] = useState<Ping[]>(INITIAL_PINGS);
+  const [checking, setChecking] = useState(false);
+  const [lastChecked, setLastChecked] = useState<number | null>(null);
+  const [now, setNow] = useState(Date.now());
 
+  // tick a cada 1s para atualizar o "há Xs"
   useEffect(() => {
-    INITIAL_PINGS.forEach((p, idx) => {
-      fetch(p.url, { cache: 'no-store' })
-        .then(r => r.ok ? r.json().catch(()=>({})) : Promise.reject(r.status))
-        .then(() => setPings(prev => prev.map((x,i) => i===idx ? { ...x, ok: true } : x)))
-        .catch(() => setPings(prev => prev.map((x,i) => i===idx ? { ...x, ok: false } : x)));
-    });
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
   }, []);
+
+  const sinceSec = lastChecked ? Math.max(0, Math.floor((now - lastChecked) / 1000)) : null;
+
+  const checkAll = async () => {
+    setChecking(true);
+    try {
+      const results: Ping[] = await Promise.all(
+        INITIAL_PINGS.map(async (p) => {
+          try {
+            const r = await fetch(p.url, { cache: 'no-store' });
+            if (!r.ok) throw new Error(String(r.status));
+            // tenta JSON mas não obriga
+            try { await r.json(); } catch {}
+            return { ...p, ok: true };
+          } catch {
+            return { ...p, ok: false };
+          }
+        })
+      );
+      setPings(results);
+      setLastChecked(Date.now());
+    } finally {
+      setChecking(false);
+    }
+  };
+
+  // 1ª verificação ao montar
+  useEffect(() => { checkAll(); }, []);
 
   return (
     <Gate>
       <main style={{ padding: 24, fontFamily: 'system-ui', maxWidth: 1000, margin: '0 auto' }}>
         <header style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16 }}>
           <h1 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>CRSET — Hub de Operações</h1>
-          <a href="/admin" style={{ marginLeft: 'auto', border: '1px solid #ddd', borderRadius: 10, padding: '6px 10px', textDecoration: 'none', color: 'inherit' }}>Leads</a>
-          <a href="/admin/metrics" style={{ border: '1px solid #ddd', borderRadius: 10, padding: '6px 10px', textDecoration: 'none', color: 'inherit' }}>Métricas</a>
+          <button onClick={checkAll} disabled={checking}
+                  style={{ marginLeft: 'auto', border: '1px solid #ddd', borderRadius: 10, padding: '6px 10px' }}>
+            {checking ? 'A verificar…' : 'Atualizar status'}
+          </button>
         </header>
+
+        {/* Info da última verificação */}
+        <div style={{ opacity: .7, fontSize: 12, marginBottom: 8 }}>
+          {sinceSec === null ? '—' : `Última verificação há ${sinceSec}s`}
+        </div>
 
         {/* Semáforos */}
         <section style={{ display: 'grid', gridTemplateColumns: 'repeat(12,minmax(0,1fr))', gap: 12, marginBottom: 16 }}>
