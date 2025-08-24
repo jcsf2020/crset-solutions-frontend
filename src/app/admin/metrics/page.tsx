@@ -36,6 +36,7 @@ export default function MetricsPage() {
       <main style={{ padding: 24, fontFamily: 'system-ui', maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16 }}>
           <h1 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>CRSET — Métricas</h1>
+          <a href="/api/metrics.csv" download style={{ border: '1px solid #ddd', borderRadius: 10, padding: '6px 10px', textDecoration: 'none', color: 'inherit' }} title="Exportar CSV (by_day)">Exportar CSV</a>
           <button onClick={load} disabled={loading}
             style={{ marginLeft: 'auto', border: '1px solid #ddd', borderRadius: 10, padding: '6px 10px' }}>
             {loading ? 'A atualizar…' : 'Atualizar'}
