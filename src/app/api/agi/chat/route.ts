@@ -1,10 +1,9 @@
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 
-type Agent = 'boris'|'laya'|'irina'|string;
-type Payload = { agent?: Agent; input: string; sessionId?: string };
+type Payload = { agent?: string; input: string; sessionId?: string };
 
-const encoder = new TextEncoder();
+const enc = new TextEncoder();
 
 function streamFrom(chunks: string[]) {
   return new ReadableStream({
@@ -12,8 +11,11 @@ function streamFrom(chunks: string[]) {
       let i = 0;
       const tick = () => {
         if (i < chunks.length) {
-          controller.enqueue(encoder.encode(chunks[i++])); setTimeout(tick, 60);
-        } else controller.close();
+          controller.enqueue(enc.encode(chunks[i++]));
+          setTimeout(tick, 50);
+        } else {
+          controller.close();
+        }
       };
       tick();
     }
@@ -22,21 +24,31 @@ function streamFrom(chunks: string[]) {
 
 export async function POST(req: Request) {
   let body: Payload;
-  try { body = await req.json(); } catch {
-    return new Response(JSON.stringify({ error: 'bad_json' }), { status: 400, headers: { 'content-type': 'application/json' } });
+  try { body = await req.json(); }
+  catch {
+    return new Response(JSON.stringify({ error: 'bad_json' }), {
+      status: 400, headers: { 'content-type': 'application/json' }
+    });
   }
 
   const agent = (body.agent || 'boris').toLowerCase();
   const input = (body.input || '').trim();
-  if (!input) return new Response(JSON.stringify({ error: 'empty_input' }), { status: 400, headers: { 'content-type': 'application/json' } });
-  if (input.length > 2000) return new Response(JSON.stringify({ error: 'too.long', ��x: 2000 }), { status: 413, headers: { 'content-type': 'application/json' } });
+  if (!input) {
+    return new Response(JSON.stringify({ error: 'empty_input' }), {
+      status: 400, headers: { 'content-type': 'application/json' }
+    });
+  }
+  if (input.length > 2000) {
+    return new Response(JSON.stringify({ error: 'too_long', max: 2000 }), {
+      status: 413, headers: { 'content-type': 'application/json' }
+    });
+  }
 
-  const header = `^é @{ agent.upperCase() } © `;
   const chunks = [
-    'header', 'a pensar.�“s‚“‚' +\n\n',
-    'ª Diagnoóstico rápido: OG/Twitter OK; CTA aponta para demo; faltam chamadas reais au motor.\n_',
-    'ª Próximos passos: ligar backend AGI, UI de chat e gating..\n\n',,
-    '✢ Esta resposta veio do mock do endpoint. '
+    `[${agent.toUpperCase()}] `, 'thinking...\n\n',
+    '- quick diag: OG/Twitter OK; CTA points to demo; missing real backend calls.\n',
+    '- next: wire AGI backend, chat UI, gating.\n\n',
+    'OK from mock endpoint.\n'
   ];
 
   return new Response(streamFrom(chunks), {
