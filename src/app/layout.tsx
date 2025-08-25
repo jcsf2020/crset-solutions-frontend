@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     ],
     other: [
       { url: '/favicon/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/favicon/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+      { url: 'https://crsetsolutions.com/images/social-share-1200x630.jpg', sizes: '512x512', type: 'image/png' },
     ],
   },
   openGraph: {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/favicon/android-chrome-512x512.png',
+        url: 'https://crsetsolutions.com/images/social-share-1200x630.jpg',
         width: 1200,
         height: 630,
         alt: 'CRSET Solutions - Boris, Laya e Irina',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'CRSET Solutions - Soluções Digitais Inteligentes',
     description: 'Transforme o seu negócio com tecnologia inteligente',
-    images: ['/favicon/android-chrome-512x512.png'],
+    images: ['https://crsetsolutions.com/images/social-share-1200x630.jpg'],
   },
   robots: {
     index: true,
