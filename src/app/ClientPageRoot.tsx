@@ -241,7 +241,7 @@ export default function Home() {
             </div>
           </div>
 
-            <a href="/convite" target="_blank" rel="noopener" className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 text-lg mb-4">
+            <a href="/demo" target="_blank" rel="noopener" className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 text-lg mb-4">
               🚀 Ver Demonstração AGI→
             </a>
           <p className="text-blue-300 text-sm">Abre numa nova janela • Sistema AGI em produção</p>
@@ -494,7 +494,7 @@ export default function Home() {
           <p className="text-blue-300 text-sm">Soluções Digitais Inteligentes com Boris, Laya e Irina</p>
           
           <div className="mt-6">
-            <a href="/convite" className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold py-2 px-6 rounded-lg transition-all duration-200">🔥 Convite Beta Exclusivo</a>
+            <a href="/demo" className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold py-2 px-6 rounded-lg transition-all duration-200">🔥 Convite Beta Exclusivo</a>
           </div>
         </div>
       </footer>
