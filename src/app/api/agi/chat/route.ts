@@ -22,18 +22,25 @@ function streamFrom(chunks: string[]) {
 }
 
 export async function POST(req: Request) {
-  // Fallback: se não houver env, fica ativo (mock)
-  const enabled = ((process.env.AGI_PUBLIC_ENABLED ?? 'true') + '').toLowerCase() === 'true';
-  const key = process.env.AGI_API_KEY;
+  const rawEnabled = String(process.env.AGI_PUBLIC_ENABLED ?? '').trim().toLowerCase();
+  // Ativo por omissão; só desliga se for explicitamente "false"
+  const enabled = rawEnabled === '' ? true : rawEnabled !== 'false';
+  const key = process.env.AGI_API_KEY || '';
 
-  // Se houver chave, exige header. Se não houver, só bloqueia se enabled=false explícito
+  // Auth: se existir chave no server, exige Bearer
   if (key) {
     const auth = req.headers.get('authorization') || '';
     if (auth !== `Bearer ${key}`) {
-      return new Response(JSON.stringify({ error: 'unauthorized' }), { status: 401 });
+      return new Response(JSON.stringify({ error: 'unauthorized' }), {
+        status: 401,
+        headers: { 'x-agi-enabled': String(enabled), 'x-agi-auth': 'key', 'x-agi-env': rawEnabled || '(empty)' }
+      });
     }
   } else if (!enabled) {
-    return new Response(JSON.stringify({ error: 'disabled' }), { status: 503 });
+    return new Response(JSON.stringify({ error: 'disabled' }), {
+      status: 503,
+      headers: { 'x-agi-enabled': String(enabled), 'x-agi-auth': 'none', 'x-agi-env': rawEnabled || '(empty)' }
+    });
   }
 
   let body: Payload;
@@ -53,6 +60,12 @@ export async function POST(req: Request) {
   ];
 
   return new Response(streamFrom(chunks), {
-    headers: { 'content-type': 'text/plain; charset=utf-8', 'x-agi-mock': '1' }
+    headers: {
+      'content-type': 'text/plain; charset=utf-8',
+      'x-agi-mock': '1',
+      'x-agi-enabled': String(enabled),
+      'x-agi-auth': key ? 'key' : 'none',
+      'x-agi-env': rawEnabled || '(empty)'
+    }
   });
 }
