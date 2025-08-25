@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/crset-social-share.jpg',
+        url: '/favicon/android-chrome-512x512.png',
         width: 1200,
         height: 630,
         alt: 'CRSET Solutions - Boris, Laya e Irina',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'CRSET Solutions - Soluções Digitais Inteligentes',
     description: 'Transforme o seu negócio com tecnologia inteligente',
-    images: ['/images/crset-social-share.jpg'],
+    images: ['/favicon/android-chrome-512x512.png'],
   },
   robots: {
     index: true,
