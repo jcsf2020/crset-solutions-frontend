@@ -5,6 +5,21 @@ type Payload = { agent?: string; input: string; sessionId?: string };
 
 const enc = new TextEncoder();
 
+function streamFrom(chunks: string[]) {
+  return new ReadableStream({
+    start(controller) {
+      let i = 0;
+      const tick = () => {
+        if (i < chunks.length) {
+          controller.enqueue(enc.encode(chunks[i++]));
+          setTimeout(tick, 40);
+        } else controller.close();
+      };
+      tick();
+    }
+  });
+}
+
 function systemFor(agent: string) {
   const a = String(agent || '').toLowerCase();
   if (a === 'boris') return 'You are Boris: security, automation, DevOps. Be short and practical.';
@@ -13,27 +28,8 @@ function systemFor(agent: string) {
   return 'You are a technical assistant. Be concise and useful.';
 }
 
-function mockStream(agent: string) {
-  const chunks = [
-    `[${agent.toUpperCase()}] `, 'thinking...\n\n',
-    '- quick diag: OG/Twitter OK; CTA points to /demo; missing real backend calls.\n',
-    '- next: wire AGI backend, chat UI, gating.\n\n',
-    'OK from mock endpoint.\n'
-  ];
-  return new ReadableStream<Uint8Array>({
-    start(controller) {
-      let i = 0;
-      const tick = () => {
-        if (i < chunks.length) { controller.enqueue(enc.encode(chunks[i++])); setTimeout(tick, 40); }
-        else controller.close();
-      };
-      tick();
-    }
-  });
-}
-
 async function openAIStream(agent: string, input: string) {
-  const key = (process.env.OPENAI_API_KEY || '').trim();
+  const key = process.env.OPENAI_API_KEY || '';
   const model = process.env.AGI_OPENAI_MODEL || 'gpt-4o-mini';
   if (!key) throw new Error('no_openai_key');
 
@@ -55,7 +51,7 @@ async function openAIStream(agent: string, input: string) {
   const reader = res.body.getReader();
   const decoder = new TextDecoder();
 
-  return new ReadableStream<Uint8Array>({
+  return new ReadableStream({
     async pull(controller) {
       const { value, done } = await reader.read();
       if (done) { controller.close(); return; }
@@ -76,7 +72,7 @@ async function openAIStream(agent: string, input: string) {
 }
 
 export async function POST(req: Request) {
-  // optional gating
+  // Optional gating: if AGI_API_KEY is set, require Authorization: Bearer <key>
   const gate = process.env.AGI_API_KEY || '';
   if (gate) {
     const auth = req.headers.get('authorization') || '';
@@ -108,16 +104,31 @@ export async function POST(req: Request) {
     });
   }
 
-  const prefer = ((process.env.AGI_BACKEND || 'mock').trim().toLowerCase());
-  let used = 'mock';
+  const backend = (process.env.AGI_BACKEND || 'mock').toLowerCase();
   let stream: ReadableStream<Uint8Array> | null = null;
+  let used = 'mock';
   let err = '';
 
-  if (prefer === 'openai' && (process.env.OPENAI_API_KEY || '')) {
-    try { stream = await openAIStream(agent, input); used = 'openai'; }
-    catch (e: any) { err = String(e?.message || e); }
+  if (backend === 'openai' && (process.env.OPENAI_API_KEY || '')) {
+    try {
+      stream = await openAIStream(agent, input);
+      used = 'openai';
+    } catch (e: any) {
+      err = String(e?.message || e);
+      // fall back to mock below
+    }
   }
-  if (!stream) stream = mockStream(agent);
+
+  if (!stream) {
+    const chunks = [
+      `[${agent.toUpperCase()}] `, 'thinking...\n\n',
+      '- quick diag: OG/Twitter OK; CTA points to demo; missing real backend calls.\n',
+      '- next: wire AGI backend, chat UI, gating.\n\n',
+      'OK from mock endpoint.\n'
+    ];
+    stream = streamFrom(chunks);
+    used = 'mock';
+  }
 
   return new Response(stream, {
     headers: {
