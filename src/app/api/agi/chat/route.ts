@@ -3,84 +3,41 @@ export const dynamic = 'force-dynamic';
 
 type Payload = { agent?: string; input: string; sessionId?: string };
 
-const enc = new TextEncoder();
+function systemFor(agent: string) {
+  const a = String(agent || '').toLowerCase();
+  if (a === 'boris') return 'You are Boris: security, automation, DevOps. Be short and practical.';
+  if (a === 'laya')  return 'You are Laya: comms and org. Be clear and action-oriented.';
+  if (a === 'irina') return 'You are Irina: analytics and insights. Prefer bullets and metrics.';
+  return 'You are a technical assistant. Be concise and useful.';
+}
 
-const sysMap: Record<string, string> = {
-  boris: 'You are Boris: security, automation, DevOps. Be short and practical.',
-  laya:  'You are Laya: comms and org. Be clear and action-oriented.',
-  irina: 'You are Irina: analytics and insights. Prefer bullets and metrics.',
-};
-function systemFor(a: string) {
-  return sysMap[(a || '').toLowerCase()] || 'You are a technical assistant. Be concise and useful.';
-}
-function sanitizeBaseUrl(raw: string) {
-  const noQuotes = (raw || '').trim().replace(/^['"]|['"]$/g, '');
-  return noQuotes.replace(/\/+$/, '');
-}
-function streamFrom(chunks: string[]) {
-  return new ReadableStream<Uint8Array>({
-    start(c) {
-      let i = 0;
-      const pump = () => { if (i < chunks.length) { c.enqueue(enc.encode(chunks[i++])); setTimeout(pump, 40); } else c.close(); };
-      pump();
-    }
-  });
-}
-function mockStream(agent: string) {
-  const name = (agent || 'boris').toUpperCase();
-  return streamFrom([
-    `[${name}] `, 'thinking...\n\n',
-    '- mock online; backend=mock\n',
-    '- amanhã ligamos o backend real com calma.\n'
-  ]);
-}
-async function openAIStream(agent: string, input: string) {
-  const key = (process.env.OPENAI_API_KEY || '').trim();
-  if (!key) throw new Error('no_openai_key');
-
-  const model = (process.env.AGI_OPENAI_MODEL || 'gpt-4o-mini').trim();
-  const base = sanitizeBaseUrl(process.env.AGI_OPENAI_BASE_URL || 'https://api.openai.com/v1');
-  const url = `${base}/chat/completions`;
-
+const clean = (s: string) =>
+  (s || '').trim().replace(/^['"]|['"]$/g, '').replace(/\/+$/, '');
+async function ask(base: string, key: string, model: string, agent: string, input: string) {
+  const url = clean(base) + '/chat/completions';
   const res = await fetch(url, {
     method: 'POST',
-    headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
+    headers: { 'content-type': 'application/json', authorization: 'Bearer ' + key },
     body: JSON.stringify({
-      model, stream: true, temperature: 0.2,
+      model,
+      stream: false,
+      temperature: 0.2,
       messages: [
         { role: 'system', content: systemFor(agent) },
-        { role: 'user', content: input }
+        { role: 'user',   content: input }
       ]
     })
   });
-  if (!res.ok || !res.body) throw new Error(`upstream_${res.status}`);
-
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
-  return new ReadableStream<Uint8Array>({
-    async pull(c) {
-      const { value, done } = await reader.read();
-      if (done) { c.close(); return; }
-      const chunk = decoder.decode(value);
-      for (const raw of chunk.split('\n')) {
-        const line = raw.trim();
-        if (!line.startsWith('data:')) continue;
-        const data = line.slice(5).trim();
-        if (data === '[DONE]') { c.close(); return; }
-        try {
-          const json = JSON.parse(data);
-          const delta = json?.choices?.[0]?.delta?.content;
-          if (delta) c.enqueue(enc.encode(delta));
-        } catch { /* ignore partial frames */ }
-      }
-    }
-  });
+  if (!res.ok) throw new Error('upstream_' + res.status);
+  const json: any = await res.json();
+  return String(json?.choices?.[0]?.message?.content ?? '').trim() || '(empty)';
 }
 export async function POST(req: Request) {
+  // optional gate
   const gate = (process.env.AGI_API_KEY || '').trim();
   if (gate) {
     const auth = req.headers.get('authorization') || '';
-    if (auth !== `Bearer ${gate}`) {
+    if (auth !== ('Bearer ' + gate)) {
       return new Response(JSON.stringify({ error: 'unauthorized' }), {
         status: 401, headers: { 'content-type': 'application/json' }
       });
@@ -89,40 +46,35 @@ export async function POST(req: Request) {
 
   let body: Payload;
   try { body = await req.json(); }
-  catch {
-    return new Response(JSON.stringify({ error: 'bad_json' }), {
-      status: 400, headers: { 'content-type': 'application/json' }
-    });
-  }
+  catch { return new Response(JSON.stringify({ error: 'bad_json' }), { status: 400, headers: { 'content-type': 'application/json' } }); }
 
-  const agent = (body.agent || 'boris');
+  const agent = (body.agent || 'boris').toLowerCase();
   const input = (body.input || '').trim();
-  if (!input) {
-    return new Response(JSON.stringify({ error: 'empty_input' }), {
-      status: 400, headers: { 'content-type': 'application/json' }
-    });
-  }
-  if (input.length > 2000) {
-    return new Response(JSON.stringify({ error: 'too_long', max: 2000 }), {
-      status: 413, headers: { 'content-type': 'application/json' }
-    });
-  }
+  if (!input) return new Response(JSON.stringify({ error: 'empty_input' }), { status: 400, headers: { 'content-type': 'application/json' } });
+  if (input.length > 2000) return new Response(JSON.stringify({ error: 'too_long', max: 2000 }), { status: 413, headers: { 'content-type': 'application/json' } });
 
-  const prefer = ((process.env.AGI_BACKEND || 'mock').trim().toLowerCase());
-  let used: 'openai' | 'mock' = 'mock';
-  let stream: ReadableStream<Uint8Array> | null = null;
+  const prefer = (process.env.AGI_BACKEND || 'mock').trim().toLowerCase();
+  const base   = (process.env.AGI_OPENAI_BASE_URL || 'https://api.openai.com/v1').trim();
+  const model  = (process.env.AGI_OPENAI_MODEL || 'gpt-4o-mini').trim();
+  const key    = (process.env.OPENAI_API_KEY || '').trim();
+  let used: 'mock' | 'openai' = 'mock';
   let err = '';
+  let text =
+    '[' + agent.toUpperCase() + '] thinking...\n\n' +
+    '- mock online; backend=mock\n' +
+    '- amanhã ligamos o backend real com calma.\n';
 
-  if (prefer === 'openai' && (process.env.OPENAI_API_KEY || '').trim()) {
-    try { stream = await openAIStream(agent, input); used = 'openai'; }
-    catch (e: any) { err = String(e?.message || e); }
+  if (prefer === 'openai' && key) {
+    try { text = await ask(base, key, model, agent, input); used = 'openai'; }
+    catch (e: any) { err = String(e?.message || e); used = 'mock'; }
   }
-  if (!stream) { stream = mockStream(agent); used = 'mock'; }
 
-  return new Response(stream, {
+  return new Response(text, {
     headers: {
       'content-type': 'text/plain; charset=utf-8',
       'x-agi-backend': used,
+      'x-agi-upstream-base': clean(base),
+      'x-agi-upstream-model': model,
       ...(used === 'mock' ? { 'x-agi-mock': '1' } : {}),
       ...(err ? { 'x-agi-error': err } : {})
     }
