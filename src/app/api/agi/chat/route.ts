@@ -35,9 +35,10 @@ function mockStream(agent: string) {
 async function openAIStream(agent: string, input: string) {
   const key = (process.env.OPENAI_API_KEY || '').trim();
   const model = process.env.AGI_OPENAI_MODEL || 'gpt-4o-mini';
+  const base = ((process.env.AGI_OPENAI_BASE_URL || 'https://api.openai.com/v1').trim());
   if (!key) throw new Error('no_openai_key');
 
-  const res = await fetch('https://api.openai.com/v1/chat/completions', {
+  const res = await fetch(`/chat/completions`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
     body: JSON.stringify({
