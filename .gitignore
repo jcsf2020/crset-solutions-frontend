@@ -87,3 +87,6 @@ health.json
 .resend.key
 .railway.vars.json
 health.json
+
+# Ignore Vercel bypass cookies
+.vercel_*
