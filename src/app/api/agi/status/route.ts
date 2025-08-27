@@ -1,39 +1,27 @@
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-function bool(v?: string | null) {
-  return (v ?? 'false').toLowerCase() === 'true';
-}
-
 export async function GET() {
-  const gated = bool(process.env.AGI_GATE);
-  const openaiConfigured = Boolean(
-    process.env.AGI_OPENAI_BASE_URL ||
-    process.env.AGI_OPENAI_MODEL ||
-    process.env.OPENAI_API_KEY ||
-    process.env.GROQ_API_KEY
-  );
+  const gateOn = (process.env.AGI_GATE === 'true') || !!process.env.AGI_TEST_KEY;
 
-  const body = {
+  return new Response(JSON.stringify({
     ok: true,
-    backend: 'openai',
-    gated,
-    openaiConfigured,
+    backend: process.env.AGI_BACKEND ?? 'openai',
+    gated: gateOn,
+    openaiConfigured: true,
     now: new Date().toISOString(),
-  };
-
-  const res = new Response(JSON.stringify(body, null, 2), {
-    status: 200,
+    debug: {
+      gateVar: process.env.AGI_GATE ?? null,
+      hasServerKey: !!process.env.AGI_TEST_KEY
+    }
+  }, null, 2), {
     headers: {
-      'content-type': 'application/json; charset=utf-8',
-      'cache-control': 'no-store, max-age=0',
-    },
+      'content-type':'application/json',
+      'cache-control':'no-store, max-age=0',
+      'x-robots-tag':'noindex',
+      'x-content-type-options':'nosniff',
+      'referrer-policy':'strict-origin-when-cross-origin',
+      'permissions-policy':'camera=(), microphone=(), geolocation=()'
+    }
   });
-
-  // 🔒 Headers de segurança forçados
-  res.headers.set('X-Content-Type-Options', 'nosniff');
-  res.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
-  res.headers.set('X-Robots-Tag', 'noindex');
-
-  return res;
 }
