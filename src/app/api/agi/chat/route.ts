@@ -1,118 +1,125 @@
-export const runtime = 'edge';
-export const dynamic = 'force-dynamic';
+import { NextRequest } from 'next/server';
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
+import { logger } from '@/lib/logger';
 
-import { logAgiRoute } from '../../../../lib/agi-log';
+const redis = Redis.fromEnv();
+const ipLimit = new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(60,'1 m'), analytics: true });
+const sessionLimit = new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(600,'1 d'), analytics: true });
 
-type Payload = { agent?: string; input: string; sessionId?: string };
-
-function systemFor(agent: string) {
-  const a = String(agent || '').toLowerCase();
-  if (a === 'boris') return 'You are Boris: security, automation, DevOps. Be short and practical.';
-  if (a === 'laya')  return 'You are Laya: comms and org. Be clear and action-oriented.';
-  if (a === 'irina') return 'You are Irina: analytics and insights. Prefer bullets and metrics.';
-  return 'You are a technical assistant. Be concise and useful.';
+function clientIp(req: NextRequest){
+  const h = req.headers.get('x-forwarded-for') ?? '';
+  return (req.ip ?? h.split(',')[0]?.trim() ?? '0.0.0.0');
 }
-const clean = (s: string) => (s || '').trim().replace(/^['"]|['"]$/g, '').replace(/\/+$/,'');
-
-async function ask(base: string, key: string, model: string, agent: string, input: string) {
-  const url = clean(base) + '/chat/completions';
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json', authorization: 'Bearer ' + key },
-    body: JSON.stringify({
-      model,
-      stream: false,
-      temperature: 0.2,
-      messages: [
-        { role: 'system', content: systemFor(agent) },
-        { role: 'user',   content: input }
-      ]
-    })
-  });
-  const ok = res.ok;
-  let usage: any = null;
-  let text = '(empty)';
-  if (ok) {
-    const json: any = await res.json();
-    usage = json?.usage || null;
-    text = String(json?.choices?.[0]?.message?.content ?? '').trim() || 'OK';
-  }
-  return { ok, text, usage, status: res.status };
+function persona(a?: string){
+  const p: Record<string,string> = {
+    boris: 'You are Boris, a security and automation expert. Prefix responses with [BORIS] and focus on practical, technical steps.',
+    laya:  'You are Laya, a communication specialist. Prefix responses with [LAYA] and be concise and clear.',
+    irina: 'You are Irina, an analytics expert. Prefix responses with [IRINA] and focus on data insights.'
+  };
+  return p[(a||'boris').toLowerCase()] ?? p.boris;
 }
 
-export async function OPTIONS(req: Request) {
-  return new Response(null, { status: 204 });
-}
-
-export async function POST(req: Request) {
+export async function POST(req: NextRequest){
+  const rid = crypto.randomUUID().slice(0,8);
   const t0 = Date.now();
+  const ip = clientIp(req);
 
-  // Gate opcional
-  const gate = (process.env.AGI_API_KEY || '').trim();
-  if (gate) {
-    const auth = req.headers.get('authorization') || '';
-    if (auth !== 'Bearer ' + gate) {
-      await logAgiRoute({ path: '/api/agi/chat', method: 'POST', ok: false, why: 'unauthorized' });
-      return new Response('unauthorized', { status: 401, headers: { 'content-type': 'application/json' } });
+  try{
+    // body uma vez
+    const body = await req.json().catch(() => ({} as any));
+    const { agent, input, sessionId, strict=false, mode } = body ?? {};
+
+    // gate opcional (ativar com AGI_GATE=true e definir AGI_TEST_KEY)
+    const gated = (process.env.AGI_GATE ?? 'false') === 'true';
+    if (gated){
+      const auth = req.headers.get('authorization') ?? '';
+      const tok = auth.startsWith('Bearer ') ? auth.slice(7).trim() : '';
+      const expected = process.env.AGI_TEST_KEY ?? '';
+      if (!expected || tok !== expected){
+        return new Response('unauthorized',{ status:401, headers:{ 'x-request-id': rid } });
+      }
     }
-  }
 
-  let body: Payload;
-  try { body = await req.json(); }
-  catch {
-    await logAgiRoute({ path: '/api/agi/chat', method: 'POST', ok: false, why: 'bad_json' });
-    return new Response('bad_json', { status: 400, headers: { 'content-type': 'application/json' } });
-  }
-
-  const agent = (body.agent || 'boris').toLowerCase();
-  const input = (body.input || '').trim();
-  if (!input) return new Response('empty_input', { status: 400, headers: { 'content-type': 'application/json' } });
-  if (input.length > 2000) return new Response('too_long', { status: 413, headers: { 'content-type': 'application/json' } });
-
-  const prefer = (process.env.AGI_BACKEND || 'mock').trim().toLowerCase();
-  const base   = (process.env.AGI_OPENAI_BASE_URL || 'https://api.openai.com/v1').trim();
-  const model  = (process.env.AGI_OPENAI_MODEL || 'gpt-4o-mini').trim();
-  const key    = (process.env.OPENAI_API_KEY || '').trim();
-
-  let text = '[mock] streaming ativo';
-  let used: 'openai' | 'mock' = 'mock';
-  let usage: any = null;
-  let status = 200;
-
-  if (prefer === 'openai' && key) {
-    const r = await ask(base, key, model, agent, input);
-    text = r.text; usage = r.usage; status = r.status;
-    used = r.ok ? 'openai' : 'mock';
-    if (!r.ok) text = '[mock] upstream_error_' + status;
-  } else {
-    text = input ? 'OK' : '[mock] no input';
-  }
-
-  const latency = Date.now() - t0;
-
-  await logAgiRoute({
-    path: '/api/agi/chat',
-    method: 'POST',
-    ok: status >= 200 && status < 300,
-    backend: used,
-    model,
-    latency_ms: latency,
-    tokens_total: usage?.total_tokens ?? null,
-    tokens_prompt: usage?.prompt_tokens ?? null,
-    tokens_completion: usage?.completion_tokens ?? null,
-  });
-
-  return new Response(text, {
-    status: 200,
-    headers: {
-      'content-type': 'text/plain; charset=utf-8',
-      'x-agi-backend': used,
-      'x-agi-upstream-base': clean(base),
-      'x-agi-upstream-model': model,
-      ...(usage?.total_tokens ? { 'x-agi-usage-total': String(usage.total_tokens) } : {}),
-      ...(usage?.prompt_tokens ? { 'x-agi-usage-prompt': String(usage.prompt_tokens) } : {}),
-      ...(usage?.completion_tokens ? { 'x-agi-usage-completion': String(usage.completion_tokens) } : {}),
-      'x-agi-latency-ms': String(latency),
+    // validações
+    if (!input?.trim()){
+      return new Response(JSON.stringify({ error:'empty_input' }), {
+        status:400, headers:{ 'content-type':'application/json','x-request-id':rid }
+      });
     }
-  });
+    if (input.length > 2000){
+      return new Response(JSON.stringify({ error:'too_long', max:2000 }), {
+        status:413, headers:{ 'content-type':'application/json','x-request-id':rid }
+      });
+    }
+
+    // rate limits
+    const [ipChk, sessChk] = await Promise.all([
+      ipLimit.limit(ip),
+      sessionId ? sessionLimit.limit(sessionId) : Promise.resolve({ success:true } as any),
+    ]);
+    if (!ipChk.success || !sessChk.success){
+      logger.warn('rate_limit_exceeded',{ requestId:rid, ip, type: !ipChk.success ? 'ip' : 'session' });
+      return new Response(JSON.stringify({ error:'rate_limit_exceeded' }), {
+        status:429, headers:{ 'content-type':'application/json','x-request-id':rid }
+      });
+    }
+
+    // strict/raw
+    const isRaw = strict === true || mode === 'raw';
+    const systemPrompt = isRaw
+      ? 'Respond directly and concisely. No persona prefixes.'
+      : persona(agent);
+
+    // upstream (Groq/OpenAI compat)
+    const base  = process.env.AGI_OPENAI_BASE_URL || 'https://api.groq.com/openai/v1';
+    const apiKey= process.env.OPENAI_API_KEY || process.env.GROQ_API_KEY || '';
+    const model = process.env.AGI_OPENAI_MODEL || 'llama3-8b-8192';
+
+    const up = await fetch(`${base}/chat/completions`, {
+      method:'POST',
+      headers:{ 'Authorization':`Bearer ${apiKey}`, 'Content-Type':'application/json' },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user',   content: input }
+        ],
+        temperature: 0.7,
+        max_tokens: 500
+      }),
+    });
+    if (!up.ok){
+      const txt = await up.text();
+      throw new Error(`upstream_${up.status}: ${txt.slice(0,200)}`);
+    }
+
+    const data = await up.json();
+    let content: string = data.choices?.[0]?.message?.content ?? 'No response';
+
+    // se raw, tira prefixos de persona
+    if (isRaw) content = content.replace(/^\s*(\[?BORIS\]?:?|Boris:)\s*/i,'').trim();
+
+    logger.info('chat_ok',{
+      requestId: rid,
+      duration: Date.now()-t0,
+      model, agent: agent ?? null,
+      strict: isRaw, inLen: input.length, outLen: content.length
+    });
+
+    return new Response(content, {
+      headers: {
+        'content-type':'text/plain; charset=utf-8',
+        'x-request-id': rid,
+        'x-agi-backend':'openai',
+        'x-agi-model': model,
+        'cache-control':'no-store, no-cache, must-revalidate',
+      }
+    });
+  }catch(e:any){
+    logger.error('chat_fail',{ requestId: rid, duration: Date.now()-t0, ip, err: String(e?.message ?? e) });
+    return new Response(JSON.stringify({ error:'internal_error' }), {
+      status:500, headers:{ 'content-type':'application/json','x-request-id':rid }
+    });
+  }
 }

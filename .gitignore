@@ -90,3 +90,6 @@ health.json
 
 # Ignore Vercel bypass cookies
 .vercel_*
+
+# Ignore Vercel bypass cookies
+.vercel_*
