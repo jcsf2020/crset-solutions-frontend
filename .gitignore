@@ -93,3 +93,6 @@ health.json
 
 # Ignore Vercel bypass cookies
 .vercel_*
+
+# local backups
+src/**/*.bak.*
