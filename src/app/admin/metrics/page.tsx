@@ -1,94 +1,14 @@
-'use client';
-import '../force-dynamic'
-import { useEffect, useState } from 'react';
-import Gate from '../_components/Gate';
-
-type M = {
-  total: number;
-  last24h: number;
-  last7d: number;
-  top_utm: [string, number][];
-  by_day: { date: string; count: number }[];
-};
-
-export default function MetricsPage() {
-  const [m, setM] = useState<M | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState<string | null>(null);
-
-  const load = () => {
-    setLoading(true);
-    setErr(null);
-    fetch('/api/metrics', { cache: 'no-store' })
-      .then(r => r.json())
-      .then(j => setM(j as M))
-      .catch(e => setErr(String(e)))
-      .finally(() => setLoading(false));
-  };
-
-  useEffect(() => { load(); }, []);
-
-  const series = m?.by_day ?? [];
-  const max = Math.max(1, ...series.map(d => d.count));
-
-  return (
-    <Gate>
-      <main style={{ padding: 24, fontFamily: 'system-ui', maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16 }}>
-          <h1 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>CRSET — Métricas</h1>
-          <a href="/api/metrics.csv" download style={{ border: '1px solid #ddd', borderRadius: 10, padding: '6px 10px', textDecoration: 'none', color: 'inherit' }} title="Exportar CSV (by_day)">Exportar CSV</a>
-          <button onClick={load} disabled={loading}
-            style={{ marginLeft: 'auto', border: '1px solid #ddd', borderRadius: 10, padding: '6px 10px' }}>
-            {loading ? 'A atualizar…' : 'Atualizar'}
-          </button>
-        </div>
-
-        {err && <div style={{ color: 'crimson', marginBottom: 12 }}>Erro: {err}</div>}
-
-        {/* KPIs */}
-        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(12,minmax(0,1fr))', gap: 12, marginBottom: 16 }}>
-          <div style={{ gridColumn: 'span 4', border: '1px solid #eee', borderRadius: 12, padding: 12 }}>
-            <div style={{ opacity: .6, fontSize: 12 }}>Total</div>
-            <div style={{ fontSize: 26, fontWeight: 800 }}>{m?.total ?? '—'}</div>
-          </div>
-          <div style={{ gridColumn: 'span 4', border: '1px solid #eee', borderRadius: 12, padding: 12 }}>
-            <div style={{ opacity: .6, fontSize: 12 }}>Últimas 24h</div>
-            <div style={{ fontSize: 26, fontWeight: 800 }}>{m?.last24h ?? '—'}</div>
-          </div>
-          <div style={{ gridColumn: 'span 4', border: '1px solid #eee', borderRadius: 12, padding: 12 }}>
-            <div style={{ opacity: .6, fontSize: 12 }}>Últimos 7 dias</div>
-            <div style={{ fontSize: 26, fontWeight: 800 }}>{m?.last7d ?? '—'}</div>
-          </div>
-
-          {/* Série 14 dias (mini-barras) */}
-          <div style={{ gridColumn: 'span 12', border: '1px solid #eee', borderRadius: 12, padding: 12 }}>
-            <div style={{ opacity: .6, fontSize: 12, marginBottom: 6 }}>Série (14 dias)</div>
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 44 }}>
-              {series.length ? series.map((d, i) => (
-                <div key={i} title={`${d.date}: ${d.count}`}
-                  style={{ width: 10, height: Math.max(2, Math.round((d.count / max) * 38)), borderRadius: 3, background: '#ddd' }} />
-              )) : <span style={{ opacity: .6, fontSize: 12 }}>—</span>}
-            </div>
-          </div>
-
-          {/* Top UTM */}
-          <div style={{ gridColumn: 'span 12', border: '1px solid #eee', borderRadius: 12, padding: 12 }}>
-            <div style={{ opacity: .6, fontSize: 12, marginBottom: 8 }}>Top UTM</div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-              {(m?.top_utm?.length ? m.top_utm : []).map(([label, qty], i) => (
-                <span key={i}
-                  style={{
-                    border: '1px solid #ddd', borderRadius: 999, padding: '4px 10px',
-                    fontSize: 12, background: '#fafafa'
-                  }}>
-                  {label} — <strong>{qty}</strong>
-                </span>
-              ))}
-              {(!m?.top_utm || m.top_utm.length === 0) && <span style={{ opacity: .6, fontSize: 12 }}>—</span>}
-            </div>
-          </div>
-        </section>
-      </main>
-    </Gate>
-  );
+export const dynamic='force-dynamic';
+async function getM(){ const r=await fetch('/api/agi/metrics',{cache:'no-store'}); return r.json(); }
+export default async function Page(){
+  const m=await getM(); const t=m?.totals??{}; const l=m?.latency_ms??{};
+  return (<main style={{padding:24,fontFamily:'ui-sans-serif'}}>
+    <h1 style={{marginBottom:16}}>AGI Metrics</h1>
+    <ul>
+      <li>Total: {t.req??0} | OK: {t.ok??0} | Err: {t.err??0} ({t.error_rate??0}%)</li>
+      <li>p95: {l.p95??0}ms | p99: {l.p99??0}ms | avg: {l.avg??0}ms | samples: {l.samples??0}</li>
+      <li>RPS (est.): {m?.rps_estimate??0}</li>
+    </ul>
+    <pre style={{marginTop:16,background:'#0b1220',color:'#e5e7eb',padding:12,borderRadius:8}}>{JSON.stringify(m,null,2)}</pre>
+  </main>);
 }
