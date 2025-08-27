@@ -1,3 +1,4 @@
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 import { NextRequest } from 'next/server';
 import { Ratelimit } from '@upstash/ratelimit';
@@ -17,6 +18,18 @@ function persona(a?: string) {
 }
 
 export async function POST(req: NextRequest) {
+  // HARD_GATE_START
+  const gateOn = (process.env.AGI_GATE === 'true') || !!process.env.AGI_TEST_KEY;
+  {
+    const auth = req.headers.get('authorization') ?? '';
+    const tok = auth.startsWith('Bearer ') ? auth.slice(7).trim() : '';
+    const expected = process.env.AGI_TEST_KEY ?? '';
+    if (gateOn && (!expected || tok !== expected)) {
+      return new Response('unauthorized', { status: 401, headers: { 'content-type': 'text/plain; charset=utf-8' } });
+    }
+  }
+  // HARD_GATE_END
+
   const rid = crypto.randomUUID().slice(0,8);
   const t0 = Date.now();
   try {
@@ -25,8 +38,10 @@ export async function POST(req: NextRequest) {
     if (!input?.trim()) return new Response(JSON.stringify({error:'empty_input'}), { status:400, headers:{'content-type':'application/json','x-request-id':rid} });
     if (input.length>2000) return new Response(JSON.stringify({error:'too_long',max:2000}), { status:413, headers:{'content-type':'application/json','x-request-id':rid} });
 
-    const ip = (req.ip ?? (req.headers.get('x-forwarded-for')||'').split(',')[0]?.trim() || '0.0.0.0');
-    const [ipChk, sessChk] = await Promise.all([ ipLimit.limit(ip), sessionId?sessionLimit.limit(sessionId):Promise.resolve({success:true} as any) ]);
+    const xff = req.headers.get('x-forwarded-for') ?? '';
+const firstHop = xff.split(',')[0]?.trim() ?? null;
+const ip = (req.ip ?? firstHop ?? '0.0.0.0');
+const [ipChk, sessChk] = await Promise.all([ ipLimit.limit(ip), sessionId?sessionLimit.limit(sessionId):Promise.resolve({success:true} as any) ]);
     if (!ipChk.success || !sessChk.success) return new Response(JSON.stringify({error:'rate_limit_exceeded'}), { status:429, headers:{'content-type':'application/json','x-request-id':rid} });
 
     const isRaw = strict===true || mode==='raw';
