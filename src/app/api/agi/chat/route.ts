@@ -38,7 +38,7 @@ export async function POST(req:NextRequest){
     const { agent, input, sessionId, strict=false, mode } = body ?? {};
 
     // gate opcional
-    const gated=(process.env.AGI_GATE??'false')==='true';
+    const hasServerKey=# 1) Patch no handler /api/agi/chat para ligar gate sempre que existir AGI_TEST_KEYprocess.env.AGI_TEST_KEY; const gated=((process.env.AGI_GATE??"false")==="true")||hasServerKey;
     if(gated){
       const auth=req.headers.get('authorization')??''; const tok=auth.startsWith('Bearer ')?auth.slice(7).trim():'';
       const expected=process.env.AGI_TEST_KEY??''; if(!expected||tok!==expected){ return new Response('unauthorized',{status:401,headers:{'x-request-id':rid}}) }
