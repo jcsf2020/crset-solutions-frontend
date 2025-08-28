@@ -96,3 +96,6 @@ health.json
 
 # local backups
 src/**/*.bak.*
+
+# Sentry Config File
+.env.sentry-build-plugin
