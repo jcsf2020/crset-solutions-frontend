@@ -69,7 +69,10 @@ try { redis = Redis.fromEnv(); } catch { redis = null; }
 
 // Rate limit por IP (60/min)
 const rlIP = redis ? __RL_SAFE.make({
-  redis, limiter: Ratelimit.slidingWindow(60, '1 m'), analytics: true, prefix: 'rl:ip'
+  redis,
+  limiter: Ratelimit.slidingWindow(60, '1 m'),
+  analytics: true,
+  prefix: 'rl:ip'
 }) : null;
 
 // Gate de concorrência
