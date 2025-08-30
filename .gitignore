@@ -99,3 +99,10 @@ src/**/*.bak.*
 
 # Sentry Config File
 .env.sentry-build-plugin
+# Private artifacts
+jwt.env
+jwt.token
+railway_env_dump.txt
+resend_domain.json
+resend_domain_create.json
+status.json
