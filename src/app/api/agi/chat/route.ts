@@ -6,6 +6,7 @@ import crypto from 'crypto';
 
 let INFLIGHT = 0;
 const MAX_INFLIGHT = Number(process.env.AGI_MAX_INFLIGHT || 8);
+
 const ALLOWED_ORIGINS = new Set(['https://crsetsolutions.com']);
 
 function rid(){ return crypto.randomBytes(8).toString('hex'); }
@@ -51,7 +52,7 @@ export async function POST(req: NextRequest) {
     if (!KEY)  return new Response(JSON.stringify({ error:'upstream_key_missing' }), { status:503, headers:H });
 
     INFLIGHT++;
-    let upstream: Response | null = null;
+    let upstream: Response;
     try {
       upstream = await fetch(`${BASE}/chat/completions`, {
         method:'POST',
@@ -63,33 +64,17 @@ export async function POST(req: NextRequest) {
             { role:'user',   content:String(input) }
           ],
           temperature: 0.3
-        }))
+        }),
+        signal: AbortSignal.timeout(Number(process.env.AGI_UPSTREAM_TIMEOUT_MS||20000))
       });
-    } catch (e: any) {
-      const cause: any = e?.cause || {};
-      return new Response(JSON.stringify({
-        error: 'upstream_fetch_failed',
-        detail: String(e?.message || e),
-        cause: {
-          name: e?.name,
-          type: e?.type,
-          code: cause?.code || e?.code,
-          errno: cause?.errno || e?.errno,
-          syscall: cause?.syscall,
-          address: cause?.address,
-          port: cause?.port
-        },
-        base: BASE
-      }), { status: 503, headers: H });
     } finally {
       INFLIGHT = Math.max(0, INFLIGHT-1);
     }
 
-    if (!upstream || !upstream.ok) {
-      const code = upstream?.status ?? 0;
-      const txt  = upstream ? (await upstream.text().catch(()=> '')) : '';
-      const ra   = upstream?.headers?.get('retry-after') || undefined;
-
+    if (!upstream.ok) {
+      const code = upstream.status;
+      const txt  = await upstream.text().catch(()=> '');
+      const ra   = upstream.headers.get('retry-after') || undefined;
       if (code === 401 || code === 403) {
         return new Response(JSON.stringify({ error:'upstream_auth', status:code, detail:txt.slice(0,400) }), { status:503, headers:H });
       }
@@ -97,11 +82,7 @@ export async function POST(req: NextRequest) {
         if (ra) H.set('Retry-After', ra);
         return new Response(JSON.stringify({ error:'upstream_rate_limited', status:code, detail:txt.slice(0,200) }), { status:429, headers:H });
       }
-      return new Response(JSON.stringify({
-        error:'upstream_error',
-        status:code || 'no_response',
-        detail: txt.slice(0,500)
-      }), { status:503, headers:H });
+      return new Response(JSON.stringify({ error:'upstream_error', status:code, detail:txt.slice(0,500) }), { status:503, headers:H });
     }
 
     const data = await upstream.json().catch(()=> null);
