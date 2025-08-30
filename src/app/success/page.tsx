@@ -4,7 +4,7 @@ import Stripe from 'stripe';
 type Search = { [k: string]: string | string[] | undefined };
 
 function fmt(amount?: number | null, currency?: string | null) {
-  if (amount == null || !currency) return ‖;
+  if (amount == null || !currency) return '–';
   try {
     return new Intl.NumberFormat('pt-PT', { style: 'currency', currency: (currency || '').toUpperCase() }).format(amount / 100);
   } catch {
