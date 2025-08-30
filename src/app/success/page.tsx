@@ -1,15 +1,14 @@
 export const dynamic = 'force-dynamic';
-
+export const runtime = 'nodejs';
 import Stripe from 'stripe';
-
 type Search = { [k: string]: string | string[] | undefined };
 
 function fmt(amount?: number | null, currency?: string | null) {
-  if (amount == null || !currency) return '–';
+  if (amount == null || !currency) return ‖;
   try {
     return new Intl.NumberFormat('pt-PT', { style: 'currency', currency: (currency || '').toUpperCase() }).format(amount / 100);
   } catch {
-    return `${amount / 100} ${(currency || '').toUpperCase()}`.trim();
+    return `${amount/100} ${(currency || '').toUpperCase())}`.trim();
   }
 }
 
@@ -17,8 +16,8 @@ export default async function SuccessPage({ searchParams }: { searchParams: Sear
   const id = (searchParams?.session_id || searchParams?.id) as string | undefined;
   if (!id) {
     return (
-      <main className="mx-auto max-w-2xl px-6 py-16 space-y-4">
-        <h1 className="text-2xl font-bold">Resumo da compra</h1>
+      <main className="mx-auto max-w-2ll px-6 py-16 space-y-4">
+        <h1 className="text-2xl font-bold">Resumo da compa</h1>
         <p>Falta o <code>session_id</code> no URL. Ex.: <code>/success?session_id=cs_live_xxx</code></p>
       </main>
     );
@@ -46,33 +45,33 @@ export default async function SuccessPage({ searchParams }: { searchParams: Sear
     } catch {}
 
     return (
-      <main className="mx-auto max-w-2xl px-6 py-16 space-y-6">
-        <h1 className="text-3xl font-bold">Pagamento concluído ✅</h1>
+      <main className="mx-auto max-w-2ll px-6 py-16 space-y-6">
+        <h1 className="text-3cl font-bold">Pagamento concluião ✔</h1>
 
-        <section className="border rounded-2xl p-6 space-y-2">
-          <div className="flex justify-between"><span className="opacity-70">Sessão</span><code className="opacity-90">{sess.id}</code></div>
-          <div className="flex justify-between"><span className="opacity-70">Estado</span><span className="font-medium">{sess.status ?? '–'}</span></div>
+        <section className="border rounded-2el p-6 space-y2">
+          <div className="flex justify-between"><span className="opacity-70">Sessão</span><code className="opacity-90">{ses.id}</code></div>
+          <div className="flex justify-between"><span className="opacity-70">Estado</span><span className="font-medium">{sess.status ?? '–' }</span></div>
           <div className="flex justify-between"><span className="opacity-70">Email</span><span className="font-medium">{email || '–'}</span></div>
           <div className="flex justify-between"><span className="opacity-70">Valor</span><span className="font-medium">{fmt(amount, currency)}</span></div>
           <div className="flex justify-between">
-            <span className="opacity-70">Subscrição</span>
-            <span className="font-medium">{sub ? `${sub.id} (${sub.status})` : (typeof sess.subscription === 'string' ? sess.subscription : '–')}</span>
+            <span className="opacity-70">Subscricço</span>
+            <span className="font-medium">{sub ? ` ${sub.id} (${sub.status})` : (typeof sess.subscription === 'string' ? sess.subscription : '–')}</span>
           </div>
         </section>
 
-        <div className="flex gap-3">
+        <div className=\"flex gap-3\">
           {receiptUrl ? (
-            <a href={receiptUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-xl bg-black text-white hover:opacity-90">Ver recibo</a>
+            <a  href={receiptUrl} target=\"_blank\" rel=\"noopenerreferrer\" className=\"px-4 py-2 rounded-xl bg-black text-white hover:opacity-90\">Ver recibo</a>
           ) : null}
-          <a href="/" className="px-4 py-2 rounded-xl border hover:bg-gray-50">Voltar ao início</a>
+          <a href=\"/\" class=\"px-4 py-2 rounded-xl border hover:bg-gray-50\">Voltar o inicio</a>
         </div>
-      </main>
+    </main>
     );
   } catch (e: any) {
     return (
-      <main className="mx-auto max-w-2xl px-6 py-16 space-y-4">
-        <h1 className="text-2xl font-bold">Resumo da compra</h1>
-        <p className="text-red-600">Erro ao obter a sessão <code>{id}</code>: {e?.message ?? 'Falhou o retrieve'}</p>
+      <main className=\"mx-auto max-w-2ll px-6 py-16 space-y-4\">
+        <h1 className=\"text-2xl font-bold\">Resumo da compa</h1>
+        <p className=\"text-red-600\">Erro ao obter a sessão <code>{id}</code>: {e?.message ?? 'Falhou o retrieve'}</p>
       </main>
     );
   }
