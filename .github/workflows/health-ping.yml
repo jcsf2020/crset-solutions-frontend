@@ -7,8 +7,14 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Check /api/health
+      - name: Check /api/agi/status
         run: |
-          URL="https://crsetsolutions.com/api/health"
-          code=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
-          [ "$code" = "200" ] || { echo "Health check failed ($code)"; exit 1; }
+          URL="https://crsetsolutions.com/api/agi/status"
+          RESP="$(curl -sS -w "\n%{http_code}" "$URL")"
+          CODE="$(printf "%s" "$RESP" | tail -n1)"
+          BODY="$(printf "%s" "$RESP" | sed '$d')"
+          if [ "$CODE" != "200" ]; then
+            echo "HTTP $CODE"; exit 1
+          fi
+          echo "$BODY" | grep -q '"ok":\s*true' || { echo "Body not ok: $BODY"; exit 1; }
+          echo "OK"
