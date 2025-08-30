@@ -10,6 +10,8 @@ export async function POST(req: Request) {
   if (!priceId) return NextResponse.json({error:'priceId missing'}, {status:400});
 
   const SK = process.env.STRIPE_SECRET_KEY || '';
+  if (!SK) { return NextResponse.json({error:'stripe_key_missing'}, {status:503}); }
+
   const LIVE_ALLOWED = (process.env.STRIPE_LIVE_ALLOWED||'0') === '1';
   if (isLiveKey(SK) && !LIVE_ALLOWED) {
     return NextResponse.json({error:'live disabled'}, {status:403});
