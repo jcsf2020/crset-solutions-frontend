@@ -8,7 +8,7 @@ function fmt(amount?: number | null, currency?: string | null) {
   try {
     return new Intl.NumberFormat('pt-PT', { style: 'currency', currency: (currency || '').toUpperCase() }).format(amount / 100);
   } catch {
-    return `${amount/100} ${(currency || '').toUpperCase())}`.trim();
+    return `${amount/100} ${(currency || '').toUpperCase()}`.trim();
   }
 }
 
