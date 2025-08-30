@@ -1,7 +1,14 @@
-
- // ou: 
 import ClientPageRoot from './ClientPageRoot';
+import HomeCTAs from "./_components/HomeCTAs";
 
 export default function Page() {
-  return <ClientPageRoot />;
+  return (
+    <>
+      <ClientPageRoot />
+      {/* CTAs principais */}
+      <div className="px-6">
+        <HomeCTAs />
+      </div>
+    </>
+  );
 }

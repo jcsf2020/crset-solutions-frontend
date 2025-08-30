@@ -87,3 +87,15 @@ health.json
 .resend.key
 .railway.vars.json
 health.json
+
+# Ignore Vercel bypass cookies
+.vercel_*
+
+# Ignore Vercel bypass cookies
+.vercel_*
+
+# local backups
+src/**/*.bak.*
+
+# Sentry Config File
+.env.sentry-build-plugin

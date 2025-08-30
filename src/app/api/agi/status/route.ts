@@ -1,16 +1,18 @@
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const backend = (process.env.AGI_BACKEND || 'mock').trim().toLowerCase();
-  const openaiConfigured = Boolean((process.env.OPENAI_API_KEY || '').trim());
-  const gated = Boolean((process.env.AGI_API_KEY || '').trim());
-  const data = { ok: true, backend, gated, openaiConfigured, now: new Date().toISOString() };
-  return new Response(JSON.stringify(data), {
+  const gateOn = (process.env.AGI_GATE === 'true') || !!process.env.AGI_TEST_KEY;
+  return new Response(JSON.stringify({
+    ok: true,
+    backend: process.env.AGI_BACKEND ?? 'openai',
+    gated: gateOn,
+    now: new Date().toISOString()
+  }, null, 2), {
     headers: {
-      'content-type': 'application/json; charset=utf-8',
-      'cache-control': 'no-store',
-      'x-agi-backend': backend
+      'content-type': 'application/json',
+      'cache-control': 'no-store, max-age=0',
+      'x-robots-tag': 'noindex'
     }
   });
 }
