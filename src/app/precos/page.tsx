@@ -1,80 +1,41 @@
-'use client';
-import { Card } from '@/components/ui/card';
-import { useState } from 'react';
+import Link from 'next/link';
 
-export default function PricingPage() {
-  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+type Tier = { name:string; price:string; features:string[]; slug:string; highlight?:boolean };
 
-  const plans = [
-    { name: 'Essencial',     key: 'essencial',     price: '49€/mês',  features: [
-      'CRM de Leads básico',
-      'Automação de contactos (Email + WhatsApp)',
-      '1 Agente (Boris OU Laya OU Irina)',
-    ]},
-    { name: 'Profissional',  key: 'profissional',  price: '149€/mês', features: [
-      'Tudo do Essencial',
-      'Multi-agente (Boris + Laya + Irina)',
-      'Dashboards analíticos',
-      'Integração Google Ads + Meta Ads',
-      'Até 5 utilizadores',
-    ]},
-    { name: 'Enterprise',    key: 'enterprise',    price: '499€/mês', features: [
-      'Plataforma White-label (branding próprio)',
-      'Consultoria + Setup incluído',
-      'API privada dedicada',
-      'Suporte prioritário',
-    ]},
-  ];
+const tiers: Tier[] = [
+  { name: 'Essencial',   price: 'EUR 29/mes',  slug:'essencial',
+    features: ['Landing + Captacao', 'Leads basicas', 'Email SDR lite'] },
+  { name: 'Profissional', price: 'EUR 79/mes', slug:'profissional', highlight:true,
+    features: ['Automation Playbooks', 'Stripe Billing', 'Dashboards', 'WhatsApp Cloud*'] },
+  { name: 'Enterprise',   price: 'EUR 199/mes', slug:'enterprise',
+    features: ['White-label', 'SLA & SSO', 'Integracoes custom', 'Relatorios avancados'] },
+];
 
-  async function subscribe(planKey: string) {
-    try {
-      setLoadingPlan(planKey);
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ plan: planKey }),
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        if (json?.error === 'STRIPE_NOT_CONFIGURED') {
-          alert('Pagamento ainda não está configurado (Stripe). Fica já tudo pronto — só falta definir as chaves STRIPE.');
-        } else {
-          alert('Erro: ' + (json?.error || res.statusText));
-        }
-        return;
-      }
-      if (json?.url) window.location.href = json.url;
-    } finally {
-      setLoadingPlan(null);
-    }
-  }
-
+export default function PrecosPage() {
   return (
-    <main className="mx-auto max-w-5xl p-6 space-y-12">
-      <h1 className="text-3xl font-bold text-center">Planos CRSET Solutions</h1>
-      <p className="text-center text-gray-600">Escolhe o plano ideal para a tua empresa.</p>
-
-      <div className="grid md:grid-cols-3 gap-6">
-        {plans.map((plan) => (
-          <Card key={plan.key} className="p-6 rounded-2xl shadow-lg border">
-            <h2 className="text-xl font-semibold mb-2">{plan.name}</h2>
-            <p className="text-2xl font-bold text-blue-600 mb-4">{plan.price}</p>
-            <ul className="space-y-2 text-sm mb-4">
-              {plan.features.map((f, i) => (
-                <li key={i} className="flex items-start gap-2">✅ {f}</li>
-              ))}
+    <div className="max-w-6xl mx-auto px-4 py-12">
+      <h1 className="text-3xl md:text-5xl font-semibold">Planos & Precos</h1>
+      <p className="opacity-80 mt-3">Comeca pequeno. Escala quando fizer sentido.</p>
+      <div className="grid md:grid-cols-3 gap-6 mt-10">
+        {tiers.map(t => (
+          <div key={t.slug} className={`rounded-2xl border p-6 ${t.highlight ? 'shadow-lg' : ''}`}>
+            <div className="flex items-baseline justify-between">
+              <h2 className="text-xl font-semibold">{t.name}</h2>
+              <span className="text-lg">{t.price}</span>
+            </div>
+            <ul className="mt-4 space-y-2">
+              {t.features.map((f,i)=> <li key={i} className="opacity-80">- {f}</li>)}
             </ul>
-            <button
-              type="button"
-              onClick={() => subscribe(plan.key)}
-              disabled={!!loadingPlan}
-              className="mt-2 w-full rounded bg-blue-600 text-white py-2 font-medium hover:bg-blue-700 disabled:opacity-50"
+            <Link
+              href={`/start?plan=${t.slug}`}
+              className={`mt-6 inline-block px-4 py-3 rounded-xl ${t.highlight ? 'bg-black text-white' : 'border'}`}
             >
-              {loadingPlan === plan.key ? 'A abrir checkout…' : 'Subscrever'}
-            </button>
-          </Card>
+              Comecar agora
+            </Link>
+          </div>
         ))}
       </div>
-    </main>
+      <p className="text-xs opacity-60 mt-6">* Integracoes sujeitas a configuracao.</p>
+    </div>
   );
 }
