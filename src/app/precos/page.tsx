@@ -1,4 +1,4 @@
-/* page.tsx (rota /precos) */
+/* rota /precos */
 import Pricing from "@/components/Pricing";
 
 export const dynamic = "force-static";
