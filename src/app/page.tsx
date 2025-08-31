@@ -1,3 +1,4 @@
+import Testimonials from "@/components/Testimonials";
 import Hero from "@/components/Hero";
 import Testimonials from "@/components/Testimonials";
 import Hero from "@/components/Hero";
