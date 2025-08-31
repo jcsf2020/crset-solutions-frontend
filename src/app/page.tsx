@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import Hero from "@/components/Hero";
 import ClientPageRoot from './ClientPageRoot';
 import HomeCTAs from "./_components/HomeCTAs";
 
