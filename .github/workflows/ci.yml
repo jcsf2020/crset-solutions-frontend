@@ -25,6 +25,9 @@ jobs:
         run: npm run typecheck --if-present
 
       - name: Build
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: npm run build
 
       - name: Test (if present)
