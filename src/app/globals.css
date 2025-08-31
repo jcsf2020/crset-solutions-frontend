@@ -383,3 +383,9 @@ body::before {
 
   .muted { color: rgb(var(--color-muted)); }
 }
+
+@media (max-width: 768px) {
+  body { background: #ffffff !important; }
+  h1, h2, h3, p, a, span { color: #111 !important; }
+  footer, header { background: #fff !important; }
+}
