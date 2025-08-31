@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import StickyCTA from "@/components/StickyCTA";
 import { Inter } from 'next/font/google'
 import './globals.css'
 
@@ -118,7 +119,9 @@ export default function RootLayout({
         {/* Meta Pixel NoScript */}
           {/* Meta Pixel NoScript desativado */}
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>{children}
+        <StickyCTA />
+  </body>
     </html>
   )
 }
