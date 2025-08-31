@@ -52,7 +52,7 @@ export default function StickyCTA() {
             Comecar agora
           </button>
           <a
-            href="https://wa.me/351000000000?text=Quero%20demo%20CRSET"
+            href="https://wa.me/351914423688?text=Quero%20demo%20CRSET"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-secondary"

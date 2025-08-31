@@ -29,7 +29,7 @@ export default function AgiDocs() {
         "curl -i -X POST https://crsetsolutions.com/api/agi/chat \\\n  -H 'content-type: application/json' \\\n  -d '{\"agent\":\"boris\",\"input\":\"diagnostico rapido\",\"sessionId\":\"t1\"}'"
       ),
       React.createElement('p', { className: 'text-blue-300 mt-6' },
-        'Demonstração: ',
+        'Demonstracao: ',
         React.createElement('a', { className: 'underline', href: '/demo' }, '/demo')
       )
     )

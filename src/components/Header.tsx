@@ -16,9 +16,9 @@ export default function Header() {
 
         {/* Nav (desktop) */}
         <nav className="hidden md:flex gap-6 text-sm font-medium">
-          <Link href="/#servicos" className="hover:text-gray-900 transition">Servicos</Link>
+          <Link href="/servicos" className="hover:text-gray-900 transition">Servicos</Link>
           <Link href="/precos" className="hover:text-gray-900 transition">Precos</Link>
-          <Link href="/#equipa" className="hover:text-gray-900 transition">Equipa</Link>
+          <Link href="/#contacto" className="hover:text-gray-900 transition">Equipa</Link>
           <Link href="/#contacto" className="hover:text-gray-900 transition">Contacto</Link>
         </nav>
 
@@ -26,7 +26,7 @@ export default function Header() {
         <div className="hidden md:flex gap-3">
           <Link href="/start" className="btn-primary">Comecar</Link>
           <a
-            href="https://wa.me/351000000000?text=Quero%20demo%20CRSET"
+            href="https://wa.me/351914423688?text=Quero%20demo%20CRSET"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-secondary"
@@ -55,14 +55,14 @@ export default function Header() {
       {open && (
         <div className="md:hidden border-t border-gray-200">
           <div className="container-pro py-4 flex flex-col gap-4">
-            <Link href="/#servicos" onClick={() => setOpen(false)} className="text-base">Servicos</Link>
+            <Link href="/servicos" onClick={() => setOpen(false)} className="text-base">Servicos</Link>
             <Link href="/precos" onClick={() => setOpen(false)} className="text-base">Precos</Link>
-            <Link href="/#equipa" onClick={() => setOpen(false)} className="text-base">Equipa</Link>
+            <Link href="/#contacto" onClick={() => setOpen(false)} className="text-base">Equipa</Link>
             <Link href="/#contacto" onClick={() => setOpen(false)} className="text-base">Contacto</Link>
             <div className="pt-2 flex gap-3">
               <Link href="/start" onClick={() => setOpen(false)} className="btn-primary flex-1 text-center">Comecar</Link>
               <a
-                href="https://wa.me/351000000000?text=Quero%20demo%20CRSET"
+                href="https://wa.me/351914423688?text=Quero%20demo%20CRSET"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary flex-1 text-center"

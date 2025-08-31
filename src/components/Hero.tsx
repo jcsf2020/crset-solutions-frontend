@@ -23,7 +23,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-3">
             <Link href="/start" className="btn-primary px-5 py-3">Comecar agora</Link>
             <a
-              href="https://wa.me/351000000000?text=Quero%20demo%20CRSET"
+              href="https://wa.me/351914423688?text=Quero%20demo%20CRSET"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary px-5 py-3"
@@ -36,7 +36,7 @@ export default function Hero() {
           <div className="flex items-center gap-6 pt-2">
             <div className="text-xs muted">SLA claro</div>
             <div className="h-4 w-px bg-black/10" />
-            <div className="text-xs muted">SSO e integrações</div>
+            <div className="text-xs muted">SSO e integracoes</div>
             <div className="h-4 w-px bg-black/10" />
             <div className="text-xs muted">Relatorios avancados</div>
           </div>

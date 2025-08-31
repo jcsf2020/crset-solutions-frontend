@@ -23,7 +23,7 @@ export default function Contact() {
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Fala connosco</h2>
           <p className="muted max-w-prose">Resposta rapida em horario comercial. Se preferires, usa WhatsApp.</p>
           <a
-            href="https://wa.me/351000000000?text=Quero%20demo%20CRSET"
+            href="https://wa.me/351914423688?text=Quero%20demo%20CRSET"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-secondary px-5 py-3 inline-flex"
@@ -68,7 +68,7 @@ export default function Contact() {
           </div>
           <div className="flex gap-3">
             <button type="submit" className="btn-primary px-5 py-3">Enviar por email</button>
-            <a href="https://wa.me/351000000000?text=Quero%20demo%20CRSET" target="_blank" rel="noopener noreferrer" className="btn-secondary px-5 py-3">WhatsApp</a>
+            <a href="https://wa.me/351914423688?text=Quero%20demo%20CRSET" target="_blank" rel="noopener noreferrer" className="btn-secondary px-5 py-3">WhatsApp</a>
           </div>
         </form>
       </div>

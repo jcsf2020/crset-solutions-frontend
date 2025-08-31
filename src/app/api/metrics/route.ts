@@ -31,7 +31,7 @@ async function fetchAll(): Promise<{ results: NotionPage[] } | null | { error: s
   let cursor: string | null = null;
   const results: NotionPage[] = [];
 
-  // Até 5 páginas de 100 = 500 itens máx (proteção de custo/latência)
+  // Ate 5 paginas de 100 = 500 itens max (protecao de custo/latencia)
   for (let i = 0; i < 5 && hasMore; i++) {
     const body: Record<string, any> = {
       page_size: 100,

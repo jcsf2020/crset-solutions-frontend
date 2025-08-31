@@ -66,7 +66,7 @@ function Card({ plan }: { plan: Plan }) {
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2">
         <Link href="/start" className="btn-primary px-4 py-2 text-center">Comecar agora</Link>
         <a
-          href="https://wa.me/351000000000?text=Quero%20demo%20CRSET"
+          href="https://wa.me/351914423688?text=Quero%20demo%20CRSET"
           target="_blank"
           rel="noopener noreferrer"
           className="btn-secondary px-4 py-2 text-center"

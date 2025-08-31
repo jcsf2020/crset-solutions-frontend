@@ -10,7 +10,7 @@ interface WhatsAppWidgetProps {
 
 export default function WhatsAppWidget({ 
   phoneNumber = '351914423688',
-  message = 'Olá! Vi o site da CRSET Solutions e quero saber mais sobre as vossas soluções de IA para negócios.',
+  message = 'Ola! Vi o site da CRSET Solutions e quero saber mais sobre as vossas solucoes de IA para negocios.',
   position = 'bottom-right',
   showOnScroll = true
 }: WhatsAppWidgetProps) {
@@ -60,18 +60,18 @@ export default function WhatsAppWidget({
               onClick={() => setIsExpanded(false)}
               className="text-gray-400 hover:text-gray-600 transition-colors"
             >
-              ✕
+              
             </button>
           </div>
           
           <div className="bg-gray-50 rounded-lg p-3 mb-3">
             <p className="text-sm text-gray-700 mb-2">
-              👋 Olá! Como podemos ajudar o teu negócio com IA?
+              � Ola! Como podemos ajudar o teu negocio com IA?
             </p>
             <div className="space-y-1 text-xs text-gray-600">
-              <div>🤖 Demonstração AGI gratuita</div>
-              <div>⚡ Resposta em 15 minutos</div>
-              <div>🇵🇹 Suporte em português</div>
+              <div>� Demonstracao AGI gratuita</div>
+              <div> Resposta em 15 minutos</div>
+              <div>�� Suporte em portugues</div>
             </div>
           </div>
           
@@ -90,12 +90,12 @@ export default function WhatsAppWidget({
               }
             }}
           >
-            💬 Iniciar Conversa
+            � Iniciar Conversa
           </a>
         </div>
       )}
 
-      {/* Botão principal */}
+      {/* Botao principal */}
       <div className="relative">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
@@ -111,12 +111,12 @@ export default function WhatsAppWidget({
           </svg>
         </button>
 
-        {/* Indicador de notificação */}
+        {/* Indicador de notificacao */}
         <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
           <span className="text-white text-xs font-bold">1</span>
         </div>
 
-        {/* Animação de pulso */}
+        {/* Animacao de pulso */}
         <div className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-20"></div>
       </div>
     </div>
