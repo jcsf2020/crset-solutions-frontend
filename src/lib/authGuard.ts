@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { verify } from "@/src/lib/jwt";
+import { verify } from "@/lib/jwt";
 
 export function bearerFrom(req: Request) {
   const h = req.headers.get("authorization") || "";
