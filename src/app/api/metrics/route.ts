@@ -119,3 +119,11 @@ export async function GET() {
     return NextResponse.json({ error: 'metrics_failed', detail: String(e?.message || e) }, { status: 500 });
   }
 }
+export async function POST(req: Request) {
+  try {
+    const data = await req.json().catch(() => ({}));
+    return NextResponse.json({ ok: true, received: data, ts: new Date().toISOString() }, { status: 200 });
+  } catch (e: any) {
+    return NextResponse.json({ ok: false, error: "metrics_post_failed", detail: String(e?.message || e) }, { status: 500 });
+  }
+}
