@@ -31,7 +31,7 @@ export default function Footer() {
         <div>
           <h4 className="text-sm font-semibold mb-3">Suporte</h4>
           <ul className="space-y-2 text-sm">
-            <li><a href="mailto:hello@crsetsolutions.com" className="hover:underline">hello@crsetsolutions.com</a></li>
+            <li><a href="mailto:crsetsolutions@gmail.com" className="hover:underline">crsetsolutions@gmail.com</a></li>
             <li><a href="#" className="hover:underline">Centro de ajuda</a></li>
           </ul>
         </div>

@@ -8,7 +8,7 @@ export default function Contact() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const to = "hello@crsetsolutions.com";
+    const to = "crsetsolutions@gmail.com";
     const subject = encodeURIComponent("Contato CRSET - " + name);
     const body = encodeURIComponent(
       `Nome: ${name}\nEmail: ${email}\n\nMensagem:\n${msg}`
