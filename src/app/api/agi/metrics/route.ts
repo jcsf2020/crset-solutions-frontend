@@ -25,7 +25,7 @@ export async function GET(){
     redis.hget<number>('metrics:agi:counters','err').then(v=>Number(v||0)),
   ]);
 
-  // Latências (últimas 1000)
+  // Latencias (ultimas 1000)
   const lat = (await redis.lrange<number>('metrics:agi:lat',0,999)).map(Number);
   const p95 = Math.round(pct(lat,95));
   const p99 = Math.round(pct(lat,99));

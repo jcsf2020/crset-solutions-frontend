@@ -16,7 +16,7 @@ export default function Gate({ children }: { children: React.ReactNode }) {
               style={{ width:'100%', padding:'10px', borderRadius:12, border:'1px solid #ddd' }}>
         Entrar
       </button>
-      <p style={{ opacity:.6, fontSize:12, marginTop:8 }}>Gate temporário • NEXT_PUBLIC_ADMIN_KEY.</p>
+      <p style={{ opacity:.6, fontSize:12, marginTop:8 }}>Gate temporario - NEXT_PUBLIC_ADMIN_KEY.</p>
     </main>
   );
 }

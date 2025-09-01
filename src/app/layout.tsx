@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import StickyCTA from "@/components/StickyCTA";
 import { Inter } from 'next/font/google'
@@ -122,6 +123,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}><Header />
         {children}
+        <Footer />
         <StickyCTA />
   </body>
     </html>

@@ -15,10 +15,10 @@ export default function NotFound() {
         {/* 404 Content */}
         <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 max-w-md mx-auto border border-white/20">
           <div className="text-6xl font-bold text-white mb-4">404</div>
-          <h2 className="text-2xl font-bold text-white mb-4">Página Não Encontrada</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">Pagina Nao Encontrada</h2>
           <p className="text-white/80 mb-8 leading-relaxed">
-            Oops! A página que procuras não existe ou foi movida. 
-            Que tal explorares as nossas soluções digitais inteligentes?
+            Oops! A pagina que procuras nao existe ou foi movida. 
+            Que tal explorares as nossas solucoes digitais inteligentes?
           </p>
 
           {/* Action Buttons */}
@@ -27,14 +27,14 @@ export default function NotFound() {
               href="/"
               className="block w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
             >
-              🏠 Voltar ao Início
+              �  Voltar ao Inicio
             </Link>
             
             <Link 
               href="/convite"
               className="block w-full bg-gradient-to-r from-orange-500 to-red-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105"
             >
-              🔥 Convite Beta Exclusivo
+               Convite Beta Exclusivo
             </Link>
             
             <Link 
@@ -43,7 +43,7 @@ export default function NotFound() {
               rel="noopener noreferrer"
               className="block w-full bg-gradient-to-r from-green-500 to-teal-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-green-600 hover:to-teal-700 transition-all duration-300 transform hover:scale-105"
             >
-              🤖 Ver Demo AGI
+              --- Ver Demo AGI
             </Link>
           </div>
 
@@ -57,13 +57,13 @@ export default function NotFound() {
                 rel="noopener noreferrer"
                 className="text-green-400 hover:text-green-300 transition-colors"
               >
-                📱 WhatsApp
+                + WhatsApp
               </a>
               <a 
                 href="mailto:crsetsolutions@gmail.com"
                 className="text-blue-400 hover:text-blue-300 transition-colors"
               >
-                📧 Email
+                S Email
               </a>
             </div>
           </div>
@@ -71,7 +71,7 @@ export default function NotFound() {
 
         {/* Footer */}
         <div className="mt-8 text-white/40 text-sm">
-          © 2025 CRSET Solutions • Soluções Digitais Inteligentes
+           2025 CRSET Solutions - Solucoes Digitais Inteligentes
         </div>
       </div>
     </div>

@@ -9,11 +9,11 @@ export default function PricingPage() {
       <h1 className="text-3xl font-bold">Planos</h1>
       <section className="border rounded-2xl p-6 space-y-4">
         <h2 className="text-xl font-semibold">CRSET Essencial</h2>
-        <p className="opacity-80">€197/mês</p>
+        <p className="opacity-80">EUR197/mes</p>
         {priceId ? (
           <BuyButton priceId={priceId} label="Comprar Essencial" />
         ) : (
-          <p className="text-red-600">PRICE não configurado.</p>
+          <p className="text-red-600">PRICE nao configurado.</p>
         )}
       </section>
     </main>

@@ -9,7 +9,7 @@ export default function SuccessPage() {
         <p className="opacity-80">Obrigado! Recebemos o teu pagamento.</p>
 
         <div className="flex gap-2">
-          <Link href="/start" className="px-4 py-3 rounded-xl bg-black text-white">Comecar</Link>
+          <Link href="/start" className="px-4 py-3 rounded-xl bg-black text-white text-white">Comecar</Link>
           <Link href="/" className="px-4 py-3 rounded-xl border">Voltar ao inicio</Link>
         </div>
       </section>

@@ -46,16 +46,16 @@ export default function StickyCTA() {
         <div className="flex items-center gap-2">
           <button
             onClick={gotoStart}
-            className="px-4 py-2 rounded-xl font-semibold text-white bg-black hover:bg-black/90 active:scale-[.99] transition"
+            className="btn-primary"
             data-cta="start-now"
           >
             Comecar agora
           </button>
           <a
-            href="https://wa.me/351000000000?text=Quero%20demo%20CRSET"
+            href="https://wa.me/351914423688?text=Quero%20demo%20CRSET"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 rounded-xl font-semibold border border-black/10 hover:bg-gray-50 transition"
+            className="btn-secondary"
             data-cta="whatsapp"
             aria-label="Falar no WhatsApp"
           >

@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
           amount_total: String(s.amount_total ?? 0), currency: s.currency ?? 'eur', created: String(s.created ?? 0),
         });
         if (customer) await redis?.sadd(`stripe:customer:${customer}:sessions`, s.id);
-        console.log('✅ checkout.session.completed', { id:s.id, customer, sub, amount_total:s.amount_total ?? null });
+        console.log(' checkout.session.completed', { id:s.id, customer, sub, amount_total:s.amount_total ?? null });
         break;
       }
       case 'customer.subscription.created':
@@ -41,21 +41,21 @@ export async function POST(req: NextRequest) {
           current_period_end: String(sub.current_period_end ?? 0), cancel_at_period_end: String(sub.cancel_at_period_end ?? false),
         });
         if (customer) await redis?.set(`stripe:customer:${customer}:active_sub`, sub.id);
-        console.log(`ℹ️ ${event.type}`, { id:sub.id, status:sub.status, price, current_period_end: sub.current_period_end });
+        console.log(` ${event.type}`, { id:sub.id, status:sub.status, price, current_period_end: sub.current_period_end });
         break;
       }
       case 'invoice.payment_failed': {
         const inv = event.data.object as Stripe.Invoice;
-        console.log('⚠️ invoice.payment_failed', { id: inv.id, customer: inv.customer });
+        console.log(' invoice.payment_failed', { id: inv.id, customer: inv.customer });
         break;
       }
       default:
-        console.log('➡️ Unhandled event', event.type);
+        console.log(' Unhandled event', event.type);
     }
 
     return NextResponse.json({ received: true });
   } catch (err: any) {
-    console.error('❌ Webhook error', err?.message || err);
+    console.error(' Webhook error', err?.message || err);
     return new NextResponse('Webhook error', { status: 400 });
   }
 }

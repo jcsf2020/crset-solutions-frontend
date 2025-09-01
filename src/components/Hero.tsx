@@ -1,30 +1,30 @@
-'use client';
-import Link from 'next/link';
+"use client";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="relative w-full py-16 md:py-24">
-      <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-3xl md:text-6xl font-semibold leading-tight">
-          Automacao real para PMEs.
-          <span className="block opacity-70">Converte leads. Fatura. Escala.</span>
-        </h1>
-        <p className="mt-4 text-base md:text-lg opacity-80">
-          CRSET Solutions - stack afiada para vender e operar, sem ruido.
-        </p>
-        <div className="hidden md:flex gap-3 mt-8">
-          <Link href="/start" className="px-5 py-3 rounded-xl bg-black text-white">
-            Comecar agora
-          </Link>
-          <Link href="/Precos" className="px-5 py-3 rounded-xl border">
-            Ver Precos
-          </Link>
-        </div>
+    <section className="relative bg-gradient-to-b from-white to-neutral-100 dark:from-black dark:to-neutral-900 py-20 text-center">
+      <h1 className="text-4xl md:text-6xl font-extrabold mb-6">
+        Automacao Inteligente para o Futuro
+      </h1>
+      <p className="max-w-2xl mx-auto text-lg md:text-xl text-neutral-600 dark:text-neutral-300 mb-10">
+        CRSET Solutions combina tecnologia de ponta com mascotes unicas para transformar negocios em experiencias inteligentes.
+      </p>
+      <div className="flex justify-center gap-8">
+        <Image src="/mascotes/oficiais/Boris.png" alt="Boris" width={200} height={200} className="rounded-xl" priority />
+        <Image src="/mascotes/oficiais/Laya.png" alt="Laya" width={200} height={200} className="rounded-xl" priority />
+        <Image src="/mascotes/oficiais/Irina.png" alt="Irina" width={200} height={200} className="rounded-xl" priority />
       </div>
-      {/* CTA fixo em mobile */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 border-t bg-white/80 backdrop-blur p-3 flex gap-2">
-        <Link href="/start" className="flex-1 px-4 py-3 rounded-lg bg-black text-white text-center">Comecar</Link>
-        <Link href="/Precos" className="flex-1 px-4 py-3 rounded-lg border text-center">Precos</Link>
+      <div className="mt-10">
+        <motion.a
+          href="#servicos"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="inline-block px-8 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition"
+        >
+          Explorar Servicos
+        </motion.a>
       </div>
     </section>
   );

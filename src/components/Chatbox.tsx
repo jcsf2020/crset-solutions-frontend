@@ -27,7 +27,7 @@ export default function Chatbox() {
       const text = await res.text();
       setMessages(prev => [...prev, { role: 'bot', text }]);
     } catch {
-      setMessages(prev => [...prev, { role: 'bot', text: '[Erro de ligação]' }]);
+      setMessages(prev => [...prev, { role: 'bot', text: '[Erro de ligacao]' }]);
     } finally {
       setLoading(false);
     }
@@ -50,7 +50,7 @@ export default function Chatbox() {
         ))}
         {messages.length === 0 && (
           <div className="text-center text-sm text-gray-500 py-8">
-            Envia a tua primeira mensagem…
+            Envia a tua primeira mensagem
           </div>
         )}
       </div>
@@ -68,7 +68,7 @@ export default function Chatbox() {
           disabled={loading}
           className="bg-blue-600 disabled:opacity-60 text-white px-3 py-1 rounded"
         >
-          {loading ? '…' : 'Enviar'}
+          {loading ? '' : 'Enviar'}
         </button>
       </div>
     </div>
