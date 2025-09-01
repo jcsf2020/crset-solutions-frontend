@@ -7,7 +7,7 @@ try {
   if (process.env.DISABLE_RL === '1' || !hasUpstash) {
     __RL_SAFE = { make: (_opts: any) => ({ limit: async () => ({ success: true, remaining: 999999 }) }) };
   } else {
-    // require dinâmico para não quebrar em edge se a lib não existir em build
+    // require dinamico para nao quebrar em edge se a lib nao existir em build
     const { Ratelimit } = require('@upstash/ratelimit');
     const { Redis } = require('@upstash/redis');
     const redis = Redis.fromEnv();
@@ -60,7 +60,7 @@ function baseHeaders(rid: string) {
   h.set('permissions-policy', 'camera=(), microphone=(), geolocation=()');
   return h;
 }
-// Upstash Redis opcional (não falha se faltar env)
+// Upstash Redis opcional (nao falha se faltar env)
 let redis: any = null;
 try { redis = Redis.fromEnv(); } catch { redis = null; }
 

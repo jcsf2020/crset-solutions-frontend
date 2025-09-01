@@ -31,7 +31,7 @@ async function fetchAll(): Promise<{ results: NotionPage[] } | null | { error: s
   let cursor: string | null = null;
   const results: NotionPage[] = [];
 
-  // Até 5 páginas de 100 = 500 itens máx (proteção de custo/latência)
+  // Ate 5 paginas de 100 = 500 itens max (protecao de custo/latencia)
   for (let i = 0; i < 5 && hasMore; i++) {
     const body: Record<string, any> = {
       page_size: 100,
@@ -117,5 +117,13 @@ export async function GET() {
     return NextResponse.json({ total, last24h, last7d, top_utm, by_day });
   } catch (e: any) {
     return NextResponse.json({ error: 'metrics_failed', detail: String(e?.message || e) }, { status: 500 });
+  }
+}
+export async function POST(req: Request) {
+  try {
+    const data = await req.json().catch(() => ({}));
+    return NextResponse.json({ ok: true, received: data, ts: new Date().toISOString() }, { status: 200 });
+  } catch (e: any) {
+    return NextResponse.json({ ok: false, error: "metrics_post_failed", detail: String(e?.message || e) }, { status: 500 });
   }
 }

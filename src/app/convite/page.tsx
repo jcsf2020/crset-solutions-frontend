@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 export default function ConvitePage() {
   useEffect(() => {
-    // Animação suave para os elementos
+    // Animacao suave para os elementos
     const cards = document.querySelectorAll('.glass-card')
     cards.forEach((card, index) => {
       const element = card as HTMLElement
@@ -18,7 +18,7 @@ export default function ConvitePage() {
       }, index * 200)
     })
 
-    // Tracking de cliques nos botões CTA
+    // Tracking de cliques nos botoes CTA
     const ctaButtons = document.querySelectorAll('.cta-button')
     ctaButtons.forEach(button => {
       button.addEventListener('click', function() {
@@ -28,7 +28,7 @@ export default function ConvitePage() {
     })
   }, [])
 
-  const whatsappLink = `https://wa.me/351914423688?text=${encodeURIComponent('Olá! Recebi o convite beta da CRSET Solutions e quero saber mais sobre o sistema AGI.')}`
+  const whatsappLink = `https://wa.me/351914423688?text=${encodeURIComponent('Ola! Recebi o convite beta da CRSET Solutions e quero saber mais sobre o sistema AGI.')}`
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -45,7 +45,7 @@ export default function ConvitePage() {
             
             <div className="flex space-x-4">
               <Link href="/" className="text-white hover:text-blue-300 transition-colors">
-                ← Voltar ao Site
+                 Voltar ao Site
               </Link>
             </div>
           </div>
@@ -60,12 +60,12 @@ export default function ConvitePage() {
               C
             </div>
             <div className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-2 rounded-full text-sm font-semibold mb-6 animate-pulse">
-              🔥 CONVITE EXCLUSIVO BETA
+               CONVITE EXCLUSIVO BETA
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
               Testa a Primeira IA<br />
               <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                Portuguesa para Negócios
+                Portuguesa para Negocios
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
@@ -77,7 +77,7 @@ export default function ConvitePage() {
 
         {/* Mascotes AGI */}
         <div className="glass-card mb-8">
-          <h2 className="text-3xl font-bold text-blue-400 mb-8 text-center">🤖 Conhece as Nossas Mascotes AGI</h2>
+          <h2 className="text-3xl font-bold text-blue-400 mb-8 text-center">--- Conhe\x{00E7}a as Nossas Mascotes AGI</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="crset-glass-card p-6 text-center hover:transform hover:-translate-y-2 transition-all duration-300">
               <div className="relative mb-4">
@@ -91,9 +91,9 @@ export default function ConvitePage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700 opacity-20 rounded-full blur-xl"></div>
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Boris</h3>
-              <p className="text-blue-300 font-semibold mb-2">Segurança & Automação</p>
+              <p className="text-blue-300 font-semibold mb-2">Seguran00e7a & Automacao</p>
               <p className="text-gray-300 text-sm">
-                Automatiza processos complexos e protege os teus sistemas com IA avançada.
+                Automatiza processos complexos e protege os teus sistemas com IA avancada.
               </p>
             </div>
             
@@ -109,9 +109,9 @@ export default function ConvitePage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-700 opacity-20 rounded-full blur-xl"></div>
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Laya</h3>
-              <p className="text-orange-300 font-semibold mb-2">Comunicação & Organização</p>
+              <p className="text-orange-300 font-semibold mb-2">Comunica00e700e3o & Organiza00e700e3o</p>
               <p className="text-gray-300 text-sm">
-                Organiza equipas, gere projetos e otimiza a comunicação digital.
+                Organiza equipas, gere projetos e otimiza a comunicacao digital.
               </p>
             </div>
             
@@ -129,7 +129,7 @@ export default function ConvitePage() {
               <h3 className="text-xl font-bold text-white mb-2">Irina</h3>
               <p className="text-purple-300 font-semibold mb-2">Analytics & Insights</p>
               <p className="text-gray-300 text-sm">
-                Analisa dados em tempo real e fornece insights estratégicos.
+                Analisa dados em tempo real e fornece insights estrategicos.
               </p>
             </div>
           </div>
@@ -137,34 +137,34 @@ export default function ConvitePage() {
 
         {/* O que podes testar */}
         <div className="glass-card mb-8">
-          <h2 className="text-3xl font-bold text-blue-400 mb-8 text-center">⚡ O que Podes Testar Agora</h2>
+          <h2 className="text-3xl font-bold text-blue-400 mb-8 text-center"> O que Podes Testar Agora</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="crset-glass-card p-6">
-              <div className="text-4xl mb-4">🚀</div>
+              
               <h3 className="text-lg font-bold text-white mb-2">Demo Interativa</h3>
               <p className="text-gray-300 text-sm">
-                Conversa diretamente com as mascotes AGI e vê como podem ajudar o teu negócio.
+                Conversa diretamente com as mascotes AGI e ve como podem ajudar o teu negocio.
               </p>
             </div>
             <div className="crset-glass-card p-6">
-              <div className="text-4xl mb-4">🎯</div>
-              <h3 className="text-lg font-bold text-white mb-2">Automação Personalizada</h3>
+              
+              <h3 className="text-lg font-bold text-white mb-2">Automacao Personalizada</h3>
               <p className="text-gray-300 text-sm">
-                Testa automações específicas para o teu sector de atividade.
+                Testa automacoes especificas para o teu sector de atividade.
               </p>
             </div>
             <div className="crset-glass-card p-6">
-              <div className="text-4xl mb-4">📈</div>
-              <h3 className="text-lg font-bold text-white mb-2">Análise de ROI</h3>
+              
+              <h3 className="text-lg font-bold text-white mb-2">Analise de ROI</h3>
               <p className="text-gray-300 text-sm">
-                Descobre quanto podes poupar e ganhar com a implementação da IA.
+                Descobre quanto podes poupar e ganhar com a implementacao da IA.
               </p>
             </div>
             <div className="crset-glass-card p-6">
-              <div className="text-4xl mb-4">🔒</div>
-              <h3 className="text-lg font-bold text-white mb-2">Segurança Garantida</h3>
+              
+              <h3 className="text-lg font-bold text-white mb-2">Seguran00e7a Garantida</h3>
               <p className="text-gray-300 text-sm">
-                Todos os dados são processados com máxima segurança e privacidade.
+                Todos os dados sao processados com maxima seguranca e privacidade.
               </p>
             </div>
           </div>
@@ -173,9 +173,9 @@ export default function ConvitePage() {
         {/* CTA Principal */}
         <div className="glass-card mb-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">🎁 Acesso Beta Gratuito</h2>
+            <h2 className="text-3xl font-bold text-white mb-4"> Acesso Beta Gratuito</h2>
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Sem custos, sem compromissos, sem cartão de crédito. 
+              Sem custos, sem compromissos, sem cartao de credito. 
               Apenas para empresas portuguesas selecionadas.
             </p>
             
@@ -186,7 +186,7 @@ export default function ConvitePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                🚀 Ativar Acesso Beta Agora
+                - Ativar Acesso Beta Agora
               </a>
               
               <a 
@@ -195,7 +195,7 @@ export default function ConvitePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                🤖 Ver Demo AGI Diretamente
+                --- Ver Demo AGI Diretamente
               </a>
             </div>
           </div>
@@ -204,8 +204,8 @@ export default function ConvitePage() {
         {/* Contacto Direto */}
         <div className="glass-card mb-8">
           <div className="bg-gradient-to-r from-green-500/20 to-green-600/20 rounded-2xl p-8 border border-green-500/30">
-            <h3 className="text-2xl font-bold text-white mb-4 text-center">💬 Contacto Direto com a Equipa</h3>
-            <p className="text-gray-300 text-center mb-6">Tens questões? Fala diretamente connosco!</p>
+            <h3 className="text-2xl font-bold text-white mb-4 text-center">- Contacto Direto com a Equipa</h3>
+            <p className="text-gray-300 text-center mb-6">Tens questoes? Fala diretamente connosco!</p>
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
               <a 
                 href={whatsappLink}
@@ -213,14 +213,14 @@ export default function ConvitePage() {
                 rel="noopener noreferrer"
                 className="cta-button inline-flex items-center space-x-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold transition-colors"
               >
-                <span>📱</span>
+                <span>+</span>
                 <span>WhatsApp: +351 914 423 688</span>
               </a>
               <a 
-                href="mailto:crsetsolutions@gmail.com?subject=Convite Beta - Questões sobre AGI Commander"
+                href="mailto:crsetsolutions@gmail.com?subject=Convite Beta - Questoes sobre AGI Commander"
                 className="cta-button inline-flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold transition-colors"
               >
-                <span>📧</span>
+                <span>S</span>
                 <span>crsetsolutions@gmail.com</span>
               </a>
             </div>
@@ -231,26 +231,26 @@ export default function ConvitePage() {
         <div className="glass-card mb-8">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="crset-glass-card p-6">
-              <div className="text-4xl mb-4">🔒</div>
+              
               <h3 className="text-lg font-bold text-white mb-2">100% Seguro</h3>
               <p className="text-gray-300 text-sm">
-                Os teus dados estão protegidos com encriptação SSL e nunca são partilhados.
+                Os teus dados estao protegidos com encriptacao SSL e nunca sao partilhados.
               </p>
             </div>
             
             <div className="crset-glass-card p-6">
-              <div className="text-4xl mb-4">⚡</div>
+              
               <h3 className="text-lg font-bold text-white mb-2">Acesso Imediato</h3>
               <p className="text-gray-300 text-sm">
-                Demo disponível instantaneamente após preenchimento do formulário.
+                Demo disponivel instantaneamente apos preenchimento do formulario.
               </p>
             </div>
             
             <div className="crset-glass-card p-6">
-              <div className="text-4xl mb-4">🇵🇹</div>
+              
               <h3 className="text-lg font-bold text-white mb-2">Empresa Portuguesa</h3>
               <p className="text-gray-300 text-sm">
-                Suporte em português e conhecimento do mercado nacional.
+                Suporte em portugues e conhecimento do mercado nacional.
               </p>
             </div>
           </div>
@@ -265,13 +265,13 @@ export default function ConvitePage() {
             <span className="text-xl font-bold text-white">CRSET Solutions</span>
           </div>
           <p className="text-gray-400 mb-2">
-            © 2025 CRSET Solutions. Todos os direitos reservados.
+             2025 CRSET Solutions. Todos os direitos reservados.
           </p>
           <p className="text-gray-500 text-sm mb-4">
-            Inteligência Artificial para Negócios • Portugal
+            Intelig00eancia Artificial para Negocios - Portugal
           </p>
           <p className="text-gray-500 text-xs">
-            Este convite é exclusivo e intransmissível. Válido até 31 de Agosto de 2025.
+            Este convite e exclusivo e intransmissivel. Valido ate 31 de Agosto de 2025.
           </p>
         </div>
       </div>
