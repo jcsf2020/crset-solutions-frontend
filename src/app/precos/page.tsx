@@ -1,8 +1,8 @@
-/* rota /precos */
-import Pricing from "@/components/Pricing";
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
-export const dynamic = "force-static";
+import Pricing from '@/components/Pricing';
 
-export default function Pre00e7osPage() {
+export default function Page() {
   return <Pricing />;
 }
