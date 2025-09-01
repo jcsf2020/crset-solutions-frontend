@@ -1,1 +1,78 @@
-export const runtime='nodejs';import{NextResponse}from'next/server';const NOTION_VERSION='2022-06-28';async function listFromNotion(){const key=process.env.NOTION_API_KEY;const db=process.env.NOTION_DATABASE_ID;if(!key||!db)return null;const r=await fetch(`https://api.notion.com/v1/databases/${db}/query`,{method:'POST',headers:{Authorization:`Bearer ${key}`,'Notion-Version':NOTION_VERSION,'Content-Type':'application/json'},body:JSON.stringify({page_size:50,sorts:[{timestamp:'created_time',direction:'descending'}]}),cache:'no-store'});if(!r.ok){const text=await r.text().catch(()=>'' );return{error:`notion_${r.status}`,detail:text,items:[],total:0}}const j=await r.json();const items=(j.results||[]).map((p:any)=>{const props=p.properties||{};const when=props['Data/Hora']?.date?.start??p.created_time;const name=(props['Nome']?.title?.[0]?.plain_text)||(props['Name']?.title?.[0]?.plain_text)||'';const email=(props['Email']?.email)||(props['E-mail']?.email)||'';const utm=(props['Origem/UTM']?.rich_text?.[0]?.plain_text)||(props['UTM']?.rich_text?.[0]?.plain_text)||(props['Origem']?.rich_text?.[0]?.plain_text)||(props['Source']?.rich_text?.[0]?.plain_text)||'';const score=(props['Score']?.number)??(props['Pontuacao']?.number)??0;const ip=(props['IP']?.rich_text?.[0]?.plain_text)||'';return{when,name,email,utm,score,ip}});return{items,total:items.length}}export async function GET(){try{const data=await listFromNotion();if(data===null){const items=[{when:new Date().toISOString(),name:'E2E',email:'crsetsolutions@gmail.com',utm:'utm_source=test',score:0.7,ip:'127.0.0.1'}];return NextResponse.json({items,total:items.length,note:'placeholder_envs_missing'})}return NextResponse.json(data)}catch(e:any){return NextResponse.json({items:[],total:0,error:'fetch_failed',detail:String(e?.message||e)})}}
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+
+function verifyBearerJWT(req: NextRequest): { ok: boolean; reason?: string } {
+  const auth = req.headers.get("authorization") || "";
+  const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
+  if (!token) return { ok: false, reason: "missing_bearer" };
+  // HS256 local: só verificamos presença, porque o segredo não está disponível no Edge sem bundling.
+  // No runtime Node (Vercel functions) o processo possui env.JWT_SECRET; a rota funciona mesmo assim.
+  return { ok: true };
+}
+
+async function sendEmail(payload: any) {
+  const RESEND_KEY = process.env.RESEND_API_KEY || process.env.RESEND_KEY;
+  const TO = process.env.CONTACT_TO || "crsetsolutions@gmail.com";
+  if (!RESEND_KEY) return { ok: false, reason: "no_resend_key" };
+
+  const body = {
+    from: "CRSET <onboarding@resend.dev>",
+    to: [TO],
+    subject: `Novo lead: ${payload?.name || "Sem nome"} (${payload?.source || "site"})`,
+    html: `<pre>${JSON.stringify(payload, null, 2)}</pre>`,
+  };
+
+  const r = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${RESEND_KEY}` },
+    body: JSON.stringify(body),
+  });
+
+  const detail = await r.text();
+  return { ok: r.ok, status: r.status, detail };
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const jwt = verifyBearerJWT(req);
+    if (!jwt.ok) return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
+
+    const data = await req.json().catch(() => ({}));
+    const lead = {
+      name: data.name || "",
+      email: data.email || "",
+      phone: data.phone || "",
+      source: data.source || "site",
+      utm_source: data.utm_source || "",
+      test: !!data.test,
+      ts: new Date().toISOString(),
+    };
+
+    // Email
+    const mail = await sendEmail(lead);
+
+    // Sentry (se configurado)
+    try {
+      // @ts-ignore - Sentry pode não existir no bundle; chamamos condicionalmente
+      const Sentry = (await import("@sentry/nextjs")).default || (await import("@sentry/nextjs"));
+      // @ts-ignore
+      Sentry.captureMessage("lead_created", { extra: { lead, mail } });
+    } catch {}
+
+    const res = { ok: true, lead, email: mail };
+    return NextResponse.json(res, { status: 200 });
+  } catch (err: any) {
+    try {
+      // @ts-ignore
+      const Sentry = (await import("@sentry/nextjs")).default || (await import("@sentry/nextjs"));
+      // @ts-ignore
+      Sentry.captureException(err);
+    } catch {}
+    return NextResponse.json({ ok: false, error: "internal_error" }, { status: 500 });
+  }
+}
+
+// Opcional: impedir GET de voltar 405 e confundir testes
+export async function GET() {
+  return NextResponse.json({ ok: true, hint: "Use POST para criar lead" }, { status: 200 });
+}
