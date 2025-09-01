@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
@@ -16,12 +17,14 @@ export default function Hero() {
         <Image src="/mascotes/oficiais/Irina.png" alt="Irina" width={200} height={200} className="rounded-xl" priority />
       </div>
       <div className="mt-10">
-        <a
+        <motion.a
           href="#servicos"
-          className="px-8 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="inline-block px-8 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition"
         >
           Explorar Servicos
-        </a>
+        </motion.a>
       </div>
     </section>
   );
