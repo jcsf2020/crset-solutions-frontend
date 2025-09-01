@@ -23,7 +23,7 @@ export default function BuyButton({ priceId, label = 'Assinar agora' }: Props) {
   return (
     <button
       onClick={go}
-      className="px-4 py-2 rounded-xl bg-black text-white hover:opacity-90 active:opacity-80"
+      className="px-4 py-2 rounded-xl bg-black text-white hover:opacity-90 active:opacity-80 text-white"
     >
       {label}
     </button>

@@ -17,7 +17,7 @@ export default function Header() {
         {/* Nav (desktop) */}
         <nav className="hidden md:flex gap-6 text-sm font-medium">
           <Link href="/servicos" className="hover:text-gray-900 transition">Servicos</Link>
-          <Link href="/precos" className="hover:text-gray-900 transition">Precos</Link>
+          <Link href="/precos" className="hover:text-gray-900 transition">Pre00e7os</Link>
           <Link href="/#contacto" className="hover:text-gray-900 transition">Equipa</Link>
           <Link href="/#contacto" className="hover:text-gray-900 transition">Contacto</Link>
         </nav>
@@ -44,9 +44,9 @@ export default function Header() {
         >
           <span className="sr-only">Menu</span>
           <div className="space-y-1.5">
-            <span className={`block h-0.5 w-5 bg-black transition ${open ? "rotate-45 translate-y-1.5" : ""}`}></span>
-            <span className={`block h-0.5 w-5 bg-black transition ${open ? "opacity-0" : ""}`}></span>
-            <span className={`block h-0.5 w-5 bg-black transition ${open ? "-rotate-45 -translate-y-1.5" : ""}`}></span>
+            <span className={`block h-0.5 w-5 bg-black transition ${open ?  text-white"rotate-45 translate-y-1.5" : ""}`}></span>
+            <span className={`block h-0.5 w-5 bg-black transition ${open ?  text-white"opacity-0" : ""}`}></span>
+            <span className={`block h-0.5 w-5 bg-black transition ${open ?  text-white"-rotate-45 -translate-y-1.5" : ""}`}></span>
           </div>
         </button>
       </div>
@@ -56,7 +56,7 @@ export default function Header() {
         <div className="md:hidden border-t border-gray-200">
           <div className="container-pro py-4 flex flex-col gap-4">
             <Link href="/servicos" onClick={() => setOpen(false)} className="text-base">Servicos</Link>
-            <Link href="/precos" onClick={() => setOpen(false)} className="text-base">Precos</Link>
+            <Link href="/precos" onClick={() => setOpen(false)} className="text-base">Pre00e7os</Link>
             <Link href="/#contacto" onClick={() => setOpen(false)} className="text-base">Equipa</Link>
             <Link href="/#contacto" onClick={() => setOpen(false)} className="text-base">Contacto</Link>
             <div className="pt-2 flex gap-3">

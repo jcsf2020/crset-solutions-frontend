@@ -99,7 +99,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
       {/* Discount Popup */}
       {showDiscount && (
-        <div className="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 text-white">
+        <div className="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-8 max-w-md w-full relative">
             <a href="/#contacto" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 text-lg rounded-lg transition-all duration-200 font-semibold">Comecar Agora </a>
             <a href="/#precos" className="border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white px-8 py-3 text-lg rounded-lg transition-all duration-200 font-semibold">Ver Preços </a>
@@ -111,7 +111,7 @@ export default function Home() {
       <section id="mascotes" className="relative z-10 px-6 py-20">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-white text-center mb-4">
-            Conhe00e7a as Nossas Mascotes
+            Conheça as Nossas Mascotes
           </h2>
           <p className="text-xl text-blue-100 text-center mb-16 max-w-4xl mx-auto">
             Cada mascote representa uma area de especializacao, trabalhando em conjunto para oferecer solucoes completas e personalizadas.
@@ -123,7 +123,7 @@ export default function Home() {
               <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-blue-400">
                 <Image
                   src="/boris_real.webp"
-                  alt="Boris - Especialista em Automao"
+                  alt="Boris - Especialista em Automacao"
                   width={128}
                   height={128}
                   className="w-full h-full object-cover"
@@ -141,14 +141,14 @@ export default function Home() {
               <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-orange-400">
                 <Image
                   src="/laya_real.webp"
-                  alt="Laya - Especialista em Comunica00e700e3o"
+                  alt="Laya - Especialista em Comunicação"
                   width={128}
                   height={128}
                   className="w-full h-full object-cover"
                 />
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">Laya</h3>
-              <p className="text-orange-300 font-semibold mb-4">Especialista em Comunica00e700e3o</p>
+              <p className="text-orange-300 font-semibold mb-4">Especialista em Comunicação</p>
               <p className="text-blue-100">
                 Organiza e otimiza a comunicacao digital da sua empresa
               </p>
@@ -159,14 +159,14 @@ export default function Home() {
               <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-purple-400">
                 <Image
                   src="/irina_real.webp"
-                  alt="Irina - Especialista em Seguran00e7a"
+                  alt="Irina - Especialista em Segurança"
                   width={128}
                   height={128}
                   className="w-full h-full object-cover"
                 />
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">Irina</h3>
-              <p className="text-purple-300 font-semibold mb-4">Especialista em Seguran00e7a</p>
+              <p className="text-purple-300 font-semibold mb-4">Especialista em Segurança</p>
               <p className="text-blue-100">
                 Protege os seus dados e fornece insights inteligentes
               </p>
@@ -178,9 +178,9 @@ export default function Home() {
       {/* AGI Commander Section */}
       <section id="agi-commander" className="relative z-10 px-6 py-20">
         <div className="max-w-7xl mx-auto text-center">
-          
+          <div className="text-6xl mb-6"></div>
           <h2 className="text-4xl font-bold text-white mb-4">AGI Commander</h2>
-          <h3 className="text-2xl text-blue-300 mb-8">Automacao com Intelig00eancia Artificial</h3>
+          <h3 className="text-2xl text-blue-300 mb-8">Automacao com Inteligência Artificial</h3>
           <p className="text-xl text-blue-100 mb-12 max-w-4xl mx-auto">
             Conversas inteligentes, mascotes personalizadas e decisoes automatizadas. A proxima geracao da tua empresa comeca aqui.
           </p>
@@ -198,7 +198,7 @@ export default function Home() {
                 />
               </div>
               <h4 className="text-xl font-bold text-white mb-2">Boris</h4>
-              <p className="text-blue-300 font-semibold mb-3">Seguran00e7a & Automacao</p>
+              <p className="text-blue-300 font-semibold mb-3">Segurança & Automacao</p>
               <p className="text-blue-100 text-sm">
                 Automatiza processos complexos, garante a seguranca dos sistemas e otimiza fluxos de trabalho com inteligencia artificial avancada.
               </p>
@@ -216,7 +216,7 @@ export default function Home() {
                 />
               </div>
               <h4 className="text-xl font-bold text-white mb-2">Laya</h4>
-              <p className="text-orange-300 font-semibold mb-3">Comunica00e700e3o & Organiza00e700e3o</p>
+              <p className="text-orange-300 font-semibold mb-3">Comunicação & Organização</p>
               <p className="text-blue-100 text-sm">
                 Organiza e otimiza a comunicacao digital, gere equipas remotas e coordena projetos com eficiencia maxima.
               </p>
@@ -242,7 +242,7 @@ export default function Home() {
           </div>
 
             <a href="/demo" target="_blank" rel="noopener" className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 text-lg mb-4">
-              - Ver Demonstra\x{00E7}\x{00E3}o AGI
+               Ver Demonstracao AGI
             </a>
           <p className="text-blue-300 text-sm">Abre numa nova janela - Sistema AGI em producao</p>
         </div>
@@ -251,7 +251,7 @@ export default function Home() {
       {/* Pricing Section */}
       <section id="precos" className="relative z-10 px-6 py-20">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-white text-center mb-4">Planos e Preos</h2>
+          <h2 className="text-4xl font-bold text-white text-center mb-4">Planos e Preços</h2>
           <p className="text-xl text-blue-100 text-center mb-16 max-w-4xl mx-auto">
             Escolha o plano ideal para o seu negocio. Solucoes flexiveis para todas as necessidades.
           </p>
@@ -422,7 +422,7 @@ export default function Home() {
           rel="noopener noreferrer"
           className="w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center text-white text-2xl shadow-lg transition-all duration-200 hover:scale-110"
         >
-          +
+          
         </a>
       </div>
     </div>

@@ -8,9 +8,9 @@ type Health = { ts:string; env:string; checks:{ name:string; url:string; ok:bool
 
 const LINKS = [
   { group: 'App', items: [
-    { label: 'Site (prod)', href: 'https://crsetsolutions.com' },
-    { label: '- Admin - Leads', href: '/admin' },
-    { label: '^ Admin - Metricas', href: '/admin/metrics' },
+    { label: ' Site (prod)', href: 'https://crsetsolutions.com' },
+    { label: ' Admin - Leads', href: '/admin' },
+    { label: ' Admin - Metricas', href: '/admin/metrics' },
   ]},
   { group: 'APIs', items: [
     { label: 'Leads API (FE)', href: '/api/leads' },
@@ -18,11 +18,11 @@ const LINKS = [
     { label: 'Health API (BE/Railway)', href: 'https://crset-api-production.up.railway.app/health' },
   ]},
   { group: 'Ops', items: [
-    { label: '- GitHub (frontend)', href: 'https://github.com/jcsf2020/crset-solutions-frontend' },
+    { label: ' GitHub (frontend)', href: 'https://github.com/jcsf2020/crset-solutions-frontend' },
     { label: ' Vercel - Project', href: 'https://vercel.com/joao-fonsecas-projects/crset-solutions-frontend' },
-    { label: '- Railway - API', href: 'https://crset-api-production.up.railway.app' },
-    { label: 'R Resend - Dashboard', href: 'https://resend.com/dashboard' },
-    { label: '- Notion - CRM DB', href: 'https://www.notion.so/24087471aef18008b409f2879db15cea?v=24087471aef181a09451000c88a156f9' },
+    { label: ' Railway - API', href: 'https://crset-api-production.up.railway.app' },
+    { label: ' Resend - Dashboard', href: 'https://resend.com/dashboard' },
+    { label: ' Notion - CRM DB', href: 'https://www.notion.so/24087471aef18008b409f2879db15cea?v=24087471aef181a09451000c88a156f9' },
   ]},
 ];
 

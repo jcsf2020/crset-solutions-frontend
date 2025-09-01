@@ -85,7 +85,7 @@ export default function Pricing() {
     <section className="py-14 md:py-20" data-hide-sticky-cta>
       <div className="container-pro">
         <header className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
-          <h1 className="text-3xl md:text-5xl font-semibold">Planos & Precos</h1>
+          <h1 className="text-3xl md:text-5xl font-semibold">Planos & Pre00e7os</h1>
           <p className="muted mt-3">
             Escolhe o plano certo para o teu momento. Upgrade facil quando estiveres pronto para escalar.
           </p>

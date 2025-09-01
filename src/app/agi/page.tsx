@@ -14,7 +14,7 @@ export default function AgiDocs() {
         'Para proteger: definir AGI_API_KEY e enviar Authorization: Bearer.'
       ),
       React.createElement('h2', { className: 'text-2xl font-semibold mt-4 mb-2' }, 'Health-check'),
-      React.createElement('pre', { className: 'whitespace-pre-wrap bg-black/30 p-3 rounded border border-white/10' },
+      React.createElement('pre', { className: 'whitespace-pre-wrap bg-black/30 p-3 rounded border border-white/10' }, text-white
         'curl -s https://crsetsolutions.com/api/agi/status'
       ),
       React.createElement('h2', { className: 'text-2xl font-semibold mt-4 mb-2' }, 'POST /api/agi/chat'),
@@ -25,7 +25,7 @@ export default function AgiDocs() {
         React.createElement('li', null, 'X-Agi-Error: erro do upstream (quando existir)')
       ),
       React.createElement('h3', { className: 'text-xl font-semibold mt-4 mb-2' }, 'Exemplo cURL'),
-      React.createElement('pre', { className: 'whitespace-pre-wrap bg-black/30 p-3 rounded border border-white/10' },
+      React.createElement('pre', { className: 'whitespace-pre-wrap bg-black/30 p-3 rounded border border-white/10' }, text-white
         "curl -i -X POST https://crsetsolutions.com/api/agi/chat \\\n  -H 'content-type: application/json' \\\n  -d '{\"agent\":\"boris\",\"input\":\"diagnostico rapido\",\"sessionId\":\"t1\"}'"
       ),
       React.createElement('p', { className: 'text-blue-300 mt-6' },

@@ -27,7 +27,7 @@ export default function NotFound() {
               href="/"
               className="block w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
             >
-              Â  Voltar ao Inicio
+               Voltar ao Inicio
             </Link>
             
             <Link 
@@ -43,7 +43,7 @@ export default function NotFound() {
               rel="noopener noreferrer"
               className="block w-full bg-gradient-to-r from-green-500 to-teal-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-green-600 hover:to-teal-700 transition-all duration-300 transform hover:scale-105"
             >
-              --- Ver Demo AGI
+               Ver Demo AGI
             </Link>
           </div>
 
@@ -57,13 +57,13 @@ export default function NotFound() {
                 rel="noopener noreferrer"
                 className="text-green-400 hover:text-green-300 transition-colors"
               >
-                + WhatsApp
+                 WhatsApp
               </a>
               <a 
                 href="mailto:crsetsolutions@gmail.com"
                 className="text-blue-400 hover:text-blue-300 transition-colors"
               >
-                S Email
+                 Email
               </a>
             </div>
           </div>

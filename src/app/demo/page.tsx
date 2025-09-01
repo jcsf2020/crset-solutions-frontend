@@ -49,7 +49,7 @@ export default function Demo() {
       <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
         <div className="flex items-center justify-between mb-2">
           <h1 className="text-3xl font-bold">AGI Commander - Demo</h1>
-          <span className="text-sm px-2 py-1 rounded bg-black/30 border border-white/10">
+          <span className="text-sm px-2 py-1 rounded bg-black/30 border border-white/10 text-white">
             backend: {backend || '-'}
           </span>
         </div>
@@ -60,7 +60,7 @@ export default function Demo() {
           <select value={agent} onChange={e => setAgent(e.target.value as any)}
                   className="bg-white/10 border border-white/20 rounded-lg p-2">
             <option value="boris">Boris (Automacao)</option>
-            <option value="laya">Laya (Comunicacao)</option>
+            <option value="laya">Laya (Comunica00e700e3o)</option>
             <option value="irina">Irina (Analytics)</option>
           </select>
         </div>
@@ -87,7 +87,7 @@ export default function Demo() {
 
         <div className="mt-6">
           <div className="text-blue-300 mb-2">Resposta</div>
-          <pre className="whitespace-pre-wrap bg-black/30 p-4 rounded-lg border border-white/10 min-h-[96px]">
+          <pre className="whitespace-pre-wrap bg-black/30 p-4 rounded-lg border border-white/10 min-h-[96px] text-white">
             {answer || '-'}
           </pre>
         </div>

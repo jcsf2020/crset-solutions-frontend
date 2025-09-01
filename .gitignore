@@ -112,3 +112,5 @@ stripe_webhook_secret.live.bak.txt
 
 # backups locais
 *.bak.*
+
+.vercel

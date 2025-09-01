@@ -17,7 +17,7 @@ export default function Features() {
       desc: "Conecta com CRM, ecom e ferramentas da tua stack.",
     },
     {
-      title: "Seguranca Enterprise",
+      title: "Seguran00e7a Enterprise",
       desc: "SSO, SLA e boas praticas para garantir confianca.",
     },
   ];

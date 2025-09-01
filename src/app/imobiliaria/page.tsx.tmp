@@ -10,9 +10,9 @@ export default function Imobiliaria() {
 
       <ul style={{marginTop:16,lineHeight:'1.8'}}>
         <li> Resposta imediata a leads (Web/WhatsApp).</li>
-        <li>--" Agendamento de visitas (Calendly/Google Calendar).</li>
-        <li>Å  Registo em Sheet + metricas de conversao.</li>
-        <li>! GDPR: consentimento + opt-out simples.</li>
+        <li> Agendamento de visitas (Calendly/Google Calendar).</li>
+        <li> Registo em Sheet + metricas de conversao.</li>
+        <li> GDPR: consentimento + opt-out simples.</li>
       </ul>
 
       <div style={{marginTop:24,display:'flex',gap:12,flexWrap:'wrap'}}>

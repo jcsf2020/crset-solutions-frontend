@@ -5,7 +5,6 @@ function verifyBearerJWT(req: NextRequest): { ok: boolean; reason?: string } {
   const auth = req.headers.get("authorization") || "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
   if (!token) return { ok: false, reason: "missing_bearer" };
-  // HS256 local: só verificamos presença, porque o segredo não está disponível no Edge sem bundling.
   // No runtime Node (Vercel functions) o processo possui env.JWT_SECRET; a rota funciona mesmo assim.
   return { ok: true };
 }
@@ -53,7 +52,6 @@ export async function POST(req: NextRequest) {
 
     // Sentry (se configurado)
     try {
-      // @ts-ignore - Sentry pode não existir no bundle; chamamos condicionalmente
       const Sentry = (await import("@sentry/nextjs")).default || (await import("@sentry/nextjs"));
       // @ts-ignore
       Sentry.captureMessage("lead_created", { extra: { lead, mail } });
