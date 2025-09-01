@@ -1,31 +1,22 @@
-'use client';
+import Link from "next/link";
 
-type Props = { priceId: string; label?: string };
+type Props = {
+  href: string;
+  label: string;
+  variant?: "primary" | "secondary";
+  className?: string;
+};
 
-export default function BuyButton({ priceId, label = 'Assinar agora' }: Props) {
-  async function go() {
-    try {
-      const r = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ priceId }),
-      });
-      const j = await r.json();
-      if (j?.url) {
-        window.location.assign(j.url);
-      } else {
-        alert('Falha no checkout: ' + (j?.error || r.status));
-      }
-    } catch (e: any) {
-      alert('Erro de rede: ' + (e?.message || e));
-    }
-  }
+export default function BuyButton({ href, label, variant = "primary", className = "" }: Props) {
+  const base =
+    "inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2";
+  const styles =
+    variant === "primary"
+      ? "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"
+      : "border border-blue-600 text-blue-700 hover:bg-blue-50 focus:ring-blue-500";
   return (
-    <button
-      onClick={go}
-      className="px-4 py-2 rounded-xl bg-black text-white hover:opacity-90 active:opacity-80 text-white"
-    >
+    <Link href={href} className={`${base} ${styles} ${className}`}>
       {label}
-    </button>
+    </Link>
   );
 }
