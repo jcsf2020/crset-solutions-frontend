@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from 'next'
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -125,6 +126,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <StickyCTA />
+    <SpeedInsights />
   </body>
     </html>
   )

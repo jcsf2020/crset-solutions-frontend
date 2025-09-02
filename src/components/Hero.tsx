@@ -18,7 +18,7 @@ export default function Hero() {
       </div>
       <div className="mt-10">
         <motion.a
-          href="#servicos"
+          href="/servicos"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="inline-block px-8 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition"

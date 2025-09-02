@@ -3,6 +3,7 @@ import Testimonials from "@/components/Testimonials";
 import Hero from "@/components/Hero";
 import ClientPageRoot from './ClientPageRoot';
 import HomeCTAs from "./_components/HomeCTAs";
+import Pricing from "@/components/Pricing";
 
 export default function Page() {
   return (
