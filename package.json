@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "export": "next build && next export",
-    "deploy": "bash scripts/guard-prod.sh && vercel --prod"
+    "deploy": "bash scripts/guard-prod.sh && vercel --prod",
+    "rollback": "vercel alias set \\ crsetsolutions.com --scope joao-fonsecas-projects"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.7.0",
