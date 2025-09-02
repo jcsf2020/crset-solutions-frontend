@@ -59,8 +59,8 @@ export default function Demo() {
           <label className="text-blue-200">Agente</label>
           <select value={agent} onChange={e => setAgent(e.target.value as any)}
                   className="bg-white/10 border border-white/20 rounded-lg p-2">
-            <option value="boris">Boris (Automacao)</option>
-            <option value="laya">Laya (Comunica00e700e3o)</option>
+            <option value="boris">Boris (Automação)</option>
+            <option value="laya">Laya (Comunicação)</option>
             <option value="irina">Irina (Analytics)</option>
           </select>
         </div>

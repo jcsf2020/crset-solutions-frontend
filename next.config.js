@@ -2,9 +2,9 @@
 const nextConfig = {
   trailingSlash: false,
   images: {
-    unoptimized: true,
-    domains: ['localhost', 'crsetsolutions.com'],
-  },
+    unoptimized: false,
+    formats: ["image/avif","image/webp"],
+    minimumCacheTTL: 31536000,  },
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -59,3 +59,19 @@ module.exports = withSentryConfig(
     automaticVercelMonitors: true,
   }
 );
+
+// CSP headers
+const securityHeaders = [
+  {
+    key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: vercel.live cdn.vercel-insights.com www.googletagmanager.com snap.licdn.com va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self'; connect-src 'self' https: ws: wss:; frame-src 'self' https:; worker-src 'self' blob:; object-src 'none';",
+  },
+];
+
+module.exports.headers = async () => {
+  return [
+    {
+      source: "/(.*)",
+      headers: securityHeaders,
+    },
+  ];
+};

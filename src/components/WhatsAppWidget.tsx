@@ -10,7 +10,7 @@ interface WhatsAppWidgetProps {
 
 export default function WhatsAppWidget({ 
   phoneNumber = '351914423688',
-  message = 'Ola! Vi o site da CRSET Solutions e quero saber mais sobre as vossas solucoes de IA para negocios.',
+  message = 'Ola! Vi o site da CRSET Solutions e quero saber mais sobre as vossas soluções de IA para negócios.',
   position = 'bottom-right',
   showOnScroll = true
 }: WhatsAppWidgetProps) {

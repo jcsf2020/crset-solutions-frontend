@@ -1,3 +1,4 @@
+import CookieConsentBanner from "@/components/CookieConsentBanner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from 'next'
 import Footer from "@/components/Footer";
@@ -9,9 +10,9 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'CRSET Solutions - Solucoes Digitais Inteligentes',
-  description: 'Solucoes digitais personalizadas com as nossas mascotes especializadas: Boris, Laya e Irina. Automatizacao, organizacao e insights para o seu sucesso.',
-  keywords: 'desenvolvimento web, aplicacoes mobile, automacao, e-commerce, solucoes cloud, consultoria tech, IA, inteligencia artificial, mascotes digitais',
+  title: 'CRSET Solutions - Soluções Digitais Inteligentes',
+  description: 'Soluções digitais personalizadas com as nossas mascotes especializadas: Boris, Laya e Irina. Automatização, organização e insights para o seu sucesso.',
+  keywords: 'desenvolvimento web, aplicacoes mobile, automação, e-commerce, soluções cloud, consultoria tech, IA, inteligência artificial, mascotes digitais',
   authors: [{ name: 'CRSET Solutions' }],
   metadataBase: new URL('https://crsetsolutions.com'),
   alternates: {
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: 'CRSET Solutions - Solucoes Digitais Inteligentes',
+    title: 'CRSET Solutions - Soluções Digitais Inteligentes',
     description: 'Transforme o seu negocio com tecnologia inteligente. Boris, Laya e Irina trabalham para o seu sucesso.',
     url: 'https://crsetsolutions.com',
     siteName: 'CRSET Solutions',
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CRSET Solutions - Solucoes Digitais Inteligentes',
+    title: 'CRSET Solutions - Soluções Digitais Inteligentes',
     description: 'Transforme o seu negocio com tecnologia inteligente',
     images: ['https://crsetsolutions.com/images/social-share-1200x630.jpg?v=202508252240'],
   },
@@ -127,7 +128,8 @@ export default function RootLayout({
         <Footer />
         <StickyCTA />
     <SpeedInsights />
-  </body>
+    <CookieConsentBanner />
+</body>
     </html>
   )
 }

@@ -1,10 +1,10 @@
 export function t(k: string): string {
   const dict: Record<string, string> = {
     // Hero
-    hero_title: "Automacao Inteligente para o Futuro",
+    hero_title: "Automação Inteligente para o Futuro",
     hero_subtitle:
-      "CRSET Solutions combina tecnologia de ponta com mascotes unicas para transformar negocios em experiencias inteligentes.",
-    cta_explorar: "Ver Servicos",
+      "CRSET Solutions combina tecnologia de ponta com mascotes únicas para transformar negócios em experiências inteligentes.",
+    cta_explorar: "Ver Serviços",
 
     // Planos
     plans_title: "Planos e Pre\u00E7os",
