@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
-  // ==== GATE AGI ====
+  // ==== GATE AGI ==== (so aplica em rotas /api/agi/*)
   const gateOn = ((process.env.AGI_GATE === 'true') || !!process.env.AGI_TEST_KEY) && (process.env.AGI_MW_GATE === 'on');
   if (gateOn && path.startsWith('/api/agi/')) {
     const auth = req.headers.get('authorization') ?? '';
@@ -34,5 +34,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/:path*'],
+  matcher: ['/api/:path*', '/admin/:path*'],
 };
