@@ -123,6 +123,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}><Header />
         {children}
+        <span className="hidden" data-b="pub-open-1"></span>
         <Footer />
         <StickyCTA />
   </body>
