@@ -130,7 +130,7 @@ export default function RootLayout({
         <Footer />
         <StickyCTA />
     
-    {process.env.NODE_ENV === "production" && <CookieConsentBanner />}
+    {process.env.NODE_ENV === "production" && }
 </body>
     </html>
   )
