@@ -1,21 +1,23 @@
 export function t(k: string): string {
   const dict: Record<string, string> = {
     // Hero
-    hero_title: "Automa\u00E7\u00E3o Inteligente para o Futuro",
-    hero_subtitle: "CRSET Solutions combina tecnologia de ponta com mascotes \u00FAnicas para transformar neg\u00F3cios em experi\u00EAncias inteligentes.",
-    cta_explorar: "Ver Servi\u00E7os",
+    hero_title: "Automacao Inteligente para o Futuro",
+    hero_subtitle:
+      "CRSET Solutions combina tecnologia de ponta com mascotes unicas para transformar negocios em experiencias inteligentes.",
+    cta_explorar: "Ver Servicos",
 
     // Planos
     plans_title: "Planos e Pre\u00E7os",
-    plans_subtitle: "Escolhe o plano certo para o teu momento. Upgrade f\u00E1cil quando estiveres pronto para escalar.",
+    plans_subtitle:
+      "Escolhe o plano certo para o teu momento. Upgrade facil quando estiveres pronto para escalar.",
     plan_starter: "Starter",
-    plan_starter_desc: "Landing + capta\u00E7\u00E3o para validar canal.",
+    plan_starter_desc: "Landing + captacao para validar canal.",
     plan_starter_price: "49 EUR/m\u00EAs",
     plan_growth: "Growth",
-    plan_growth_desc: "Stack para escalar aquisi\u00E7\u00E3o e opera\u00E7\u00E3o.",
+    plan_growth_desc: "Stack para escalar aquisicao e operacao.",
     plan_growth_price: "149 EUR/m\u00EAs",
     plan_scale: "Scale",
-    plan_scale_desc: "Projeto sob medida com roadmap cont\u00EDnuo.",
+    plan_scale_desc: "Projeto sob medida com roadmap continuo.",
     plan_scale_price: "Sob consulta",
     no_lockin: "sem fideliza\u00E7\u00E3o",
     cta_start_now: "Come\u00E7ar agora",
@@ -23,7 +25,8 @@ export function t(k: string): string {
 
     // Resultados / testemunhos
     results_title: "Resultados consistentes, sem ru\u00EDdo",
-    results_subtitle: "Sec\u00E7\u00E3o de testemunhos em revis\u00E3o. Sem claims at\u00E9 valida\u00E7\u00E3o.",
+    results_subtitle:
+      "Sec\u00E7\u00E3o de testemunhos em revis\u00E3o. Sem claims at\u00E9 valida\u00E7\u00E3o.",
     testimonial_placeholder: "\u2014 Em revis\u00E3o \u2014",
 
     // Admin login
@@ -42,7 +45,15 @@ export function t(k: string): string {
     admin_metric_24h: "24h",
     admin_metric_7d: "7d",
     export_csv: "Exportar CSV",
-    view_json: "Ver JSON"
+    view_json: "Ver JSON",
+
+    // Footer
+    footer_tagline: "Solu\u00E7\u00F5es digitais inteligentes para captar, organizar e escalar.",
+    footer_product: "Produto",
+    footer_support: "Suporte",
+    footer_rights: "Todos os direitos reservados.",
+    help_center: "Centro de ajuda",
+    plans_services: "Servi\u00E7os"
   };
   return dict[k] ?? k;
 }

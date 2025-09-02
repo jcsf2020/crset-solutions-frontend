@@ -1,5 +1,4 @@
 import { t } from "@/lib/i18n";
-
 export default function Testimonials() {
   return (
     <section className="py-12">

@@ -1,49 +1,31 @@
-"use client";
-
 import Link from "next/link";
+import { t } from "@/lib/i18n";
 
 export default function Footer() {
   return (
-    <footer className="mt-16 border-t border-black/10 bg-white/90 backdrop-blur" data-hide-sticky-cta>
-      <div className="container-pro py-10 grid gap-8 md:grid-cols-4">
-        <div className="space-y-2">
-          <h3 className="text-lg font-semibold">CRSET Solutions</h3>
-          <p className="muted text-sm">Solucoes digitais inteligentes para captar, organizar e escalar.</p>
-        </div>
-
+    <footer className="border-t bg-gradient-to-r from-gray-50 to-gray-100 text-sm">
+      <div className="max-w-6xl mx-auto px-4 py-8 grid md:grid-cols-3 gap-8">
         <div>
-          <h4 className="text-sm font-semibold mb-3">Produto</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/start" className="hover:underline">Comecar</Link></li>
-            <li><Link href="/precos" className="hover:underline">Pre00e7os</Link></li>
-            <li><a href="/servicos" className="hover:underline">Servicos</a></li>
+          <h3 className="font-semibold">CRSET Solutions</h3>
+          <p className="text-gray-600">{t("footer_tagline")}</p>
+        </div>
+        <div>
+          <h4 className="font-semibold mb-2">{t("footer_product")}</h4>
+          <ul className="space-y-1">
+            <li><Link href="/servicos" className="hover:underline">{t("plans_services")}</Link></li>
+            <li><Link href="/precos" className="hover:underline">{t("plans_title")}</Link></li>
           </ul>
         </div>
-
         <div>
-          <h4 className="text-sm font-semibold mb-3">Empresa</h4>
-          <ul className="space-y-2 text-sm">
-            <li><a href="/#contacto" className="hover:underline">Equipa</a></li>
-            <li><a href="#contacto" className="hover:underline">Contacto</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="text-sm font-semibold mb-3">Suporte</h4>
-          <ul className="space-y-2 text-sm">
-            <li><a href="mailto:crsetsolutions@gmail.com" className="hover:underline">crsetsolutions@gmail.com</a></li>
-            <li><a href="#" className="hover:underline">Centro de ajuda</a></li>
+          <h4 className="font-semibold mb-2">{t("footer_support")}</h4>
+          <ul className="space-y-1">
+            <li><a className="hover:underline" href="mailto:crsetsolutions@gmail.com">crsetsolutions@gmail.com</a></li>
+            <li><Link href="/centro-de-ajuda" className="hover:underline">{t("help_center")}</Link></li>
           </ul>
         </div>
       </div>
-
-      <div className="container-pro py-6 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="muted text-xs"> ${new Date().getFullYear()} CRSET Solutions. Todos os direitos reservados.</p>
-        <div className="flex items-center gap-4 text-xs">
-          <a href="#" className="hover:underline">Termos</a>
-          <a href="#" className="hover:underline">Privacidade</a>
-          <a href="https://wa.me/351914423688?text=Quero%20demo%20CRSET" target="_blank" rel="noopener noreferrer" className="btn-secondary px-3 py-1.5">WhatsApp</a>
-        </div>
+      <div className="border-t text-center py-4 text-gray-500">
+        (c) 2025 CRSET Solutions. {t("footer_rights")}  -  <a href="/termos" className="underline mr-3">Termos</a><a href="/privacidade" className="underline">Privacidade</a>
       </div>
     </footer>
   );
