@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export"
+    "export": "next build && next export",
+    "deploy": "bash scripts/guard-prod.sh && vercel --prod"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.7.0",
