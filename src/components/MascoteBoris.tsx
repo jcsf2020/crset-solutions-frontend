@@ -14,7 +14,7 @@ export default function MascoteBoris() {
         blurDataURL="/mascotes/oficiais/boris_variacao_1/Boris_variacao_1-w200.webp"
         priority
       />
-      <p className="mt-4 text-lg font-semibold">Boris — Automação</p>
+      <p className="mt-4 text-lg font-semibold">Boris - Automação</p>
     </div>
   );
 }

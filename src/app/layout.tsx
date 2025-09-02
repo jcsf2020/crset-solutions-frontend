@@ -1,5 +1,7 @@
+import React from "react";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SpeedInsights as RealSpeedInsights } from "@vercel/speed-insights/next";
+const SpeedInsights:any = process.env.NODE_ENV === 'production' ? RealSpeedInsights : (() => null);
 import type { Metadata } from 'next'
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -69,7 +71,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="pt">
@@ -127,8 +129,8 @@ export default function RootLayout({
         {children}
         <Footer />
         <StickyCTA />
-    <SpeedInsights />
-    <CookieConsentBanner />
+    
+    {process.env.NODE_ENV === "production" && <CookieConsentBanner />}
 </body>
     </html>
   )
