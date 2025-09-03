@@ -12,9 +12,9 @@ export default function Hero() {
         CRSET Solutions combina tecnologia de ponta com mascotes únicas para transformar negócios em experiências inteligentes.
       </p>
       <div className="flex justify-center gap-8">
-        <Image unoptimized src="/mascotes/oficiais/boris_variacao_1/boris_variacao_1-w200.webp" alt="Boris" unoptimized width={200} height={200} className="rounded-xl" priority />
-        <Image unoptimized src="/mascotes/oficiais/laya_variacao_1/laya_variacao_1-w200.webp" alt="Laya" width={200} height={200} className="rounded-xl" priority />
-        <Image unoptimized src="/mascotes/oficiais/irina_variacao_1/irina_variacao_1-w200.webp" alt="Irina" width={200} height={200} className="rounded-xl" priority />
+        <Image unoptimized unoptimized src="/mascotes/oficiais/boris_variacao_1/boris_variacao_1-w200.webp" alt="Boris" unoptimized width={200} height={200} className="rounded-xl" priority />
+        <Image unoptimized unoptimized src="/mascotes/laya.png" alt="Laya" width={200} height={200} className="rounded-xl" priority />
+        <Image unoptimized unoptimized src="/mascotes/irina.png" alt="Irina" width={200} height={200} className="rounded-xl" priority />
       </div>
       <div className="mt-10">
         <motion.a
