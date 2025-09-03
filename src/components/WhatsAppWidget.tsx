@@ -71,7 +71,7 @@ export default function WhatsAppWidget({
             <div className="space-y-1 text-xs text-gray-600">
               <div>--- Demonstracao AGI gratuita</div>
               <div> Resposta em 15 minutos</div>
-              <div>  Suporte em portugu\x{00EA}s</div>
+              <div>  Suporte em portugu00EAs</div>
             </div>
           </div>
           
