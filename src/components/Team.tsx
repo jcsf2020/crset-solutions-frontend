@@ -2,9 +2,9 @@
 
 export default function Team(){
   const members=[
-    {name:"Boris",role:"Segurança & Automação",img:"/mascotes/boris.png",pitch:"Robusto, confiavel, sem drama."},
-    {name:"Laya",role:"Comunicação & UX",img:"/mascotes/laya.png",pitch:"Clareza de experiencia e copy."},
-    {name:"Irina",role:"Analytics "Analytics & Insights" Insights",img:"/mascotes/irina.png",pitch:"Dados que guiam decisoes."}
+    {name:"Boris",role:"Segurança & Automação",img:"/mascotes/oficiais/boris_variacao_1/boris_variacao_1-w200.webp",pitch:"Robusto, confiavel, sem drama."},
+    {name:"Laya",role:"Comunicação & UX",img:"/mascotes/oficiais/laya_variacao_1/laya_variacao_1-w200.webp",pitch:"Clareza de experiencia e copy."},
+    {name:"Irina",role:"Analytics "Analytics & Insights" Insights",img:"/mascotes/oficiais/irina_variacao_1/irina_variacao_1-w200.webp",pitch:"Dados que guiam decisoes."}
   ];
   return (
     <section id="equipa" className="py-14 md:py-20" aria-label="Equipa CRSET">
