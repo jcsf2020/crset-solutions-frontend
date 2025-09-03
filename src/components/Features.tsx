@@ -5,7 +5,7 @@ import { CheckCircle } from "lucide-react";
 export default function Features() {
   const items = [
     {
-      title: "Automacao Inteligente",
+      title: "Automação Inteligente",
       desc: "Fluxos que poupam horas com integracoes sem friccao.",
     },
     {
@@ -17,13 +17,13 @@ export default function Features() {
       desc: "Conecta com CRM, ecom e ferramentas da tua stack.",
     },
     {
-      title: "Seguran00e7a Enterprise",
+      title: "Segurança Enterprise",
       desc: "SSO, SLA e boas praticas para garantir confianca.",
     },
   ];
 
   return (
-    <section id="servicos" className="py-14 md:py-20 bg-gray-50" aria-label="Principais features">
+    <section id="serviços" className="py-14 md:py-20 bg-gray-50" aria-label="Principais features">
       <div className="container-pro">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">

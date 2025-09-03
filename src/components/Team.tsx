@@ -2,16 +2,16 @@
 
 export default function Team(){
   const members=[
-    {name:"Boris",role:"Seguran00e7a & Automacao",img:"/mascotes/boris.png",pitch:"Robusto, confiavel, sem drama."},
-    {name:"Laya",role:"Comunica00e700e3o & UX",img:"/mascotes/laya.png",pitch:"Clareza de experiencia e copy."},
-    {name:"Irina",role:"Analytics "Analytics & Insights" Insights",img:"/mascotes/irina.png",pitch:"Dados que guiam decisoes."}
+    {name:"Boris",role:"Segurança & Automação",img:"/mascotes/oficiais/boris_variacao_1/boris_variacao_1-w200.webp",pitch:"Robusto, confiavel, sem drama."},
+    {name:"Laya",role:"Comunicação & UX",img:"/mascotes/oficiais/laya_variacao_1/laya_variacao_1-w200.webp",pitch:"Clareza de experiencia e copy."},
+    {name:"Irina",role:"Analytics & Insights",img:"/mascotes/oficiais/irina_variacao_1/irina_variacao_1-w200.webp",pitch:"Dados que guiam decisoes."}
   ];
   return (
     <section id="equipa" className="py-14 md:py-20" aria-label="Equipa CRSET">
       <div className="container-pro">
         <div className="mb-10 text-center">
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">A equipa por tras dos resultados</h2>
-          <p className="muted mt-2 max-w-prose mx-auto">Mascotes especialistas focadas em seguranca, comunicacao e dados.</p>
+          <p className="muted mt-2 max-w-prose mx-auto">Mascotes especialistas focadas em segurança, comunicação e dados.</p>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
           {members.map((m)=>(
