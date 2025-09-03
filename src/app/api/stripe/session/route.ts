@@ -1,32 +1,47 @@
-export const runtime = 'nodejs';
-import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
+import { NextResponse } from "next/server";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2024-06-20' });
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get('id') || searchParams.get('session_id');
-  if (!id) return NextResponse.json({ error: 'missing session id' }, { status: 400 });
-
+export async function GET(req: Request) {
   try {
-    const sess = await stripe.checkout.sessions.retrieve(id, { expand: ['customer', 'subscription'] });
-    const sub = typeof sess.subscription === 'string' ? null : (sess.subscription ?? null);
-    const customer = typeof sess.customer === 'string' ? null : (sess.customer ?? null);
+    const url = new URL(req.url);
+    const id = url.searchParams.get("id");
+
+    const key = process.env.STRIPE_SECRET_KEY;
+    if (!key) {
+      return NextResponse.json(
+        { ok: false, error: "stripe_unconfigured" },
+        { status: 503 },
+      );
+    }
+    if (!id) {
+      return NextResponse.json(
+        { ok: false, error: "missing_id" },
+        { status: 400 },
+      );
+    }
+
+    const { default: Stripe } = await import("stripe");
+    // @ts-expect-error apiVersion typing can differ by package version
+    const stripe = new Stripe(key, { apiVersion: "2024-06-20" });
+
+    const sess = await stripe.checkout.sessions.retrieve(id);
     return NextResponse.json({
-      id: sess.id,
-      status: sess.status,
-      customer_id: typeof sess.customer === 'string' ? sess.customer : customer?.id ?? null,
-      customer_email: sess.customer_details?.email ?? (customer as any)?.email ?? null,
-      subscription_id: typeof sess.subscription === 'string' ? sess.subscription : sub?.id ?? null,
-      subscription_status: sub?.status ?? null,
-      amount_total: sess.amount_total,
-      currency: sess.currency,
-      created: sess.created,
+      ok: true,
+      session: {
+        id: sess.id,
+        status: sess.status,
+        mode: sess.mode,
+        payment_status: sess.payment_status,
+        amount_total: sess.amount_total,
+        currency: (sess as any).currency,
+      },
     });
   } catch (e: any) {
-    const msg = e?.message || 'retrieve failed';
-    const code = msg.includes('No such') ? 404 : 500;
-    return NextResponse.json({ error: msg }, { status: code });
+    return NextResponse.json(
+      { ok: false, error: "stripe_error", detail: e?.message },
+      { status: 500 },
+    );
   }
 }
