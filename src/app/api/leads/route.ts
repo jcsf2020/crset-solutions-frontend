@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseServer";
+import { getSupabaseAdmin } from "@/lib/supabaseServer";
 
 export async function POST(req: Request) {
   try {
@@ -19,7 +19,8 @@ export async function POST(req: Request) {
       ts: new Date().toISOString(),
     };
 
-    const { error } = await supabaseAdmin.from("leads").insert(lead);
+    const supabase = getSupabaseAdmin(); // cria só em runtime
+    const { error } = await supabase.from("leads").insert(lead);
     if (error) {
       console.error("supabase.insert error:", error);
       return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
