@@ -48,8 +48,26 @@ export async function POST(req: NextRequest) {
     };
 
     // Email
-    const insertRes = await (async () => { try { const { supabaseAdmin } = await import('./../../lib/supabaseServer'); const db = supabaseAdmin(); const { error } = await db.from('leads').insert([{ name: lead.name, email: lead.email, company: (data.company||null), message: (data.message||null), whatsapp_number: (data.whatsapp||data.whatsapp_number||null) }]); return { ok: !error, error } } catch(e){ return { ok:false, error: String(e) } } })();
-
+    const insertRes = await (async () => {
+  try {
+    const { supabaseAdmin } = await import('../../../lib/supabaseServer');
+    const db = supabaseAdmin();
+    const { error } = await db.from('leads').insert([{
+      name: lead.name,
+      email: lead.email,
+      company: (data.company != null ? data.company : null),
+      message: (data.message != null ? data.message : null),
+      phone: (lead.phone || data.whatsapp || data.whatsapp_number || null),
+      source: lead.source,
+      utm_source: lead.utm_source,
+      test: !!lead.test,
+      ts: lead.ts
+    }]);
+    return { ok: !error, error };
+  } catch (e) {
+    return { ok: false, error: String(e) };
+  }
+})();
     const mail = await sendEmail(lead);
 
     // Sentry (se configurado)
