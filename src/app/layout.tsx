@@ -1,24 +1,19 @@
-import dynamic from "next/dynamic";
-const CookieConsentBanner = dynamic(() => import("@/components/CookieConsentBanner"), { ssr: false, loading: () => null });
+import "./globals.css";
 import type { Metadata } from "next";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "CRSET Solutions",
-  description: "Consultoria e automação data-driven.",
+  description: "Automação e AGI para negócios",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt">
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-      </head>
-      <body>{children}  <CookieConsentBanner />
-  </body>
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

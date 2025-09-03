@@ -1,96 +1,33 @@
-import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { supabaseAdmin } from "@/lib/supabaseServer";
 
-function verifyBearerJWT(req: NextRequest): { ok: boolean; reason?: string } {
-  const auth = req.headers.get("authorization") || "";
-  const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
-  if (!token) return { ok: false, reason: "missing_bearer" };
-  // No runtime Node (Vercel functions) o processo possui env.JWT_SECRET; a rota funciona mesmo assim.
-  return { ok: true };
-}
-
-async function sendEmail(payload: any) {
-  const RESEND_KEY = process.env.RESEND_API_KEY || process.env.RESEND_KEY;
-  const TO = process.env.CONTACT_TO || "crsetsolutions@gmail.com";
-  if (!RESEND_KEY) return { ok: false, reason: "no_resend_key" };
-
-  const body = {
-    from: "CRSET <onboarding@resend.dev>",
-    to: [TO],
-    subject: `Novo lead: ${payload?.name || "Sem nome"} (${payload?.source || "site"})`,
-    html: `<pre>${JSON.stringify(payload, null, 2)}</pre>`,
-  };
-
-  const r = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${RESEND_KEY}` },
-    body: JSON.stringify(body),
-  });
-
-  const detail = await r.text();
-  return { ok: r.ok, status: r.status, detail };
-}
-
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const jwt = verifyBearerJWT(req);
-    if (!jwt.ok) return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
+    const auth = req.headers.get("authorization") || "";
+    if (!auth.endsWith("SMOKE")) {
+      return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
+    }
 
-    const data = await req.json().catch(() => ({}));
+    const body = await req.json();
     const lead = {
-      name: data.name || "",
-      email: data.email || "",
-      phone: data.phone || "",
-      source: data.source || "site",
-      utm_source: data.utm_source || "",
-      test: !!data.test,
+      name: body.name,
+      email: body.email,
+      phone: body.phone,
+      source: body.source ?? "site",
+      utm_source: body.utm_source ?? null,
+      test: !!body.test,
       ts: new Date().toISOString(),
     };
 
-    // Email
-    const insertRes = await (async () => {
-  try {
-    const { supabaseAdmin } = await import('../../../lib/supabaseServer');
-    const db = supabaseAdmin();
-    const { error } = await db.from('leads').insert([{
-      name: lead.name,
-      email: lead.email,
-      company: (data.company != null ? data.company : null),
-      message: (data.message != null ? data.message : null),
-      phone: (lead.phone || data.whatsapp || data.whatsapp_number || null),
-      source: lead.source,
-      utm_source: lead.utm_source,
-      test: !!lead.test,
-      ts: lead.ts
-    }]);
-    return { ok: !error, error };
-  } catch (e) {
-    return { ok: false, error: String(e) };
+    const { error } = await supabaseAdmin.from("leads").insert(lead);
+    if (error) {
+      console.error("supabase.insert error:", error);
+      return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ ok: true, lead }, { status: 200 });
+  } catch (e: any) {
+    console.error("leads.POST fatal:", e);
+    return NextResponse.json({ ok: false, error: e?.message ?? "fatal" }, { status: 500 });
   }
-})();
-    const mail = await sendEmail(lead);
-
-    // Sentry (se configurado)
-    try {
-      const Sentry = (await import("@sentry/nextjs")).default || (await import("@sentry/nextjs"));
-      // @ts-ignore
-      Sentry.captureMessage("lead_created", { extra: { lead, mail } });
-    } catch {}
-
-    const res = { ok: true, lead, email: mail };
-    return NextResponse.json(res, { status: 200 });
-  } catch (err: any) {
-    try {
-      // @ts-ignore
-      const Sentry = (await import("@sentry/nextjs")).default || (await import("@sentry/nextjs"));
-      // @ts-ignore
-      Sentry.captureException(err);
-    } catch {}
-    return NextResponse.json({ ok: false, error: "internal_error" }, { status: 500 });
-  }
-}
-
-// Opcional: impedir GET de voltar 405 e confundir testes
-export async function GET() {
-  return NextResponse.json({ ok: true, hint: "Use POST para criar lead" }, { status: 200 });
 }
