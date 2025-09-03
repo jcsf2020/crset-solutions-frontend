@@ -6,7 +6,7 @@ import { GET as getMetrics } from "../metrics/route";
 export async function GET(req: Request) {
   try {
     // Chama diretamente a rota JSON
-    const res = await getMetrics(req);
+    const res = await getMetrics();
     if (!res.ok) {
       const detail = await res.text().catch(() => "");
       return new Response(`error: metrics ${res.status}${detail ? ` - ${detail}` : ""}`, { status: 500 });
