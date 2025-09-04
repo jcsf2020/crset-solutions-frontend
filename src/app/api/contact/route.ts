@@ -52,7 +52,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true, note: "resend_unconfigured" });
     }
 
-    await resend.emails.send({
+    await resend?.emails.send({
       from,
       to,
       subject: `Novo lead: ${name}`,
