@@ -1,4 +1,4 @@
-export const runtime = "edge"; // <- necessário para next/og
+export const runtime = "edge"; // <- necessario para next/og
 
 import { ImageResponse } from "next/og";
 import { site } from "./metadata";

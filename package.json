@@ -9,18 +9,25 @@
     "start": "next start",
     "lint": "next lint",
     "export": "next build && next export",
+    "deploy": "bash scripts/guard-prod.sh && vercel --prod",
+    "rollback": "vercel alias set \\ crsetsolutions.com --scope joao-fonsecas-projects",
+    "check:assets": "bash scripts/check-assets.sh",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.7.0",
+    "@supabase/supabase-js": "2.57.0",
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@upstash/ratelimit": "^2.0.6",
     "@upstash/redis": "^1.35.3",
-    "jsonwebtoken": "^9.0.2",
+    "@vercel/speed-insights": "1.2.0",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "0.460.0",
     "next": "^14.0.0",
     "react": "^18.0.0",
+    "react-cookie-consent": "^9.0.0",
     "react-dom": "^18.0.0",
     "resend": "^6.0.0",
     "stripe": "^18.5.0",
@@ -30,11 +37,12 @@
     "autoprefixer": "^10.4.0",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.0.0",
+    "jsonwebtoken": "^9.0.2",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.3.0"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": "22.x",
     "npm": ">=8.0.0"
   },
   "keywords": [

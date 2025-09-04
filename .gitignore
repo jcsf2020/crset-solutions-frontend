@@ -107,14 +107,10 @@ resend_domain.json
 resend_domain_create.json
 status.json
 
-# --- security hardening (added by Mike) ---
-.env
-.env.*
-*.env
-*.local
-*.bak
-*.bak.txt
-*whsec*
-stripe_*secret*
+Environment
+stripe_webhook_secret.live.bak.txt
+
+# backups locais
+*.bak.*
+
 .vercel
-# ------------------------------------------
