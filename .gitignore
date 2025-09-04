@@ -114,3 +114,12 @@ stripe_webhook_secret.live.bak.txt
 *.bak.*
 
 .vercel
+
+# --- security hardening (added by Mike) ---
+*.bak
+*.bak.txt
+*whsec*
+stripe_*secret*
+tsconfig.tsbuildinfo
+.vercel
+# ------------------------------------------
