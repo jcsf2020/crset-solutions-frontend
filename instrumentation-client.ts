@@ -3,10 +3,8 @@ export function register() {
   if (process.env.NODE_ENV !== 'production') return;
 
   // Evita init duplicado no cliente
-  // @ts-expect-error - flag global sem tipo
   if ((globalThis as any).__SENTRY_INIT__) return;
 
-  // @ts-expect-error - flag global sem tipo
   (globalThis as any).__SENTRY_INIT__ = true;
 
   // Carga tardia para não prender o bundle

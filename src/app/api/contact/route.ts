@@ -1,1 +1,71 @@
-export const runtime='nodejs';import{NextRequest,NextResponse}from'next/server';const BACKEND=process.env.NEXT_PUBLIC_BACKEND_URL||'https://crset-api-production.up.railway.app';const NOTION_KEY=process.env.NOTION_API_KEY;const NOTION_DB=process.env.NOTION_DATABASE_ID;const NOTION_VER='2022-06-28';const WINDOW_MS=5*60*1000,MAX_REQ=5,bucket=new Map<string,number[]>();function allowed(ip:string){const now=Date.now();const arr=(bucket.get(ip)||[]).filter(ts=>now-ts<WINDOW_MS);if(arr.length>=MAX_REQ)return false;arr.push(now);bucket.set(ip,arr);return true}async function notionCreate(payload:any,ip:string){try{if(!NOTION_KEY||!NOTION_DB)return{skipped:true,reason:'no_env'};const headers={Authorization:`Bearer ${NOTION_KEY}`,'Notion-Version':NOTION_VER,'Content-Type':'application/json'} as any;const dbr=await fetch(`https://api.notion.com/v1/databases/${NOTION_DB}`,{headers});if(!dbr.ok)return{ok:false,stage:'db_read',status:dbr.status,detail:await dbr.text().catch(()=>'' )};const db=await dbr.json();const props=(db as any).properties||{};const has=(k:string)=>Boolean(props[k]);const titleKey=Object.entries(props).find(([,v]:any)=>v?.type==='title')?.[0]||null;const p:any={};if(titleKey)p[titleKey]={title:[{type:'text',text:{content:String(payload?.name||'Lead')}}]};if(has('Email'))p['Email']={email:String(payload?.email||'')};const utmVal=String(payload?.utm||payload?.utm_source||'');for(const key of ['Origem/UTM','UTM','Source'])if(has(key)){p[key]={rich_text:[{type:'text',text:{content:utmVal}}]};break;}if(has('Score'))p['Score']={number:typeof payload?.score==='number'?payload.score:0};if(has('IP'))p['IP']={rich_text:[{type:'text',text:{content:ip||''}}]};if(has('Data/Hora'))p['Data/Hora']={date:{start:new Date().toISOString()}};if(has('Mensagem')&&payload?.message)p['Mensagem']={rich_text:[{type:'text',text:{content:String(payload.message)}}]};if(has('Empresa')&&payload?.company)p['Empresa']={rich_text:[{type:'text',text:{content:String(payload.company)}}]};if(has('Telefone')&&payload?.phone)p['Telefone']={phone_number:String(payload.phone)};const body={parent:{database_id:NOTION_DB},properties:p};const cr=await fetch('https://api.notion.com/v1/pages',{method:'POST',headers,body:JSON.stringify(body)});if(!cr.ok){const t=await cr.text().catch(()=>'' );return{ok:false,stage:'page_create',status:cr.status,detail:t}}return{ok:true}}catch(e:any){return{ok:false,stage:'exception',detail:String(e?.message||e)}}}export async function POST(req:NextRequest){const ip=(req.headers.get('x-forwarded-for')||'').split(',')[0]?.trim()||'unknown';if(!allowed(ip))return NextResponse.json({ok:false,error:'rate_limited'},{status:429});const payload=await req.json().catch(()=>({}));if((payload as any)?.website||(payload as any)?.url||(payload as any)?.hp)return NextResponse.json({ok:true,ignored:true},{status:204});try{const r=await fetch(`${BACKEND}/api/contact`,{method:'POST',headers:{'content-type':'application/json','x-forwarded-for':ip},body:JSON.stringify(payload)});const data=await r.json().catch(()=>({}));const ok=r.status===200&&((data as any)?.sent===true||(data as any)?.ok===true);let notion_result:any=null;if(ok){notion_result=await notionCreate(payload,ip);}return NextResponse.json({...data,notion_result},{status:ok?201:(r.status||500)})}catch{return NextResponse.json({ok:false,error:'proxy_failed'},{status:502})}}export async function GET(){return NextResponse.json({status:'ok'})}
+import { NextResponse } from "next/server";
+import { resend } from "@/lib/resend";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+type Body = { name?: string; email?: string; message?: string; utm?: string };
+
+function bad(msg: string, code = 400) {
+  return NextResponse.json({ ok: false, error: msg }, { status: code });
+}
+
+export async function POST(req: Request) {
+  try {
+    const { name, email, message, utm }: Body = await req.json().catch(() => ({} as any));
+    if (!name || !email || !message) return bad("bad_request");
+
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!supabaseUrl || !serviceKey) return bad("supabase_unconfigured", 503);
+
+    // 1) Insert em Supabase (REST) com Service Role
+    const ins = await fetch(`${supabaseUrl}/rest/v1/leads`, {
+      method: "POST",
+      headers: {
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
+        "Content-Type": "application/json",
+        Prefer: "return=representation",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+        utm: utm || null,
+        created_at: new Date().toISOString(),
+      }),
+      cache: "no-store",
+    });
+
+    if (!ins.ok) {
+      const detail = await ins.text().catch(() => "");
+      return NextResponse.json({ ok: false, error: "supabase_insert_failed", detail }, { status: 500 });
+    }
+
+    // 2) Email via Resend
+    const from = process.env.RESEND_FROM;
+    const to = process.env.CONTACT_TO;
+    const key = process.env.RESEND_API_KEY;
+    if (!key || !from || !to) {
+      // Sem email, mas lead gravado: responder 200 com nota
+      return NextResponse.json({ ok: true, note: "resend_unconfigured" });
+    }
+
+    await resend.emails.send({
+      from,
+      to,
+      subject: `Novo lead: ${name}`,
+      text: `Nome: ${name}\nEmail: ${email}\nUTM: ${utm || "-"}\n\n${message}`,
+    });
+
+    return NextResponse.json({ ok: true });
+  } catch (e: any) {
+    return NextResponse.json({ ok: false, error: "contact_error", detail: String(e?.message || e) }, { status: 500 });
+  }
+}
+
+// Opcional: health check
+export async function GET() {
+  return NextResponse.json({ ok: true, endpoint: "contact" });
+}

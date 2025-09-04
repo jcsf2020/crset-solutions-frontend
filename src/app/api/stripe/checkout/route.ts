@@ -1,12 +1,32 @@
-import { NextResponse } from "next/server";
+export const runtime = 'nodejs';
+import { NextResponse } from 'next/server';
 
-export async function POST() {
-  const stripeKey = process.env.STRIPE_SECRET_KEY;
-  const priceId = process.env.STRIPE_PRICE_ID;
-  if (!stripeKey || !priceId) {
-    console.warn("⚠️ Stripe checkout desativado (sem STRIPE_SECRET_KEY/STRIPE_PRICE_ID)");
-    return NextResponse.json({ ok: false, disabled: true }, { status: 200 });
+function isLiveKey(k:string){ return /^sk_live_/.test(k||''); }
+
+export async function POST(req: Request) {
+  const body = await req.json().catch(()=>null);
+  const { priceId, success_url, cancel_url } = body || {};
+
+  if (!priceId) return NextResponse.json({error:'priceId missing'}, {status:400});
+
+  const SK = process.env.STRIPE_SECRET_KEY || '';
+  if (!SK) { return NextResponse.json({error:'stripe_key_missing'}, {status:503}); }
+
+  const LIVE_ALLOWED = (process.env.STRIPE_LIVE_ALLOWED||'0') === '1';
+  if (isLiveKey(SK) && !LIVE_ALLOWED) {
+    return NextResponse.json({error:'live disabled'}, {status:403});
   }
-  // TODO: implementar checkout real quando as envs estiverem configuradas
-  return NextResponse.json({ ok: true }, { status: 200 });
+
+  const Stripe = (await import('stripe')).default;
+  const stripe = new Stripe(SK, { apiVersion: '2025-08-27.basil' });
+
+  const session = await stripe.checkout.sessions.create({
+    mode: 'subscription',
+    line_items: [{ price: priceId, quantity: 1 }],
+    success_url: success_url || 'https://crsetsolutions.com/success',
+    cancel_url: cancel_url || 'https://crsetsolutions.com/pricing',
+    allow_promotion_codes: true,
+  });
+
+  return NextResponse.json({ url: session.url }, { status: 200 });
 }

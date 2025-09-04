@@ -1,41 +1,47 @@
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
+import { NextResponse } from "next/server";
 
-/** Disable Stripe session creation when not configured. */
-export async function POST(req: Request) {
-  const SK =
-    process.env.STRIPE_SECRET_KEY ||
-    process.env.STRIPE_API_KEY ||
-    process.env.NEXT_PRIVATE_STRIPE_SECRET;
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-  if (!SK) {
-    return new Response(
-      JSON.stringify({ ok: false, error: 'stripe_not_configured' }),
-      { status: 501, headers: { 'content-type': 'application/json' } }
+export async function GET(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const id = url.searchParams.get("id");
+
+    const key = process.env.STRIPE_SECRET_KEY;
+    if (!key) {
+      return NextResponse.json(
+        { ok: false, error: "stripe_unconfigured" },
+        { status: 503 },
+      );
+    }
+    if (!id) {
+      return NextResponse.json(
+        { ok: false, error: "missing_id" },
+        { status: 400 },
+      );
+    }
+
+    const { default: Stripe } = await import("stripe");
+    // @ts-expect-error apiVersion typing can differ by package version
+    const stripe = new Stripe(key, { apiVersion: "2024-06-20" });
+
+    const sess = await stripe.checkout.sessions.retrieve(id);
+    return NextResponse.json({
+      ok: true,
+      session: {
+        id: sess.id,
+        status: sess.status,
+        mode: sess.mode,
+        payment_status: sess.payment_status,
+        amount_total: sess.amount_total,
+        currency: (sess as any).currency,
+      },
+    });
+  } catch (e: any) {
+    return NextResponse.json(
+      { ok: false, error: "stripe_error", detail: e?.message },
+      { status: 500 },
     );
   }
-
-  const { default: Stripe } = await import('stripe');
-  // @ts-ignore - basic runtime usage is fine
-  const stripe = new Stripe(SK);
-
-  const payload = await req.json().catch(() => ({}));
-  const session = await stripe.checkout.sessions.create({
-    mode: 'payment',
-    line_items: payload.line_items || [],
-    success_url: payload.success_url || 'https://crsetsolutions.com/sucesso',
-    cancel_url: payload.cancel_url || 'https://crsetsolutions.com/cancelado',
-  });
-
-  return new Response(JSON.stringify({ ok: true, id: session.id }), {
-    headers: { 'content-type': 'application/json' },
-  });
-}
-
-/** Optional: block GET explicitly to avoid pre-render confusion */
-export async function GET() {
-  return new Response(JSON.stringify({ ok: false, error: 'method_not_allowed' }), {
-    status: 405,
-    headers: { 'content-type': 'application/json' },
-  });
 }

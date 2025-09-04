@@ -49,11 +49,11 @@ export default function Demo() {
       <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
         <div className="flex items-center justify-between mb-2">
           <h1 className="text-3xl font-bold">AGI Commander - Demo</h1>
-          <span className="text-sm px-2 py-1 rounded bg-black/30 border border-white/10 text-white">
+          <span className="text-sm px-2 py-1 rounded bg-black/30 border border-white/10">
             backend: {backend || '-'}
           </span>
         </div>
-        <p className="text-blue-200 mb-6">Sem chave  usa mock com streaming. Quando adicionares OPENAI_API_KEY + AGI_BACKEND=openai, muda sozinho.</p>
+        <p className="text-blue-200 mb-6">Sem chave → usa mock com streaming. Quando adicionares OPENAI_API_KEY + AGI_BACKEND=openai, muda sozinho.</p>
 
         <div className="flex items-center gap-3 mb-4">
           <label className="text-blue-200">Agente</label>
@@ -66,13 +66,13 @@ export default function Demo() {
         </div>
 
         <textarea ref={taRef} value={input} onChange={e => setInput(e.target.value)}
-          placeholder="Escreve o que queres que o agente faca"
+          placeholder="Escreve o que queres que o agente faça…"
           className="w-full h-28 p-3 rounded-lg bg-white/10 border border-white/20 mb-3"></textarea>
 
         <div className="flex gap-3">
           <button onClick={run} disabled={loading}
             className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50">
-            {loading ? 'A executar' : 'Executar'}
+            {loading ? 'A executar…' : 'Executar'}
           </button>
           <button onClick={() => { setInput(''); setAnswer(''); setError(''); }}
             className="border border-white/30 px-4 rounded-lg">Limpar</button>
@@ -87,7 +87,7 @@ export default function Demo() {
 
         <div className="mt-6">
           <div className="text-blue-300 mb-2">Resposta</div>
-          <pre className="whitespace-pre-wrap bg-black/30 p-4 rounded-lg border border-white/10 min-h-[96px] text-white">
+          <pre className="whitespace-pre-wrap bg-black/30 p-4 rounded-lg border border-white/10 min-h-[96px]">
             {answer || '-'}
           </pre>
         </div>
