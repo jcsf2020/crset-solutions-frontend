@@ -9,8 +9,8 @@ type Health = { ts:string; env:string; checks:{ name:string; url:string; ok:bool
 const LINKS = [
   { group: 'App', items: [
     { label: '🏠 Site (prod)', href: 'https://crsetsolutions.com' },
-    { label: '📋 Admin — Leads', href: '/admin' },
-    { label: '📈 Admin — Métricas', href: '/admin/metrics' },
+    { label: '📋 Admin - Leads', href: '/admin' },
+    { label: '📈 Admin - Métricas', href: '/admin/metrics' },
   ]},
   { group: 'APIs', items: [
     { label: 'Leads API (FE)', href: '/api/leads' },
@@ -19,10 +19,10 @@ const LINKS = [
   ]},
   { group: 'Ops', items: [
     { label: '🔗 GitHub (frontend)', href: 'https://github.com/jcsf2020/crset-solutions-frontend' },
-    { label: '▲ Vercel — Project', href: 'https://vercel.com/joao-fonsecas-projects/crset-solutions-frontend' },
-    { label: '🚆 Railway — API', href: 'https://crset-api-production.up.railway.app' },
-    { label: '📮 Resend — Dashboard', href: 'https://resend.com/dashboard' },
-    { label: '🗂️ Notion — CRM DB', href: 'https://www.notion.so/24087471aef18008b409f2879db15cea?v=24087471aef181a09451000c88a156f9' },
+    { label: '▲ Vercel - Project', href: 'https://vercel.com/joao-fonsecas-projects/crset-solutions-frontend' },
+    { label: '🚆 Railway - API', href: 'https://crset-api-production.up.railway.app' },
+    { label: '📮 Resend - Dashboard', href: 'https://resend.com/dashboard' },
+    { label: '🗂️ Notion - CRM DB', href: 'https://www.notion.so/24087471aef18008b409f2879db15cea?v=24087471aef181a09451000c88a156f9' },
   ]},
 ];
 
@@ -60,7 +60,7 @@ export default function Hub() {
     <Gate>
       <main style={{ padding: 24, fontFamily: 'system-ui', maxWidth: 1000, margin: '0 auto' }}>
         <header style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16 }}>
-          <h1 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>CRSET — Hub de Operações</h1>
+          <h1 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>CRSET - Hub de Operações</h1>
           <span style={{ fontSize: 13, opacity: .8, padding: '6px 10px', border: '1px solid #ddd', borderRadius: 10 }}>
             Sistema: {statusLabel}{sinceSec!=null ? ` • verificado há ${sinceSec}s` : ''}
           </span>

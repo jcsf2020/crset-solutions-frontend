@@ -5,7 +5,7 @@ export default function Imobiliaria() {
     <main style={{maxWidth:900,margin:'40px auto',padding:'16px',fontFamily:'Inter, system-ui, sans-serif'}}>
       <h1 style={{fontSize:32,marginBottom:8}}>Assistente para Imobiliárias</h1>
       <p style={{opacity:.8}}>
-        Qualificação de leads, sugestões de imóveis e agendamento de visitas — 24/7.
+        Qualificação de leads, sugestões de imóveis e agendamento de visitas - 24/7.
       </p>
 
       <ul style={{marginTop:16,lineHeight:'1.8'}}>

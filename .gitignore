@@ -106,3 +106,15 @@ railway_env_dump.txt
 resend_domain.json
 resend_domain_create.json
 status.json
+
+# --- security hardening (added by Mike) ---
+.env
+.env.*
+*.env
+*.local
+*.bak
+*.bak.txt
+*whsec*
+stripe_*secret*
+.vercel
+# ------------------------------------------

@@ -25,7 +25,7 @@ export default function Demo() {
 
       if (!res.ok || !res.body) {
         const txt = await res.text().catch(()=>'');
-        setError(`HTTP ${res.status} ${res.statusText} ${txt ? '— ' + txt : ''}`);
+        setError(`HTTP ${res.status} ${res.statusText} ${txt ? '- ' + txt : ''}`);
         setLoading(false);
         return;
         }
@@ -48,9 +48,9 @@ export default function Demo() {
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6 text-white">
       <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
         <div className="flex items-center justify-between mb-2">
-          <h1 className="text-3xl font-bold">AGI Commander — Demo</h1>
+          <h1 className="text-3xl font-bold">AGI Commander - Demo</h1>
           <span className="text-sm px-2 py-1 rounded bg-black/30 border border-white/10">
-            backend: {backend || '—'}
+            backend: {backend || '-'}
           </span>
         </div>
         <p className="text-blue-200 mb-6">Sem chave → usa mock com streaming. Quando adicionares OPENAI_API_KEY + AGI_BACKEND=openai, muda sozinho.</p>
@@ -88,7 +88,7 @@ export default function Demo() {
         <div className="mt-6">
           <div className="text-blue-300 mb-2">Resposta</div>
           <pre className="whitespace-pre-wrap bg-black/30 p-4 rounded-lg border border-white/10 min-h-[96px]">
-            {answer || '—'}
+            {answer || '-'}
           </pre>
         </div>
       </div>

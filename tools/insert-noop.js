@@ -4,7 +4,7 @@ let s = fs.readFileSync(path, 'utf8');
 
 const marker = 'const BASE = ';
 if (!s.includes(marker)) {
-  console.error('> marcador não encontrado: "const BASE = " — abort');
+  console.error('> marcador não encontrado: "const BASE = " - abort');
   process.exit(1);
 }
 

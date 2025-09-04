@@ -26,7 +26,7 @@ if (!/HARD_GATE_START/.test(s)) {
 `);
 }
 
-// 3) IP fix (sem misturar ?? com ||) — substitui QUALQUER linha const ip =
+// 3) IP fix (sem misturar ?? com ||) - substitui QUALQUER linha const ip =
 s = s.replace(/const\s+ip\s*=.*?;\s*/m,
 `const xff = req.headers.get('x-forwarded-for') ?? '';
 const firstHop = xff.split(',')[0]?.trim() ?? null;

@@ -12,7 +12,7 @@ export async function GET() {
   const to = (process.env.ALERT_TO || 'crsetsolutions@gmail.com').trim();
   const from = (process.env.RESEND_FROM || 'CRSET <onboarding@resend.dev>').trim();
 
-  const payload = { from, to, subject: 'CRSET — Teste de notificação', text: `Ping OK @ ${new Date().toISOString()}` };
+  const payload = { from, to, subject: 'CRSET - Teste de notificação', text: `Ping OK @ ${new Date().toISOString()}` };
 
   const resp = await fetch('https://api.resend.com/emails', {
     method: 'POST',

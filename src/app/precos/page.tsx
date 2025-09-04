@@ -37,7 +37,7 @@ export default function PricingPage() {
       const json = await res.json();
       if (!res.ok) {
         if (json?.error === 'STRIPE_NOT_CONFIGURED') {
-          alert('Pagamento ainda não está configurado (Stripe). Fica já tudo pronto — só falta definir as chaves STRIPE.');
+          alert('Pagamento ainda não está configurado (Stripe). Fica já tudo pronto - só falta definir as chaves STRIPE.');
         } else {
           alert('Erro: ' + (json?.error || res.statusText));
         }
