@@ -10,6 +10,7 @@ async function sendEmail(key: string, from: string, to: string, subject: string,
 }
 
 export async function GET(req: Request) {
+  console.log('[health] hit', new Date().toISOString(), req.method, new URL(req.url).search);
   const key  = (process.env.RESEND_API_KEY || '').trim();
   if (!key) return Response.json({ ok:false, error:'RESEND_API_KEY missing' }, { status:500 });
 
