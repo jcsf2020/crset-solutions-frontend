@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   }
 
   const Stripe = (await import('stripe')).default;
-  const stripe = new Stripe(SK, { apiVersion: '2024-06-20' });
+  const stripe = new Stripe(SK, { apiVersion: '2025-08-27.basil' });
 
   const session = await stripe.checkout.sessions.create({
     mode: 'subscription',

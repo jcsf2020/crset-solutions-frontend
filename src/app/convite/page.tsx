@@ -22,7 +22,7 @@ export default function ConvitePage() {
     const ctaButtons = document.querySelectorAll('.cta-button')
     ctaButtons.forEach(button => {
       button.addEventListener('click', function() {
-        console.log('Beta CTA clicked:', (this as HTMLElement).textContent)
+        console.log('Beta CTA clicked')
         // Aqui pode ser adicionado tracking analytics futuro
       })
     })
