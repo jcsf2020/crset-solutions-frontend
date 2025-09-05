@@ -1,11 +1,18 @@
-import { stripe, hasStripe, getPriceId } from '@/lib/stripe';
+import { stripe, hasStripe, getPriceId, priceEnvSnapshot } from '@/lib/stripe';
 
 export const runtime = 'nodejs';
 
+function normalizeOrigin(s?: string | null) {
+  if (!s) return 'https://crsetsolutions.com';
+  return /^https?:\/\//.test(s) ? s : `https://${s}`;
+}
+
 export async function POST(req: Request) {
   try {
-    const origin = req.headers.get('origin') || process.env.PRIMARY_HOST || 'https://crsetsolutions.com';
+    const origin = normalizeOrigin(req.headers.get('origin') || process.env.PRIMARY_HOST || 'https://crsetsolutions.com');
     const { plan } = await req.json();
+    const _snap = priceEnvSnapshot();
+    console.log('[checkout] plan', plan, 'env', _snap, 'origin', origin);
 
     if (!hasStripe) {
       return Response.json({ error: 'STRIPE_NOT_CONFIGURED' }, { status: 500 });
@@ -26,6 +33,7 @@ export async function POST(req: Request) {
 
     return Response.json({ url: session.url });
   } catch (e: any) {
-    return Response.json({ error: e?.message || 'CHECKOUT_ERROR' }, { status: 500 });
+    console.error('[checkout] error', e?.message);
+    return Response.json({ error: 'CHECKOUT_ERROR' }, { status: 500 });
   }
 }
