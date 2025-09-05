@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Check /api/cron/health
         run: |
-          URL="https://crsetsolutions.com/api/cron/health?src=ci"
+          URL="https://crsetsolutions.com/api/cron/health?token=${{ secrets.HEALTH_TOKEN }}URL="https://crsetsolutions.com/api/cron/health?src=ci"src=ci"
           echo "Pinging $URL"
           curl --fail --silent --show-error \
                --max-time 20 --retry 2 --retry-delay 2 --retry-connrefused \
