@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 export const hasStripe = !!process.env.STRIPE_SECRET_KEY;
 
 export const stripe = hasStripe
-  ? new Stripe(process.env.STRIPE_SECRET_KEY as string, { apiVersion: '2024-06-20' })
+  ? new Stripe(process.env.STRIPE_SECRET_KEY as string, { apiVersion: '2024-06-20' as any })
   : (null as any);
 
 // Fallbacks aceitam STRIPE_* e NEXT_PUBLIC_* (para casos onde só configuraste públicos)
