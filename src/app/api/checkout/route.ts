@@ -1,11 +1,11 @@
-import { stripe, hasStripe, getPriceId } from '@/lib/stripe';
+import { stripe, hasStripe, getPriceId, priceEnvSnapshot } from '@/lib/stripe';
 
 export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
   try {
     const origin = req.headers.get('origin') || process.env.PRIMARY_HOST || 'https://crsetsolutions.com';
-    const { plan } = await req.json();
+    const { plan } = await req.json(); const _snap = priceEnvSnapshot(); console.log('[checkout] plan', plan, 'env', _snap);
 
     if (!hasStripe) {
       return Response.json({ error: 'STRIPE_NOT_CONFIGURED' }, { status: 500 });
