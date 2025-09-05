@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       return Response.json({ error: 'INVALID_PLAN' }, { status: 400 });
     }
 
-    const session = await stripe.checkout.sessions.create({
+    const session = await (stripe as any).checkout.sessions.create({
       mode: 'subscription',
       line_items: [{ price, quantity: 1 }],
       success_url: `${origin}/precos?ok=1`,
