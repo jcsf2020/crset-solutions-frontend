@@ -19,8 +19,7 @@ export async function POST(req: Request) {
     }
 
     const price = getPriceId(String(plan || '').toLowerCase());
-    if (!price) {
-      return Response.json({ error: 'INVALID_PLAN' }, { status: 400 });
+    if (!price) { return Response.json({ ok: false, error: "stripe_unconfigured" }, { status: 503 }); }, { status: 503 });
     }
 
     const session = await stripe.checkout.sessions.create({
