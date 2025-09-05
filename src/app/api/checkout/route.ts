@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     console.log('[checkout] plan', plan, 'env', _snap, 'origin', origin);
 
     if (!hasStripe) {
-      return Response.json({ error: 'STRIPE_NOT_CONFIGURED' }, { status: 500 });
+      return Response.json({ ok: false, error: "stripe_unconfigured" }, { status: 503 });
     }
 
     const price = getPriceId(String(plan || '').toLowerCase());
