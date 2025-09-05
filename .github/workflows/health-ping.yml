@@ -1,20 +1,19 @@
 name: Health Ping
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: '*/30 * * * *'
   workflow_dispatch:
+
 jobs:
   ping:
     runs-on: ubuntu-latest
+    env:
+      HEALTH_URL: https://crset-solutions-frontend-m0641as9e-joao-fonsecas-projects.vercel.app/api/cron/health
+      CRON_TOKEN: ${{ secrets.CRON_SECRET }}
     steps:
-      - name: Check /api/agi/status
+      - name: Check /api/cron/health (header auth)
         run: |
-          URL="https://crsetsolutions.com/api/agi/status"
-          RESP="$(curl -sS -w "\n%{http_code}" "$URL")"
-          CODE="$(printf "%s" "$RESP" | tail -n1)"
-          BODY="$(printf "%s" "$RESP" | sed '$d')"
-          if [ "$CODE" != "200" ]; then
-            echo "HTTP $CODE"; exit 1
-          fi
-          echo "$BODY" | grep -q '"ok":\s*true' || { echo "Body not ok: $BODY"; exit 1; }
-          echo "OK"
+          set -e
+          URL="$HEALTH_URL?src=ci"
+          echo "Pinging $URL"
+          curl -fsS -H "x-webhook-secret: $CRON_TOKEN" "$URL" >/dev/null
