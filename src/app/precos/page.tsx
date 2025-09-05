@@ -67,10 +67,10 @@ export default function PricingPage() {
             <button
               type="button"
               onClick={() => subscribe(plan.key)}
-              disabled={!!loadingPlan}
+              disabled={plan.key!=='essencial' || !!loadingPlan}
               className="mt-2 w-full rounded bg-blue-600 text-white py-2 font-medium hover:bg-blue-700 disabled:opacity-50"
             >
-              {loadingPlan === plan.key ? 'A abrir checkout…' : 'Subscrever'}
+              {plan.key!=='essencial' ? 'Em breve' : (loadingPlan === plan.key ? 'A abrir checkout…' : 'Subscrever')}
             </button>
           </Card>
         ))}
