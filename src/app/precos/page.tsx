@@ -55,7 +55,7 @@ export default function PricingPage() {
                 {loadingPlan === p.key ? 'A abrir checkout…' : 'Subscrever'}
               </Button>
             ) : (
-              <Button as-child variant="ghost" size="lg" className="w-full">
+              <Button asChild variant="ghost" size="lg" className="w-full">
                 <a href="/start">Fala connosco</a>
               </Button>
             )}

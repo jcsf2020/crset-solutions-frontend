@@ -1,95 +1,100 @@
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-
 import type { NextRequest } from 'next/server';
-import crypto from 'crypto';
+
+// Allowlist: prod + dev + *.vercel.app
+const ALLOWED_ORIGINS = new Set<string>([
+  'https://crsetsolutions.com',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+]);
+const isAllowed = (o?: string | null) =>
+  !o || ALLOWED_ORIGINS.has(o) || o.endsWith('.vercel.app');
 
 let INFLIGHT = 0;
-const MAX_INFLIGHT = Number(process.env.AGI_MAX_INFLIGHT || 8);
+const MAX = Number(process.env.AGI_MAX_INFLIGHT || 8);
 
-const ALLOWED_ORIGINS = new Set(['https://crsetsolutions.com']);
-
-function rid(){ return crypto.randomBytes(8).toString('hex'); }
-function h(rid: string) {
-  const H = new Headers();
-  H.set('x-request-id', rid);
-  H.set('content-type','application/json; charset=UTF-8');
-  H.set('cache-control','no-store, no-cache, must-revalidate, private');
-  H.set('x-content-type-options','nosniff');
-  H.set('referrer-policy','strict-origin-when-cross-origin');
-  H.set('permissions-policy','camera=(), microphone=(), geolocation=()');
-  return H;
+function json(status: number, data: unknown, extra?: Record<string, string>) {
+  const h = new Headers({ 'content-type': 'application/json; charset=UTF-8' });
+  h.set('cache-control', 'no-store, must-revalidate');
+  h.set('x-content-type-options', 'nosniff');
+  h.set('referrer-policy', 'strict-origin-when-cross-origin');
+  if (extra) for (const [k, v] of Object.entries(extra)) h.set(k, v);
+  return new Response(JSON.stringify(data), { status, headers: h });
 }
 
-export async function OPTIONS(_req: NextRequest) {
-  const H = h(rid());
-  H.set('access-control-allow-origin','*');
-  H.set('access-control-allow-headers','content-type, authorization');
-  H.set('access-control-allow-methods','POST, OPTIONS');
-  return new Response(null,{ status:204, headers:H });
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: new Headers({
+      'access-control-allow-origin': '*',
+      'access-control-allow-headers': 'content-type, authorization',
+      'access-control-allow-methods': 'POST, OPTIONS',
+    }),
+  });
 }
 
 export async function POST(req: NextRequest) {
-  const R = rid(); const H = h(R);
+  const origin = req.headers.get('origin');
+  if (!isAllowed(origin)) return json(403, { error: 'forbidden_origin' });
+
+  if (INFLIGHT >= MAX) return json(429, { error: 'concurrency_limit', max: MAX }, { 'Retry-After': '1' });
+
+  let body: any = {};
+  try { body = await req.json() } catch {}
+  const input = (body?.input ?? '').toString().trim();
+  if (!input) return json(400, { error: 'empty_input' });
+
+  // Upstream selection: OpenAI if KEY present; outrowise local OpenAI-compat (e.g., Ollama/HCI)
+  const KEY   = process.env.AGI_OPENAI_KEY || process.env.OPENAI_API_KEY || '';
+  const BASE = process.env.AGI_UPSTREAM_BASE || (KEY ? 'https://api.openai.com/v1' : 'http://127.0.0.1:11434/v1');
+  const MODEL = process.env.AGI_MODEL || (KEY ? 'gpt-4o-mini' : (process.env.OLLAMA_MODEL || 'llama3.1'));
+
+  const headers: Record<string, string> = { 'content-type': 'application/json' };
+  if (KEY) headers['authorization'] = `Bearer ${KEY}`;
+
+  INFLIGHT++;
   try {
-    const origin = req.headers.get('origin')||'';
-    if (origin && !ALLOWED_ORIGINS.has(origin)) {
-      return new Response(JSON.stringify({ error:'forbidden_origin' }), { status:403, headers:H });
-    }
-
-    if (INFLIGHT >= MAX_INFLIGHT) {
-      H.set('Retry-After','1');
-      return new Response(JSON.stringify({ error:'concurrency_limit', max: MAX_INFLIGHT }), { status:429, headers:H });
-    }
-
-    const body = await req.json().catch(()=> ({} as any));
-    const { input } = body || {};
-    if (!input?.trim()) return new Response(JSON.stringify({ error:'empty_input' }), { status:400, headers:H });
-
-    const BASE = process.env.AGI_UPSTREAM_BASE || 'https://api.openai.com/v1';
-    const KEY  = process.env.AGI_OPENAI_KEY || process.env.OPENAI_API_KEY || '';
-    const MODEL = process.env.AGI_MODEL || 'gpt-4o-mini';
-    if (!KEY)  return new Response(JSON.stringify({ error:'upstream_key_missing' }), { status:503, headers:H });
-
-    INFLIGHT++;
-    let upstream: Response;
     try {
-      upstream = await fetch(`${BASE}/chat/completions`, {
-        method:'POST',
-        headers:{ 'content-type':'application/json', 'authorization':`Bearer ${KEY}` },
+      const r = await fetch(`${BASE}/chat/completions`, {
+        method: 'POST',
+        headers,
         body: JSON.stringify({
           model: MODEL,
           messages: [
-            { role:'system', content:'You are Boris. Prefix replies with [BORIS]. Be concise.' },
-            { role:'user',   content:String(input) }
+            { role: 'system', content: 'You are Boris. Prefix replies with [BORIS] and be concise.' },
+            { role: 'user', content: input },
           ],
-          temperature: 0.3
+          temperature: 0.2,
         }),
-        signal: AbortSignal.timeout(Number(process.env.AGI_UPSTREAM_TIMEOUT_MS||20000))
+        // @ts-ignore AbortSignal.timeout exists in Node 18+
+        // @ts-ignore
+        signal: AbortSignal.timeout(Number(process.env.AGI_UPSTREAM_TIMEOUT_MS || 20000))
       });
-    } finally {
-      INFLIGHT = Math.max(0, INFLIGHT-1);
-    }
 
-    if (!upstream.ok) {
-      const code = upstream.status;
-      const txt  = await upstream.text().catch(()=> '');
-      const ra   = upstream.headers.get('retry-after') || undefined;
-      if (code === 401 || code === 403) {
-        return new Response(JSON.stringify({ error:'upstream_auth', status:code, detail:txt.slice(0,400) }), { status:503, headers:H });
+      if (!r.ok) {
+        const txt = await r.text().catch(() => '');
+        const ra = r.headers.get('retry-after') || undefined;
+        return json(r.status === 429 ? 429 : 503,
+          { error: 'upstream_error', status: r.status, detail: txt.slice(0, 400) },
+          ra ? { 'Retry-After': ra } : undefined);
       }
-      if (code === 429) {
-        if (ra) H.set('Retry-After', ra);
-        return new Response(JSON.stringify({ error:'upstream_rate_limited', status:code, detail:txt.slice(0,200) }), { status:429, headers:H });
+
+      const data = await r.json().catch(() => null);
+      const msg: string | null =
+        data?.choices?.[0]?.message?.content ?? null;
+      return json(200, { ok: true, model: MODEL, message: msg, raw: !msg ? data : undefined });
+    } catch (e: any) {
+      // Offline DEV fallback when no KEY and local upstream isn't reachable
+      if (!KEY) {
+        const msg = `[BORIS] (offline dev) ${input}`;
+        return json(200, { ok: true, model: MODEL, message: msg });
       }
-      return new Response(JSON.stringify({ error:'upstream_error', status:code, detail:txt.slice(0,500) }), { status:503, headers:H });
+      throw e;
     }
-
-    const data = await upstream.json().catch(()=> null);
-    const msg = data?.choices?.[0]?.message?.content ?? null;
-    return new Response(JSON.stringify({ ok:true, rid:R, model:MODEL, message:msg, raw:!msg ? data : undefined }), { status:200, headers:H });
-
   } catch (e: any) {
-    return new Response(JSON.stringify({ error:'handler_exception', detail: String(e?.message||e) }), { status:500, headers:H });
+    return json(500, { error: 'handler_exception', detail: String(e?.message || e) });
+  } finally {
+    INFLIGHT = Math.max(0, INFLIGHT - 1);
   }
 }
