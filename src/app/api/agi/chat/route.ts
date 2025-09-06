@@ -3,11 +3,7 @@ export const dynamic = 'force-dynamic';
 import type { NextRequest } from 'next/server';
 
 // Allowlist: prod + dev + *.vercel.app
-const ALLOWED_ORIGINS = new Set<string>([
-  'https://crsetsolutions.com',
-  'http://localhost:3000',
-  'http://127.0.0.1:3000',
-]);
+const ALLOWED_ORIGINS = new Set((process.env.CORS_ORIGINS || 'https://crsetsolutions.com,http://localhost:3000,http://127.0.0.1:3000').split(','));
 const isAllowed = (o?: string | null) =>
   !o || ALLOWED_ORIGINS.has(o) || o.endsWith('.vercel.app');
 
