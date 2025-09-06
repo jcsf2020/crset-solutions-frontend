@@ -2,8 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/health?src=vercel-cron",
-      "schedule": "0 9 * * *",
-      "headers": { "x-webhook-secret": "@CRON_SECRET" }
+      "schedule": "0 9 * * *"
     }
   ]
 }
