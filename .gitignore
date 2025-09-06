@@ -123,3 +123,4 @@ stripe_*secret*
 tsconfig.tsbuildinfo
 .vercel
 # ------------------------------------------
+.logs/
