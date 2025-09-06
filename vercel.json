@@ -1,10 +1,9 @@
 {
-  "redirects": [
+  "crons": [
     {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.crsetsolutions.com" }],
-      "destination": "https://crsetsolutions.com/:path*",
-      "permanent": true
+      "path": "/api/cron/health?src=vercel-cron",
+      "schedule": "*/15 * * * *",
+      "headers": { "x-webhook-secret": "@CRON_SECRET" }
     }
   ]
 }

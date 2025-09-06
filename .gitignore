@@ -124,3 +124,5 @@ tsconfig.tsbuildinfo
 .vercel
 # ------------------------------------------
 .logs/
+
+.env*
