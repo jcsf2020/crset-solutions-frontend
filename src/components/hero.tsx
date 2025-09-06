@@ -15,21 +15,17 @@ export default function HomeHero() {
             Sem drama, só entrega.
           </SectionSubtitle>
           <div className="mt-6 flex gap-3">
-            <Button as-child variant="primary" size="lg">
+            <Button asChild variant="primary" size="lg">
               <a href="/start">Começar agora</a>
             </Button>
-            <Button as-child variant="ghost" size="lg">
+            <Button asChild variant="ghost" size="lg">
               <a href="/precos">Ver preços</a>
             </Button>
-                      <Button as-child variant="ghost" size="lg"><a href="/mascotes-all">Mascotes</a></Button>
+                      <Button asChild variant="ghost" size="lg"><a href="/mascotes-all">Mascotes</a></Button>
           </div>
           <p className="mt-3 text-sm text-muted">Sem fidelização. Podes cancelar quando quiseres.</p>
         </div>
-        <div className="hidden md:block">
-          <div className="rounded-xl bg-card border border-border shadow p-6">
-            <div className="h-48 rounded-lg bg-foreground/5 border border-border" />
-            <p className="mt-3 text-sm text-muted">Preview do teu hero (imagem final entra aqui).</p>
-          </div>
+        
         </div>
       </div>
     </Section>
