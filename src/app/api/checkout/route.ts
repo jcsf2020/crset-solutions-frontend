@@ -9,17 +9,26 @@ function normalizeOrigin(s?: string | null) {
 
 export async function POST(req: Request) {
   try {
-    const origin = normalizeOrigin(req.headers.get('origin') || process.env.PRIMARY_HOST || 'https://crsetsolutions.com');
+    const origin =
+      normalizeOrigin(
+        req.headers.get('origin') ||
+        process.env.PRIMARY_HOST ||
+        'https://crsetsolutions.com'
+      );
+
     const { plan } = await req.json();
     const _snap = priceEnvSnapshot();
     console.log('[checkout] plan', plan, 'env', _snap, 'origin', origin);
 
+    // Stripe desligado -> 503 controlado
     if (!hasStripe) {
-      return Response.json({ ok: false, error: "stripe_unconfigured" }, { status: 503 });
+      return Response.json({ ok: false, error: 'stripe_unconfigured' }, { status: 503 });
     }
 
     const price = getPriceId(String(plan || '').toLowerCase());
-    if (!price) { return Response.json({ ok: false, error: "stripe_unconfigured" }, { status: 503 }); }, { status: 503 });
+    // Sem PRICE IDs configurados -> 503 controlado
+    if (!price) {
+      return Response.json({ ok: false, error: 'stripe_unconfigured' }, { status: 503 });
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -33,6 +42,6 @@ export async function POST(req: Request) {
     return Response.json({ url: session.url });
   } catch (e: any) {
     console.error('[checkout] error', e?.message);
-    return Response.json({ error: 'CHECKOUT_ERROR' }, { status: 500 });
+    return Response.json({ ok: false, error: 'CHECKOUT_ERROR' }, { status: 500 });
   }
 }
