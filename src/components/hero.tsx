@@ -8,7 +8,7 @@ export default function HomeHero() {
       <div className="grid gap-6 md:grid-cols-[1.2fr,0.8fr] items-center">
         <div>
           <SectionHeading className="mb-3">
-            Cresce com <span className="text-primary">CRSET</span> — site rápido, claro e que converte.
+            Cresce com <span className="text-primary">CRSET</span> - site rápido, claro e que converte.
           </SectionHeading>
           <SectionSubtitle>
             Design limpo, componentes consistentes e performance acima dos 90 no Lighthouse.
