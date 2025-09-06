@@ -1,18 +1,25 @@
-import type { HTMLAttributes, PropsWithChildren } from 'react';
+import * as React from "react";
 
-type CardProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>>;
+export function Card({ className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={["rounded-lg bg-card border border-border shadow p-6", className].join(" ").trim()} {...props} />;
+}
 
-/** Card minimalista para layout */
-export function Card({ className = '', children, ...rest }: CardProps) {
-  return (
-    <div
-      className={
-        "rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-sm " +
-        className
-      }
-      {...rest}
-    >
-      {children}
-    </div>
-  );
+export function CardHeader({ className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={["mb-3", className].join(" ").trim()} {...props} />;
+}
+
+export function CardTitle({ className = "", ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return <h3 className={["font-heading text-xl text-foreground", className].join(" ").trim()} {...props} />;
+}
+
+export function CardDescription({ className = "", ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
+  return <p className={["text-sm text-muted", className].join(" ").trim()} {...props} />;
+}
+
+export function CardContent({ className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={className} {...props} />;
+}
+
+export function CardFooter({ className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={["mt-4", className].join(" ").trim()} {...props} />;
 }
