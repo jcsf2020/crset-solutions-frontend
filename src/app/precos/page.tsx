@@ -1,29 +1,15 @@
 'use client';
-import { Card } from '@/components/ui/card';
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 
 export default function PricingPage() {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
   const plans = [
-    { name: 'Essencial',     key: 'essencial',     price: '49€/mês',  features: [
-      'CRM de Leads básico',
-      'Automação de contactos (Email + WhatsApp)',
-      '1 Agente (Boris OU Laya OU Irina)',
-    ]},
-    { name: 'Profissional',  key: 'profissional',  price: '149€/mês', features: [
-      'Tudo do Essencial',
-      'Multi-agente (Boris + Laya + Irina)',
-      'Dashboards analíticos',
-      'Integração Google Ads + Meta Ads',
-      'Até 5 utilizadores',
-    ]},
-    { name: 'Enterprise',    key: 'enterprise',    price: '499€/mês', features: [
-      'Plataforma White-label (branding próprio)',
-      'Consultoria + Setup incluído',
-      'API privada dedicada',
-      'Suporte prioritário',
-    ]},
+    { name: 'Essencial', key: 'essencial', price: '49€/mês', features: ['CRM de Leads básico','Automação de contactos (Email + WhatsApp)','1 Agente (Boris OU Laya OU Irina)'] },
+    { name: 'Profissional', key: 'profissional', price: '149€/mês', features: ['Tudo do Essencial','Multi-agente (Boris + Laya + Irina)','Dashboards analíticos','Integração Google Ads + Meta Ads','Até 5 utilizadores'] },
+    { name: 'Enterprise', key: 'enterprise', price: '499€/mês', features: ['Plataforma White-label (branding próprio)','Consultoria + Setup incluído','API privada dedicada','Suporte prioritário'] },
   ];
 
   async function subscribe(planKey: string) {
@@ -36,8 +22,8 @@ export default function PricingPage() {
       });
       const json = await res.json();
       if (!res.ok) {
-        if (json?.error === 'STRIPE_NOT_CONFIGURED') {
-          alert('Pagamento ainda não está configurado (Stripe). Fica já tudo pronto - só falta definir as chaves STRIPE.');
+        if (json?.error === 'stripe_unconfigured') {
+          alert('Pagamento desativado neste momento. Quando quiseres ligar o Stripe, define STRIPE_SECRET_KEY e PRICE_* nos envs.');
         } else {
           alert('Erro: ' + (json?.error || res.statusText));
         }
@@ -50,31 +36,34 @@ export default function PricingPage() {
   }
 
   return (
-    <main className="mx-auto max-w-5xl p-6 space-y-12">
-      <h1 className="text-3xl font-bold text-center">Planos CRSET Solutions</h1>
-      <p className="text-center text-gray-600">Escolhe o plano ideal para a tua empresa.</p>
+    <main className="container py-12 space-y-8">
+      <h1 className="font-heading text-4xl md:text-5xl text-center text-foreground">Planos CRSET Solutions</h1>
+      <p className="text-center text-muted">Escolhe o plano ideal para a tua empresa.</p>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {plans.map((plan) => (
-          <Card key={plan.key} className="p-6 rounded-2xl shadow-lg border">
-            <h2 className="text-xl font-semibold mb-2">{plan.name}</h2>
-            <p className="text-2xl font-bold text-blue-600 mb-4">{plan.price}</p>
-            <ul className="space-y-2 text-sm mb-4">
-              {plan.features.map((f, i) => (
-                <li key={i} className="flex items-start gap-2">✅ {f}</li>
+      <div className="grid gap-6 md:grid-cols-3">
+        {plans.map((p) => (
+          <Card key={p.key} className="rounded-2xl p-6">
+            <h2 className="font-heading text-xl text-foreground">{p.name}</h2>
+            <p className="text-3xl font-heading text-primary mt-1 mb-3">{p.price}</p>
+            <ul className="text-sm space-y-2 mb-4">
+              {p.features.map((f, i) => (
+                <li key={i} className="flex gap-2 items-start"><span aria-hidden>✅</span><span>{f}</span></li>
               ))}
             </ul>
-            <button
-              type="button"
-              onClick={() => subscribe(plan.key)}
-              disabled={plan.key!=='essencial' || !!loadingPlan}
-              className="mt-2 w-full rounded bg-blue-600 text-white py-2 font-medium hover:bg-blue-700 disabled:opacity-50"
-            >
-              {plan.key!=='essencial' ? 'Em breve' : (loadingPlan === plan.key ? 'A abrir checkout…' : 'Subscrever')}
-            </button>
+            {p.key === 'essencial' ? (
+              <Button className="w-full" size="lg" onClick={() => subscribe(p.key)} disabled={loadingPlan === p.key}>
+                {loadingPlan === p.key ? 'A abrir checkout…' : 'Subscrever'}
+              </Button>
+            ) : (
+              <Button as-child variant="ghost" size="lg" className="w-full">
+                <a href="/start">Fala connosco</a>
+              </Button>
+            )}
           </Card>
         ))}
       </div>
+
+      <p className="text-center text-sm text-muted">Sem fidelização. Podes cancelar quando quiseres.</p>
     </main>
   );
 }
