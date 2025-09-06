@@ -21,6 +21,7 @@ export default function HomeHero() {
             <Button as-child variant="ghost" size="lg">
               <a href="/precos">Ver preços</a>
             </Button>
+                      <Button as-child variant="ghost" size="lg"><a href="/mascotes-all">Mascotes</a></Button>
           </div>
           <p className="mt-3 text-sm text-muted">Sem fidelização. Podes cancelar quando quiseres.</p>
         </div>
