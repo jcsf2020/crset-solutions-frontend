@@ -20,3 +20,17 @@ jobs:
           code=$(curl -sS -o /dev/null -w "%{http_code}" https://crsetsolutions.com/api/cron/health \
             -H 'x-vercel-cron: 1')
           echo "cron/health status=$code"; [ "$code" = "200" ]
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Run smoke tests
+        run: npm run smoke
+        env:
+          PROD_URL: https://crsetsolutions.com
+          SMOKE_TIMEOUT_MS: 10000
