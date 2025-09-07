@@ -1,0 +1,1 @@
+{"env":"production","ok":true,"gated":true,"timestamp":"2025-08-29T00:46:06.623Z","detailed":{"client":"enterprise-demo","tier":"enterprise","scope":["agi:chat","agi:status"],"rateLimits":{"ip":"60/min","session":"600/day"},"version":"8702182","region":"iad1"}}

@@ -1,0 +1,67 @@
+{
+  "name": "crset-solutions-frontend",
+  "version": "1.0.0",
+  "description": "CRSET Solutions - Frontend Next.js com mascotes Boris, Laya e Irina",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint || true",
+    "export": "next build && next export",
+    "deploy": "bash scripts/guard-prod.sh && vercel --prod",
+    "rollback": "vercel alias set \\ crsetsolutions.com --scope joao-fonsecas-projects",
+    "check:assets": "bash scripts/check-assets.sh",
+    "typecheck": "tsc --noEmit",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
+    "@sentry/nextjs": "^10.7.0",
+    "@supabase/supabase-js": "^2.57.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@upstash/ratelimit": "^2.0.6",
+    "@upstash/redis": "^1.35.3",
+    "@vercel/speed-insights": "1.2.0",
+    "class-variance-authority": "^0.7.1",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^0.460.0",
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-cookie-consent": "^9.0.0",
+    "react-dom": "^18.0.0",
+    "resend": "^6.0.0",
+    "stripe": "^18.5.0",
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16",
+    "autoprefixer": "^10.4.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.3.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "engines": {
+    "node": "22.x",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "crset",
+    "solutions",
+    "nextjs",
+    "react",
+    "typescript",
+    "mascotes",
+    "boris",
+    "laya",
+    "irina"
+  ],
+  "author": "CRSET Solutions",
+  "license": "MIT"
+}

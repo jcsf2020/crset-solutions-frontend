@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRSET Solutions - Convite Exclusivo Beta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #7c3aed 50%, #1e293b 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #7c3aed);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #60a5fa;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
+        
+        .mascots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .mascot {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .mascot:hover {
+            transform: translateY(-5px);
+        }
+        
+        .mascot-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 15px;
+        }
+        
+        .boris { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .laya { background: linear-gradient(135deg, #f97316, #ea580c); }
+        .irina { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+        
+        .cta-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+        }
+        
+        .cta-button.secondary {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .cta-button.secondary:hover {
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info {
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 30px;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #22c55e;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-link:hover {
+            color: #16a34a;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .glass-card {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-button {
+                display: block;
+                margin: 10px 0;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card">
+            <div class="header">
+                <div class="logo">C</div>
+                <div class="badge">🔥 CONVITE EXCLUSIVO BETA</div>
+                <h1>Testa a Primeira IA<br>Portuguesa para Negócios</h1>
+                <p class="subtitle">
+                    Foste selecionado para testar em exclusivo o nosso sistema AGI Commander. 
+                    Acesso limitado a apenas 50 empresas portuguesas.
+                </p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h2>🤖 Conhece as Nossas Mascotes AGI</h2>
+            <div class="mascots">
+                <div class="mascot">
+                    <div class="mascot-icon boris">🛡️</div>
+                    <h3>Boris</h3>
+                    <p><strong>Segurança & Automação</strong></p>
+                    <p>Automatiza processos complexos e protege os teus sistemas com IA avançada.</p>
+                </div>
+                <div class="mascot">
+                    <div class="mascot-icon laya">💬</div>
+                    <h3>Laya</h3>
+                    <p><strong>Comunicação & Organização</strong></p>
+                    <p>Organiza equipas, gere projetos e otimiza a comunicação digital.</p>
+                </div>
+                <div class="mascot">
+                    <div class="mascot-icon irina">📊</div>
+                    <h3>Irina</h3>
+                    <p><strong>Analytics & Insights</strong></p>
+                    <p>Analisa dados em tempo real e fornece insights estratégicos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h2>⚡ O que Podes Testar Agora</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Demo Interativa</h3>
+                    <p>Conversa diretamente com as mascotes AGI e vê como podem ajudar o teu negócio.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Automação Personalizada</h3>
+                    <p>Testa automações específicas para o teu sector de atividade.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📈</div>
+                    <h3>Análise de ROI</h3>
+                    <p>Descobre quanto podes poupar e ganhar com a implementação da IA.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Segurança Garantida</h3>
+                    <p>Todos os dados são processados com máxima segurança e privacidade.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="cta-section">
+                <h2>🎁 Acesso Beta Gratuito</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px; color: #cbd5e1;">
+                    Sem custos, sem compromissos, sem cartão de crédito. 
+                    Apenas para empresas portuguesas selecionadas.
+                </p>
+                
+                <a href="https://crset-solutions-frontend.vercel.app/demo" class="cta-button">
+                    🚀 Ativar Acesso Beta Agora
+                </a>
+                
+                <a href="https://mzhyi8cd6vxg.manus.space/" class="cta-button secondary">
+                    🤖 Ver Demo AGI Diretamente
+                </a>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="contact-info">
+                <h3>💬 Contacto Direto com a Equipa</h3>
+                <p>Tens questões? Fala diretamente connosco!</p>
+                <div class="contact-links">
+                    <a href="https://wa.me/351914423688?text=Olá! Recebi o convite beta da CRSET Solutions e quero saber mais sobre o sistema AGI." class="contact-link">
+                        📱 WhatsApp: +351 914 423 688
+                    </a>
+                    <a href="mailto:crsetsolutions@gmail.com?subject=Convite Beta - Questões sobre AGI Commander" class="contact-link">
+                        📧 crsetsolutions@gmail.com
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 CRSET Solutions - Inteligência Artificial para Negócios</p>
+            <p>Empresa Portuguesa • Suporte em Português • Dados processados em Portugal</p>
+            <p style="margin-top: 15px; font-size: 12px;">
+                Este convite é exclusivo e intransmissível. Válido até 31 de Agosto de 2025.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Animação suave para os elementos
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+
+        // Tracking de cliques (opcional)
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                console.log('Beta CTA clicked:', this.textContent);
+                // Aqui podes adicionar tracking analytics se necessário
+            });
+        });
+    </script>
+</body>
+</html>
+
