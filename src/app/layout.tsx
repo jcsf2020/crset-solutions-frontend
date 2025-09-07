@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt">
-      <body className="${fontSans.variable} ${fontHeading.variable} antialiased">
+      <body className={[fontSans.variable, fontHeading.variable, 'antialiased', 'min-h-screen', 'bg-[rgb(var(--bg))]', 'text-[rgb(var(--fg))]'].join(' ')}>
         <Header />
         {children}
       </body>
