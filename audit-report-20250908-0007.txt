@@ -1,0 +1,9 @@
+=== CRSET Audit 20250908-0007 ===
+SITE_URL: https://crset-solutions-frontend-52m82s2ry-joao-fonsecas-projects.vercel.app
+✔ Frontend / -> HTTP 200
+✔ Frontend /mascotes -> HTTP 200
+✖ Supabase erro: fetch failed
+✖ Upstash erro: fetch failed
+✖ Resend: defina RESEND_API_KEY
+✖ Sentry: defina SENTRY_DSN
+• GitHub Actions: sem GITHUB_REPO/GITHUB_TOKEN — saltei.

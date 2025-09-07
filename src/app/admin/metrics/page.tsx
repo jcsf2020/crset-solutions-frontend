@@ -1,5 +1,14 @@
+import { headers } from 'next/headers';
 export const dynamic='force-dynamic';
-async function getM(){ const r=await fetch('/api/agi/metrics',{cache:'no-store'}); return r.json(); }
+async function getM(){
+  const h = headers();
+  const proto = h.get('x-forwarded-proto') || 'https';
+  const host  = h.get('host') || process.env.VERCEL_URL || 'localhost:3000';
+  const base  = process.env.NEXT_PUBLIC_SITE_URL || `${proto}://${host}`;
+  const r = await fetch(`${base}/api/agi/metrics`, { cache: 'no-store' });
+  return r.json();
+}
+); return r.json(); }
 export default async function Page(){
   const m=await getM(); const t=m?.totals??{}; const l=m?.latency_ms??{};
   return (<main style={{padding:24,fontFamily:'ui-sans-serif'}}>
