@@ -419,3 +419,69 @@ body::before {
   header, footer { background: #0a0a0a !important; }
   h1, h2, h3, p, a, span { color: #f5f5f5 !important; }
 }
+/* === Bridge: tokens.css → legacy --color-* utilities (keep in sync) === */
+:root{
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+}
+[data-theme="dark"]{
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+}
+/* === Bridge: tokens.css → legacy --color-* (override no fim do ficheiro) === */
+@layer base {
+  :root{
+    --color-bg:      var(--bg);
+    --color-fg:      var(--fg);
+    --color-muted:   var(--muted);
+    --color-primary: var(--primary);
+    --color-accent:  var(--accent);
+  }
+  [data-theme="dark"]{
+    --color-bg:      var(--bg);
+    --color-fg:      var(--fg);
+    --color-muted:   var(--muted);
+    --color-primary: var(--primary);
+    --color-accent:  var(--accent);
+  }
+}
+/* === Bridge: tokens.css → legacy --color-* (override final) === */
+@layer base {
+  :root{
+    --color-bg:      var(--bg);
+    --color-fg:      var(--fg);
+    --color-muted:   var(--muted);
+    --color-primary: var(--primary);
+    --color-accent:  var(--accent);
+  }
+  [data-theme="dark"]{
+    --color-bg:      var(--bg);
+    --color-fg:      var(--fg);
+    --color-muted:   var(--muted);
+    --color-primary: var(--primary);
+    --color-accent:  var(--accent);
+  }
+}
+/* === Bridge: tokens.css → legacy --color-* (override final) === */
+@layer base {
+  :root{
+    --color-bg:      var(--bg);
+    --color-fg:      var(--fg);
+    --color-muted:   var(--muted);
+    --color-primary: var(--primary);
+    --color-accent:  var(--accent);
+  }
+  [data-theme="dark"]{
+    --color-bg:      var(--bg);
+    --color-fg:      var(--fg);
+    --color-muted:   var(--muted);
+    --color-primary: var(--primary);
+    --color-accent:  var(--accent);
+  }
+}
