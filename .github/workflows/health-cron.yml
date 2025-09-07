@@ -1,0 +1,22 @@
+name: Health Check (daily)
+on:
+  schedule:
+    - cron: '0 8 * * *'   # 08:00 UTC (~09:00 Lisboa no verão)
+  workflow_dispatch:
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping agi/chat (prod)
+        run: |
+          set -euo pipefail
+          code=$(curl -sS -o /dev/null -w "%{http_code}" -X POST https://crsetsolutions.com/api/agi/chat \
+            -H 'content-type: application/json' \
+            --data '{"input":"ping"}')
+          echo "agi/chat status=$code"; [ "$code" = "200" ]
+      - name: Ping cron/health (prod) via x-vercel-cron
+        run: |
+          set -euo pipefail
+          code=$(curl -sS -o /dev/null -w "%{http_code}" https://crsetsolutions.com/api/cron/health \
+            -H 'x-vercel-cron: 1')
+          echo "cron/health status=$code"; [ "$code" = "200" ]
