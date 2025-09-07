@@ -17,7 +17,9 @@ export default function Header() {
           {nav.map(i => (
             <Link key={i.href} href={i.href} className="hover:opacity-80">{i.label}</Link>
           ))}
-        </nav>
+          <a className="hover:opacity-80" href="/mascotes">Mascotes</a>
+  <a className="hover:opacity-80" href="/#contacto">Contacto</a>
+</nav>
       </div>
     </header>
   );

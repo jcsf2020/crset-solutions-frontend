@@ -1,3 +1,4 @@
+import MascotesSection from "@/components/Mascotes";
 import Contact from "@/components/Contact";
 import Testimonials from "@/components/Testimonials";
 import HeroPro from "@/components/HeroPro";
@@ -9,6 +10,7 @@ export default function Page() {
     <>
       <ClientPageRoot />
       <HeroPro />
+      <MascotesSection />
       <Testimonials />
       
       
