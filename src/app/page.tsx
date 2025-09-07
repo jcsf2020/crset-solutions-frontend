@@ -1,6 +1,6 @@
 import Contact from "@/components/Contact";
 import Testimonials from "@/components/Testimonials";
-import Hero from "@/components/hero";
+import HeroPro from "@/components/HeroPro";
 import ClientPageRoot from './ClientPageRoot';
 import HomeCTAs from "./_components/HomeCTAs";
 
@@ -8,7 +8,7 @@ export default function Page() {
   return (
     <>
       <ClientPageRoot />
-      <Hero />
+      <HeroPro />
       <Testimonials />
       
       
