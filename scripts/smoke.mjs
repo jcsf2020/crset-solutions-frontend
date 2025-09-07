@@ -15,7 +15,7 @@ async function req(method, url, {headers={}, body}={}) {
 async function main(){
   let fails = 0;
 
-  // 1) PROD: POST /api/agi/chat -> 200
+  // PROD: POST /api/agi/chat -> 200
   try {
     const r = await req('POST', `${PROD}/api/agi/chat`, {
       headers: { 'content-type':'application/json' },
@@ -25,7 +25,7 @@ async function main(){
     if (r.status !== 200) { fails++; console.log(r.text.slice(0,300)); }
   } catch(e){ fails++; console.log('[PROD] agi/chat ERROR:', String(e)); }
 
-  // 2) PROD: OPTIONS preflight -> 204
+  // PROD: OPTIONS preflight -> 204
   try {
     const r = await req('OPTIONS', `${PROD}/api/agi/chat`, {
       headers: {
@@ -38,7 +38,7 @@ async function main(){
     if (r.status !== 204) { fails++; console.log(r.text.slice(0,300)); }
   } catch(e){ fails++; console.log('[PROD] CORS preflight ERROR:', String(e)); }
 
-  // 3) PROD: POST origem maliciosa -> 403
+  // PROD: POST origem maliciosa -> 403
   try {
     const r = await req('POST', `${PROD}/api/agi/chat`, {
       headers: { 'origin':'https://evil.example', 'content-type':'application/json' },
@@ -48,14 +48,14 @@ async function main(){
     if (r.status !== 403) { fails++; console.log(r.text.slice(0,300)); }
   } catch(e){ fails++; console.log('[PROD] CORS evil ERROR:', String(e)); }
 
-  // 4) LOCAL: POST /api/agi/chat -> 200 (se não houver servidor local, só avisa)
+  // LOCAL: POST /api/agi/chat -> 200 (se houver dev server)
   try {
     const r = await req('POST', `${LOCAL}/api/agi/chat`, {
       headers: { 'content-type':'application/json' },
       body: JSON.stringify({ input:'ping' })
     });
     console.log('[LOCAL] agi/chat POST =>', r.status);
-    if (r.status !== 200) { console.log('[LOCAL] esperado 200 se o dev server estiver ligado'); }
+    if (r.status !== 200) console.log('[LOCAL] esperado 200 se o dev server estiver ligado');
   } catch(e){ console.log('[LOCAL] (sem servidor local?):', String(e)); }
 
   if (fails) { console.error(`SMOKE FAILED (${fails})`); process.exit(1); }
