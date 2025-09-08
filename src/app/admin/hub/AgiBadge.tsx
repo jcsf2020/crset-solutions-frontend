@@ -1,5 +1,6 @@
+import { apiFetch } from '../../../lib/api';
 export const dynamic = 'force-dynamic';
-async function getStatus(){ const r=await fetch('/api/agi/status',{cache:'no-store'}); try{return await r.json()}catch{return {ok:false}}}
+async function getStatus(){ const r=await apiFetch('/api/agi/status',{cache:'no-store'}); try{return await r.json()}catch{return {ok:false}}}
 export default async function AgiBadge(){
   const s=await getStatus(); const ok=!!s?.ok && s?.openaiConfigured!==false;
   const txt=ok?'AGI: OK':'AGI: ERRO'; const color=ok?'#16a34a':'#dc2626';

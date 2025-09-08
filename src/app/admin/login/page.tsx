@@ -1,4 +1,5 @@
 "use client";
+import { apiFetch } from '../../../lib/api';
 import { useState } from "react";
 
 export default function AdminLogin() {
@@ -8,7 +9,7 @@ export default function AdminLogin() {
   async function onSubmit(e: any) {
     e.preventDefault();
     setMsg("A autenticar...");
-    const r = await fetch("/api/admin/login", {
+    const r = await apiFetch("/api/admin/login", {
       method: "POST",
       headers: {"content-type":"application/json"},
       body: JSON.stringify({ password })

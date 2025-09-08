@@ -1,4 +1,5 @@
 'use client';
+import { apiFetch } from '../../lib/api';
 import { useState, useRef } from 'react';
 
 export default function Demo() {
@@ -15,7 +16,7 @@ export default function Demo() {
     if (!input.trim()) return;
     setLoading(true); setAnswer('');
     try {
-      const res = await fetch('/api/agi/chat', {
+      const res = await apiFetch('/api/agi/chat', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ agent, input, sessionId: 'demo-'+Date.now() })

@@ -1,4 +1,5 @@
 'use client';
+import { apiFetch } from '../../lib/api';
 import { useState, useEffect } from 'react';
 
 export default function AgiLivePage() {
@@ -34,7 +35,7 @@ export default function AgiLivePage() {
     setLoading(true);
     setOut('');
     try {
-      const res = await fetch('/api/agi/chat', {
+      const res = await apiFetch('/api/agi/chat', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',

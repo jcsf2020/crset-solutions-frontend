@@ -1,4 +1,5 @@
 'use client';
+import { apiFetch } from '../lib/api';
 import { useState } from 'react';
 
 type Msg = { role: 'user' | 'bot'; text: string };
@@ -16,7 +17,7 @@ export default function Chatbox() {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/agi/chat', {
+      const res = await apiFetch('/api/agi/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

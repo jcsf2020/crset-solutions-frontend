@@ -1,4 +1,5 @@
 'use client';
+import { apiFetch } from '../../../lib/api';
 import '../force-dynamic'
 import { useEffect, useState } from 'react';
 import Gate from '../_components/Gate';
@@ -40,7 +41,7 @@ export default function Hub() {
   const checkAll = async () => {
     setChecking(true);
     try {
-      const r = await fetch('/api/health', { cache: 'no-store' });
+      const r = await apiFetch('/api/health', { cache: 'no-store' });
       const j = await r.json() as Health;
       setPings(toPings(j));
       setLastChecked(Date.now());

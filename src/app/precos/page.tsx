@@ -1,4 +1,5 @@
 'use client';
+import { apiFetch } from '../../lib/api';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -15,7 +16,7 @@ export default function PricingPage() {
   async function subscribe(planKey: string) {
     try {
       setLoadingPlan(planKey);
-      const res = await fetch('/api/checkout', {
+      const res = await apiFetch('/api/checkout', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ plan: planKey }),
