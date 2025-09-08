@@ -98,7 +98,7 @@ export default function HeroPro() {
           </div>
         </div>
       </div>
-      {/* mascotes à direita */}\n  <div className="pointer-events-none select-none absolute inset-y-0 right-0 w-[45vw] max-w-[780px]">\n    <div aria-hidden className="absolute inset-0 -z-10 rounded-[56px] bg-white/[0.03]" />\n    <Image src="/mascotes/crset_mascotes_conjunta-w1024.webp" alt="Boris, Laya e Irina — mascotes CRSET" fill priority sizes="(min-width: 1024px) 780px, 45vw" className="object-contain object-right-bottom" />\n  </div>\n
+      {/* mascotes à direita */}\n  <div className="pointer-events-none select-none absolute bottom-0 top-auto h-[56vh] sm:h-[60vh] md:h-[64vh] right-0 w-[45vw] max-w-[780px]">\n    <div aria-hidden className="absolute inset-0 -z-10 rounded-[56px] bg-white/[0.03]" />\n    <Image src="/mascotes/crset_mascotes_conjunta-w1024.webp" alt="Boris, Laya e Irina — mascotes CRSET" fill priority sizes="(min-width: 1024px) 780px, 45vw" className="object-cover object-right-bottom" />\n  </div>\n
 </section>
   );
 }
