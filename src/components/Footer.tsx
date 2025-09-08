@@ -15,7 +15,6 @@ export default function Footer(){
         <div>
           <div className="text-sm opacity-70">Localização</div>
           <div className="text-sm"><a href={empresa.maps} target="_blank" rel="noopener noreferrer" className="hover:underline">{empresa.morada}</a></div>
-          <div className="text-xs opacity-70 mt-2">Horário: {empresa.horario}</div>
         </div>
       </div>
     </footer>

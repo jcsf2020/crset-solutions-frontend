@@ -18,7 +18,6 @@ export default function ContactInfo(){
           <div className="font-medium">{empresa.morada}</div>
         </a>
       </div>
-      <div className="text-xs text-[rgb(var(--muted))]">Horário: {empresa.horario}</div>
     </div>
   )
 }
