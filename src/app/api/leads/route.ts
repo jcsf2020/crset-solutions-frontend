@@ -47,7 +47,7 @@ function isAllowed(req: Request) {
   return allowViaKey || allowViaOrigin;
 }
 
-function validEmail(e:string){ return /^[^@s]+@[^@s]+.[^@s]+$/.test(e||''); }
+function validEmail(e:string){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e||''); }
 
 async function insertSupabase(lead: Lead){
   const url = CLEAN(process.env.SUPABASE_URL || '');
