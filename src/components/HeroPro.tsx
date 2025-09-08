@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 export default function HeroPro() {
   return (
-    <section className="relative overflow-hidden py-24 md:py-32">
+    <section className="relative overflow-hidden py-24 md:py-32 bg-[url(/mascotes/crset_mascotes_conjunta-w1024.webp)] bg-no-repeat bg-right-bottom bg-contain">
       {/* background accents */}
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-60"
