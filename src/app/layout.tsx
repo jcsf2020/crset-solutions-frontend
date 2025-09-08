@@ -1,4 +1,6 @@
 import { fontSans, fontHeading } from "./fonts";
+import FooterCompany from '../components/FooterCompany';
+import { SchemaOrg } from '../components/SchemaOrg';
 import "./globals.css";
 import type { Metadata } from "next";
 import Header from "@/components/Header";
@@ -13,11 +15,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt">
       <body className={[fontSans.variable, fontHeading.variable, 'antialiased', 'min-h-screen', 'bg-[rgb(var(--bg))]', 'text-[rgb(var(--fg))]'].join(' ')}>
+      <SchemaOrg />
         <Header />
         {children}
       
         <Footer />
-      </body>
+            <FooterCompany />
+    </body>
     </html>
   );
 }
