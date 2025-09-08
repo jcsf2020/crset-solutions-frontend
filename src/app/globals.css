@@ -12,3 +12,10 @@
 header, header nav, .top-nav, .site-header { background: transparent !important; backdrop-filter: none !important; box-shadow: none !important; border: 0 !important; }
 /* footer: divisor mais discreto */
 footer, .site-footer { border-top: 1px solid rgba(255,255,255,.08) !important; }
+
+/* === CRSET quick visual patch (header transparente) === */
+:root{--crset-border:rgba(255,255,255,.08)}
+header,nav, .site-header, .topbar{background:transparent!important;border-bottom:1px solid var(--crset-border);backdrop-filter:saturate(160%) blur(8px)}
+/* evita conteúdo colado ao topo quando header é sticky */
+main{scroll-margin-top:72px}
+/* ===================================================== */
