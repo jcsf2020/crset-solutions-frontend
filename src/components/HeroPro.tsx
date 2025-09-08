@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 export default function HeroPro() {
   return (
-    <section className="relative overflow-hidden py-24 md:py-32 bg-[url(/mascotes/crset_mascotes_conjunta-w1024.webp)] bg-no-repeat bg-right-bottom bg-contain min-h-[68vh] md:min-h-[72vh] bg-[length:640px_auto] md:bg-[length:760px_auto] lg:bg-[length:880px_auto] bg-[position:right_-16px_bottom_-16px] bg-[length:560px_auto] md:bg-[length:640px_auto] lg:bg-[length:760px_auto] xl:bg-[length:820px_auto] bg-[position:right_-120px_bottom_-36px] md:bg-[position:right_-96px_bottom_-28px] lg:bg-[position:right_-64px_bottom_-24px]">
+    <section className="relative overflow-hidden py-24 md:py-32 bg-[url(/mascotes/crset_mascotes_conjunta-w1024.webp)] bg-no-repeat bg-right-bottom bg-contain min-h-[68vh] md:min-h-[72vh] bg-[length:640px_auto] md:bg-[length:760px_auto] lg:bg-[length:880px_auto] bg-[position:right_-16px_bottom_-16px] bg-[length:560px_auto] md:bg-[length:640px_auto] lg:bg-[length:760px_auto] xl:bg-[length:820px_auto] bg-[position:right_-120px_bottom_-36px] md:bg-[position:right_-96px_bottom_-28px] lg:bg-[position:right_-64px_bottom_-24px] lg:grid lg:grid-cols-2 lg:gap-10 pr-6 md:pr-24 lg:pr-[560px] xl:pr-[680px] 2xl:pr-[800px] bg-[position:right_-900px_bottom_-64px] md:bg-[position:right_-1020px_bottom_-80px] lg:bg-[position:right_-1140px_bottom_-96px] xl:bg-[position:right_-1260px_bottom_-112px] xl:bg-[length:1200px_auto] 2xl:bg-[length:1400px_auto]">
       {/* background accents */}
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-60"
