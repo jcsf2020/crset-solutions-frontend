@@ -1,9 +1,8 @@
 import Link from "next/link";
 
-import Image from "next/image";
 export default function HeroPro() {
   return (
-    <section className="relative overflow-hidden py-24 md:py-32 bg-no-repeat bg-right-bottom bg-contain min-h-[68vh] md:min-h-[72vh] lg:grid lg:grid-cols-2 lg:gap-10 pr-6 md:pr-24 lg:pr-[560px] xl:pr-[680px] 2xl:pr-[800px]">
+    <section className="relative overflow-hidden py-24 md:py-32">
       {/* background accents */}
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-60"
@@ -98,7 +97,6 @@ export default function HeroPro() {
           </div>
         </div>
       </div>
-      {/* mascotes à direita */}\n  <div className="pointer-events-none select-none absolute bottom-0 top-auto h-[56vh] sm:h-[60vh] md:h-[64vh] right-0 w-[45vw] max-w-[780px]">\n    <div aria-hidden className="absolute inset-0 -z-10 rounded-[56px] bg-white/[0.03]" />\n    <Image src="/mascotes/crset_mascotes_conjunta-w1024.webp" alt="Boris, Laya e Irina — mascotes CRSET" fill priority sizes="(min-width: 1024px) 780px, 45vw" className="object-cover object-right-bottom" />\n  </div>\n
-</section>
+    </section>
   );
 }
