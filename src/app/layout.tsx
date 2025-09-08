@@ -1,3 +1,4 @@
+import './hotfix.css'
 import { fontSans, fontHeading } from "./fonts";
 import FooterCompany from '../components/FooterCompany';
 import { SchemaOrg } from '../components/SchemaOrg';

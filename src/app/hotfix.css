@@ -1,0 +1,23 @@
+/* Hotfix visual 2025-09-08  */
+:root { --hf-max: 1200px; }
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+/* Header: vidro/blur e linha sutil */
+header, .site-header, nav[aria-label="Main"], nav[role="navigation"]{
+  position: sticky; top:0; z-index:40;
+  background: rgba(12,14,20,.72);
+  backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+/* Container mais estreito e centrado para reduzir “vazio” à direita */
+main > section, .container, .wrapper { max-width: var(--hf-max); margin-inline: auto; }
+
+/* Rodapé: sem faixa cinza, só uma linha sutil */
+footer, .site-footer {
+  background: transparent !important;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+/* Tipos mais legíveis em legendas apagadas */
+.text-muted, .text-muted-foreground { color: #a1a1aa !important; }

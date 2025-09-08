@@ -7,7 +7,7 @@ async function getM() {
   const host = h.get('host') || process.env.VERCEL_URL || 'localhost:3000';
   const proto = h.get('x-forwarded-proto') || (host.includes('localhost') ? 'http' : 'https');
   const base = host.startsWith('http') ? host : `${proto}://${host}`;
-  const r = await fetch(`${base}/api/agi/metrics`, { cache: 'no-store' });
+  const r = await fetch(`${base}/api/metrics`, { cache: 'no-store' });
   return r.json();
 }
 
