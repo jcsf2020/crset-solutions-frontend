@@ -3,9 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 export default function HeroPro() {
   return (
-    <section className="relative overflow-hidden py-24 md:py-32 bg-[url(/mascotes/crset_mascotes_conjunta-w1024.webp)] bg-no-repeat bg-right-bottom bg-contain min-h-[68vh] md:min-h-[72vh] bg-[length:640px_auto] md:bg-[length:760px_auto] lg:bg-[length:880px_auto] bg-[position:right_-16px_bottom_-16px]">
-      {/* overlay para legibilidade sobre a arte das mascotes */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent" />
+    <section className="relative overflow-hidden py-24 md:py-32 bg-[url(/mascotes/crset_mascotes_conjunta-w1024.webp)] bg-no-repeat bg-right-bottom bg-contain min-h-[68vh] md:min-h-[72vh] bg-[length:640px_auto] md:bg-[length:760px_auto] lg:bg-[length:880px_auto] bg-[position:right_-16px_bottom_-16px] bg-[length:560px_auto] md:bg-[length:640px_auto] lg:bg-[length:760px_auto] xl:bg-[length:820px_auto] bg-[position:right_-120px_bottom_-36px] md:bg-[position:right_-96px_bottom_-28px] lg:bg-[position:right_-64px_bottom_-24px]">
       {/* background accents */}
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-60"
