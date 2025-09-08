@@ -28,7 +28,7 @@ function corsHeaders(origin?: string) {
   return {
     ...(allow ? { 'access-control-allow-origin': allow } : {}),
     'access-control-allow-methods': 'GET,POST,OPTIONS',
-    'access-control-allow-headers': 'content-type, authorization',
+    'access-control-allow-headers': 'content-type, authorization, x-agi-api-key, x-agi-test-key',
   };
 }
 
@@ -39,12 +39,16 @@ export function OPTIONS(req: Request) {
 export async function POST(req: Request) {
   // gate
   const gate = (process.env.AGI_API_KEY || '').trim();
-  if (gate) {
-    const auth = req.headers.get('authorization') || '';
-    if (auth !== 'Bearer ' + gate) {
-      return new Response('unauthorized', { status: 401, headers: corsHeaders(req.headers.get('origin') || undefined) });
-    }
+const test = (process.env.NEXT_PUBLIC_AGI_TEST_KEY || '').trim();
+const auth = req.headers.get('authorization') || '';
+const xApi = req.headers.get('x-agi-api-key') || '';
+const xTest = req.headers.get('x-agi-test-key') || '';
+if (gate) {
+  const ok = (auth === 'Bearer ' + gate) || (xApi === gate) || (test && xTest === test);
+  if (!ok) {
+    return new Response('unauthorized', { status: 401, headers: corsHeaders(req.headers.get('origin') || undefined) });
   }
+}
 
   const origin = req.headers.get('origin') || undefined;
 
