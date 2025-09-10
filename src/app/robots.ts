@@ -1,24 +1,20 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://crset.pt";
+const RAW_BASE = process.env.NEXT_PUBLIC_SITE_URL || "";
+const BASE_URL = (/^https?:\/\//i.test(RAW_BASE) ? RAW_BASE : "https://crset.pt").replace(/\/+$/,"");
 
 export default function robots(): MetadataRoute.Robots {
-  // Vercel define: 'production' | 'preview' | 'development'
-  const vercelEnv = process.env.VERCEL_ENV;
-  const isProd = vercelEnv === "production";
+  const isProd = process.env.VERCEL_ENV === "production";
 
   if (!isProd) {
-    // Bloqueia indexação em preview/dev
-    return {
-      rules: { userAgent: "*", disallow: "/" },
-    };
+    // Preview/Dev: bloquear e sem sitemap
+    return { rules: { userAgent: "*", disallow: "/" } };
   }
 
-  // Produção: permite e aponta o sitemap para o domínio público
-  const host = new URL(BASE_URL).host;
+  // Produção: permitir e expor sitemap/host sem usar new URL()
   return {
     rules: { userAgent: "*", allow: "/" },
     sitemap: `${BASE_URL}/sitemap.xml`,
-    host,
+    host: BASE_URL,
   };
 }
