@@ -9,7 +9,7 @@ function StartInner() {
   const params = useSearchParams();
 
   useEffect(() => {
-    const plan = params.get('plan');
+    const plan = (params as any)?.get?.('plan') ?? null;
     if (plan) {
       router.replace(`/checkout?plan=${encodeURIComponent(plan)}`);
     }
