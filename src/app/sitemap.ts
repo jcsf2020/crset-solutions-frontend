@@ -11,13 +11,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticRoutes.map((p) => ({
       url: `${BASE_URL}${p}`,
       lastModified: now,
-      changeFrequency: "weekly",
+      changeFrequency: 'weekly' as const,
       priority: 0.7,
     })),
     ...getAllSlugs().map((slug) => ({
       url: `${BASE_URL}/servicos/${slug}`,
       lastModified: now,
-      changeFrequency: "weekly",
+      changeFrequency: 'weekly' as const,
       priority: 0.8,
     })),
   ];
