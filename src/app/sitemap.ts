@@ -1,20 +1,24 @@
 import type { MetadataRoute } from "next";
 import { getAllSlugs } from "@/lib/services-config";
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://crset.pt";
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3005").replace(/\/+$/,"");
-  const now = new Date();
+  const now = new Date().toISOString();
+  const staticRoutes = ["/", "/servicos", "/precos", "/centro-de-ajuda"];
 
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/`, lastModified: now },
-    { url: `${baseUrl}/precos`, lastModified: now },
-    { url: `${baseUrl}/servicos`, lastModified: now },
+  return [
+    ...staticRoutes.map((p) => ({
+      url: `${BASE_URL}${p}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    })),
+    ...getAllSlugs().map((slug) => ({
+      url: `${BASE_URL}/servicos/${slug}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    })),
   ];
-
-  const serviceRoutes: MetadataRoute.Sitemap = getAllSlugs().map((slug) => ({
-    url: `${baseUrl}/servicos/${slug}`,
-    lastModified: now,
-  }));
-
-  return [...staticRoutes, ...serviceRoutes];
 }
