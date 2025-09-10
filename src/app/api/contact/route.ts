@@ -19,6 +19,25 @@ function bad(msg: string, code = 400) {
   return NextResponse.json({ ok: false, error: msg }, { status: code });
 }
 
+// Função para normalizar UTM (objeto/string)
+function parseUtm(utm: string | object | undefined): object | null {
+  if (!utm) return null;
+  
+  if (typeof utm === 'string') {
+    try {
+      return JSON.parse(utm);
+    } catch {
+      return { raw: utm };
+    }
+  }
+  
+  if (typeof utm === 'object') {
+    return utm;
+  }
+  
+  return null;
+}
+
 export async function POST(req: Request) {
   try {
     const { name, email, message, phone, source, utm, metadata }: Body = await req.json().catch(() => ({} as any));
@@ -29,18 +48,14 @@ export async function POST(req: Request) {
     if (!supabaseUrl || !serviceKey) return bad("supabase_unconfigured", 503);
 
     // Processar UTM - aceitar string JSON ou objeto
-    let utmProcessed: object | null = null;
-    if (utm) {
-      if (typeof utm === 'string') {
-        try {
-          utmProcessed = JSON.parse(utm);
-        } catch {
-          // Se não conseguir fazer parse, manter como string
-          utmProcessed = { raw: utm };
-        }
-      } else if (typeof utm === 'object') {
-        utmProcessed = utm;
-      }
+    const utmProcessed = parseUtm(utm);
+
+    // Embeber metadata em utm._metadata se ambos existirem
+    let finalUtm = utmProcessed;
+    if (utmProcessed && metadata) {
+      finalUtm = { ...utmProcessed, _metadata: metadata };
+    } else if (!utmProcessed && metadata) {
+      finalUtm = { _metadata: metadata };
     }
 
     // Preparar dados para Supabase - defensivo para colunas que podem existir
@@ -54,12 +69,11 @@ export async function POST(req: Request) {
     // Adicionar campos opcionais se fornecidos
     if (phone) supabaseData.phone = phone;
     if (source) supabaseData.source = source;
-    if (utmProcessed) supabaseData.utm = utmProcessed;
-    if (metadata) supabaseData.metadata = metadata;
+    if (finalUtm) supabaseData.utm = finalUtm;
 
-    // Preencher colunas UTM individuais se existirem no objeto UTM
-    if (utmProcessed && typeof utmProcessed === 'object') {
-      const utmObj = utmProcessed as any;
+    // Preencher colunas UTM individuais se existirem no objeto UTM (defensivo)
+    if (finalUtm && typeof finalUtm === 'object') {
+      const utmObj = finalUtm as any;
       if (utmObj.utm_source) supabaseData.utm_source = utmObj.utm_source;
       if (utmObj.utm_medium) supabaseData.utm_medium = utmObj.utm_medium;
       if (utmObj.utm_campaign) supabaseData.utm_campaign = utmObj.utm_campaign;
@@ -83,11 +97,15 @@ export async function POST(req: Request) {
       if (!ins.ok) {
         const detail = await ins.text().catch(() => "");
         Sentry.captureException(new Error(`Supabase insert failed: ${ins.status} ${detail}`));
-        return NextResponse.json({ ok: false, error: "supabase_insert_failed", detail }, { status: 500 });
+        await Sentry.flush(2000);
+        // Sempre retornar {"ok": true} mesmo em falhas
+        return NextResponse.json({ ok: true });
       }
     } catch (supabaseError: any) {
       Sentry.captureException(supabaseError);
-      return NextResponse.json({ ok: false, error: "supabase_error", detail: String(supabaseError?.message || supabaseError) }, { status: 500 });
+      await Sentry.flush(2000);
+      // Sempre retornar {"ok": true} mesmo em falhas
+      return NextResponse.json({ ok: true });
     }
 
     // 2) Email via Resend
@@ -95,15 +113,15 @@ export async function POST(req: Request) {
     const to = process.env.CONTACT_TO;
     const key = process.env.RESEND_API_KEY;
     if (!key || !from || !to) {
-      // Sem email, mas lead gravado: responder 200 com nota
-      return NextResponse.json({ ok: true, note: "resend_unconfigured" });
+      // Sem email, mas lead gravado: responder 200
+      return NextResponse.json({ ok: true });
     }
 
     try {
-      // Formatar UTM e Source para o email
+      // Formatar UTM e Source para o email (JSON pretty)
       let utmFormatted = "N/A";
-      if (utmProcessed) {
-        utmFormatted = JSON.stringify(utmProcessed, null, 2);
+      if (finalUtm) {
+        utmFormatted = JSON.stringify(finalUtm, null, 2);
       }
 
       const sourceFormatted = source || "N/A";
@@ -122,24 +140,21 @@ UTM Data:
 ${utmFormatted}
 
 Mensagem:
-${message}
-
-${metadata ? `\nMetadata:\n${JSON.stringify(metadata, null, 2)}` : ''}`,
+${message}`,
       });
     } catch (resendError: any) {
       Sentry.captureException(resendError);
+      await Sentry.flush(2000);
       // Email falhou mas lead foi gravado - ainda é sucesso
-      return NextResponse.json({ ok: true, note: "email_failed" });
+      return NextResponse.json({ ok: true });
     }
-
-    // Flush Sentry para garantir que eventos são enviados
-    await Sentry.flush(2000);
 
     return NextResponse.json({ ok: true });
   } catch (e: any) {
     Sentry.captureException(e);
     await Sentry.flush(2000);
-    return NextResponse.json({ ok: false, error: "contact_error", detail: String(e?.message || e) }, { status: 500 });
+    // Sempre retornar {"ok": true} mesmo em erros gerais
+    return NextResponse.json({ ok: true });
   }
 }
 

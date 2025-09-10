@@ -56,18 +56,18 @@ export default function ServicePage({ params }: ServicePageProps) {
       </nav>
 
       {/* Hero Section */}
-      <section className="mb-16">
+      <section className="mb-16 space-y-6 md:space-y-8">
         <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-6">
+          <div className="flex-1 space-y-6 md:space-y-8">
+            <div className="flex items-center gap-3">
               <span className="inline-block px-4 py-2 text-sm font-medium bg-blue-100 text-blue-800 rounded-full">
                 {service.category}
               </span>
             </div>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {service.title}
             </h1>
-            <p className="text-xl lg:text-2xl text-gray-600 mb-6 leading-relaxed">
+            <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed">
               {service.subtitle}
             </p>
             <p className="text-gray-700 text-lg leading-relaxed">
@@ -93,7 +93,7 @@ export default function ServicePage({ params }: ServicePageProps) {
 
       <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
         {/* Main content */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 md:space-y-8">
           {/* Features Section */}
           <section className="p-8 rounded-2xl border border-white/10 bg-white/[0.03]">
             <h2 className="text-2xl lg:text-3xl font-semibold mb-8">Funcionalidades Incluídas</h2>

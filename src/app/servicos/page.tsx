@@ -29,7 +29,7 @@ export default function ServiçosPage() {
       </div>
 
       {/* Services Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         {SERVICES_CONFIG.map((service) => (
           <Link
             key={service.slug}
@@ -37,7 +37,7 @@ export default function ServiçosPage() {
             className="group block h-full"
             aria-label={`Ver detalhes do serviço ${service.title}`}
           >
-            <article className="h-full p-6 lg:p-8 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:border-white/20">
+            <article className="h-full rounded-xl border bg-white/70 backdrop-blur-sm hover:shadow-md transition p-5 md:p-6">
               {/* Header with mascot */}
               <div className="flex justify-between items-start mb-6">
                 <div className="flex-1 min-w-0">
