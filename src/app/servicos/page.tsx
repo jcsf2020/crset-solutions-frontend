@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FEATURE_SERVICOS } from "@/lib/flags";
 import { SERVICES_CONFIG } from "@/lib/services-config";
 import type { Metadata } from "next";
-export const metadata: Metadata = { alternates: { canonical: "https://crset.pt/servicos" } };
+export const metadata: Metadata = { alternates: { canonical: "https://crset-solutions-frontend.vercel.app/servicos" } };
 
 export default function ServiçosPage() {
   // Feature flag check

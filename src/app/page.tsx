@@ -4,7 +4,7 @@ import Hero from "@/components/hero";
 import ClientPageRoot from './ClientPageRoot';
 import HomeCTAs from "./_components/HomeCTAs";
 import type { Metadata } from "next";
-export const metadata: Metadata = { alternates: { canonical: "https://crset.pt/" } };
+export const metadata: Metadata = { alternates: { canonical: "https://crset-solutions-frontend.vercel.app/" } };
 
 export default function Page() {
   return (
