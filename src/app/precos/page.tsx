@@ -2,9 +2,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import type { Metadata } from "next";
-export const metadata: Metadata = { alternates: { canonical: "https://crset-solutions-frontend.vercel.app/precos" } };
-
 export default function PricingPage() {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
