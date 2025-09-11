@@ -4,6 +4,10 @@ import { notFound } from "next/navigation";
 import { FEATURE_SERVICOS } from "@/lib/flags";
 import { pricePair, PRICE_FALLBACKS } from "@/lib/prices";
 import { SERVICES_CONFIG, getServiceBySlug, getAllSlugs } from "@/lib/services-config";
+import type { Metadata } from "next";
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  return { alternates: { canonical: `/servicos/${params.slug}` } };
+}
 
 interface ServicePageProps {
   params: {
