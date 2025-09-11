@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticRoutes.map((p) => ({
-      url: p, // relativo — o Next prefixa com o host
+      url: p, // relativo - o Next prefixa com o host
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.7,
