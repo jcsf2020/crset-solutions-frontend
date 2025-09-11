@@ -1,4 +1,4 @@
-# Smoke Tests Report — 2025-09-11
+# Smoke Tests Report - 2025-09-11
 Estado geral: SUCESSO
 - Rotas 200/404: OK
 - UTMs: OK

@@ -1,4 +1,4 @@
-# Proposta Comercial — CRSET Solutions (A4)
+# Proposta Comercial - CRSET Solutions (A4)
 Data: 2025-09-11  |  Contacto: contact@crsetsolutions.com
 1) Resumo: sites e automacao com SLO 99.9% em Vercel; Sentry; playbooks.
 2) Escopo: Essential, Pro, Enterprise, Imobiliaria, Agenda, Ecommerce, Catalogo.
