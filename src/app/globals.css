@@ -435,3 +435,8 @@ html { overflow-y: scroll; }
 .hero,[data-hero]{min-height:56vh; contain:layout;}
 .hero img,[data-hero] img{display:block;width:100%;height:auto;}
 .hero [data-hero-media]{aspect-ratio:16/9;}
+
+/* cls-hotfix: reserva espaço do hero para evitar “jump” */
+.hero,[data-hero]{min-height:56vh; contain:layout;}
+.hero img,[data-hero] img{display:block;width:100%;height:auto;}
+.hero [data-hero-media]{aspect-ratio:16/9;}
