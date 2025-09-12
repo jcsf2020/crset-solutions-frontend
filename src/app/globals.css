@@ -417,3 +417,16 @@ body::before {
   header, footer { background: #0a0a0a !important; }
   h1, h2, h3, p, a, span { color: #f5f5f5 !important; }
 }
+
+/* cls-hotfix: cookie banner e widgets fora do fluxo */
+:where(.cookie-banner,#cookie-banner,[data-cookie-banner],[data-component="CookieConsentBanner"],#CookieConsentBanner){
+  position: fixed !important; left: 0; right: 0; bottom: 0; z-index: 60; transform: none !important;
+}
+
+/* widgets/CTAs flutuantes nunca causam reflow */
+:where([data-sticky],[data-sticky-cta],.sticky-cta,.whatsapp-widget){
+  position: fixed !important; bottom: 1rem; right: 1rem; z-index: 60;
+}
+
+/* evita “jump” por presença/ausência de scroll */
+html { overflow-y: scroll; }
