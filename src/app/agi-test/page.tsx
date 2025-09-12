@@ -1,9 +1,10 @@
 import dynamic from 'next/dynamic';
+import type { Metadata } from "next";
 
 const Chatbox = dynamic(() => import('@/components/Chatbox'), { ssr: false });
 
 export const metadata = {
-  title: 'AGI Test · CRSET',
+  openGraph: { url: "https://crset-solutions-frontend.vercel.app/agi-test" }, title: 'AGI Test · CRSET',
   description: 'Chatbox AGI Commander de teste'
 };
 

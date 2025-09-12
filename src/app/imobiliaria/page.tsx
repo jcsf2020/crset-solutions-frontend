@@ -1,3 +1,5 @@
+export const metadata: Metadata = { openGraph: { url: "https://crset-solutions-frontend.vercel.app/imobiliaria" } };
+import type { Metadata } from "next";
 export const dynamic = 'force-static';
 
 export default function Imobiliaria() {

@@ -1,4 +1,6 @@
+export const metadata: Metadata = { openGraph: { url: "https://crset-solutions-frontend.vercel.app/success" } };
 import Link from 'next/link';
+import type { Metadata } from "next";
 
 export default function SuccessPage() {
   return (

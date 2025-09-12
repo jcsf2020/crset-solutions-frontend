@@ -1,6 +1,8 @@
+export const metadata: Metadata = { openGraph: { url: "https://crset-solutions-frontend.vercel.app/mascotes-all" } };
 import MascoteBoris from "@/components/MascoteBoris";
 import MascoteLaya from "@/components/MascoteLaya";
 import MascoteIrina from "@/components/MascoteIrina";
+import type { Metadata } from "next";
 
 export default function Page() {
   return (
