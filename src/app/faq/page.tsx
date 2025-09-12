@@ -5,9 +5,9 @@ export const metadata: Metadata = {
 };
 const faqs = [
   { q: 'Quais são os preços?', a: 'Temos três pacotes: Website Essencial (€397), Website Profissional (€697) e White Label (€1.497).' },
-  { q: 'Quanto tempo demora a entregar?', a: 'Website Essencial: 7–10 dias; Profissional: 2–3 semanas; White Label: sob proposta.' },
+  { q: 'Quanto tempo demora a entregar?', a: 'Website Essencial: 7-10 dias; Profissional: 2-3 semanas; White Label: sob proposta.' },
   { q: 'Que suporte está incluído?', a: 'Essencial inclui 3 meses; Profissional, 6 meses; White Label, 12 meses com prioridade.' },
-  { q: 'Posso falar por WhatsApp?', a: 'Sim. O botão “Abrir WhatsApp” no site encaminha directamente para a nossa equipa.' },
+  { q: 'Posso falar por WhatsApp?', a: 'Sim. O botão "Abrir WhatsApp" no site encaminha directamente para a nossa equipa.' },
   { q: 'Têm demos/AGI Commander?', a: 'Sim. O AGI Commander responde a dúvidas 24/7 e pode escalar para humano quando necessário.' },
 ];
 export default function Page() {
