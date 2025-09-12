@@ -1,0 +1,10 @@
+const https=require('https');const{URL}=require('url');
+const BASE=(process.argv.find(a=>a.startsWith('--base='))?.split('=')[1])||process.env.BASE||'https://crset-solutions-frontend.vercel.app';
+const UA='curl/8 (+canonical-checker)';const MAX=5;
+function fetchUrl(u,d=0){return new Promise((res,rej)=>{if(d>MAX)return rej(new Error('Too many redirects'));const url=new URL(u);const r=https.request(url,{headers:{'User-Agent':UA,'Accept':'text/html,application/xhtml+xml'}},(resp)=>{const loc=resp.headers.location; if(resp.statusCode>=300&&resp.statusCode<400&&loc){resp.resume();return res(fetchUrl(new URL(loc,url).href,d+1));}let b='';resp.setEncoding('utf8');resp.on('data',c=>b+=c);resp.on('end',()=>res({status:resp.statusCode||0,body:b}));});r.setTimeout(15000,()=>r.destroy(new Error('Request timeout')));r.on('error',rej);r.end();});}
+function norm(u){try{const x=new URL(u);if(x.pathname!=='/'&&x.pathname.endsWith('/'))x.pathname=x.pathname.replace(/\/+$/,'');return x.origin+x.pathname+(x.search||'')}catch{return u}}
+(async()=>{const sm=await fetchUrl(new URL('/sitemap.xml',BASE).href);const locs=[];const re=/<loc>(.*?)<\/loc>/g;let m;while((m=re.exec(sm.body)))locs.push(m[1]);if(!locs.length){console.error('❌ Sem <loc> no sitemap.');process.exit(2)}
+const urls=locs.map(l=>new URL(l,BASE).href);let fails=0;
+for(const url of urls){try{const r=await fetchUrl(url);const body=r.body||'';const cm=body.match(/<link[^>]+rel=["']canonical["'][^>]*href=["']([^"']+)["']/i);const canonical=cm?.[1]||'MISSING';const ok=canonical!=='MISSING'&&norm(canonical)===norm(url);console.log(`${ok?'OK  ':'FAIL'} ${String(r.status).padStart(3,' ')}  ${url} -> ${canonical}`);if(!ok)fails++;}catch(e){fails++;console.log(`FAIL ---  ${url} -> ERROR: ${e.message}`)}}
+if(fails){console.error(`\n❌ ${fails} página(s) com canonical divergente ou erro.`);process.exit(1)}else{console.log('\n✅ Todos os canonicals batem certo com as URLs.')}
+})().catch(e=>{console.error('Erro:',e.message);process.exit(99)});
