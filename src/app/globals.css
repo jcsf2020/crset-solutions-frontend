@@ -290,3 +290,31 @@ button:focus-visible::after,
 .fixed-top {
   top: calc(env(safe-area-inset-top) + 1rem);
 }
+
+/* cls-hotfix: reserva espaço do hero para evitar "jump" */
+.hero,[data-hero]{min-height:56vh; contain:layout;}
+.hero img,[data-hero] img{display:block;width:100%;height:auto;}
+.hero [data-hero-media]{aspect-ratio:16/9;}
+
+/* === CRSET tokens (no visual change) === */
+:root {
+  --bg: #0B0F15;
+  --fg: #E6EAF2;
+  --muted: #A3B1C2;
+  --border: #1B2430;
+  --brand: #06B6D4;
+  --brand-600: #0891B2;
+  --accent: #22D3EE;
+  --success: #16A34A;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #070B10;
+    --fg: #E8EEF6;
+    --muted: #9BA9BA;
+    --border: #141C26;
+  }
+}
+/* === end CRSET tokens === */
