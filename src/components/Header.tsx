@@ -16,7 +16,9 @@ export default function Header() {
           {nav.map(i => (
             <Link key={i.href} href={i.href} className="hover:opacity-80">{i.label}</Link>
           ))}
-        </nav>
+        
+        <a href="/agi-live?src=nav-agi" aria-label="Abrir AGI Commander" className="inline-flex items-center rounded-md px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring focus-visible:ring-offset-2">AGI Commander</a>
+      </nav>
       </div>
     </header>
   );
