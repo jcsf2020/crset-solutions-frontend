@@ -11,7 +11,8 @@ export default function HomeHero() {
           <SectionSubtitle>Automação prática. Sem circo.</SectionSubtitle>
           <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild size="lg"><Link href="/start">Começar</Link></Button>
-            <Button asChild variant="ghost" size="lg"><Link href="/precos">Ver preços</Link></Button>
+            <Button asChild variant="ghost" size="lg">
+            <Link href="/faq">FAQ</Link></Button>
             <Button asChild variant="ghost" size="lg"><Link href="/mascotes-all">Mascotes</Link></Button>
           </div>
         </div>
