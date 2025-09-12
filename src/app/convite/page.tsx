@@ -1,8 +1,7 @@
-'use client'
+'use client';
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-
 export default function ConvitePage() {
   useEffect(() => {
     // Animação suave para os elementos

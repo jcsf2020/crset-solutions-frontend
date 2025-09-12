@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-
 export default function AgiPage() {
   return (
     <main className="p-6 text-white">

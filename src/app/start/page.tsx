@@ -1,8 +1,8 @@
 'use client';
-export const dynamic = 'force-dynamic';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
+export const dynamic = 'force-dynamic';
 
 function StartInner() {
   const router = useRouter();

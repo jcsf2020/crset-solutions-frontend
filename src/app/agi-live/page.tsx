@@ -1,6 +1,5 @@
 'use client';
 import { useState, useEffect } from 'react';
-
 export default function AgiLivePage() {
   const [token, setToken] = useState('');
   const [agent, setAgent] = useState<'boris'|'laya'|'irina'>('boris');
