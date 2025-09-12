@@ -25,6 +25,7 @@ jobs:
             ${{ env.PROD_BASE }}/servicos
             ${{ env.PROD_BASE }}/precos
             ${{ env.PROD_BASE }}/centro-de-ajuda
+            ${{ env.PROD_BASE }}/faq
           configPath: ./lighthouserc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
