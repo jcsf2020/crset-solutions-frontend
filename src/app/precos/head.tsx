@@ -21,7 +21,7 @@ export default function Head() {
       {
         "@type": "Question",
         "name": "Como é o onboarding?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Setup guiado em 24–48h consoante o plano." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Setup guiado em 24-48h consoante o plano." }
       },
       {
         "@type": "Question",
