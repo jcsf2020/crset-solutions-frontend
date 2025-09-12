@@ -1,0 +1,30 @@
+name: Performance (Lighthouse CI)
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    env:
+      PROD_BASE: https://crset-solutions-frontend.vercel.app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Lighthouse CI (PROD URLs)
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            ${{ env.PROD_BASE }}/
+            ${{ env.PROD_BASE }}/servicos
+            ${{ env.PROD_BASE }}/precos
+            ${{ env.PROD_BASE }}/centro-de-ajuda
+          configPath: ./lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true

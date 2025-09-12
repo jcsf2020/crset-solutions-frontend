@@ -1,10 +1,11 @@
+import dynamic from "next/dynamic";
 import Hero from "@/components/hero";
 import ClientPageRoot from './ClientPageRoot';
 import type { Metadata } from "next";
 import { lazy } from "react";
 
 // Lazy load componentes abaixo da dobra
-const Contact = lazy(() => import("@/components/Contact"));
+const Contact = dynamic(()=>import("@/components/Contact"),{ssr:false,loading:()=>null});
 const Testimonials = lazy(() => import("@/components/Testimonials"));
 const HomeCTAs = lazy(() => import("./_components/HomeCTAs"));
 
