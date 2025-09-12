@@ -1,10 +1,17 @@
-import Contact from "@/components/Contact";
-import Testimonials from "@/components/Testimonials";
 import Hero from "@/components/hero";
 import ClientPageRoot from './ClientPageRoot';
-import HomeCTAs from "./_components/HomeCTAs";
 import type { Metadata } from "next";
-export const metadata: Metadata = { openGraph: { url: "https://crset-solutions-frontend.vercel.app/" }, alternates: { canonical: "https://crset-solutions-frontend.vercel.app/" } };
+import { lazy } from "react";
+
+// Lazy load componentes abaixo da dobra
+const Contact = lazy(() => import("@/components/Contact"));
+const Testimonials = lazy(() => import("@/components/Testimonials"));
+const HomeCTAs = lazy(() => import("./_components/HomeCTAs"));
+
+export const metadata: Metadata = { 
+  openGraph: { url: "https://crset-solutions-frontend.vercel.app/" }, 
+  alternates: { canonical: "https://crset-solutions-frontend.vercel.app/" } 
+};
 
 export default function Page() {
   return (
@@ -12,9 +19,7 @@ export default function Page() {
       <ClientPageRoot />
       <Hero />
       <Testimonials />
-      
-      
-      <Contact />{/* CTAs principais */}
+      <Contact />
       <div className="px-6">
         <HomeCTAs />
       </div>

@@ -2,13 +2,14 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+
 export default function PricingPage() {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
   const plans = [
-    { name: 'Essencial', key: 'essencial', price: '49€/mês', features: ['CRM de Leads básico','Automação de contactos (Email + WhatsApp)','1 Agente (Boris OU Laya OU Irina)'] },
-    { name: 'Profissional', key: 'profissional', price: '149€/mês', features: ['Tudo do Essencial','Multi-agente (Boris + Laya + Irina)','Dashboards analíticos','Integração Google Ads + Meta Ads','Até 5 utilizadores'] },
-    { name: 'Enterprise', key: 'enterprise', price: '499€/mês', features: ['Plataforma White-label (branding próprio)','Consultoria + Setup incluído','API privada dedicada','Suporte prioritário'] },
+    { name: 'Essencial', key: 'essencial', price: '49EUR/mes', features: ['CRM de Leads basico','Automacao de contactos (Email + WhatsApp)','1 Agente (Boris OU Laya OU Irina)'] },
+    { name: 'Profissional', key: 'profissional', price: '149EUR/mes', features: ['Tudo do Essencial','Multi-agente (Boris + Laya + Irina)','Dashboards analiticos','Integracao Google Ads + Meta Ads','Ate 5 utilizadores'] },
+    { name: 'Enterprise', key: 'enterprise', price: '499EUR/mes', features: ['Plataforma White-label (branding proprio)','Consultoria + Setup incluido','API privada dedicada','Suporte prioritario'] },
   ];
 
   async function subscribe(planKey: string) {
@@ -46,12 +47,12 @@ export default function PricingPage() {
             <p className="text-3xl font-heading text-primary mt-1 mb-3">{p.price}</p>
             <ul className="text-sm space-y-2 mb-4">
               {p.features.map((f, i) => (
-                <li key={i} className="flex gap-2 items-start"><span aria-hidden>✅</span><span>{f}</span></li>
+                <li key={i} className="flex gap-2 items-start"><span aria-hidden>v</span><span>{f}</span></li>
               ))}
             </ul>
             {p.key === 'essencial' ? (
               <Button className="w-full" size="lg" onClick={() => subscribe(p.key)} disabled={loadingPlan === p.key}>
-                {loadingPlan === p.key ? 'A abrir checkout…' : 'Subscrever'}
+                {loadingPlan === p.key ? 'A abrir checkout...' : 'Subscrever'}
               </Button>
             ) : (
               <Button asChild variant="ghost" size="lg" className="w-full">
@@ -62,7 +63,7 @@ export default function PricingPage() {
         ))}
       </div>
 
-      <p className="text-center text-sm text-muted">Sem fidelização. Podes cancelar quando quiseres.</p>
+      <p className="text-center text-sm text-muted">Sem fidelizacao. Podes cancelar quando quiseres.</p>
     </main>
   );
 }

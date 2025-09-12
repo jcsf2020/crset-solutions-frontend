@@ -3,16 +3,20 @@ import Image from "next/image";
 import { FEATURE_SERVICOS } from "@/lib/flags";
 import { SERVICES_CONFIG } from "@/lib/services-config";
 import type { Metadata } from "next";
-export const metadata: Metadata = { openGraph: { url: "https://crset-solutions-frontend.vercel.app/servicos" }, alternates: { canonical: "https://crset-solutions-frontend.vercel.app/servicos" } };
 
-export default function ServiçosPage() {
+export const metadata: Metadata = { 
+  openGraph: { url: "https://crset-solutions-frontend.vercel.app/servicos" }, 
+  alternates: { canonical: "https://crset-solutions-frontend.vercel.app/servicos" } 
+};
+
+export default function ServicosPage() {
   // Feature flag check
   if (!FEATURE_SERVICOS) {
     return (
       <main className="max-w-4xl mx-auto p-8">
         <div className="text-center py-16">
-          <h1 className="text-3xl font-bold mb-4">Serviços CRSET Solutions</h1>
-          <p className="text-gray-600 text-lg">Brevemente disponível</p>
+          <h1 className="text-3xl font-bold mb-4">Servicos CRSET Solutions</h1>
+          <p className="text-gray-600 text-lg">Brevemente disponivel</p>
         </div>
       </main>
     );
@@ -23,10 +27,10 @@ export default function ServiçosPage() {
       {/* Header Section */}
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Serviços CRSET Solutions
+          Servicos CRSET Solutions
         </h1>
         <p className="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-          Soluções inteligentes com IA para automatizar e otimizar os seus processos empresariais
+          Solucoes inteligentes com IA para automatizar e otimizar os seus processos empresariais
         </p>
       </div>
 
@@ -37,7 +41,7 @@ export default function ServiçosPage() {
             key={service.slug}
             href={`/servicos/${service.slug}`}
             className="group block h-full"
-            aria-label={`Ver detalhes do serviço ${service.title}`}
+            aria-label={`Ver detalhes do servico ${service.title}`}
           >
             <article className="h-full rounded-xl border bg-white/70 backdrop-blur-sm hover:shadow-md transition p-5 md:p-6">
               {/* Header with mascot */}
@@ -57,10 +61,11 @@ export default function ServiçosPage() {
                   <div className="w-12 h-12 lg:w-16 lg:h-16 relative flex-shrink-0 ml-4">
                     <Image
                       src={service.mascot}
-                      alt={`Mascote do serviço ${service.title}`}
+                      alt={`Mascote do servico ${service.title}`}
                       fill
                       className="object-contain"
                       sizes="(max-width: 1024px) 48px, 64px"
+                      loading="lazy"
                     />
                   </div>
                 )}
@@ -117,7 +122,7 @@ export default function ServiçosPage() {
       <section className="text-center p-8 lg:p-12 rounded-2xl border border-white/10 bg-white/[0.03]">
         <h2 className="text-2xl lg:text-3xl font-bold mb-4">Precisa de algo personalizado?</h2>
         <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-          Contacte-nos para uma solução à medida das suas necessidades específicas
+          Contacte-nos para uma solucao a medida das suas necessidades especificas
         </p>
         <Link
           href="/#contact?utm_source=site&utm_medium=cta&utm_campaign=servicos&utm_content=custom"
