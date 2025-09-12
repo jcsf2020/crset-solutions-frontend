@@ -1,0 +1,29 @@
+name: SEO Canonical Check
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seo-canonical-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  canonical:
+    name: Check canonicals vs PROD
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PROD_BASE: https://crset-solutions-frontend.vercel.app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run canonical checker
+        run: node .scripts/check-canonical-sitemap.js --base=$PROD_BASE
