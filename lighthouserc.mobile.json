@@ -1,0 +1,20 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 1,
+      "settings": {
+        "preset": "mobile",
+        "throttlingMethod": "devtools"
+      },
+      "url": [
+        "https://crset-solutions-frontend.vercel.app/",
+        "https://crset-solutions-frontend.vercel.app/servicos",
+        "https://crset-solutions-frontend.vercel.app/precos",
+        "https://crset-solutions-frontend.vercel.app/centro-de-ajuda",
+        "https://crset-solutions-frontend.vercel.app/faq"
+      ]
+    },
+    "assert": { "assertions": {} },
+    "upload": { "target": "temporary-public-storage" }
+  }
+}

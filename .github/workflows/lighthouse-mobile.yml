@@ -1,0 +1,17 @@
+name: lighthouse-mobile
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  mobile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - name: LHCI mobile (collect only)
+        run: npx @lhci/cli@0.13.x autorun --config=lighthouserc.mobile.json --upload.target=temporary-public-storage || true
