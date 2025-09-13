@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "numberOfRuns": 1,
+      "numberOfRuns": 2,
       "settings": {
         "formFactor": "mobile",
         "screenEmulation": {
@@ -22,7 +22,35 @@
       "throttlingMethod": "devtools"
     },
     "assert": {
-      "assertions": {}
+      "assertions": {
+        "categories:performance": [
+          "warn",
+          {
+            "minScore": 0.9
+          }
+        ],
+        "largest-contentful-paint": [
+          "warn",
+          {
+            "maxNumericValue": 3200,
+            "aggregationMethod": "median"
+          }
+        ],
+        "total-blocking-time": [
+          "warn",
+          {
+            "maxNumericValue": 360,
+            "aggregationMethod": "median"
+          }
+        ],
+        "cumulative-layout-shift": [
+          "warn",
+          {
+            "maxNumericValue": 0.02,
+            "aggregationMethod": "pessimistic"
+          }
+        ]
+      }
     },
     "upload": {
       "target": "temporary-public-storage"
