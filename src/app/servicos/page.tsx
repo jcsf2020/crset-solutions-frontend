@@ -3,18 +3,12 @@ import Image from "next/image";
 import { FEATURE_SERVICOS } from "@/lib/flags";
 import { SERVICES_CONFIG } from "@/lib/services-config";
 import type { Metadata } from "next";
-import dynamic from 'next/dynamic';
+import ServicosGrid from "./_components/ServicosGrid";
 
 export const metadata: Metadata = { 
   openGraph: { url: "https://crset-solutions-frontend.vercel.app/servicos" }, 
   alternates: { canonical: "https://crset-solutions-frontend.vercel.app/servicos" } 
 };
-
-const ServicosGrid = dynamic(() => import('./_components/ServicosGrid'), { ssr: false, loading: () => (
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16'>
-        {Array.from({length:6}).map((_,i)=>(<div key={i} className='h-48 rounded-xl bg-gray-100 animate-pulse' />))}
-      </div>
-    ) });
 
 export default function ServicosPage() {
   // Feature flag check
