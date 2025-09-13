@@ -3,8 +3,14 @@
     "collect": {
       "numberOfRuns": 1,
       "settings": {
-        "preset": "mobile",
-        "throttlingMethod": "devtools"
+        "formFactor": "mobile",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 360,
+          "height": 640,
+          "deviceScaleFactor": 2,
+          "disabled": false
+        }
       },
       "url": [
         "https://crset-solutions-frontend.vercel.app/",
@@ -12,9 +18,14 @@
         "https://crset-solutions-frontend.vercel.app/precos",
         "https://crset-solutions-frontend.vercel.app/centro-de-ajuda",
         "https://crset-solutions-frontend.vercel.app/faq"
-      ]
+      ],
+      "throttlingMethod": "devtools"
     },
-    "assert": { "assertions": {} },
-    "upload": { "target": "temporary-public-storage" }
+    "assert": {
+      "assertions": {}
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
   }
 }
