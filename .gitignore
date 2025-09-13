@@ -126,3 +126,7 @@ tsconfig.tsbuildinfo
 .logs/
 
 .env*
+.lighthouseci/
+.lhci*/
+*.report.html
+*.report.json
