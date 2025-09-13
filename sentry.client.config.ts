@@ -1,2 +1,0 @@
-/* stub Sentry config */
-export {};
