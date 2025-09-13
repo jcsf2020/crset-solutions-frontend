@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import AGIWidget from "../_components/AGIWidget";
 export default function AgiLivePage() {
   const [token, setToken] = useState('');
   const [agent, setAgent] = useState<'boris'|'laya'|'irina'>('boris');
@@ -56,7 +57,7 @@ export default function AgiLivePage() {
     }
   }
 
-  return (
+  return (<>
     <main className="mx-auto max-w-3xl p-6 space-y-6">
       <h1 className="text-2xl font-semibold">AGI Live Demo</h1>
 
@@ -140,5 +141,7 @@ export default function AgiLivePage() {
         </div>
       </div>
     </main>
-  );
+    <AGIWidget />
+    </>
+);
 }
