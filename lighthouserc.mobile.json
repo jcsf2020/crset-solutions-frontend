@@ -10,7 +10,8 @@
           "height": 640,
           "deviceScaleFactor": 2,
           "disabled": false
-        }
+        },
+        "throttlingMethod": "devtools"
       },
       "url": [
         "https://crset-solutions-frontend.vercel.app/",
