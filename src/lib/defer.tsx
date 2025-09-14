@@ -1,56 +1,85 @@
+// use client porque usa window/IO
 'use client';
-import { useEffect, useRef, useState } from 'react';
 
-type Props = {
-  children: React.ReactNode;
+import React, { useEffect, useRef, useState, type ReactNode } from 'react';
+
+type DeferProps = {
+  children: ReactNode;
+  /** Ex.: "200px" — quando o placeholder entra no viewport */
   rootMargin?: string;
+  /** Tempo máximo para render mesmo sem visibilidade */
   idleTimeout?: number;
 };
 
-export default function Defer({ children, rootMargin = '200px', idleTimeout = 1200 }: Props) {
+/**
+ * Renderiza os children quando:
+ *  - o placeholder entra no viewport (IntersectionObserver), OU
+ *  - o browser fica idle / passa o timeout (requestIdleCallback|setTimeout)
+ * Usa-se dentro de um container com altura reservada para evitar CLS.
+ */
+export default function Defer({
+  children,
+  rootMargin = '200px',
+  idleTimeout = 1500,
+}: DeferProps) {
   const [show, setShow] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
+  const anchorRef = useRef<HTMLSpanElement | null>(null);
+  const shownRef = useRef(false);
 
   useEffect(() => {
-    if (show) return;
+    if (shownRef.current) return;
 
-    let io: IntersectionObserver | null = null;
-    let idleId: number | null = null;
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout?: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
 
     const reveal = () => {
-      if (!show) setShow(true);
-      if (io) { io.disconnect(); io = null; }
-      if (idleId !== null) {
-        // @ts-ignore
-        if ('cancelIdleCallback' in window) (window as any).cancelIdleCallback(idleId);
-        else clearTimeout(idleId);
-        idleId = null;
+      if (!shownRef.current) {
+        shownRef.current = true;
+        setShow(true);
       }
     };
 
-    // Visível no viewport
-    if ('IntersectionObserver' in window && ref.current) {
-      io = new IntersectionObserver((entries) => {
-        for (const e of entries) if (e.isIntersecting) { reveal(); break; }
-      }, { rootMargin });
-      io.observe(ref.current);
+    // 1) Visibilidade
+    let observer: IntersectionObserver | undefined;
+    if (typeof IntersectionObserver !== 'undefined' && anchorRef.current) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            reveal();
+          }
+        },
+        { rootMargin }
+      );
+      observer.observe(anchorRef.current);
     }
 
-    // Ou quando o browser estiver idle (fallback com timeout)
-    const startIdle = () => reveal();
-    // @ts-ignore
-    if ('requestIdleCallback' in window) idleId = (window as any).requestIdleCallback(startIdle, { timeout: idleTimeout });
-    else idleId = window.setTimeout(startIdle, idleTimeout);
+    // 2) Idle/timeout (fallback seguro)
+    let idleId: number | undefined;
+    // @ts-expect-error: TS pode não conhecer requestIdleCallback em Window
+    if (typeof w.requestIdleCallback === 'function') {
+      // @ts-expect-error: idem acima
+      idleId = w.requestIdleCallback(reveal, { timeout: idleTimeout });
+    } else {
+      idleId = (w as Window).setTimeout(reveal, idleTimeout) as unknown as number;
+    }
 
     return () => {
-      if (io) io.disconnect();
-      if (idleId !== null) {
-        // @ts-ignore
-        if ('cancelIdleCallback' in window) (window as any).cancelIdleCallback(idleId);
-        else clearTimeout(idleId);
+      if (observer) observer.disconnect();
+      if (idleId !== undefined) {
+        // @ts-expect-error: TS pode não conhecer cancelIdleCallback em Window
+        if (typeof w.cancelIdleCallback === 'function') {
+          // @ts-expect-error: idem acima
+          w.cancelIdleCallback(idleId);
+        } else {
+          clearTimeout(idleId);
+        }
       }
     };
-  }, [show, rootMargin, idleTimeout]);
+  }, [rootMargin, idleTimeout]);
 
-  return <div ref={ref}>{show ? children : null}</div>;
+  if (show) return <>{children}</>;
+  // Placeholder leve; a altura deve ser reservada pelo container pai para evitar CLS.
+  return <span ref={anchorRef} aria-hidden="true" />;
 }
