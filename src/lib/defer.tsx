@@ -46,9 +46,7 @@ export default function Defer({
     if (typeof IntersectionObserver !== 'undefined' && anchorRef.current) {
       observer = new IntersectionObserver(
         (entries) => {
-          if (entries.some((e) => e.isIntersecting)) {
-            reveal();
-          }
+          if (entries.some((e) => e.isIntersecting)) reveal();
         },
         { rootMargin }
       );
@@ -57,20 +55,16 @@ export default function Defer({
 
     // 2) Idle/timeout (fallback seguro)
     let idleId: number | undefined;
-    // @ts-expect-error: TS pode não conhecer requestIdleCallback em Window
     if (typeof w.requestIdleCallback === 'function') {
-      // @ts-expect-error: idem acima
-      idleId = w.requestIdleCallback(reveal, { timeout: idleTimeout });
+      idleId = w.requestIdleCallback(reveal, { timeout: idleTimeout }) as unknown as number;
     } else {
-      idleId = (w as Window).setTimeout(reveal, idleTimeout) as unknown as number;
+      idleId = w.setTimeout(reveal, idleTimeout);
     }
 
     return () => {
       if (observer) observer.disconnect();
       if (idleId !== undefined) {
-        // @ts-expect-error: TS pode não conhecer cancelIdleCallback em Window
         if (typeof w.cancelIdleCallback === 'function') {
-          // @ts-expect-error: idem acima
           w.cancelIdleCallback(idleId);
         } else {
           clearTimeout(idleId);

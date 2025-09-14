@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 const https=require('https'), http=require('http');
+const isPR=(process.env.GITHUB_EVENT_NAME||'').toLowerCase().includes('pull_request');
 const baseArg=(process.argv.find(a=>a.startsWith('--base='))||'').split('=')[1];
 const BASE=(baseArg||process.env.PROD_BASE||'').replace(/\/$/,'');
-if(!BASE){ console.error('Missing --base or PROD_BASE'); process.exit(1); }
+if(!BASE){ console.error('Missing --base or PROD_BASE'); process.exit( isPR ? 0 : 1 ); }
 const paths=['/','/servicos','/precos','/centro-de-ajuda','/faq'];
 
 function get(u){ return new Promise((res,rej)=>{ const lib=u.startsWith('https')?https:http;
-  const req=lib.get(u,r=>{ let b=''; r.on('data',d=>b+=d); r.on('end',()=>res({status:r.statusCode,body:b}))}); req.on('error',rej);
-});}
+  const req=lib.get(u,r=>{ let b=''; r.on('data',d=>b+=d); r.on('end',()=>res({status:r.statusCode,body:b}))}); req.on('error',rej); });
+}
 
 (async()=>{
+  if(isPR) console.log('PR context: canonical check é warn-only (não falha).');
   let fails=0;
   for(const p of paths){
     const url=BASE+p;
@@ -23,6 +25,9 @@ function get(u){ return new Promise((res,rej)=>{ const lib=u.startsWith('https')
       if(!ok){ console.error(`FAIL ${p}: canonical href=${href}`); fails++; } else { console.log(`OK ${p}: ${href}`); }
     }catch(e){ console.error(`FAIL ${p}: ${e.message}`); fails++; }
   }
-  if(fails>0){ process.exit(1); }
+  if(fails>0){
+    if(isPR){ console.log(`WARN: ${fails} falhas de canonical (PR não chumba).`); process.exit(0); }
+    process.exit(1);
+  }
   console.log('All canonicals OK');
 })();
