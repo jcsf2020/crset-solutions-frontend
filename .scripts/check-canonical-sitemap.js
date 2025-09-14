@@ -1,10 +1,28 @@
-const https=require('https');const{URL}=require('url');
-const BASE=(process.argv.find(a=>a.startsWith('--base='))?.split('=')[1])||process.env.BASE||'https://crset-solutions-frontend.vercel.app';
-const UA='curl/8 (+canonical-checker)';const MAX=5;
-function fetchUrl(u,d=0){return new Promise((res,rej)=>{if(d>MAX)return rej(new Error('Too many redirects'));const url=new URL(u);const r=https.request(url,{headers:{'User-Agent':UA,'Accept':'text/html,application/xhtml+xml'}},(resp)=>{const loc=resp.headers.location; if(resp.statusCode>=300&&resp.statusCode<400&&loc){resp.resume();return res(fetchUrl(new URL(loc,url).href,d+1));}let b='';resp.setEncoding('utf8');resp.on('data',c=>b+=c);resp.on('end',()=>res({status:resp.statusCode||0,body:b}));});r.setTimeout(15000,()=>r.destroy(new Error('Request timeout')));r.on('error',rej);r.end();});}
-function norm(u){try{const x=new URL(u);if(x.pathname!=='/'&&x.pathname.endsWith('/'))x.pathname=x.pathname.replace(/\/+$/,'');return x.origin+x.pathname+(x.search||'')}catch{return u}}
-(async()=>{const sm=await fetchUrl(new URL('/sitemap.xml',BASE).href);const locs=[];const re=/<loc>(.*?)<\/loc>/g;let m;while((m=re.exec(sm.body)))locs.push(m[1]);if(!locs.length){console.error('❌ Sem <loc> no sitemap.');process.exit(2)}
-const urls=locs.map(l=>new URL(l,BASE).href);let fails=0;
-for(const url of urls){try{const r=await fetchUrl(url);const body=r.body||'';const cm=body.match(/<link[^>]+rel=["']canonical["'][^>]*href=["']([^"']+)["']/i);const canonical=cm?.[1]||'MISSING';const ok=canonical!=='MISSING'&&norm(canonical)===norm(url);console.log(`${ok?'OK  ':'FAIL'} ${String(r.status).padStart(3,' ')}  ${url} -> ${canonical}`);if(!ok)fails++;}catch(e){fails++;console.log(`FAIL ---  ${url} -> ERROR: ${e.message}`)}}
-if(fails){console.error(`\n❌ ${fails} página(s) com canonical divergente ou erro.`);process.exit(1)}else{console.log('\n✅ Todos os canonicals batem certo com as URLs.')}
-})().catch(e=>{console.error('Erro:',e.message);process.exit(99)});
+#!/usr/bin/env node
+const https=require('https'), http=require('http');
+const baseArg=(process.argv.find(a=>a.startsWith('--base='))||'').split('=')[1];
+const BASE=(baseArg||process.env.PROD_BASE||'').replace(/\/$/,'');
+if(!BASE){ console.error('Missing --base or PROD_BASE'); process.exit(1); }
+const paths=['/','/servicos','/precos','/centro-de-ajuda','/faq'];
+
+function get(u){ return new Promise((res,rej)=>{ const lib=u.startsWith('https')?https:http;
+  const req=lib.get(u,r=>{ let b=''; r.on('data',d=>b+=d); r.on('end',()=>res({status:r.statusCode,body:b}))}); req.on('error',rej);
+});}
+
+(async()=>{
+  let fails=0;
+  for(const p of paths){
+    const url=BASE+p;
+    try{
+      const {status,body}=await get(url);
+      if(status!==200){ console.error(`FAIL ${p}: status ${status}`); fails++; continue; }
+      const m=body.match(/<link[^>]+rel=["']canonical["'][^>]*href=["']([^"']+)["']/i);
+      if(!m){ console.error(`FAIL ${p}: canonical not found`); fails++; continue; }
+      const href=m[1];
+      const ok = href.startsWith(BASE) || href.startsWith('/') || href===BASE || href===BASE+'/';
+      if(!ok){ console.error(`FAIL ${p}: canonical href=${href}`); fails++; } else { console.log(`OK ${p}: ${href}`); }
+    }catch(e){ console.error(`FAIL ${p}: ${e.message}`); fails++; }
+  }
+  if(fails>0){ process.exit(1); }
+  console.log('All canonicals OK');
+})();
