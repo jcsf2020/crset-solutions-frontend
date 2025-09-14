@@ -1,28 +1,56 @@
-import dynamic from "next/dynamic";
-import Hero from "@/components/hero";
-import ClientPageRoot from './ClientPageRoot';
-import type { Metadata } from "next";
-import { lazy } from "react";
+import dynamic from 'next/dynamic';
+import type { Metadata } from 'next';
 
-// Lazy load componentes abaixo da dobra
-const Contact = dynamic(()=>import("@/components/Contact"),{ssr:false,loading:()=>null});
-const Testimonials = lazy(() => import("@/components/Testimonials"));
-const HomeCTAs = lazy(() => import("./_components/HomeCTAs"));
+import Hero from '@/components/hero';
+import Defer from '@/lib/defer';
 
-export const metadata: Metadata = { 
-  openGraph: { url: "https://crset-solutions-frontend.vercel.app/" }, 
-  alternates: { canonical: "https://crset-solutions-frontend.vercel.app/" } 
+// Client bits (adiados; sem SSR) + placeholders com altura para evitar CLS
+const ClientPageRootLazy = dynamic(() => import('./ClientPageRoot'), {
+  ssr: false,
+  loading: () => null,
+});
+const Contact = dynamic(() => import('@/components/Contact'), {
+  ssr: false,
+  loading: () => <div className="min-h-[560px]" aria-hidden />,
+});
+const TestimonialsLazy = dynamic(() => import('@/components/Testimonials'), {
+  ssr: false,
+  loading: () => <div className="min-h-[560px]" aria-hidden />,
+});
+const HomeCTAsLazy = dynamic(() => import('./_components/HomeCTAs'), {
+  ssr: false,
+  loading: () => <div className="min-h-[240px]" aria-hidden />,
+});
+
+export const metadata: Metadata = {
+  openGraph: { url: 'https://crset-solutions-frontend.vercel.app/' },
+  alternates: { canonical: 'https://crset-solutions-frontend.vercel.app/' },
 };
 
 export default function Page() {
   return (
     <>
-      <ClientPageRoot />
       <Hero />
-      <Testimonials />
+
+      <ClientPageRootLazy />
+
+      {/* Testimonials: reserva altura para não empurrar nada antes de montar */}
+      <section aria-label="testimonials" className="h-[560px] overflow-hidden">
+        <Defer rootMargin="200px" idleTimeout={1200}>
+          <TestimonialsLazy />
+        </Defer>
+      </section>
+
+      {/* Contact com placeholder fixo para evitar CLS */}
       <Contact />
+
       <div className="px-6">
-        <HomeCTAs />
+        {/* HomeCTAs: reserva altura antes de montar */}
+        <section aria-label="home-ctas" className="h-[240px] overflow-hidden">
+          <Defer rootMargin="200px" idleTimeout={1200}>
+            <HomeCTAsLazy />
+          </Defer>
+        </section>
       </div>
     </>
   );
