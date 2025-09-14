@@ -35,7 +35,7 @@ export default function Page() {
       <ClientPageRootLazy />
 
       {/* Testimonials: reserva altura para não empurrar nada antes de montar */}
-      <section aria-label="testimonials" className="min-h-[560px]">
+      <section aria-label="testimonials" className="h-[560px] overflow-hidden">
         <Defer rootMargin="200px" idleTimeout={1200}>
           <TestimonialsLazy />
         </Defer>
@@ -46,7 +46,7 @@ export default function Page() {
 
       <div className="px-6">
         {/* HomeCTAs: reserva altura antes de montar */}
-        <section aria-label="home-ctas" className="min-h-[240px]">
+        <section aria-label="home-ctas" className="h-[240px] overflow-hidden">
           <Defer rootMargin="200px" idleTimeout={1200}>
             <HomeCTAsLazy />
           </Defer>
