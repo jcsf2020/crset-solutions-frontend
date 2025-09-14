@@ -22,7 +22,7 @@ export default function ServicosGrid() {
                 <span className="inline-block px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full mb-3">
                   {service.category}
                 </span>
-                <h2 className="text-xl lg:text-2xl font-semibold group-hover:text-blue-600 transition-colors duration-200 mb-2">
+                <h2 className="text-xl lg:text-2xl font-semibold group-hover:text-blue-700 transition-colors duration-200 mb-2">
                   {service.title}
                 </h2>
                 <p className="text-sm lg:text-base text-gray-600 font-medium">
@@ -66,7 +66,7 @@ export default function ServicosGrid() {
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-blue-600 text-sm font-medium group-hover:text-blue-700 transition-colors">
+              <span className="text-blue-700 text-sm font-medium group-hover:text-blue-800 transition-colors">
                 Ver detalhes
               </span>
               <span aria-hidden="true">→</span>

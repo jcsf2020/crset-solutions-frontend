@@ -1,0 +1,14 @@
+[
+  {
+    "url": "http://localhost:3000/",
+    "isRepresentativeRun": true,
+    "htmlPath": "/home/ubuntu/github_repos/crset-solutions-frontend/public/lhci-reports-final/localhost--2025_09_14_01_07_58.report.html",
+    "jsonPath": "/home/ubuntu/github_repos/crset-solutions-frontend/public/lhci-reports-final/localhost--2025_09_14_01_07_58.report.json",
+    "summary": {
+      "performance": 1,
+      "accessibility": 0.94,
+      "best-practices": 0.96,
+      "seo": 0.66
+    }
+  }
+]

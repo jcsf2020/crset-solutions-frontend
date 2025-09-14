@@ -11,10 +11,10 @@ export default function Header() {
   return (
     <header className="w-full border-b bg-white/70 backdrop-blur">
       <div className="mx-auto max-w-6xl flex items-center justify-between p-4">
-        <Link href="/" className="font-bold text-lg">CRSET</Link>
+        <Link href="/" className="font-bold text-lg py-2 px-1">CRSET</Link>
         <nav className="flex gap-6 text-sm">
           {nav.map(i => (
-            <Link key={i.href} href={i.href} className="hover:opacity-80">{i.label}</Link>
+            <Link key={i.href} href={i.href} className="hover:opacity-80 py-2 px-1">{i.label}</Link>
           ))}
         
         <a href="/agi-live?src=nav-agi" aria-label="Abrir AGI Commander" className="inline-flex items-center rounded-md px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring focus-visible:ring-offset-2">AGI Commander</a>

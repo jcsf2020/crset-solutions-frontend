@@ -17,8 +17,9 @@ export function Section({
   );
 }
 
-export function SectionHeading({ className = "", ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
-  return <h2 className={["font-heading text-3xl md:text-4xl text-foreground tracking-tight", className].join(" ").trim()} {...props} />;
+export function SectionHeading({ className = "", as = "h2", ...props }: React.HTMLAttributes<HTMLHeadingElement> & { as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" }) {
+  const Component = as;
+  return <Component className={["font-heading text-3xl md:text-4xl text-foreground tracking-tight", className].join(" ").trim()} {...props} />;
 }
 
 export function SectionSubtitle({ className = "", ...props }: React.HTMLAttributes<HTMLParagraphElement>) {

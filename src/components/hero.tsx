@@ -14,7 +14,7 @@ export default function HomeHero() {
 <Section id="hero" pad="lg">
       <div className="grid gap-6 md:grid-cols-2 items-center">
         <div>
-          <SectionHeading className="mb-3">CRSET Solutions</SectionHeading>
+          <SectionHeading as="h1" className="mb-3">CRSET Solutions</SectionHeading>
           <SectionSubtitle>Automação prática. Sem circo.</SectionSubtitle>
           <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild size="lg"><Link href="/start">Começar</Link></Button>

@@ -1,0 +1,50 @@
+[
+  {
+    "url": "http://localhost:3000/",
+    "isRepresentativeRun": true,
+    "htmlPath": "/home/ubuntu/github_repos/crset-solutions-frontend/public/lhci-reports/localhost--2025_09_14_01_06_05.report.html",
+    "jsonPath": "/home/ubuntu/github_repos/crset-solutions-frontend/public/lhci-reports/localhost--2025_09_14_01_06_05.report.json",
+    "summary": {
+      "performance": 1,
+      "accessibility": 0.94,
+      "best-practices": 0.96,
+      "seo": 0.66
+    }
+  },
+  {
+    "url": "http://localhost:3000/precos",
+    "isRepresentativeRun": true,
+    "htmlPath": "/home/ubuntu/github_repos/crset-solutions-frontend/public/lhci-reports/localhost-precos-2025_09_14_01_06_19.report.html",
+    "jsonPath": "/home/ubuntu/github_repos/crset-solutions-frontend/public/lhci-reports/localhost-precos-2025_09_14_01_06_19.report.json",
+    "summary": {
+      "performance": 1,
+      "accessibility": 0.95,
+      "best-practices": 0.96,
+      "seo": 0.66
+    }
+  },
+  {
+    "url": "http://localhost:3000/faq",
+    "isRepresentativeRun": true,
+    "htmlPath": "/home/ubuntu/github_repos/crset-solutions-frontend/public/lhci-reports/localhost-faq-2025_09_14_01_06_30.report.html",
+    "jsonPath": "/home/ubuntu/github_repos/crset-solutions-frontend/public/lhci-reports/localhost-faq-2025_09_14_01_06_30.report.json",
+    "summary": {
+      "performance": 1,
+      "accessibility": 0.94,
+      "best-practices": 0.96,
+      "seo": 0.63
+    }
+  },
+  {
+    "url": "http://localhost:3000/servicos",
+    "isRepresentativeRun": true,
+    "htmlPath": "/home/ubuntu/github_repos/crset-solutions-frontend/public/lhci-reports/localhost-servicos-2025_09_14_01_06_41.report.html",
+    "jsonPath": "/home/ubuntu/github_repos/crset-solutions-frontend/public/lhci-reports/localhost-servicos-2025_09_14_01_06_41.report.json",
+    "summary": {
+      "performance": 1,
+      "accessibility": 0.94,
+      "best-practices": 0.96,
+      "seo": 0.66
+    }
+  }
+]
