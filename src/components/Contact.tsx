@@ -5,6 +5,7 @@ export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
+  const [errors, setErrors] = useState({ name: "", email: "", msg: "" });
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,37 +35,58 @@ export default function Contact() {
 
         <form onSubmit={onSubmit} className="card p-6 md:p-7 space-y-4">
           <div>
-            <label className="text-sm font-medium">Nome</label>
+            <label htmlFor="contact-name" className="text-sm font-medium">Nome</label>
             <input
+              id="contact-name"
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="mt-1 w-full rounded-xl border border-black/10 px-3 py-2 outline-none focus:ring-2 focus:ring-black/10"
               placeholder="O teu nome"
+              aria-describedby={errors.name ? "contact-name-error" : undefined}
             />
+            {errors.name && (
+              <div id="contact-name-error" className="mt-1 text-sm text-red-600" role="alert">
+                {errors.name}
+              </div>
+            )}
           </div>
           <div>
-            <label className="text-sm font-medium">Email</label>
+            <label htmlFor="contact-email" className="text-sm font-medium">Email</label>
             <input
+              id="contact-email"
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1 w-full rounded-xl border border-black/10 px-3 py-2 outline-none focus:ring-2 focus:ring-black/10"
               placeholder="teu@email.com"
+              aria-describedby={errors.email ? "contact-email-error" : undefined}
             />
+            {errors.email && (
+              <div id="contact-email-error" className="mt-1 text-sm text-red-600" role="alert">
+                {errors.email}
+              </div>
+            )}
           </div>
           <div>
-            <label className="text-sm font-medium">Mensagem</label>
+            <label htmlFor="contact-message" className="text-sm font-medium">Mensagem</label>
             <textarea
+              id="contact-message"
               required
               rows={5}
               value={msg}
               onChange={(e) => setMsg(e.target.value)}
               className="mt-1 w-full rounded-xl border border-black/10 px-3 py-2 outline-none focus:ring-2 focus:ring-black/10"
               placeholder="Como podemos ajudar?"
+              aria-describedby={errors.msg ? "contact-message-error" : undefined}
             />
+            {errors.msg && (
+              <div id="contact-message-error" className="mt-1 text-sm text-red-600" role="alert">
+                {errors.msg}
+              </div>
+            )}
           </div>
           <div className="flex gap-3">
             <button type="submit" className="btn-primary px-5 py-3">Enviar por email</button>

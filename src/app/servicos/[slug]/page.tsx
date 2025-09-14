@@ -47,7 +47,7 @@ export default function ServicePage({ params }: ServicePageProps) {
         <div className="flex items-center space-x-2 text-sm text-gray-600">
           <Link 
             href="/servicos" 
-            className="hover:text-blue-600 transition-colors"
+            className="hover:text-blue-700 transition-colors"
             aria-label="Voltar para página de serviços"
           >
             Serviços
@@ -202,7 +202,7 @@ NEXT_PUBLIC_PRICE_${service.key}_MONTH`}
       <div className="mt-16 pt-8 border-t border-gray-200">
         <Link
           href="/servicos"
-          className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-lg transition-colors"
+          className="inline-flex items-center text-blue-700 hover:text-blue-800 font-medium text-lg transition-colors"
           aria-label="Voltar para página de serviços"
         >
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
