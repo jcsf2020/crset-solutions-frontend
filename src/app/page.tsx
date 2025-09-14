@@ -18,8 +18,8 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <ClientPageRoot />
       <Hero />
+      <ClientPageRoot />
       <Defer rootMargin="200px" idleTimeout={1200}><Testimonials /></Defer>
       <Contact />
       <div className="px-6">
