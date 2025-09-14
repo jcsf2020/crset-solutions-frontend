@@ -19,7 +19,11 @@ export default function Page() {
   return (
     <main className="container mx-auto max-w-3xl px-4 py-12">
       <h1 className="text-3xl font-bold mb-6">Dúvidas (FAQ)</h1>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}} />
+      <script 
+        type="application/ld+json" 
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}} 
+      />
       <ul className="space-y-4">
         {faqs.map((f,i)=>(
           <li key={i} className="rounded-xl border p-4">
