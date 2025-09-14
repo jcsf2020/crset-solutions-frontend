@@ -1,30 +1,35 @@
-import dynamic from "next/dynamic";
-import Hero from "@/components/hero";
-import ClientPageRoot from './ClientPageRoot';
-import type { Metadata } from "next";
-import { lazy } from "react";
-import Defer from "@/lib/defer";
+import dynamic from 'next/dynamic';
+import type { Metadata } from 'next';
 
-// Lazy load componentes abaixo da dobra
-const Contact = dynamic(()=>import("@/components/Contact"),{ssr:false,loading:()=>null});
-const Testimonials = lazy(() => import("@/components/Testimonials"));
-const HomeCTAs = lazy(() => import("./_components/HomeCTAs"));
+import Hero from '@/components/hero';
+import Defer from '@/lib/defer';
 
-export const metadata: Metadata = { 
-  openGraph: { url: "https://crset-solutions-frontend.vercel.app/" }, 
-  alternates: { canonical: "https://crset-solutions-frontend.vercel.app/" } 
+// Client bits (adiados; sem SSR para reduzir TBT)
+const ClientPageRootLazy = dynamic(() => import('./ClientPageRoot'), { ssr: false });
+const Contact = dynamic(() => import('@/components/Contact'), { ssr: false, loading: () => null });
+const TestimonialsLazy = dynamic(() => import('@/components/Testimonials'), { ssr: false, loading: () => null });
+const HomeCTAsLazy = dynamic(() => import('./_components/HomeCTAs'), { ssr: false, loading: () => null });
+
+export const metadata: Metadata = {
+  openGraph: { url: 'https://crset-solutions-frontend.vercel.app/' },
+  alternates: { canonical: 'https://crset-solutions-frontend.vercel.app/' },
 };
 
 export default function Page() {
   return (
     <>
       <Hero />
-      <ClientPageRoot />
-      <Defer rootMargin="200px" idleTimeout={1200}><Testimonials /></Defer>
+      <ClientPageRootLazy />
+      <Defer rootMargin="200px" idleTimeout={1200}>
+        <TestimonialsLazy />
+      </Defer>
       <Contact />
       <div className="px-6">
-        <HomeCTAs />
+        <Defer rootMargin="200px" idleTimeout={1200}>
+          <HomeCTAsLazy />
+        </Defer>
       </div>
     </>
   );
 }
+
