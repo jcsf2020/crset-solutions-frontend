@@ -1,8 +1,9 @@
 name: Health Check (daily)
 on:
   schedule:
-    - cron: '0 8 * * *'   # 08:00 UTC (~09:00 Lisboa no verão)
+    - cron: '0 8 * * *'
   workflow_dispatch:
+
 jobs:
   health:
     runs-on: ubuntu-latest
@@ -10,31 +11,28 @@ jobs:
       - name: Ping agi/chat (prod)
         run: |
           set -euo pipefail
-          code=$(curl -sS -o /dev/null -w "%{http_code}" -X GET https://crset-solutions-frontend.vercel.app/api/telemetry?src=ci \
-            -H 'content-type: application/json' \
-            --data '{"input":"ping"}')
+          code=$(curl -sS -o /dev/null -w "%{http_code}" https://crset-solutions-frontend.vercel.app/api/telemetry?src=ci)
           echo "agi/chat status=$code"; [ "$code" = "200" ]
       - name: Ping cron/health (prod) via x-vercel-cron
         run: |
           set -euo pipefail
-          code=$(curl -sS -o /dev/null -w "%{http_code}" https://crset-solutions-frontend.vercel.app/api/telemetry?src=ci \
-            -H 'x-vercel-cron: 1')
+          code=$(curl -sS -o /dev/null -w "%{http_code}" https://crset-solutions-frontend.vercel.app/api/telemetry?src=ci -H 'x-vercel-cron: 1')
           echo "cron/health status=$code"; [ "$code" = "200" ]
+
   smoke:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - name: Enable pnpm via Corepack
         run: |
           corepack enable
           corepack prepare pnpm@10.16.1 --activate
-        with:
-          node-version: '20'
-          cache: 'npm'
       - run: pnpm install --frozen-lockfile
       - name: Run smoke tests
-        run: ppnpm run smoke
+        run: pnpm run smoke
         env:
           PROD_URL: https://crset-solutions-frontend.vercel.app
           SMOKE_TIMEOUT_MS: 10000
