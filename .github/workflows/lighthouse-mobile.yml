@@ -10,8 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
+      - name: Enable pnpm via Corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.16.1 --activate
         with:
           node-version: '20'
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
       - name: LHCI mobile (collect only)
         run: npx @lhci/cli@0.13.x autorun --config=lighthouserc.mobile.json --upload.target=temporary-public-storage || true
