@@ -6,7 +6,8 @@ import { Oxanium, JetBrains_Mono } from "next/font/google"
 const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-oxanium" })
 const jbmono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jbmono" })
 
-export const metadata = { title: "CRSET", description: "Sci-Fi tech theme" }
+export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_CANONICAL_BASE ?? "https://crset-solutions-frontend.vercel.app"), title: "CRSET", description: "Sci-Fi tech theme" }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
