@@ -17,7 +17,7 @@ jobs:
       - name: Ping cron/health (prod) via x-vercel-cron
         run: |
           set -euo pipefail
-          code=$(curl -sS -o /dev/null -w "%{http_code}" https://crsetsolutions.com/api/cron/health \
+          code=$(curl -sS -o /dev/null -w "%{http_code}" https://crset-solutions-frontend.vercel.app/api/telemetry?src=ci \
             -H 'x-vercel-cron: 1')
           echo "cron/health status=$code"; [ "$code" = "200" ]
   smoke:
