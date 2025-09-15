@@ -15,9 +15,11 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.16.1
+      # garante pnpm no PATH do runner
+      - name: Enable pnpm via Corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.16.1 --activate
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
