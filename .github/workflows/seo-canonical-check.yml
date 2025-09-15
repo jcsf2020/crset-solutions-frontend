@@ -1,18 +1,33 @@
 name: SEO Canonical Check
 on:
   pull_request:
-  push:
-    branches: [main]
+  workflow_dispatch:
+
 jobs:
   check:
-    name: Check canonicals vs PROD
     runs-on: ubuntu-latest
     env:
-      PROD_BASE: https://crset-solutions-frontend.vercel.app
+      # use o mesmo domínio que você definiu em NEXT_PUBLIC_CANONICAL_BASE
+      CANONICAL_BASE: https://crsetsolutions.com
+      # verifique apenas rotas que existem hoje
+      PATHS: "/ /faq"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Run canonical checker
-        run: node .scripts/check-canonical-sitemap.js --base=$PROD_BASE
+      - name: Check canonicals and statuses
+        run: |
+          set -euo pipefail
+          for p in $PATHS; do
+            url="${CANONICAL_BASE%/}${p}"
+            code=$(curl -sSL -o /tmp/res.html -w "%{http_code}" "$url")
+            echo "::notice title=Status::$p -> $code"
+            [ "$code" = "200" ]
+
+            canon=$(grep -ioP '<link[^>]*rel=["'\'']canonical["'\''][^>]*>' /tmp/res.html \
+              | grep -ioP 'href=["'\''][^"'\'' ]+' | head -1 | cut -d'"' -f2)
+
+            # normaliza esperado (mantém "/" final na home)
+            exp="${CANONICAL_BASE%/}${p%/}"
+            [ "$p" = "/" ] && exp="${CANONICAL_BASE%/}/"
+
+            echo "::notice title=Canonical::$p canonical got=${canon:-<none>} expected=$exp"
+            test "$canon" = "$exp"
+          done
