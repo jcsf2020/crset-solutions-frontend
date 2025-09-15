@@ -16,3 +16,55 @@ html { scroll-behavior: smooth; }
 .scanlines::before { content:""; position:absolute; inset:0; background: repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.06) 1px, transparent 1px, transparent 3px); pointer-events:none; mix-blend:overlay; }
 .noise { position:relative; }
 .noise::after { content:""; position:absolute; inset:-50%; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity:.03; mix-blend:overlay; pointer-events:none; }
+
+/* === Mascote (reactiva) === */
+@keyframes pulse-warn {
+  from { box-shadow: 0 0 0 0 rgba(255,200,0,.25) }
+  to   { box-shadow: 0 0 0 12px rgba(255,200,0,0) }
+}
+@keyframes pulse-crit {
+  from { box-shadow: 0 0 0 0 rgba(255,0,80,.35) }
+  to   { box-shadow: 0 0 0 14px rgba(255,0,80,0) }
+}
+
+.mascot-face {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background:
+    radial-gradient(40% 40% at 50% 40%, rgba(var(--accent, 99, 197, 255), .9), transparent 60%),
+    color-mix(in oklab, hsl(var(--background, 240 10% 4%)) 70%, black);
+}
+.mascot-face.warn { animation: pulse-warn 1.4s ease-out infinite }
+.mascot-face.crit { animation: pulse-crit 1.2s ease-out infinite }
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot-face.warn, .mascot-face.crit { animation: none }
+}
+
+/* === UI polish base === */
+:root {
+  --radius: 12px;
+  --border: 26, 26, 34;
+  --border-strong: 120, 120, 150;
+  --focus: 80, 160, 255;
+}
+
+.ui-card { border-radius: var(--radius); background: hsl(var(--background)); }
+.ui-surface { background: color-mix(in oklab, hsl(var(--background)) 90%, transparent); }
+
+/* Hairline 1px consistente em HiDPI */
+.ui-hairline { box-shadow: 0 0 0 1px rgba(var(--border-strong), .28) inset }
+
+/* Focus acessível sem “saltos” */
+:where(button,a,[role="button"],input,select,textarea):focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(0,0,0,.6),
+    0 0 0 4px rgba(var(--focus), .75);
+  border-radius: calc(var(--radius) - 2px);
+}
+
+/* Botões com feedback tátil leve */
+.btn { transition: transform .05s ease, box-shadow .15s ease }
+.btn:active { transform: translateY(1px) }

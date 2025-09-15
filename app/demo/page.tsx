@@ -1,4 +1,6 @@
 "use client"
+import { Mascot } from "@/components/mascot/Mascot"
+import KpiGrid from "./sections/KpiGrid"
 import { HoloButton } from "@/components/ui/holo-button"
 import { TerminalCard } from "@/components/ui/terminal-card"
 import { NeonDivider } from "@/components/ui/neon-divider"
@@ -14,6 +16,8 @@ export default function Page() {
   const t = useTelemetry();
   return (
     <main className="container relative mx-auto max-w-5xl space-y-10 px-4 py-10">
+    <KpiGrid />
+    <div className="mt-4"><Mascot /></div>
       <header className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold tracking-widest [text-shadow:_0_0_12px_rgba(34,211,238,0.6)]">
           CRSET
