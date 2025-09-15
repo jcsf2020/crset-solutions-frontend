@@ -1,4 +1,5 @@
 name: Health Check (daily)
+
 on:
   schedule:
     - cron: '0 8 * * *'
@@ -11,12 +12,16 @@ jobs:
       - name: Ping agi/chat (prod)
         run: |
           set -euo pipefail
-          code=$(curl -sS -o /dev/null -w "%{http_code}" https://crset-solutions-frontend.vercel.app/api/telemetry?src=ci)
+          code=$(curl -sS -o /dev/null -w "%{http_code}" -X GET https://crset-solutions-frontend.vercel.app/api/telemetry?src=ci \
+            -H 'content-type: application/json' \
+            --data '{"input":"ping"}')
           echo "agi/chat status=$code"; [ "$code" = "200" ]
+
       - name: Ping cron/health (prod) via x-vercel-cron
         run: |
           set -euo pipefail
-          code=$(curl -sS -o /dev/null -w "%{http_code}" https://crset-solutions-frontend.vercel.app/api/telemetry?src=ci -H 'x-vercel-cron: 1')
+          code=$(curl -sS -o /dev/null -w "%{http_code}" -L https://crset-solutions-frontend.vercel.app/api/telemetry?src=ci \
+            -H 'x-vercel-cron: 1')
           echo "cron/health status=$code"; [ "$code" = "200" ]
 
   smoke:
