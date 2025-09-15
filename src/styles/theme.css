@@ -7,23 +7,19 @@
   --brand-strong:#1F8BFF;
   --accent:#F59E0B;
   --ring:rgba(255,255,255,.08);
-}
-@layer base{
-  html,body{
-    color:var(--text);
-    background:
-      radial-gradient(1200px 500px at -10% -10%, #142338 0%, transparent 60%),
-      radial-gradient(1200px 500px at 110% 10%, #2a1420 0%, transparent 60%),
-      var(--bg);
-  }
-}
-@layer utilities{
-  .bg-surface{ background-color:var(--surface); }
-  .text-muted{ color:var(--muted); }
-}
-
-/* overrides/extra tokens */
-:root{
   --card: var(--surface);
   --text-strong: var(--text);
 }
+
+/* aplica tema base */
+html,body{
+  color:var(--text);
+  background:
+    radial-gradient(1200px 500px at -10% -10%, #142338 0%, transparent 60%),
+    radial-gradient(1200px 500px at 110% 10%, #2a1420 0%, transparent 60%),
+    var(--bg);
+}
+
+/* utilitários simples */
+.bg-surface{ background-color:var(--surface); }
+.text-muted{ color:var(--muted); }
