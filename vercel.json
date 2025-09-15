@@ -1,8 +1,1 @@
-{
-  "crons": [
-    {
-      "path": "/api/cron/health?src=vercel-cron",
-      "schedule": "0 9 * * *"
-    }
-  ]
-}
+{ "redirects": [ { "source": "/demo", "destination": "/", "permanent": true }, { "source": "/demo/:path*", "destination": "/", "permanent": true } ] }
