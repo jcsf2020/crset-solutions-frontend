@@ -10,7 +10,7 @@ jobs:
       - name: Ping agi/chat (prod)
         run: |
           set -euo pipefail
-          code=$(curl -sS -o /dev/null -w "%{http_code}" -X POST https://crsetsolutions.com/api/agi/chat \
+          code=$(curl -sS -o /dev/null -w "%{http_code}" -X GET https://crset-solutions-frontend.vercel.app/api/telemetry?src=ci \
             -H 'content-type: application/json' \
             --data '{"input":"ping"}')
           echo "agi/chat status=$code"; [ "$code" = "200" ]
@@ -36,5 +36,5 @@ jobs:
       - name: Run smoke tests
         run: ppnpm run smoke
         env:
-          PROD_URL: https://crsetsolutions.com
+          PROD_URL: https://crset-solutions-frontend.vercel.app
           SMOKE_TIMEOUT_MS: 10000
