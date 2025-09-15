@@ -1,7 +1,7 @@
 export const metadata = {
   title: "FAQ — CRSET Solutions",
   description: "Perguntas frequentes",
-  alternates: { canonical: "https://crset-solutions-frontend.crsetsolutions.com/faq" },
+  alternates: { canonical: "/faq" },
 };
 
 export default function Page() {
