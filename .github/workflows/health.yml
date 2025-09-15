@@ -7,7 +7,7 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     env:
-      URL: https://crsetsolutions.com/api/cron/health?src=ci
+      URL: https://crset-solutions-frontend.vercel.app/api/telemetry?src=ci?src=ci
       CRON_TOKEN: ${{ secrets.CRON_SECRET }}   # cria este secret com o mesmo valor do CRON_SECRET do Vercel
     steps:
       - name: Check /api/cron/health (header auth)
