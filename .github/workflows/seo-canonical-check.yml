@@ -8,17 +8,26 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CANONICAL_BASE: https://crsetsolutions.com
-  PATHS: "/faq"
+      PATHS: "/ /faq"
     steps:
       - name: Check canonicals and statuses
         run: |
           set -euo pipefail
           norm() { u="$1"; u="${u%/}"; printf '%s\n' "$u" | sed -E 's#^https?://www\.#https://#; s#^http://#https://#'; }
+
           for p in $PATHS; do
             url="${CANONICAL_BASE%/}${p}"
             code=$(curl -sSL -o /tmp/res.html -w "%{http_code}" "$url")
             echo "::notice title=Status::$p -> $code"
-            [ "$code" = "200" ]
+
+            if [ "$p" = "/" ]; then
+              # home pode redirecionar (CDN/domínio). Aceitar 200/307/308 e NÃO cobrar canonical aqui.
+              [[ "$code" = "200" || "$code" = "307" || "$code" = "308" ]] || exit 1
+              echo "::notice title=Canonical::/ (skip canonical check)"
+              continue
+            else
+              [ "$code" = "200" ] || exit 1
+            fi
 
             canon=$(grep -ioP '<link[^>]*rel=["'"'"']canonical["'"'"'][^>]*>' /tmp/res.html \
               | grep -ioP 'href=["'"'"'][^"'"'"' ]+' | head -1 | cut -d'"' -f2 || true)
