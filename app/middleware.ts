@@ -1,20 +1,19 @@
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
-  // Bloqueia qualquer pedido a source maps e devolve vazio
-  if (req.nextUrl.pathname.endsWith(".map")) {
-    return NextResponse.json({}, { status: 200 })
+  const host = req.headers.get("host") ?? "";
+  const url = req.nextUrl;
+
+  // Bloqueia /demo no domínio principal de produção
+  if (host.endsWith("crsetsolutions.com") && url.pathname.startsWith("/demo")) {
+    url.pathname = "/";
+    return NextResponse.redirect(url);
   }
 
-  // Bloqueia o devtools.json chato
-  if (req.nextUrl.pathname === "/.well-known/appspecific/com.chrome.devtools.json") {
-    return NextResponse.json({ status: "ok" }, { status: 200 })
-  }
-
-  return NextResponse.next()
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/_next/:path*", "/.well-known/:path*"],
-}
+  matcher: ["/demo/:path*"],
+};
