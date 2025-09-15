@@ -9,7 +9,7 @@ import { VisualToggle } from "@/components/visual-toggle"
 import { ThemePresetToggle } from "@/components/theme-preset-toggle"
 import { MascotHint } from "@/components/mascot/mascot-hint"
 import { useTelemetry } from "@/components/hooks/use-telemetry"
-import { DataStream } from "@/components/ui/data-stream"
+import { DataStream } from "@/components/ui/data-stream.client"
 import { HudBar } from "@/components/ui/hud-bar"
 
 export default function Page() {
