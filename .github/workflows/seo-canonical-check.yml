@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CANONICAL_BASE: https://crsetsolutions.com
-      PATHS: "/ /faq"
+  PATHS: "/faq"
     steps:
       - name: Check canonicals and statuses
         run: |
