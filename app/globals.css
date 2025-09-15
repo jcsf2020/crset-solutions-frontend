@@ -7,6 +7,10 @@
 html { scroll-behavior: smooth; }
 
 /* Sci-Fi helpers */
+:root{--accent:34,211,238} /* Hologram (default) */
+.theme-hologram{--accent:34,211,238}
+.theme-neptune{--accent:59,130,246}
+.theme-noir{--accent:255,255,255}
 .holo { backdrop-filter: blur(6px) saturate(140%); background: color-mix(in oklab, white 6%, transparent); border: 1px solid rgb(255 255 255 / 0.08); }
 .holo-dark { backdrop-filter: blur(6px) saturate(140%); background: color-mix(in oklab, black 70%, transparent); border: 1px solid rgb(255 255 255 / 0.06); }
 .scanlines::before { content:""; position:absolute; inset:0; background: repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.06) 1px, transparent 1px, transparent 3px); pointer-events:none; mix-blend:overlay; }

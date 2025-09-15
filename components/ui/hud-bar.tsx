@@ -12,9 +12,8 @@ export function HudBar({ label, value, suffix = "%" }: Props) {
           className="h-full animate-in fade-in-50 duration-500"
           style={{
             width: pct + "%",
-            background:
-              "linear-gradient(90deg, rgba(34,211,238,.35), rgba(34,211,238,.7))",
-            boxShadow: "0 0 12px rgba(34,211,238,.35)",
+            background: "linear-gradient(90deg, rgba(var(--accent), .35), rgba(var(--accent), .7))",
+            boxShadow: "0 0 12px rgba(var(--accent), .35)"
           }}
         />
       </div>
