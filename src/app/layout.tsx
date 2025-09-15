@@ -1,3 +1,5 @@
+import "@/styles/sci-fi.css";
+import "@/styles/theme.css";
 import { fontSans, fontHeading } from "./fonts";
 import "./globals.css";
 import type { Metadata } from "next";
