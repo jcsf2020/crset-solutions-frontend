@@ -1,0 +1,1217 @@
+{
+  "lighthouseVersion": "12.8.2",
+  "requestedUrl": "https://crset-solutions-frontend.vercel.app/",
+  "mainDocumentUrl": "https://crset-solutions-frontend.vercel.app/",
+  "finalDisplayedUrl": "https://crset-solutions-frontend.vercel.app/",
+  "finalUrl": "https://crset-solutions-frontend.vercel.app/",
+  "fetchTime": "2025-09-14T02:29:36.158Z",
+  "gatherMode": "navigation",
+  "runWarnings": [],
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.0.0 Safari/537.36",
+  "environment": {
+    "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+    "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.0.0 Safari/537.36",
+    "benchmarkIndex": 1387.5,
+    "credits": {}
+  },
+  "audits": {
+    "largest-contentful-paint": {
+      "id": "largest-contentful-paint",
+      "title": "Largest Contentful Paint",
+      "description": "Largest Contentful Paint marks the time at which the largest text or image is painted. [Learn more about the Largest Contentful Paint metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/)",
+      "score": 0.96,
+      "scoreDisplayMode": "numeric",
+      "numericValue": 2127.287,
+      "numericUnit": "millisecond",
+      "displayValue": "2.1 s",
+      "scoringOptions": {
+        "p10": 2500,
+        "median": 4000
+      }
+    },
+    "largest-contentful-paint-element": {
+      "id": "largest-contentful-paint-element",
+      "title": "Largest Contentful Paint element",
+      "description": "This is the largest contentful element painted within the viewport. [Learn more about the Largest Contentful Paint element](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/)",
+      "score": 1,
+      "scoreDisplayMode": "informative",
+      "displayValue": "2,130 ms",
+      "metricSavings": {
+        "LCP": 0
+      },
+      "details": {
+        "type": "list",
+        "items": [
+          {
+            "type": "table",
+            "headings": [
+              {
+                "key": "node",
+                "valueType": "node",
+                "label": "Element"
+              }
+            ],
+            "items": [
+              {
+                "node": {
+                  "type": "node",
+                  "lhId": "page-0-P",
+                  "path": "1,HTML,1,BODY,4,SECTION,0,DIV,1,P",
+                  "selector": "body.__variable_8b3a0b > section.py-12 > div.max-w-6xl > p.text-gray-600",
+                  "boundingRect": {
+                    "top": 691,
+                    "bottom": 739,
+                    "left": 0,
+                    "right": 412,
+                    "width": 412,
+                    "height": 48
+                  },
+                  "snippet": "<p class=\"text-gray-600 mb-6\">",
+                  "nodeLabel": "Secção de testemunhos em revisão. Sem claims até validação."
+                }
+              }
+            ]
+          },
+          {
+            "type": "table",
+            "headings": [
+              {
+                "key": "phase",
+                "valueType": "text",
+                "label": "Phase"
+              },
+              {
+                "key": "percent",
+                "valueType": "text",
+                "label": "% of LCP"
+              },
+              {
+                "key": "timing",
+                "valueType": "ms",
+                "label": "Timing"
+              }
+            ],
+            "items": [
+              {
+                "phase": "TTFB",
+                "timing": 131.43799993896485,
+                "percent": "6%"
+              },
+              {
+                "phase": "Load Delay",
+                "timing": 0,
+                "percent": "0%"
+              },
+              {
+                "phase": "Load Time",
+                "timing": 0,
+                "percent": "0%"
+              },
+              {
+                "phase": "Render Delay",
+                "timing": 1995.849000061035,
+                "percent": "94%"
+              }
+            ]
+          }
+        ]
+      },
+      "guidanceLevel": 1
+    }
+  },
+  "configSettings": {
+    "output": [
+      "json"
+    ],
+    "maxWaitForFcp": 30000,
+    "maxWaitForLoad": 45000,
+    "pauseAfterFcpMs": 5250,
+    "pauseAfterLoadMs": 5250,
+    "networkQuietThresholdMs": 5250,
+    "cpuQuietThresholdMs": 5250,
+    "formFactor": "mobile",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    },
+    "throttlingMethod": "devtools",
+    "screenEmulation": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+    "auditMode": false,
+    "gatherMode": false,
+    "clearStorageTypes": [
+      "file_systems",
+      "shader_cache",
+      "service_workers",
+      "cache_storage"
+    ],
+    "disableStorageReset": false,
+    "debugNavigation": false,
+    "channel": "cli",
+    "usePassiveGathering": false,
+    "disableFullPageScreenshot": false,
+    "skipAboutBlank": false,
+    "blankPage": "about:blank",
+    "ignoreStatusCode": false,
+    "locale": "en-US",
+    "blockedUrlPatterns": null,
+    "additionalTraceCategories": null,
+    "extraHeaders": null,
+    "precomputedLanternData": null,
+    "onlyAudits": [
+      "largest-contentful-paint",
+      "largest-contentful-paint-element"
+    ],
+    "onlyCategories": null,
+    "skipAudits": null
+  },
+  "categories": {
+    "performance": {
+      "title": "Performance",
+      "supportedModes": [
+        "navigation",
+        "timespan",
+        "snapshot"
+      ],
+      "auditRefs": [
+        {
+          "id": "largest-contentful-paint",
+          "weight": 25,
+          "group": "metrics",
+          "acronym": "LCP"
+        },
+        {
+          "id": "largest-contentful-paint-element",
+          "weight": 0,
+          "group": "diagnostics"
+        }
+      ],
+      "id": "performance",
+      "score": 0.96
+    }
+  },
+  "categoryGroups": {
+    "metrics": {
+      "title": "Metrics"
+    },
+    "insights": {
+      "title": "Insights",
+      "description": "These insights are also available in the Chrome DevTools Performance Panel - [record a trace](https://developer.chrome.com/docs/devtools/performance/reference) to view more detailed information."
+    },
+    "diagnostics": {
+      "title": "Diagnostics",
+      "description": "More information about the performance of your application. These numbers don't [directly affect](https://developer.chrome.com/docs/lighthouse/performance/performance-scoring/) the Performance score."
+    },
+    "a11y-best-practices": {
+      "title": "Best practices",
+      "description": "These items highlight common accessibility best practices."
+    },
+    "a11y-color-contrast": {
+      "title": "Contrast",
+      "description": "These are opportunities to improve the legibility of your content."
+    },
+    "a11y-names-labels": {
+      "title": "Names and labels",
+      "description": "These are opportunities to improve the semantics of the controls in your application. This may enhance the experience for users of assistive technology, like a screen reader."
+    },
+    "a11y-navigation": {
+      "title": "Navigation",
+      "description": "These are opportunities to improve keyboard navigation in your application."
+    },
+    "a11y-aria": {
+      "title": "ARIA",
+      "description": "These are opportunities to improve the usage of ARIA in your application which may enhance the experience for users of assistive technology, like a screen reader."
+    },
+    "a11y-language": {
+      "title": "Internationalization and localization",
+      "description": "These are opportunities to improve the interpretation of your content by users in different locales."
+    },
+    "a11y-audio-video": {
+      "title": "Audio and video",
+      "description": "These are opportunities to provide alternative content for audio and video. This may improve the experience for users with hearing or vision impairments."
+    },
+    "a11y-tables-lists": {
+      "title": "Tables and lists",
+      "description": "These are opportunities to improve the experience of reading tabular or list data using assistive technology, like a screen reader."
+    },
+    "seo-mobile": {
+      "title": "Mobile Friendly",
+      "description": "Make sure your pages are mobile friendly so users don’t have to pinch or zoom in order to read the content pages. [Learn how to make pages mobile-friendly](https://developers.google.com/search/mobile-sites/)."
+    },
+    "seo-content": {
+      "title": "Content Best Practices",
+      "description": "Format your HTML in a way that enables crawlers to better understand your app’s content."
+    },
+    "seo-crawl": {
+      "title": "Crawling and Indexing",
+      "description": "To appear in search results, crawlers need access to your app."
+    },
+    "best-practices-trust-safety": {
+      "title": "Trust and Safety"
+    },
+    "best-practices-ux": {
+      "title": "User Experience"
+    },
+    "best-practices-browser-compat": {
+      "title": "Browser Compatibility"
+    },
+    "best-practices-general": {
+      "title": "General"
+    },
+    "hidden": {
+      "title": ""
+    }
+  },
+  "stackPacks": [],
+  "entities": [
+    {
+      "name": "vercel.app",
+      "origins": [
+        "https://crset-solutions-frontend.vercel.app"
+      ],
+      "isFirstParty": true,
+      "isUnrecognized": true
+    }
+  ],
+  "fullPageScreenshot": {
+    "screenshot": {
+      "data": "data:image/webp;base64,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",
+      "width": 412,
+      "height": 1915
+    },
+    "nodes": {
+      "page-0-P": {
+        "id": "",
+        "top": 691,
+        "bottom": 739,
+        "left": 0,
+        "right": 412,
+        "width": 412,
+        "height": 48
+      },
+      "page-1-META": {
+        "id": "",
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0,
+        "width": 0,
+        "height": 0
+      },
+      "page-2-BODY": {
+        "id": "",
+        "top": 0,
+        "bottom": 1915,
+        "left": 0,
+        "right": 412,
+        "width": 412,
+        "height": 1915
+      },
+      "page-3-A": {
+        "id": "",
+        "top": 447,
+        "bottom": 491,
+        "left": 0,
+        "right": 96,
+        "width": 96,
+        "height": 44
+      }
+    }
+  },
+  "timing": {
+    "entries": [
+      {
+        "startTime": 15011.28,
+        "name": "lh:config",
+        "duration": 5980.58,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 15031.89,
+        "name": "lh:config:resolveArtifactsToDefns",
+        "duration": 1782.58,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 20992.12,
+        "name": "lh:runner:gather",
+        "duration": 23218.2,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 21242.24,
+        "name": "lh:driver:connect",
+        "duration": 24.76,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 21267.72,
+        "name": "lh:driver:navigate",
+        "duration": 33.85,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 21303.05,
+        "name": "lh:gather:getBenchmarkIndex",
+        "duration": 1011.7,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 22315.11,
+        "name": "lh:gather:getVersion",
+        "duration": 1.38,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 22316.64,
+        "name": "lh:gather:getDevicePixelRatio",
+        "duration": 2.04,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 22320.45,
+        "name": "lh:prepare:navigationMode",
+        "duration": 134.05,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 22356.63,
+        "name": "lh:storage:clearDataForOrigin",
+        "duration": 40.9,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 22397.79,
+        "name": "lh:storage:clearBrowserCaches",
+        "duration": 48.63,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 22448.78,
+        "name": "lh:gather:prepareThrottlingAndNetwork",
+        "duration": 5.66,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 22621.89,
+        "name": "lh:driver:navigate",
+        "duration": 16752.99,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41034.67,
+        "name": "lh:computed:NetworkRecords",
+        "duration": 2.77,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41038.45,
+        "name": "lh:gather:getArtifact:DevtoolsLog",
+        "duration": 0.07,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41038.56,
+        "name": "lh:gather:getArtifact:Trace",
+        "duration": 0.04,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41038.78,
+        "name": "lh:gather:getArtifact:NetworkUserAgent",
+        "duration": 0.11,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41038.91,
+        "name": "lh:gather:getArtifact:Scripts",
+        "duration": 0.21,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41039.17,
+        "name": "lh:gather:getArtifact:SourceMaps",
+        "duration": 0.09,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41039.28,
+        "name": "lh:gather:getArtifact:Stacks",
+        "duration": 20.98,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41039.42,
+        "name": "lh:gather:collectStacks",
+        "duration": 20.79,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41060.33,
+        "name": "lh:gather:getArtifact:TraceElements",
+        "duration": 1358.19,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41060.8,
+        "name": "lh:computed:TraceEngineResult",
+        "duration": 1208.57,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41060.99,
+        "name": "lh:computed:ProcessedTrace",
+        "duration": 80.55,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41146.68,
+        "name": "lh:computed:TraceEngineResult:total",
+        "duration": 1099.91,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41146.75,
+        "name": "lh:computed:TraceEngineResult:parse",
+        "duration": 905.12,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41149.72,
+        "name": "lh:computed:TraceEngineResult:parse:handleEvent",
+        "duration": 529.82,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41679.69,
+        "name": "lh:computed:TraceEngineResult:parse:Meta:finalize",
+        "duration": 8.78,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41689.48,
+        "name": "lh:computed:TraceEngineResult:parse:AnimationFrames:finalize",
+        "duration": 11.42,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41701.06,
+        "name": "lh:computed:TraceEngineResult:parse:Animations:finalize",
+        "duration": 4.08,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41705.26,
+        "name": "lh:computed:TraceEngineResult:parse:Samples:finalize",
+        "duration": 11.73,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41717.1,
+        "name": "lh:computed:TraceEngineResult:parse:AuctionWorklets:finalize",
+        "duration": 15.5,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41732.77,
+        "name": "lh:computed:TraceEngineResult:parse:NetworkRequests:finalize",
+        "duration": 22.76,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41755.61,
+        "name": "lh:computed:TraceEngineResult:parse:Renderer:finalize",
+        "duration": 30.99,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41786.71,
+        "name": "lh:computed:TraceEngineResult:parse:Flows:finalize",
+        "duration": 15.22,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41802.04,
+        "name": "lh:computed:TraceEngineResult:parse:AsyncJSCalls:finalize",
+        "duration": 22.17,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41824.36,
+        "name": "lh:computed:TraceEngineResult:parse:DOMStats:finalize",
+        "duration": 0.26,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41824.74,
+        "name": "lh:computed:TraceEngineResult:parse:UserTimings:finalize",
+        "duration": 13.2,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41838.06,
+        "name": "lh:computed:TraceEngineResult:parse:ExtensionTraceData:finalize",
+        "duration": 16.12,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41854.27,
+        "name": "lh:computed:TraceEngineResult:parse:LayerTree:finalize",
+        "duration": 16.69,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41871.03,
+        "name": "lh:computed:TraceEngineResult:parse:Frames:finalize",
+        "duration": 27.9,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41899,
+        "name": "lh:computed:TraceEngineResult:parse:GPU:finalize",
+        "duration": 1.36,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41900.45,
+        "name": "lh:computed:TraceEngineResult:parse:ImagePainting:finalize",
+        "duration": 15.68,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41916.21,
+        "name": "lh:computed:TraceEngineResult:parse:Initiators:finalize",
+        "duration": 13.59,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41929.89,
+        "name": "lh:computed:TraceEngineResult:parse:Invalidations:finalize",
+        "duration": 2.56,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41932.55,
+        "name": "lh:computed:TraceEngineResult:parse:PageLoadMetrics:finalize",
+        "duration": 14.27,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41946.9,
+        "name": "lh:computed:TraceEngineResult:parse:LargestImagePaint:finalize",
+        "duration": 2.76,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41949.72,
+        "name": "lh:computed:TraceEngineResult:parse:LargestTextPaint:finalize",
+        "duration": 14.89,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41964.68,
+        "name": "lh:computed:TraceEngineResult:parse:Screenshots:finalize",
+        "duration": 9.71,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41974.44,
+        "name": "lh:computed:TraceEngineResult:parse:LayoutShifts:finalize",
+        "duration": 0.81,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41975.27,
+        "name": "lh:computed:TraceEngineResult:parse:Memory:finalize",
+        "duration": 7.25,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41982.63,
+        "name": "lh:computed:TraceEngineResult:parse:PageFrames:finalize",
+        "duration": 1.52,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41984.23,
+        "name": "lh:computed:TraceEngineResult:parse:Scripts:finalize",
+        "duration": 15.9,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42000.2,
+        "name": "lh:computed:TraceEngineResult:parse:SelectorStats:finalize",
+        "duration": 14.02,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42014.3,
+        "name": "lh:computed:TraceEngineResult:parse:UserInteractions:finalize",
+        "duration": 15.93,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42030.3,
+        "name": "lh:computed:TraceEngineResult:parse:Workers:finalize",
+        "duration": 14.3,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42044.68,
+        "name": "lh:computed:TraceEngineResult:parse:Warnings:finalize",
+        "duration": 4.4,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42049.13,
+        "name": "lh:computed:TraceEngineResult:parse:clone",
+        "duration": 2.69,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42051.88,
+        "name": "lh:computed:TraceEngineResult:insights",
+        "duration": 194.67,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42052.4,
+        "name": "lh:computed:TraceEngineResult:insights:CLSCulprits",
+        "duration": 0.76,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42053.18,
+        "name": "lh:computed:TraceEngineResult:insights:Cache",
+        "duration": 0.34,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42053.55,
+        "name": "lh:computed:TraceEngineResult:insights:DOMSize",
+        "duration": 0.71,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42054.29,
+        "name": "lh:computed:TraceEngineResult:insights:DocumentLatency",
+        "duration": 0.26,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42054.57,
+        "name": "lh:computed:TraceEngineResult:insights:DuplicatedJavaScript",
+        "duration": 2.37,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42056.96,
+        "name": "lh:computed:TraceEngineResult:insights:FontDisplay",
+        "duration": 0.25,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42057.25,
+        "name": "lh:computed:TraceEngineResult:insights:ForcedReflow",
+        "duration": 0.4,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42057.68,
+        "name": "lh:computed:TraceEngineResult:insights:INPBreakdown",
+        "duration": 0.17,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42057.87,
+        "name": "lh:computed:TraceEngineResult:insights:ImageDelivery",
+        "duration": 0.41,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42058.34,
+        "name": "lh:computed:TraceEngineResult:insights:LCPBreakdown",
+        "duration": 0.2,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42058.56,
+        "name": "lh:computed:TraceEngineResult:insights:LCPDiscovery",
+        "duration": 0.24,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42058.84,
+        "name": "lh:computed:TraceEngineResult:insights:LegacyJavaScript",
+        "duration": 0.36,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42059.22,
+        "name": "lh:computed:TraceEngineResult:insights:ModernHTTP",
+        "duration": 0.35,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42059.6,
+        "name": "lh:computed:TraceEngineResult:insights:NetworkDependencyTree",
+        "duration": 0.17,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42059.79,
+        "name": "lh:computed:TraceEngineResult:insights:RenderBlocking",
+        "duration": 0.22,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42060.03,
+        "name": "lh:computed:TraceEngineResult:insights:SlowCSSSelector",
+        "duration": 0.29,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42060.34,
+        "name": "lh:computed:TraceEngineResult:insights:ThirdParties",
+        "duration": 2.86,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42063.23,
+        "name": "lh:computed:TraceEngineResult:insights:Viewport",
+        "duration": 0.27,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42063.72,
+        "name": "lh:computed:TraceEngineResult:insights:createLanternContext",
+        "duration": 45.71,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42109.55,
+        "name": "lh:computed:TraceEngineResult:insights:CLSCulprits",
+        "duration": 0.27,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42109.84,
+        "name": "lh:computed:TraceEngineResult:insights:Cache",
+        "duration": 0.93,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42110.79,
+        "name": "lh:computed:TraceEngineResult:insights:DOMSize",
+        "duration": 0.15,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42110.96,
+        "name": "lh:computed:TraceEngineResult:insights:DocumentLatency",
+        "duration": 0.4,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42111.38,
+        "name": "lh:computed:TraceEngineResult:insights:DuplicatedJavaScript",
+        "duration": 0.81,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42112.2,
+        "name": "lh:computed:TraceEngineResult:insights:FontDisplay",
+        "duration": 0.04,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42112.37,
+        "name": "lh:computed:TraceEngineResult:insights:ForcedReflow",
+        "duration": 0.63,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42113.02,
+        "name": "lh:computed:TraceEngineResult:insights:INPBreakdown",
+        "duration": 0.03,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42113.07,
+        "name": "lh:computed:TraceEngineResult:insights:ImageDelivery",
+        "duration": 0.06,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42113.14,
+        "name": "lh:computed:TraceEngineResult:insights:LCPBreakdown",
+        "duration": 0.31,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42113.46,
+        "name": "lh:computed:TraceEngineResult:insights:LCPDiscovery",
+        "duration": 0.08,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42113.55,
+        "name": "lh:computed:TraceEngineResult:insights:LegacyJavaScript",
+        "duration": 114.55,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42228.15,
+        "name": "lh:computed:TraceEngineResult:insights:ModernHTTP",
+        "duration": 2.61,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42230.81,
+        "name": "lh:computed:TraceEngineResult:insights:NetworkDependencyTree",
+        "duration": 2.49,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42233.33,
+        "name": "lh:computed:TraceEngineResult:insights:RenderBlocking",
+        "duration": 0.41,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42233.77,
+        "name": "lh:computed:TraceEngineResult:insights:SlowCSSSelector",
+        "duration": 0.06,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42233.84,
+        "name": "lh:computed:TraceEngineResult:insights:ThirdParties",
+        "duration": 10.39,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42244.3,
+        "name": "lh:computed:TraceEngineResult:insights:Viewport",
+        "duration": 0.16,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42276.39,
+        "name": "lh:computed:ProcessedNavigation",
+        "duration": 1.55,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42278.14,
+        "name": "lh:computed:CumulativeLayoutShift",
+        "duration": 96.18,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42376.95,
+        "name": "lh:computed:Responsiveness",
+        "duration": 0.82,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42418.59,
+        "name": "lh:gather:getArtifact:FullPageScreenshot",
+        "duration": 1753.22,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44211.6,
+        "name": "lh:runner:audit",
+        "duration": 30.74,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44212.05,
+        "name": "lh:runner:auditing",
+        "duration": 29.36,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44217.01,
+        "name": "lh:audit:largest-contentful-paint",
+        "duration": 10.99,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44218.64,
+        "name": "lh:computed:LargestContentfulPaint",
+        "duration": 0.99,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44228.71,
+        "name": "lh:audit:largest-contentful-paint-element",
+        "duration": 12.62,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44232.97,
+        "name": "lh:computed:LCPBreakdown",
+        "duration": 4.82,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44233.43,
+        "name": "lh:computed:TimeToFirstByte",
+        "duration": 0.89,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44233.85,
+        "name": "lh:computed:MainResource",
+        "duration": 0.39,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44234.38,
+        "name": "lh:computed:LCPImageRecord",
+        "duration": 3.27,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44241.44,
+        "name": "lh:runner:generate",
+        "duration": 0.84,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44243.49,
+        "name": "lh:computed:EntityClassification",
+        "duration": 4.35,
+        "entryType": "measure"
+      }
+    ],
+    "total": 23248.940000000002
+  },
+  "i18n": {
+    "rendererFormattedStrings": {
+      "calculatorLink": "See calculator.",
+      "collapseView": "Collapse view",
+      "crcInitialNavigation": "Initial Navigation",
+      "crcLongestDurationLabel": "Maximum critical path latency:",
+      "dropdownCopyJSON": "Copy JSON",
+      "dropdownDarkTheme": "Toggle Dark Theme",
+      "dropdownPrintExpanded": "Print Expanded",
+      "dropdownPrintSummary": "Print Summary",
+      "dropdownSaveGist": "Save as Gist",
+      "dropdownSaveHTML": "Save as HTML",
+      "dropdownSaveJSON": "Save as JSON",
+      "dropdownViewUnthrottledTrace": "View Unthrottled Trace",
+      "dropdownViewer": "Open in Viewer",
+      "errorLabel": "Error!",
+      "errorMissingAuditInfo": "Report error: no audit information",
+      "expandView": "Expand view",
+      "firstPartyChipLabel": "1st party",
+      "footerIssue": "File an issue",
+      "goBackToAudits": "Go back to audits",
+      "hide": "Hide",
+      "insightsNotice": "Later this year, insights will replace performance audits. [Learn more and provide feedback here](https://github.com/GoogleChrome/lighthouse/discussions/16462).",
+      "labDataTitle": "Lab Data",
+      "lsPerformanceCategoryDescription": "[Lighthouse](https://developers.google.com/web/tools/lighthouse/) analysis of the current page on an emulated mobile network. Values are estimated and may vary.",
+      "manualAuditsGroupTitle": "Additional items to manually check",
+      "notApplicableAuditsGroupTitle": "Not applicable",
+      "openInANewTabTooltip": "Open in a new tab",
+      "opportunityResourceColumnLabel": "Opportunity",
+      "opportunitySavingsColumnLabel": "Estimated Savings",
+      "passedAuditsGroupTitle": "Passed audits",
+      "runtimeAnalysisWindow": "Initial page load",
+      "runtimeAnalysisWindowSnapshot": "Point-in-time snapshot",
+      "runtimeAnalysisWindowTimespan": "User interactions timespan",
+      "runtimeCustom": "Custom throttling",
+      "runtimeDesktopEmulation": "Emulated Desktop",
+      "runtimeMobileEmulation": "Emulated Moto G Power",
+      "runtimeNoEmulation": "No emulation",
+      "runtimeSettingsAxeVersion": "Axe version",
+      "runtimeSettingsBenchmark": "Unthrottled CPU/Memory Power",
+      "runtimeSettingsCPUThrottling": "CPU throttling",
+      "runtimeSettingsDevice": "Device",
+      "runtimeSettingsNetworkThrottling": "Network throttling",
+      "runtimeSettingsScreenEmulation": "Screen emulation",
+      "runtimeSettingsUANetwork": "User agent (network)",
+      "runtimeSingleLoad": "Single page session",
+      "runtimeSingleLoadTooltip": "This data is taken from a single page session, as opposed to field data summarizing many sessions.",
+      "runtimeSlow4g": "Slow 4G throttling",
+      "runtimeUnknown": "Unknown",
+      "show": "Show",
+      "showRelevantAudits": "Show audits relevant to:",
+      "snippetCollapseButtonLabel": "Collapse snippet",
+      "snippetExpandButtonLabel": "Expand snippet",
+      "thirdPartyResourcesLabel": "Show 3rd-party resources",
+      "throttlingProvided": "Provided by environment",
+      "toplevelWarningsMessage": "There were issues affecting this run of Lighthouse:",
+      "tryInsights": "Try insights",
+      "unattributable": "Unattributable",
+      "varianceDisclaimer": "Values are estimated and may vary. The [performance score is calculated](https://developer.chrome.com/docs/lighthouse/performance/performance-scoring/) directly from these metrics.",
+      "viewTraceLabel": "View Trace",
+      "viewTreemapLabel": "View Treemap",
+      "warningAuditsGroupTitle": "Passed audits but with warnings",
+      "warningHeader": "Warnings: "
+    },
+    "icuMessagePaths": {
+      "core/lib/i18n/i18n.js | largestContentfulPaintMetric": [
+        "audits[largest-contentful-paint].title"
+      ],
+      "core/audits/metrics/largest-contentful-paint.js | description": [
+        "audits[largest-contentful-paint].description"
+      ],
+      "core/lib/i18n/i18n.js | seconds": [
+        {
+          "values": {
+            "timeInMs": 2127.287
+          },
+          "path": "audits[largest-contentful-paint].displayValue"
+        }
+      ],
+      "core/audits/largest-contentful-paint-element.js | title": [
+        "audits[largest-contentful-paint-element].title"
+      ],
+      "core/audits/largest-contentful-paint-element.js | description": [
+        "audits[largest-contentful-paint-element].description"
+      ],
+      "core/lib/i18n/i18n.js | ms": [
+        {
+          "values": {
+            "timeInMs": 2127.287
+          },
+          "path": "audits[largest-contentful-paint-element].displayValue"
+        }
+      ],
+      "core/lib/i18n/i18n.js | columnElement": [
+        "audits[largest-contentful-paint-element].details.items[0].headings[0].label"
+      ],
+      "core/audits/largest-contentful-paint-element.js | columnPhase": [
+        "audits[largest-contentful-paint-element].details.items[1].headings[0].label"
+      ],
+      "core/audits/largest-contentful-paint-element.js | columnPercentOfLCP": [
+        "audits[largest-contentful-paint-element].details.items[1].headings[1].label"
+      ],
+      "core/audits/largest-contentful-paint-element.js | columnTiming": [
+        "audits[largest-contentful-paint-element].details.items[1].headings[2].label"
+      ],
+      "core/audits/largest-contentful-paint-element.js | itemTTFB": [
+        "audits[largest-contentful-paint-element].details.items[1].items[0].phase"
+      ],
+      "core/audits/largest-contentful-paint-element.js | itemLoadDelay": [
+        "audits[largest-contentful-paint-element].details.items[1].items[1].phase"
+      ],
+      "core/audits/largest-contentful-paint-element.js | itemLoadTime": [
+        "audits[largest-contentful-paint-element].details.items[1].items[2].phase"
+      ],
+      "core/audits/largest-contentful-paint-element.js | itemRenderDelay": [
+        "audits[largest-contentful-paint-element].details.items[1].items[3].phase"
+      ],
+      "core/config/default-config.js | performanceCategoryTitle": [
+        "categories.performance.title"
+      ],
+      "core/config/default-config.js | metricGroupTitle": [
+        "categoryGroups.metrics.title"
+      ],
+      "core/config/default-config.js | insightsGroupTitle": [
+        "categoryGroups.insights.title"
+      ],
+      "core/config/default-config.js | insightsGroupDescription": [
+        "categoryGroups.insights.description"
+      ],
+      "core/config/default-config.js | diagnosticsGroupTitle": [
+        "categoryGroups.diagnostics.title"
+      ],
+      "core/config/default-config.js | diagnosticsGroupDescription": [
+        "categoryGroups.diagnostics.description"
+      ],
+      "core/config/default-config.js | a11yBestPracticesGroupTitle": [
+        "categoryGroups[a11y-best-practices].title"
+      ],
+      "core/config/default-config.js | a11yBestPracticesGroupDescription": [
+        "categoryGroups[a11y-best-practices].description"
+      ],
+      "core/config/default-config.js | a11yColorContrastGroupTitle": [
+        "categoryGroups[a11y-color-contrast].title"
+      ],
+      "core/config/default-config.js | a11yColorContrastGroupDescription": [
+        "categoryGroups[a11y-color-contrast].description"
+      ],
+      "core/config/default-config.js | a11yNamesLabelsGroupTitle": [
+        "categoryGroups[a11y-names-labels].title"
+      ],
+      "core/config/default-config.js | a11yNamesLabelsGroupDescription": [
+        "categoryGroups[a11y-names-labels].description"
+      ],
+      "core/config/default-config.js | a11yNavigationGroupTitle": [
+        "categoryGroups[a11y-navigation].title"
+      ],
+      "core/config/default-config.js | a11yNavigationGroupDescription": [
+        "categoryGroups[a11y-navigation].description"
+      ],
+      "core/config/default-config.js | a11yAriaGroupTitle": [
+        "categoryGroups[a11y-aria].title"
+      ],
+      "core/config/default-config.js | a11yAriaGroupDescription": [
+        "categoryGroups[a11y-aria].description"
+      ],
+      "core/config/default-config.js | a11yLanguageGroupTitle": [
+        "categoryGroups[a11y-language].title"
+      ],
+      "core/config/default-config.js | a11yLanguageGroupDescription": [
+        "categoryGroups[a11y-language].description"
+      ],
+      "core/config/default-config.js | a11yAudioVideoGroupTitle": [
+        "categoryGroups[a11y-audio-video].title"
+      ],
+      "core/config/default-config.js | a11yAudioVideoGroupDescription": [
+        "categoryGroups[a11y-audio-video].description"
+      ],
+      "core/config/default-config.js | a11yTablesListsVideoGroupTitle": [
+        "categoryGroups[a11y-tables-lists].title"
+      ],
+      "core/config/default-config.js | a11yTablesListsVideoGroupDescription": [
+        "categoryGroups[a11y-tables-lists].description"
+      ],
+      "core/config/default-config.js | seoMobileGroupTitle": [
+        "categoryGroups[seo-mobile].title"
+      ],
+      "core/config/default-config.js | seoMobileGroupDescription": [
+        "categoryGroups[seo-mobile].description"
+      ],
+      "core/config/default-config.js | seoContentGroupTitle": [
+        "categoryGroups[seo-content].title"
+      ],
+      "core/config/default-config.js | seoContentGroupDescription": [
+        "categoryGroups[seo-content].description"
+      ],
+      "core/config/default-config.js | seoCrawlingGroupTitle": [
+        "categoryGroups[seo-crawl].title"
+      ],
+      "core/config/default-config.js | seoCrawlingGroupDescription": [
+        "categoryGroups[seo-crawl].description"
+      ],
+      "core/config/default-config.js | bestPracticesTrustSafetyGroupTitle": [
+        "categoryGroups[best-practices-trust-safety].title"
+      ],
+      "core/config/default-config.js | bestPracticesUXGroupTitle": [
+        "categoryGroups[best-practices-ux].title"
+      ],
+      "core/config/default-config.js | bestPracticesBrowserCompatGroupTitle": [
+        "categoryGroups[best-practices-browser-compat].title"
+      ],
+      "core/config/default-config.js | bestPracticesGeneralGroupTitle": [
+        "categoryGroups[best-practices-general].title"
+      ]
+    }
+  }
+}
