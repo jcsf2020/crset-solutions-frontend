@@ -68,3 +68,9 @@ html { scroll-behavior: smooth; }
 /* Botões com feedback tátil leve */
 .btn { transition: transform .05s ease, box-shadow .15s ease }
 .btn:active { transform: translateY(1px) }
+
+/* === Micro-polish: estados hover/active === */
+.btn:hover { box-shadow: 0 0 0 1px rgba(var(--accent, 34,211,238), .35) inset, 0 0 18px rgba(var(--accent, 34,211,238), .22) }
+.btn:active { transform: translateY(1px) }
+
+.ui-card:hover { outline: 1px solid rgba(var(--border-strong), .22); outline-offset: 0 }
