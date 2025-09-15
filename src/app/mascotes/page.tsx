@@ -8,13 +8,17 @@ export const metadata = {
 export default function Page() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-10 space-y-8">
-      <section className="rounded-3xl bg-surface ring-1 ring-[var(--ring)] p-6 sm:p-10">
-        <h1 className="text-[var(--text)] text-3xl sm:text-6xl font-extrabold tracking-tight">
+      {/* HERO leve + acessível */}
+      <section className="crs-beam crs-scanlines crs-grid crs-glass rounded-3xl p-8 sm:p-12">
+        <h1 className="text-white text-3xl sm:text-6xl font-extrabold tracking-tight">
           CR_SET SOLUÇÕES
         </h1>
-        <p className="mt-2 text-muted">
+        <p className="mt-2 text-white/80">
           As mascotes oficiais da CR_SET.
         </p>
+        <div className="mt-4">
+          <a href="/#contacto" className="crs-cta">Falar com a CRSET</a>
+        </div>
       </section>
 
       <MascotesGrid />
