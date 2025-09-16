@@ -15,7 +15,12 @@ jobs:
       - name: Validate DataStream import usage
         run: |
           set -euo pipefail
-          if grep -R --line-number --exclude-dir=node_modules --exclude-dir=.next -E '@/components/ui/data-stream"[^.]' . ; then
+          # Procura imports de "@/components/ui/data-stream" SEM o sufixo ".client"
+          if grep -R -nP \
+            --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' \
+            --exclude-dir=node_modules --exclude-dir=.next --exclude-dir=.github \
+            --exclude='.eslintrc.js' \
+            "@/components/ui/data-stream(?!\.client)['\"]" . ; then
             echo "Import inválido de data-stream sem .client detectado"
             exit 1
           else
