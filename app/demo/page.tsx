@@ -1,3 +1,6 @@
+import { Suspense } from "react"
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 "use client"
 import { Mascot } from "@/components/mascot/Mascot"
 import KpiGrid from "./sections/KpiGrid"
@@ -44,7 +47,9 @@ network : online`}
             <HudBar label="RAM" value={t.ram} />
             <HudBar label="NET" value={t.net} />
           </div>
-          <DataStream title="/stream/telemetry" rows={10} cols={38} interval={80} />
+          <Suspense fallback={null}>
+        <DataStream title="/stream/telemetry" rows={10} cols={38} interval={80}  />
+      </Suspense>
         </div>
       </section>
 
