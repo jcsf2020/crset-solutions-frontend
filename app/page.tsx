@@ -4,6 +4,7 @@ import { SocialProof } from "@/components/home/SocialProof";
 import { ValueProps } from "@/components/home/ValueProps";
 import { HowWeWork } from "@/components/home/HowWeWork";
 import { FAQ } from "@/components/home/FAQ";
+import { MascotBubble } from "@/components/home/MascotBubble";
 
 export const metadata = {
   title: "CRSET Solutions — Automação prática. Sem circo.",
@@ -93,6 +94,9 @@ rede: online`}
         <Link className="underline" href="/precos">Preços</Link> ·{" "}
         <Link className="underline" href="/centro-de-ajuda">Ajuda</Link>
       </footer>
+
+      {/* Mascot Assistant */}
+      <MascotBubble />
     </main>
   );
 }
