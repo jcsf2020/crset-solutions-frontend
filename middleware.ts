@@ -11,7 +11,9 @@ export function middleware(req: NextRequest) {
 
   if (isApex && isDemoPath) {
     url.pathname = "/";
-    return NextResponse.redirect(url, 308);
+    const res = NextResponse.redirect(url, 308);
+    res.headers.set('x-crset-mw', 'apex-redirect');
+    return res;
   }
 
   return NextResponse.next();
@@ -20,3 +22,4 @@ export function middleware(req: NextRequest) {
 export const config = {
   matcher: ["/demo", "/demo/", "/demo/:path*"],
 };
+
