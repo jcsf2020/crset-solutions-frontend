@@ -1,0 +1,23 @@
+name: Guardrail - DataStream import
+
+on:
+  pull_request:
+  push:
+    branches: [ main, "**" ]
+
+jobs:
+  guardrail:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate DataStream import usage
+        run: |
+          set -euo pipefail
+          if grep -R --line-number --exclude-dir=node_modules --exclude-dir=.next -E '@/components/ui/data-stream"[^.]' . ; then
+            echo "Import inválido de data-stream sem .client detectado"
+            exit 1
+          else
+            echo "OK: nenhum import inválido encontrado"
+          fi
