@@ -6,7 +6,8 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl;
 
   // Bloqueia /demo no domínio principal de produção
-  if (host.endsWith("crsetsolutions.com") && url.pathname.startsWith("/demo")) {
+  const isApex = host === "crsetsolutions.com" || host === "www.crsetsolutions.com";
+  if (isApex && url.pathname.startsWith("/demo")) {
     url.pathname = "/";
     return NextResponse.redirect(url);
   }
@@ -17,3 +18,4 @@ export function middleware(req: NextRequest) {
 export const config = {
   matcher: ["/demo/:path*"],
 };
+
