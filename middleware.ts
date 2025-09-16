@@ -8,12 +8,22 @@ export function middleware(req: NextRequest) {
   // Bloqueia /demo no domínio principal de produção
   if (host.endsWith("crsetsolutions.com") && url.pathname.startsWith("/demo")) {
     url.pathname = "/";
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(url, 308);
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/demo/:path*"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
 };
+
