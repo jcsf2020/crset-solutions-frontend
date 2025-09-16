@@ -1,58 +1,103 @@
 import Link from "next/link";
+import { Suspense } from "react";
 
-export const metadata = {
-  title: "CRSET Solutions — Automação prática. Sem circo.",
-  description: "Automação e AGI aplicada ao negócio. Resultados práticos, sem circo.",
-};
-
-export default function Page() {
+export default function HomePage() {
   return (
-    <main className="container mx-auto max-w-5xl px-4 py-12 space-y-12">
-      <header className="flex items-center justify-between">
-        <h1 className="text-3xl font-semibold tracking-tight">CRSET Solutions</h1>
-        <nav className="flex gap-4 text-sm">
-          <Link href="/" className="hover:underline">Início</Link>
-          <Link href="/servicos" className="hover:underline">Serviços</Link>
-          <Link href="/precos" className="hover:underline">Planos & Preços</Link>
-          <Link href="/centro-de-ajuda" className="hover:underline">Ajuda</Link>
-        </nav>
-      </header>
+    <>
+      <section className="p-6">
+        <h2 className="text-2xl font-bold mb-2">CRSET Solutions</h2>
+      </section>
 
-      <section className="space-y-4">
-        <h2 className="text-2xl font-medium">Automação prática. Sem circo.</h2>
-        <p className="text-muted-foreground">
-          Implementamos AGI/automação orientada a resultados. Entregas simples, métricas claras e zero drama.
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <Link href="/servicos" className="rounded-xl px-4 py-2 border hover:bg-accent">Começar</Link>
-          <Link href="/faq" className="rounded-xl px-4 py-2 border hover:bg-accent">FAQ</Link>
-          <Link href="/mascotes" className="rounded-xl px-4 py-2 border hover:bg-accent">Mascotes</Link>
-          <Link href="/precos" className="rounded-xl px-4 py-2 border hover:bg-accent">Ver Preços</Link>
-          <Link href="/demo" className="rounded-xl px-4 py-2 border hover:bg-accent">Demo AGI</Link>
+      <div className="mb-4">
+        <Link 
+          href="/agi-live?src=hero-cta" 
+          aria-label="Fale com o AGI Commander"
+          className="inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring focus-visible:ring-offset-2"
+        >
+          Dúvidas? Fale com o AGI Commander
+        </Link>
+      </div>
+
+      <section id="hero" className="py-28">
+        <div className="container">
+          <div className="grid gap-6 md:grid-cols-2 items-center">
+            <div>
+              <h2 className="font-heading text-3xl md:text-4xl text-foreground tracking-tight mb-3">
+                CRSET Solutions
+              </h2>
+              <p className="mt-3 text-lg text-muted max-w-2xl">
+                Automação prática. Sem circo.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link 
+                  href="/start"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:opacity-90 h-11 px-5"
+                >
+                  Começar
+                </Link>
+                <Link 
+                  href="/faq"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-transparent hover:bg-accent/10 h-11 px-5"
+                >
+                  FAQ
+                </Link>
+                <Link 
+                  href="/mascotes-all"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-transparent hover:bg-accent/10 h-11 px-5"
+                >
+                  Mascotes
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="grid gap-6 md:grid-cols-3">
-        <div className="rounded-2xl border p-5">
-          <h3 className="font-semibold mb-1">Setup rápido</h3>
-          <p className="text-sm text-muted-foreground">Onboarding simples. Integrações na prática.</p>
-        </div>
-        <div className="rounded-2xl border p-5">
-          <h3 className="font-semibold mb-1">Métricas</h3>
-          <p className="text-sm text-muted-foreground">KPIs visíveis. Nada de caixa preta.</p>
-        </div>
-        <div className="rounded-2xl border p-5">
-          <h3 className="font-semibold mb-1">Suporte direto</h3>
-          <p className="text-sm text-muted-foreground">Sem burocracia. Canal direto e resolutivo.</p>
+      <section className="py-12">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-bold mb-2">
+            Resultados consistentes, sem ruído
+          </h2>
+          <p className="text-gray-600 mb-6">
+            Secção de testemunhos em revisão. Sem claims até validação.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="p-4 rounded border bg-white">
+              <p className="italic text-gray-700">— Em revisão —</p>
+            </div>
+            <div className="p-4 rounded border bg-white">
+              <p className="italic text-gray-700">— Em revisão —</p>
+            </div>
+            <div className="p-4 rounded border bg-white">
+              <p className="italic text-gray-700">— Em revisão —</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <footer className="text-xs text-muted-foreground">
-        © CRSET Solutions. Links rápidos:{" "}
-        <Link className="underline" href="/servicos">Serviços</Link> ·{" "}
-        <Link className="underline" href="/precos">Preços</Link> ·{" "}
-        <Link className="underline" href="/centro-de-ajuda">Ajuda</Link>
-      </footer>
-    </main>
+      <div className="px-6">
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link 
+            href="/servicos"
+            className="px-5 py-3 rounded-md bg-blue-600 text-white"
+          >
+            Ver Serviços
+          </Link>
+          <Link 
+            href="/precos"
+            className="px-5 py-3 rounded-md border"
+          >
+            Planos & Preços
+          </Link>
+          <Link 
+            href="/agi-live"
+            className="px-5 py-3 rounded-md border"
+          >
+            Demo AGI (JWT)
+          </Link>
+        </div>
+      </div>
+    </>
   );
 }
+
