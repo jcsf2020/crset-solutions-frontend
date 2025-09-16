@@ -1,5 +1,4 @@
 "use client"
-export { dynamic, revalidate } from "./route-options"
 import { Suspense } from "react"
 import { Mascot } from "@/components/mascot/Mascot"
 import KpiGrid from "./sections/KpiGrid"
