@@ -23,7 +23,7 @@ export function HowWeWork() {
   ];
 
   return (
-    <section className="py-16 bg-accent/20">
+    <section id="como-trabalhamos" className="py-16 bg-accent/20">
       <div className="container mx-auto max-w-6xl px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-semibold mb-4">
