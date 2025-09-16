@@ -1,7 +1,7 @@
+"use client"
 import { Suspense } from "react"
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
-"use client"
 import { Mascot } from "@/components/mascot/Mascot"
 import KpiGrid from "./sections/KpiGrid"
 import { HoloButton } from "@/components/ui/holo-button"
