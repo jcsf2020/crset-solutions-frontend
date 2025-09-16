@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { SocialProof } from "@/components/home/SocialProof";
 
 export const metadata = {
   title: "CRSET Solutions — Automação prática. Sem circo.",
@@ -69,6 +70,9 @@ rede: online`}
           </div>
         </div>
       </section>
+
+      {/* Social Proof */}
+      <SocialProof />
 
       {/* Footer */}
       <footer className="text-xs text-muted-foreground">
