@@ -6,24 +6,16 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl;
 
   // Bloqueia /demo no domínio principal de produção
-  if (host.endsWith("crsetsolutions.com") && url.pathname.startsWith("/demo")) {
+  const isApex = host === "crsetsolutions.com" || host === "www.crsetsolutions.com";
+  if (isApex && url.pathname.startsWith("/demo")) {
     url.pathname = "/";
-    return NextResponse.redirect(url, 308);
+    return NextResponse.redirect(url);
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
+  matcher: ["/demo/:path*"],
 };
 
