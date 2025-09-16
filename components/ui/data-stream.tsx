@@ -47,3 +47,5 @@ export function DataStream({
     </Card>
   )
 }
+
+export default DataStream
