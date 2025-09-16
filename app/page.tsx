@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export const metadata = {
   title: "CRSET Solutions — Automação prática. Sem circo.",
@@ -17,13 +18,13 @@ export default function Page() {
           <Link href="/servicos" className="hover:underline">Serviços</Link>
           <Link href="/precos" className="hover:underline">Planos & Preços</Link>
           <Link href="/centro-de-ajuda" className="hover:underline">Ajuda</Link>
-          <Link href="/demo" className="hover:underline">Demo AGI</Link>
+          <Link href="https://agi.crsetsolutions.com" className="hover:underline">Demo AGI</Link>
         </nav>
       </header>
 
       {/* Hero */}
-      <section className="grid gap-10 md:grid-cols-2 items-center">
-        <div className="space-y-6">
+      <section className="relative grid gap-10 md:grid-cols-2 items-center">
+        <div className="relative z-10 space-y-6">
           <p className="inline-flex rounded-full border px-3 py-1 text-xs text-muted-foreground">
             Foco em resultados • zero drama
           </p>
@@ -35,18 +36,18 @@ export default function Page() {
           </h2>
           <p className="text-muted-foreground max-w-prose">
             Implementamos AGI/automação no que mexe o ponteiro: processos críticos,
-            métricas claras e entregas simples. Você vê o impacto — não o “show”.
+            métricas claras e entregas simples. Você vê o impacto — não o "show".
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/servicos" className="rounded-xl px-5 py-2.5 border bg-primary/5 hover:bg-primary/10">
-              Começar agora
-            </Link>
-            <Link href="/precos" className="rounded-xl px-5 py-2.5 border hover:bg-accent">
-              Ver preços
-            </Link>
-            <Link href="/demo" className="rounded-xl px-5 py-2.5 border hover:bg-accent">
-              Ver demo AGI
-            </Link>
+            <Button asChild className="rounded-xl px-5 py-2.5">
+              <Link href="/servicos">Começar agora</Link>
+            </Button>
+            <Button asChild variant="outline" className="rounded-xl px-5 py-2.5">
+              <Link href="/precos">Ver preços</Link>
+            </Button>
+            <Button asChild variant="outline" className="rounded-xl px-5 py-2.5">
+              <Link href="https://agi.crsetsolutions.com">Ver demo AGI</Link>
+            </Button>
           </div>
           <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
             <span className="rounded-lg border px-3 py-1">Entrega rápida</span>
@@ -56,7 +57,7 @@ export default function Page() {
         </div>
 
         {/* Visual placeholder (estático) */}
-        <div className="rounded-2xl border p-6 md:p-8">
+        <div className="pointer-events-none -z-10 rounded-2xl border p-6 md:p-8" aria-hidden="true">
           <div className="rounded-xl border p-4">
             <div className="text-sm text-muted-foreground">Estado do sistema</div>
             <pre className="mt-1 font-mono text-sm leading-6">
@@ -79,3 +80,4 @@ rede: online`}
     </main>
   );
 }
+
