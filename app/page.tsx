@@ -69,12 +69,11 @@ export default function Page() {
             <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
               Automação prática.<br className="hidden md:block" />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-fuchsia-500">
-                Sem circo.
+                Resultado em dias, não meses.
               </span>
             </h2>
             <p className="text-base md:text-lg text-white/70 max-w-prose leading-relaxed">
-              Implementamos AGI/automação no que mexe o ponteiro: processos críticos,
-              métricas claras e entregas simples. Você vê o impacto — não o "show".
+              Ciclos curtos, KPIs visíveis em produção e zero circo. Começa pequeno, entrega real.
             </p>
             <div className="flex flex-wrap gap-3">
               <Button 
