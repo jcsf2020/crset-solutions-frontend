@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import * as Sentry from "@sentry/nextjs";
 import { Resend } from "resend";
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : undefined;
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -128,7 +127,10 @@ export async function POST(req: Request) {
       const sourceFormatted = source || "N/A";
       const phoneFormatted = phone || "N/A";
 
-      await resend?.emails.send({
+      // Criar instância Resend dentro da função (como /api/test-email)
+      const resend = new Resend(key);
+      
+      await resend.emails.send({
         from,
         to,
         subject: `Novo lead: ${name}`,
