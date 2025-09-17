@@ -1,4 +1,4 @@
-import { stripe, hasStripe, getPriceId, priceEnvSnapshot } from '@/lib/stripe';
+import { stripe, hasStripe, getPriceId, priceEnvSnapshot } from '../../../src/lib/stripe';
 
 export const runtime = 'nodejs';
 

@@ -1,7 +1,7 @@
 export const runtime = 'nodejs';
 
 import { NextResponse } from 'next/server';
-import { isAuthorized } from '@/lib/authGuard';
+import { isAuthorized } from '../../../src/lib/authGuard';
 
 const NOTION_VERSION = '2022-06-28';
 
