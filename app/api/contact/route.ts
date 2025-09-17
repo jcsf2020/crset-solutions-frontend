@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import * as Sentry from "@sentry/nextjs";
 import { Resend } from "resend";
+import { acquireContactOnce } from "@/lib/idempotency";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -42,6 +43,18 @@ export async function POST(req: Request) {
   try {
     const { name, email, message, phone, source, utm, metadata }: Body = await req.json().catch(() => ({} as any));
     if (!name || !email || !message) return bad("bad_request");
+
+// Idempotência (120s) — evita duplicados quase simultâneos
+try {
+  const rawForKey = { name, email, message, phone: phone ?? null, source: source ?? null, utm: utm ?? null, metadata: metadata ?? null };
+  if (!(await acquireContactOnce(rawForKey))) {
+    return NextResponse.json({ ok: true, deduped: true });
+  }
+} catch (e) {
+  // Não bloquear o fluxo se o cadeado falhar; só regista
+  Sentry.captureException(e);
+  await Sentry.flush(100);
+}
 
     const supabaseUrl = process.env.SUPABASE_URL;
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
