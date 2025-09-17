@@ -110,8 +110,8 @@ export async function POST(req: Request) {
     }
 
     // 2) Email via Resend
-    const from = process.env.RESEND_FROM;
-    const to = process.env.CONTACT_TO;
+    const from = process.env.RESEND_FROM || "CRSET <onboarding@resend.dev>";
+    const to = process.env.CONTACT_TO || process.env.ALERT_TO || "crsetsolutions@gmail.com";
     const key = process.env.RESEND_API_KEY;
     if (!key || !from || !to) {
       // Sem email, mas lead gravado: responder 200
