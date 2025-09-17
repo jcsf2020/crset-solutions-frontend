@@ -96,16 +96,21 @@ export async function POST(req: Request) {
 
       if (!ins.ok) {
         const detail = await ins.text().catch(() => "");
-        Sentry.captureException(new Error(`Supabase insert failed: ${ins.status} ${detail}`));
-        await Sentry.flush(2000);
-        // Sempre retornar {"ok": true} mesmo em falhas
-        return NextResponse.json({ ok: true });
+        
+        // Se for erro de email duplicado (409), continuar com o email
+        if (ins.status === 409 && detail.includes("leads_email_key")) {
+          // Email duplicado é OK - continuar para enviar email
+          console.log("Email duplicado detectado, continuando com envio de email");
+        } else {
+          // Outros erros do Supabase - logar mas continuar
+          Sentry.captureException(new Error(`Supabase insert failed: ${ins.status} ${detail}`));
+          await Sentry.flush(2000);
+        }
       }
     } catch (supabaseError: any) {
       Sentry.captureException(supabaseError);
       await Sentry.flush(2000);
-      // Sempre retornar {"ok": true} mesmo em falhas
-      return NextResponse.json({ ok: true });
+      // Continuar mesmo com erro do Supabase - o importante é enviar o email
     }
 
     // 2) Email via Resend
