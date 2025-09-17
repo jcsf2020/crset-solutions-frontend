@@ -22,7 +22,7 @@ export default function Page() {
           <Link href="/" className="hover:underline">Início</Link>
           <Link href="/servicos" className="hover:underline">Serviços</Link>
           <Link href="/precos" className="hover:underline">Planos & Preços</Link>
-          <Link href="/centro-de-ajuda" className="hover:underline">Ajuda</Link>
+          <Link href="/faq" className="hover:underline">Ajuda</Link>
           <Link href="https://agi.crsetsolutions.com" className="hover:underline">Demo AGI</Link>
         </nav>
       </header>
@@ -136,7 +136,7 @@ rede: online`}
         © CRSET Solutions. Links rápidos:{" "}
         <Link className="underline" href="/servicos">Serviços</Link> ·{" "}
         <Link className="underline" href="/precos">Preços</Link> ·{" "}
-        <Link className="underline" href="/centro-de-ajuda">Ajuda</Link>
+        <Link className="underline" href="/faq">Ajuda</Link>
       </footer>
 
       {/* Mascot Assistant */}
