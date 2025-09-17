@@ -1,6 +1,6 @@
 export const runtime = 'nodejs';
 import { NextResponse } from "next/server";
-import { sign } from "@/lib/jwt";
+import { sign } from "../../../../src/lib/jwt";
 
 function bad(msg: string, code=401){ return NextResponse.json({ok:false,error:msg},{status:code}); }
 
