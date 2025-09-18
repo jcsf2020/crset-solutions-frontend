@@ -1,26 +1,69 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
+'use client';
+import { useEffect, useRef, useState } from 'react';
+
+type Msg = { role: 'user' | 'assistant'; content: string };
 
 export default function ChatWidget() {
-  const [open, setOpen] = useState(false);
-  const [enabled, setEnabled] = useState(false);
-  const boxRef = useRef<HTMLDivElement | null>(null);
+  const [open, setOpen] = useState(true);
+  const [allowed, setAllowed] = useState(true);
+  const [busy, setBusy] = useState(false);
+  const [input, setInput] = useState('');
+  const [msgs, setMsgs] = useState<Msg[]>([
+    { role: 'assistant', content: 'Olá! Escreve a tua pergunta.' },
+  ]);
+  const boxRef = useRef<HTMLDivElement>(null);
 
-  // Checa no servidor se o utilizador está autorizado (via cookie HttpOnly)
   useEffect(() => {
-    fetch("/api/flags/chat", { credentials: "include", cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((d) => setEnabled(!!d?.allowed))
-      .catch(() => setEnabled(false));
+    boxRef.current?.scrollTo({ top: 9e9, behavior: 'smooth' });
+  }, [msgs, open]);
+
+  useEffect(() => {
+    fetch('/api/flags/chat', { credentials: 'include', cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : Promise.reject(r)))
+      .then((j) => setAllowed(!!j.allowed))
+      .catch(() => setAllowed(true));
   }, []);
 
-  if (!enabled) return null;
+  async function send() {
+    const text = input.trim();
+    if (!text || busy) return;
+    setInput('');
+    const next = [...msgs, { role: 'user', content: text } as Msg];
+    setMsgs(next);
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/agi/chat?v=${Date.now()}`, {
+        method: 'POST',
+        credentials: 'include',
+        cache: 'no-store',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ messages: next }),
+      });
+      if (!res.ok) {
+        const reason =
+          res.status === 401
+            ? 'Não autorizado. Faz login em /chat-login.'
+            : `Erro ${res.status}`;
+        setMsgs((m) => [...m, { role: 'assistant', content: reason }]);
+      } else {
+        const data = await res.json();
+        const reply =
+          data.reply ||
+          data.message ||
+          (typeof data === 'string' ? data : '(sem resposta)');
+        setMsgs((m) => [...m, { role: 'assistant', content: reply }]);
+      }
+    } catch {
+      setMsgs((m) => [...m, { role: 'assistant', content: 'Erro de rede.' }]);
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <>
       <style jsx global>{`
-        .crset-chat-fab{position:fixed;right:18px;bottom:18px;z-index:9999;background:#111;color:#fff;border:none;border-radius:999px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.2);cursor:pointer;font:600 14px/1 system-ui,Segoe UI,Arial}
-        .crset-chat-fab:hover{transform:translateY(-1px)}
+        .crset-chat-fab{position:fixed;right:18px;bottom:18px;z-index:9999;background:#111;color:#fff;border:none;border-radius:999px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.2);cursor:pointer;font:600 14px/1 system-ui}
         .crset-chat-panel{position:fixed;right:18px;bottom:78px;width:320px;max-width:90vw;height:420px;display:flex;flex-direction:column;border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.22);overflow:hidden;background:#fff;color:#111;z-index:9999}
         .crset-chat-header{padding:10px 12px;background:#0f172a;color:#fff;display:flex;justify-content:space-between;align-items:center;font:600 14px/1 system-ui}
         .crset-chat-body{flex:1;overflow:auto;padding:12px;background:#f8fafc}
@@ -33,24 +76,50 @@ export default function ChatWidget() {
         .crset-chat-input button[disabled]{opacity:.6;cursor:not-allowed}
       `}</style>
 
-      <button className="crset-chat-fab" onClick={() => setOpen(v => !v)} aria-expanded={open}>
-        Assistente CRSET
+      <button className="crset-chat-fab" onClick={() => setOpen((v) => !v)}>
+        {open ? 'Fechar chat' : 'Abrir chat'}
       </button>
 
       {open && (
-        <div className="crset-chat-panel" role="dialog" aria-label="Chat">
+        <div className="crset-chat-panel">
           <div className="crset-chat-header">
-            <span>Assistente CRSET (privado)</span>
-            <button onClick={() => setOpen(false)} aria-label="Fechar">✕</button>
+            <span>CRSET — Chat</span>
+            <button onClick={() => setOpen(false)} style={{ background: 'transparent', color: '#fff', border: 0, cursor: 'pointer' }}>×</button>
           </div>
+
           <div className="crset-chat-body" ref={boxRef}>
-            <div className="crset-chat-msg crset-chat-assistant">
-              Olá! Escreve a tua pergunta.
-            </div>
+            {!allowed && (
+              <div className="crset-chat-msg crset-chat-assistant">
+                Não autorizado. Faz login em <a href="/chat-login">/chat-login</a>.
+              </div>
+            )}
+            {msgs.map((m, i) => (
+              <div key={i} className={`crset-chat-msg ${m.role === 'user' ? 'crset-chat-user' : 'crset-chat-assistant'}`}>
+                {m.content}
+              </div>
+            ))}
           </div>
+
           <div className="crset-chat-input">
-            <textarea placeholder="Escreve…" />
-            <button disabled>Enviar</button>
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Escreve aqui..."
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  send();
+                }
+              }}
+            />
+            <button
+              disabled={!allowed || busy || !input.trim()}
+              onClick={() => send()}
+              type="button"
+              aria-busy={busy ? 'true' : 'false'}
+            >
+              {busy ? 'A enviar…' : 'Enviar'}
+            </button>
           </div>
         </div>
       )}
