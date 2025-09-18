@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import { ChatFlag } from "@/lib/chatFlag";
+import { ChatFlag } from "../../../../lib/chatFlag";
 
 function safeEqHex(a: string, b: string) {
   const ab = Buffer.from(a, "hex");

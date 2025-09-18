@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import { ChatFlag } from "@/lib/chatFlag";
+import { ChatFlag } from "../../../lib/chatFlag";
 
 function getIP(): string | null {
   const h = headers();
