@@ -1,25 +1,86 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
-export function middleware(req: NextRequest) {
-  const rawHost = req.headers.get("host") ?? "";
-  const host = rawHost.toLowerCase().replace(/:\d+$/, ""); // normaliza host (sem porta)
-  const url = req.nextUrl;
+// protege apenas os endpoints do AGI
+export const config = { matcher: ["/api/agi/:path*"] };
 
-  const isApex = host === "crsetsolutions.com" || host === "www.crsetsolutions.com";
-  const isDemoPath = url.pathname === "/demo" || url.pathname.startsWith("/demo/");
+function b64urlToB64(u: string) {
+  const pad = (4 - (u.length % 4)) % 4;
+  return u.replace(/-/g, "+").replace(/_/g, "/") + "=".repeat(pad);
+}
+function bytesToB64url(bytes: Uint8Array) {
+  const bin = String.fromCharCode(...bytes);
+  const b64 = btoa(bin);
+  return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+}
 
-  if (isApex && isDemoPath) {
-    url.pathname = "/";
-    const res = NextResponse.redirect(url, 308);
-    res.headers.set('x-crset-mw', 'apex-redirect');
-    return res;
+async function verifyHmac(payloadB64: string, sigB64: string, secret: string) {
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const mac = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payloadB64));
+  const expected = bytesToB64url(new Uint8Array(mac));
+  return expected === sigB64;
+}
+
+export async function middleware(req: NextRequest) {
+  const secret = process.env.CHAT_FLAG_SECRET;
+  if (!secret) {
+    return new NextResponse(JSON.stringify({ ok: false, error: "forbidden" }), {
+      status: 403,
+      headers: { "content-type": "application/json" },
+    });
+  }
+
+  // allowlist por IP (opcional)
+  const allow = (process.env.CHAT_ALLOWLIST_IPS || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  const ip =
+    (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() ||
+    (req as any).ip ||
+    req.headers.get("x-real-ip") ||
+    "";
+
+  if (ip && allow.includes(ip)) return NextResponse.next();
+
+  // cookie assinado
+  const tok = req.cookies.get("crset-chat")?.value || "";
+  const [payloadB64, sigB64] = tok.split(".");
+  if (!payloadB64 || !sigB64) {
+    return new NextResponse(JSON.stringify({ ok: false, error: "unauthorized" }), {
+      status: 401,
+      headers: { "content-type": "application/json" },
+    });
+  }
+
+  // verifica assinatura
+  const ok = await verifyHmac(payloadB64, sigB64, secret);
+  if (!ok) {
+    return new NextResponse(JSON.stringify({ ok: false, error: "bad_sig" }), {
+      status: 401,
+      headers: { "content-type": "application/json" },
+    });
+  }
+
+  // valida exp e versão
+  try {
+    const json = atob(b64urlToB64(payloadB64));
+    const p = JSON.parse(json);
+    const now = Math.floor(Date.now() / 1000);
+    if (p?.v !== 1) throw new Error("version");
+    if (p?.exp && now > p.exp) throw new Error("expired");
+  } catch {
+    return new NextResponse(JSON.stringify({ ok: false, error: "invalid_token" }), {
+      status: 401,
+      headers: { "content-type": "application/json" },
+    });
   }
 
   return NextResponse.next();
 }
-
-export const config = {
-  matcher: ["/demo", "/demo/", "/demo/:path*"],
-};
-
