@@ -485,3 +485,9 @@ html { overflow-y: scroll; }
   }
 }
 /* === end CRSET tokens === */
+
+/* ==== HOTFIX: taps iOS / links não clicam ==== */
+[role="complementary"][aria-label="Assistente"] { display: none !important; } /* esconde o FAB temporariamente */
+[data-bg-grid] { pointer-events: none !important; } /* garante que a grelha nunca apanha toques */
+a, button { pointer-events: auto !important; touch-action: manipulation; -webkit-touch-callout: none; }
+/* ==== /HOTFIX ==== */
