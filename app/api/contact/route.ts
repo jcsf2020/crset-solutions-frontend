@@ -75,8 +75,7 @@ try {
     const supabaseData: any = {
       name,
       email,
-      message,
-      created_at: new Date().toISOString(),
+      message
     };
 
     // Adicionar campos opcionais se fornecidos
@@ -93,67 +92,35 @@ try {
       if (utmObj.utm_content) supabaseData.utm_content = utmObj.utm_content;
     }
 
-    // 1) Upsert em Supabase (idempotente por email)
+    // 1) Upsert em Supabase (idempotente por email, numa só chamada)
     let supabaseSuccess = false;
     try {
-      // Primeiro tentar insert
-      const ins = await fetch(`${supabaseUrl}/rest/v1/leads`, {
-        method: "POST",
+      const upsert = await fetch(supabaseUrl + '/rest/v1/leads?on_conflict=email', {
+        method: 'POST',
         headers: {
           apikey: serviceKey,
-          Authorization: `Bearer ${serviceKey}`,
-          "Content-Type": "application/json",
-          Prefer: "return=representation",
+          Authorization: 'Bearer ' + serviceKey,
+          'Content-Type': 'application/json',
+          Prefer: 'resolution=merge-duplicates,return=representation',
         },
         body: JSON.stringify(supabaseData),
-        cache: "no-store",
+        cache: 'no-store',
       });
 
-      if (ins.ok) {
+      if (upsert.ok) {
         supabaseSuccess = true;
-      } else if (ins.status === 409) {
-        // Email duplicado - fazer update idempotente
-        const updateData = {
-          message: supabaseData.message,
-          phone: supabaseData.phone,
-          source: supabaseData.source,
-          utm_source: supabaseData.utm_source,
-          utm_medium: supabaseData.utm_medium,
-          utm_campaign: supabaseData.utm_campaign,
-          utm_content: supabaseData.utm_content,
-          created_at: supabaseData.created_at,
-        };
-
-        const upd = await fetch(`${supabaseUrl}/rest/v1/leads?email=eq.${encodeURIComponent(email)}`, {
-          method: "PATCH",
-          headers: {
-            apikey: serviceKey,
-            Authorization: `Bearer ${serviceKey}`,
-            "Content-Type": "application/json",
-            Prefer: "return=representation",
-          },
-          body: JSON.stringify(updateData),
-          cache: "no-store",
-        });
-
-        if (upd.ok) {
-          supabaseSuccess = true;
-        } else {
-          const detail = await upd.text().catch(() => "");
-          Sentry.captureException(new Error(`Supabase update failed: ${upd.status} ${detail}`));
-          await Sentry.flush(2000);
-        }
       } else {
-        const detail = await ins.text().catch(() => "");
-        Sentry.captureException(new Error(`Supabase insert failed: ${ins.status} ${detail}`));
+        const detail = await upsert.text().catch(() => '');
+        Sentry.captureException(new Error('Supabase upsert failed: ' + upsert.status + ' '+ detail));
         await Sentry.flush(2000);
       }
-    } catch (supabaseError: any) {
+    } catch (supabaseError) {
       Sentry.captureException(supabaseError);
       await Sentry.flush(2000);
     }
 
       // 2) Email via Resend (sempre enviar)
+
     const from = process.env.RESEND_FROM || "CRSET <onboarding@resend.dev>";
     const to = process.env.CONTACT_TO || process.env.ALERT_TO || "crsetsolutions@gmail.com";
     
@@ -173,7 +140,7 @@ try {
           <p><strong>Mensagem:</strong></p>
           <p>${message}</p>
           <hr>
-          <p><small>Source: ${source || "N/A"} | UTM: ${JSON.stringify(utm || {})}</small></p>
+          <p><small>Source: ${source || "N/A"} | UTM: ${JSON.stringify(finalUtm || {})}</small></p>
         `,
       });
 
