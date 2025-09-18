@@ -23,7 +23,9 @@ function ForceLight() {
 export const metadata = {
   title: "CRSET Solutions — Automação prática. Sem circo.",
   description: "Automação e AGI aplicada ao negócio. Resultados práticos, sem circo.",
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function Page() {
