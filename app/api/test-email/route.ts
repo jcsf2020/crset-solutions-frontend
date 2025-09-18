@@ -1,7 +1,16 @@
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: Request) {
+  // Verificar token de admin
+  const adminToken = request.headers.get("x-crset-admin");
+  const expectedToken = process.env.CRSET_ADMIN_TOKEN;
+  
+  if (!expectedToken || adminToken !== expectedToken) {
+    // Responder 404 em vez de 401 para ocultar existência
+    return Response.json({ error: "Not found" }, { status: 404 });
+  }
+
   const key = (process.env.RESEND_API_KEY || '').trim();
   if (!key) {
     return Response.json(
@@ -27,3 +36,4 @@ export async function GET() {
     { headers: { 'Cache-Control': 'no-store, max-age=0, must-revalidate' } }
   );
 }
+

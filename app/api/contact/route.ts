@@ -93,8 +93,10 @@ try {
       if (utmObj.utm_content) supabaseData.utm_content = utmObj.utm_content;
     }
 
-    // 1) Insert em Supabase (REST) com Service Role
+    // 1) Upsert em Supabase (idempotente por email)
+    let supabaseSuccess = false;
     try {
+      // Primeiro tentar insert
       const ins = await fetch(`${supabaseUrl}/rest/v1/leads`, {
         method: "POST",
         headers: {
@@ -107,75 +109,97 @@ try {
         cache: "no-store",
       });
 
-      if (!ins.ok) {
-        const detail = await ins.text().catch(() => "");
-        
-        // Se for erro de email duplicado (409), continuar com o email
-        if (ins.status === 409 && detail.includes("leads_email_key")) {
-          // Email duplicado é OK - continuar para enviar email
-          console.log("Email duplicado detectado, continuando com envio de email");
+      if (ins.ok) {
+        supabaseSuccess = true;
+      } else if (ins.status === 409) {
+        // Email duplicado - fazer update idempotente
+        const updateData = {
+          message: supabaseData.message,
+          phone: supabaseData.phone,
+          source: supabaseData.source,
+          utm_source: supabaseData.utm_source,
+          utm_medium: supabaseData.utm_medium,
+          utm_campaign: supabaseData.utm_campaign,
+          utm_content: supabaseData.utm_content,
+          created_at: supabaseData.created_at,
+        };
+
+        const upd = await fetch(`${supabaseUrl}/rest/v1/leads?email=eq.${encodeURIComponent(email)}`, {
+          method: "PATCH",
+          headers: {
+            apikey: serviceKey,
+            Authorization: `Bearer ${serviceKey}`,
+            "Content-Type": "application/json",
+            Prefer: "return=representation",
+          },
+          body: JSON.stringify(updateData),
+          cache: "no-store",
+        });
+
+        if (upd.ok) {
+          supabaseSuccess = true;
         } else {
-          // Outros erros do Supabase - logar mas continuar
-          Sentry.captureException(new Error(`Supabase insert failed: ${ins.status} ${detail}`));
+          const detail = await upd.text().catch(() => "");
+          Sentry.captureException(new Error(`Supabase update failed: ${upd.status} ${detail}`));
           await Sentry.flush(2000);
         }
+      } else {
+        const detail = await ins.text().catch(() => "");
+        Sentry.captureException(new Error(`Supabase insert failed: ${ins.status} ${detail}`));
+        await Sentry.flush(2000);
       }
     } catch (supabaseError: any) {
       Sentry.captureException(supabaseError);
       await Sentry.flush(2000);
-      // Continuar mesmo com erro do Supabase - o importante é enviar o email
     }
 
-    // 2) Email via Resend
+      // 2) Email via Resend (sempre enviar)
     const from = process.env.RESEND_FROM || "CRSET <onboarding@resend.dev>";
     const to = process.env.CONTACT_TO || process.env.ALERT_TO || "crsetsolutions@gmail.com";
-    const key = process.env.RESEND_API_KEY;
-    if (!key || !from || !to) {
-      // Sem email, mas lead gravado: responder 200
-      return NextResponse.json({ ok: true });
-    }
-
+    
+    let emailSuccess = false;
     try {
-      // Formatar UTM e Source para o email (JSON pretty)
-      let utmFormatted = "N/A";
-      if (finalUtm) {
-        utmFormatted = JSON.stringify(finalUtm, null, 2);
-      }
-
-      const sourceFormatted = source || "N/A";
-      const phoneFormatted = phone || "N/A";
-
-      // Criar instância Resend dentro da função (como /api/test-email)
-      const resend = new Resend(key);
+      const resend = new Resend(process.env.RESEND_API_KEY);
       
-      await resend.emails.send({
+      const emailResult = await resend.emails.send({
         from,
         to,
         subject: `Novo lead: ${name}`,
-        text: `Nome: ${name}
-Email: ${email}
-Telefone: ${phoneFormatted}
-Source: ${sourceFormatted}
-
-UTM Data:
-${utmFormatted}
-
-Mensagem:
-${message}`,
+        html: `
+          <h2>Novo lead recebido</h2>
+          <p><strong>Nome:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Telefone:</strong> ${phone || "N/A"}</p>
+          <p><strong>Mensagem:</strong></p>
+          <p>${message}</p>
+          <hr>
+          <p><small>Source: ${source || "N/A"} | UTM: ${JSON.stringify(utm || {})}</small></p>
+        `,
       });
-    } catch (resendError: any) {
-      Sentry.captureException(resendError);
+
+      if (emailResult.data?.id) {
+        emailSuccess = true;
+      } else {
+        Sentry.captureException(new Error(`Resend failed: ${JSON.stringify(emailResult.error)}`));
+        await Sentry.flush(2000);
+      }
+    } catch (emailError: any) {
+      Sentry.captureException(emailError);
       await Sentry.flush(2000);
-      // Email falhou mas lead foi gravado - ainda é sucesso
-      return NextResponse.json({ ok: true });
     }
 
+    // 3) Contrato de resposta
+    if (!supabaseSuccess && !emailSuccess) {
+      // Falha total - não gravou e não enviou
+      return NextResponse.json({ ok: false }, { status: 500 });
+    }
+
+    // Sucesso (pelo menos um funcionou)
     return NextResponse.json({ ok: true });
   } catch (e: any) {
     Sentry.captureException(e);
     await Sentry.flush(2000);
-    // Sempre retornar {"ok": true} mesmo em erros gerais
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: false }, { status: 500 });
   }
 }
 
