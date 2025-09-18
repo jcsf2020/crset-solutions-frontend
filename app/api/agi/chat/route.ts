@@ -15,26 +15,33 @@ function extractText(body: any) {
   return body.text ?? body.message ?? body.prompt ?? fromMessages ?? null;
 }
 
+const JSON_UTF8 = { "content-type": "application/json; charset=utf-8" } as const;
+
 export async function POST(req: NextRequest) {
   let body: any = {};
   try {
     if (req.headers.get("content-type")?.includes("application/json")) {
       body = await req.json();
     }
-  } catch { body = {}; }
+  } catch {
+    body = {};
+  }
 
   const text = extractText(body);
   if (!text || !String(text).trim()) {
-    return NextResponse.json({ error: "empty_input" }, { status: 400 });
+    return NextResponse.json({ error: "empty_input" }, { status: 400, headers: JSON_UTF8 });
   }
 
   // TODO: integrar com backend AGI real
-  return NextResponse.json({
-    ok: true,
-    reply: `👋 Olá! Recebi: ${String(text).slice(0, 200)}`
-  });
+  return NextResponse.json(
+    { ok: true, reply: `👋 Olá! Recebi: ${String(text).slice(0, 200)}` },
+    { headers: JSON_UTF8 }
+  );
 }
 
 export function GET() {
-  return NextResponse.json({ error: "method_not_allowed" }, { status: 405 });
+  return NextResponse.json(
+    { error: "method_not_allowed" },
+    { status: 405, headers: JSON_UTF8 }
+  );
 }
