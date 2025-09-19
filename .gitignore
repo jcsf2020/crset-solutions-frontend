@@ -131,3 +131,5 @@ tsconfig.tsbuildinfo
 *.report.html
 *.report.json
 package-lock.json
+
+.env*.local
