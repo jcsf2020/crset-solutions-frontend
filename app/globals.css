@@ -81,3 +81,237 @@ html { scroll-behavior: smooth; }
 [data-bg-grid] { pointer-events: none !important; } /* garante que a grelha nunca apanha toques */
 a, button { pointer-events: auto !important; touch-action: manipulation; -webkit-touch-callout: none; }
 /* ==== /HOTFIX ==== */
+
+
+/* ===== MICRO-INTERACTIONS & POLISH ===== */
+
+/* Enhanced Focus Ring with High Contrast */
+:where(button, a, [role="button"], input, select, textarea, details summary):focus-visible {
+  outline: none;
+  box-shadow: 
+    0 0 0 2px rgb(255, 255, 255),
+    0 0 0 4px rgb(59, 130, 246),
+    0 0 0 6px rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius-md);
+  transition: box-shadow 0.15s ease;
+}
+
+/* Subtle Hover Micro-Interactions */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-1px);
+}
+
+.hover-lift:active {
+  transform: translateY(0);
+}
+
+/* Interactive Elements */
+button, 
+[role="button"], 
+a[href],
+.interactive {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+button:hover,
+[role="button"]:hover,
+a[href]:hover,
+.interactive:hover {
+  transform: translateY(-1px);
+}
+
+button:active,
+[role="button"]:active,
+a[href]:active,
+.interactive:active {
+  transform: translateY(0);
+  transition-duration: 0.1s;
+}
+
+/* Card Hover Effects */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.1),
+    0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Smooth Icon Animations */
+.icon-hover {
+  transition: transform 0.2s ease;
+}
+
+.icon-hover:hover {
+  transform: scale(1.1);
+}
+
+/* Link Underline Animation */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Button Press Feedback */
+.btn-press {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-press:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth Color Transitions */
+.color-transition {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Loading States */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.loading-pulse {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* Stagger Animation for Lists */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: stagger-in 0.6s ease forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+.stagger-item:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes stagger-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Enhanced Accessibility for Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Keep essential focus indicators */
+  :focus-visible {
+    transition: none !important;
+  }
+  
+  /* Disable hover transforms for reduced motion */
+  .hover-lift:hover,
+  button:hover,
+  [role="button"]:hover,
+  a[href]:hover,
+  .interactive:hover,
+  .card-hover:hover {
+    transform: none !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :where(button, a, [role="button"]):focus-visible {
+    box-shadow: 
+      0 0 0 2px CanvasText,
+      0 0 0 4px Canvas,
+      0 0 0 6px CanvasText;
+  }
+  
+  .card-glass,
+  .card-glass-medium,
+  .card-glass-strong {
+    background: Canvas;
+    border: 2px solid CanvasText;
+    backdrop-filter: none;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Disable hover effects on touch devices */
+  .hover-lift:hover,
+  button:hover,
+  [role="button"]:hover,
+  a[href]:hover,
+  .interactive:hover,
+  .card-hover:hover {
+    transform: none;
+  }
+  
+  /* Larger touch targets */
+  button,
+  [role="button"],
+  a[href] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .hover-lift,
+  .card-hover,
+  .interactive {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  
+  .card-glass,
+  .card-glass-medium,
+  .card-glass-strong {
+    background: white !important;
+    border: 1px solid black !important;
+    backdrop-filter: none !important;
+  }
+}

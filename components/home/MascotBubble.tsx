@@ -152,12 +152,12 @@ export function MascotBubble() {
               <Link
                 key={index}
                 href={tip.href}
-                className="flex items-center justify-between rounded-md p-2 text-sm hover:bg-accent transition-colors"
+                className="flex items-center justify-between rounded-md p-2 text-sm hover:bg-accent color-transition interactive"
                 {...(tip.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               >
                 <span>{tip.title}</span>
                 {tip.external && (
-                  <ExternalLink className="h-3 w-3 text-muted-foreground" aria-hidden="true" />
+                  <ExternalLink className="h-3 w-3 text-muted-foreground icon-hover" aria-hidden="true" />
                 )}
               </Link>
             ))}
@@ -170,9 +170,7 @@ export function MascotBubble() {
         ref={buttonRef}
         onClick={togglePanel}
         size="lg"
-        className={`rounded-full h-12 w-12 p-0 shadow-lg ${
-          prefersReducedMotion ? '' : 'transition-transform hover:scale-105'
-        }`}
+        className="rounded-full h-12 w-12 p-0 shadow-lg icon-hover"
         aria-expanded={isOpen}
         aria-controls={isOpen ? "mascot-panel" : undefined}
         aria-label={isOpen ? "Fechar assistente" : "Abrir assistente"}
