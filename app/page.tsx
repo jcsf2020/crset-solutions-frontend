@@ -43,57 +43,86 @@ export default function Page() {
         </nav>
       </header>
 
-      {/* Hero claro com fallback de mascote */}
-      <section className="relative overflow-hidden rounded-2xl border border-black/10 bg-white text-black p-6 md:p-10">
-        <div className="grid items-center gap-8 md:grid-cols-2">
-          <div>
-            <p className="inline-flex rounded-full border border-black/20 bg-black/5 px-4 py-1.5 text-sm">
+      {/* Hero Premium */}
+      <section className="relative overflow-hidden rounded-2xl bg-grid card-glass-medium shadow-elev-3 p-8 md:p-12">
+        {/* Background decorativo */}
+        <div className="absolute inset-0 bg-gradient-subtle opacity-50" aria-hidden="true" />
+        
+        <div className="relative grid items-center gap-10 md:grid-cols-2">
+          <div className="space-y-6">
+            <div className="inline-flex items-center rounded-full border border-black/10 bg-white/80 backdrop-blur-sm px-4 py-2 text-sm font-medium shadow-sm">
+              <span className="mr-2 h-2 w-2 rounded-full bg-green-500" aria-hidden="true" />
               Foco em resultados • zero drama
-            </p>
-            <h2 className="mt-4 text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
+            </div>
+            
+            <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight text-balance">
               Automação prática.
               <br className="hidden md:block" />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-neutral-600">
+              <span className="bg-gradient-primary bg-clip-text text-transparent">
                 Resultado em dias, não meses.
               </span>
             </h2>
-            <p className="mt-4 text-base md:text-lg text-neutral-700 max-w-prose leading-relaxed">
+            
+            <p className="text-lg md:text-xl text-neutral-700 max-w-prose leading-relaxed">
               Ciclos curtos, KPIs visíveis em produção e zero circo. Começa pequeno, entrega real.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button asChild className="rounded-xl px-6 py-3">
+            
+            {/* CTA Dupla */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button 
+                asChild 
+                size="lg"
+                className="rounded-xl px-8 py-4 text-base font-semibold shadow-elev-2 hover:shadow-elev-3 transition-all duration-200 hover:-translate-y-0.5"
+              >
                 <Link href="/servicos">Começar agora</Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
-                className="rounded-xl px-6 py-3 border-black/20 hover:bg-black/5"
+                size="lg"
+                className="rounded-xl px-8 py-4 text-base font-semibold border-2 border-green-600 text-green-700 hover:bg-green-50 hover:border-green-700 transition-all duration-200 hover:-translate-y-0.5"
               >
-                <Link href="/precos">Ver preços</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="rounded-xl px-6 py-3 border-black/20 hover:bg-black/5"
-              >
-                <Link href="https://agi.crsetsolutions.com">Ver demo AGI</Link>
+                <Link href="https://wa.me/351912345678?text=Olá! Gostaria de saber mais sobre os serviços CRSET.">
+                  WhatsApp direto
+                </Link>
               </Button>
             </div>
-            <div className="mt-4 flex flex-wrap gap-4 text-sm text-neutral-700">
-              <span className="rounded-lg border border-black/20 bg-black/5 px-3 py-1">Entrega rápida</span>
-              <span className="rounded-lg border border-black/20 bg-black/5 px-3 py-1">KPIs visíveis</span>
-              <span className="rounded-lg border border-black/20 bg-black/5 px-3 py-1">Suporte direto</span>
+            
+            {/* Tags de benefícios */}
+            <div className="flex flex-wrap gap-3">
+              <span className="inline-flex items-center rounded-lg bg-white/60 backdrop-blur-sm border border-black/10 px-3 py-2 text-sm font-medium shadow-sm">
+                ⚡ Entrega rápida
+              </span>
+              <span className="inline-flex items-center rounded-lg bg-white/60 backdrop-blur-sm border border-black/10 px-3 py-2 text-sm font-medium shadow-sm">
+                📊 KPIs visíveis
+              </span>
+              <span className="inline-flex items-center rounded-lg bg-white/60 backdrop-blur-sm border border-black/10 px-3 py-2 text-sm font-medium shadow-sm">
+                🎯 Suporte direto
+              </span>
             </div>
           </div>
 
-          {/* Imagem fallback (sem dependencias) */}
-          <div className="justify-self-end">
-            <img
-              src="/og.png"
-              alt="Mascote CRSET"
-              className="w-full max-w-md rounded-xl border border-black/10"
-              loading="eager"
-            />
+          {/* Mascotes decorativas */}
+          <div className="relative justify-self-end">
+            <div className="relative">
+              <img
+                src="/og.png"
+                alt=""
+                className="w-full max-w-md rounded-2xl shadow-elev-4 border border-white/20"
+                loading="lazy"
+                aria-hidden="true"
+              />
+              {/* Efeito de brilho decorativo */}
+              <div className="absolute -inset-1 rounded-2xl bg-gradient-primary opacity-20 blur-xl" aria-hidden="true" />
+            </div>
+            
+            {/* Mascotes flutuantes decorativas */}
+            <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full bg-gradient-accent shadow-elev-3 flex items-center justify-center text-2xl animate-bounce" aria-hidden="true" style={{animationDelay: '0.5s'}}>
+              🚀
+            </div>
+            <div className="absolute -bottom-4 -left-4 w-12 h-12 rounded-full bg-gradient-primary shadow-elev-2 flex items-center justify-center text-lg animate-bounce" aria-hidden="true" style={{animationDelay: '1s'}}>
+              ⚡
+            </div>
           </div>
         </div>
       </section>
