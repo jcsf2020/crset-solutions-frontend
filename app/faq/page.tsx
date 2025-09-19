@@ -244,20 +244,7 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Custom styles for details/summary */}
-      <style jsx>{`
-        details[open] summary {
-          border-bottom: 1px solid rgb(229 231 235);
-        }
-        
-        details summary::-webkit-details-marker {
-          display: none;
-        }
-        
-        details summary::marker {
-          display: none;
-        }
-      `}</style>
+
     </main>
   );
 }

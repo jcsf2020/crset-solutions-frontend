@@ -79,3 +79,16 @@ html { scroll-behavior: smooth; }
 [data-bg-grid] { pointer-events: none !important; } /* garante que a grelha nunca apanha toques */
 a, button { pointer-events: auto !important; touch-action: manipulation; -webkit-touch-callout: none; }
 /* ==== /HOTFIX ==== */
+
+/* Details/Summary Accordion Styles */
+details[open] summary {
+  border-bottom: 1px solid rgb(229 231 235);
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary::marker {
+  display: none;
+}
