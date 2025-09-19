@@ -22,7 +22,6 @@ export default function ChatLoginPage() {
       const j = await r.json().catch(() => ({}));
       if (r.ok && (j?.ok ?? false)) {
         setOk(true);
-        setMsg("login_ok — reloading…");
         setTimeout(() => location.assign("/?v=" + Date.now()), 600);
       } else {
         setOk(false);
