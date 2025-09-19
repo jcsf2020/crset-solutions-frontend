@@ -1,39 +1,39 @@
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
+import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-  // Verificar token de admin
-  const adminToken = request.headers.get("x-crset-admin");
-  const expectedToken = process.env.CRSET_ADMIN_TOKEN;
-  
-  if (!expectedToken || adminToken !== expectedToken) {
-    // Responder 404 em vez de 401 para ocultar existência
-    return Response.json({ error: "Not found" }, { status: 404 });
-  }
+export const runtime = "nodejs";
 
-  const key = (process.env.RESEND_API_KEY || '').trim();
-  if (!key) {
-    return Response.json(
-      { ok: false, error: 'RESEND_API_KEY missing in Vercel (Production)' },
-      { status: 500, headers: { 'Cache-Control': 'no-store, max-age=0, must-revalidate' } }
-    );
-  }
-  const to = (process.env.ALERT_TO || 'crsetsolutions@gmail.com').trim();
-  const from = (process.env.RESEND_FROM || 'CRSET <onboarding@resend.dev>').trim();
+async function send({ to, subject, text }: { to: string; subject: string; text: string }) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM || "CRSET <crsetsolutions@gmail.com>";
+  if (!apiKey) return NextResponse.json({ error: "resend_key_missing" }, { status: 500 });
 
-  const payload = { from, to, subject: 'CRSET - Teste de notificação', text: `Ping OK @ ${new Date().toISOString()}` };
-
-  const resp = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ from, to, subject, text }),
+    cache: "no-store",
   });
 
-  let detail = '';
-  try { detail = JSON.stringify(await resp.json()); } catch {}
-  return Response.json(
-    { ok: resp.ok, to, from, status: resp.status, detail },
-    { headers: { 'Cache-Control': 'no-store, max-age=0, must-revalidate' } }
-  );
+  if (!res.ok) {
+    const err = await res.text().catch(() => "");
+    return NextResponse.json({ ok: false, status: res.status, error: err || "send_failed" }, { status: 502 });
+  }
+
+  const json = await res.json().catch(() => ({}));
+  return NextResponse.json({ ok: true, id: json?.id ?? null });
 }
 
+export async function POST(req: Request) {
+  const { to, subject, text } = await req.json().catch(() => ({} as any));
+  if (!to || !subject || !text) return NextResponse.json({ error: "missing_fields" }, { status: 400 });
+  return send({ to, subject, text });
+}
+
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const to = searchParams.get("to") || "";
+  const subject = searchParams.get("subject") || "";
+  const text = searchParams.get("text") || "";
+  if (!to || !subject || !text) return NextResponse.json({ error: "missing_fields" }, { status: 400 });
+  return send({ to, subject, text });
+}
