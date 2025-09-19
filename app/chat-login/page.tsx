@@ -1,3 +1,4 @@
+// app/chat-login/page.tsx
 "use client";
 import { useState } from "react";
 
@@ -8,21 +9,24 @@ export default function ChatLoginPage() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setMsg(null); setOk(null);
+    setMsg(null);
+    setOk(null);
     try {
       const r = await fetch("/api/flags/chat/login", {
         method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({ password: pwd })
+        credentials: "include",     // 🔑 garante set-cookie HttpOnly
+        cache: "no-store",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: pwd }),
       });
       const j = await r.json().catch(() => ({}));
-      if (r.ok && j?.ok) {
+      if (r.ok && (j?.ok ?? false)) {
         setOk(true);
-        setMsg("login_ok — reloading...");
-        setTimeout(() => location.assign("/"), 800);
+        setMsg("login_ok — reloading…");
+        setTimeout(() => location.assign("/?v=" + Date.now()), 600);
       } else {
         setOk(false);
-        setMsg(j?.error || "login_failed");
+        setMsg(j?.error || j?.reason || "login_failed");
       }
     } catch {
       setOk(false);
@@ -37,7 +41,7 @@ export default function ChatLoginPage() {
         <input
           type="password"
           value={pwd}
-          onChange={(e)=>setPwd(e.target.value)}
+          onChange={(e) => setPwd(e.target.value)}
           placeholder="Password"
           className="w-full rounded-md border px-3 py-2 bg-transparent"
           required
