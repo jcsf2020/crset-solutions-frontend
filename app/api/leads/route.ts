@@ -10,7 +10,7 @@ export async function HEAD() {
 }
 
 export async function OPTIONS() {
-  return new NextResponse(null, { 
+  return new NextResponse(null, {
     status: 200,
     headers: {
       'Allow': 'GET, HEAD, OPTIONS, POST',
