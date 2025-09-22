@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils"
 import { Oxanium, JetBrains_Mono } from "next/font/google"
 import ChatWidget from "@/app/components/ChatWidget"
 
-const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-oxanium" })
-const jbmono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jbmono" })
+const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-oxanium", display: "swap" })
+const jbmono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jbmono", display: "swap" })
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_CANONICAL_BASE ?? "https://crset-solutions-frontend.vercel.app"),

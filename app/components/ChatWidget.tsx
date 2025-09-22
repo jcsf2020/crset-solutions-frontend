@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 type Msg = { role: 'user' | 'assistant'; content: string };
 
 export default function ChatWidget() {
-  const [open, setOpen] = useState(true);
-  const [allowed, setAllowed] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [allowed, setAllowed] = useState(false);
   const [busy, setBusy] = useState(false);
   const [input, setInput] = useState('');
   const [msgs, setMsgs] = useState<Msg[]>([
@@ -63,7 +63,7 @@ export default function ChatWidget() {
   return (
     <>
       <style jsx global>{`
-        .crset-chat-fab{position:fixed;right:18px;bottom:calc(env(safe-area-inset-bottom) + 16px);z-index:9999;background:#111;color:#fff;border:none;border-radius:999px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.2);cursor:pointer;font:600 14px/1 system-ui}
+        .crset-chat-fab{position:fixed;right:18px;bottom:calc(env(safe-area-inset-bottom) + 16px);z-index:9999;background:#111;color:#fff;border:none;border-radius:999px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.2);cursor:pointer;font:600 14px/1 system-ui;min-width:120px;min-height:44px}
         .crset-chat-panel{position:fixed;right:18px;bottom:calc(env(safe-area-inset-bottom) + 78px);width:320px;max-width:90vw;height:420px;display:flex;flex-direction:column;border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.22);overflow:hidden;background:#fff;color:#111;z-index:9999}
         .crset-chat-header{padding:10px 12px;background:#0f172a;color:#fff;display:flex;justify-content:space-between;align-items:center;font:600 14px/1 system-ui}
         .crset-chat-body{flex:1;overflow:auto;padding:12px;background:#f8fafc}
