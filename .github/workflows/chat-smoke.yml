@@ -1,0 +1,28 @@
+name: Chat Smoke
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '7 6,18 * * *'  # 06:07 & 18:07 UTC
+
+concurrency:
+  group: chat-smoke
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Chat smoke test (no secrets in logs)
+        env:
+          CHAT_PASSWORD: ${{ secrets.CHAT_PASSWORD }}
+          BASE_URL: https://crsetsolutions.com
+          MESSAGE: "E2E ping from GH Actions"
+        run: |
+          bash ./scripts/test-chat.sh
