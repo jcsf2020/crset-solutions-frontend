@@ -76,8 +76,9 @@ export default function ChatWidget() {
         .crset-chat-input button[disabled]{opacity:.6;cursor:not-allowed}
       `}</style>
 
-      <button 
-        className="crset-chat-fab" 
+      <button
+        className="crset-chat-fab"
+        style={{ bottom: 'calc(env(safe-area-inset-bottom) + 16px)' }}
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Fechar assistente de chat' : 'Abrir assistente de chat'}
       >
