@@ -63,8 +63,8 @@ export default function ChatWidget() {
   return (
     <>
       <style jsx global>{`
-        .crset-chat-fab{position:fixed;right:18px;bottom:18px;z-index:9999;background:#111;color:#fff;border:none;border-radius:999px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.2);cursor:pointer;font:600 14px/1 system-ui}
-        .crset-chat-panel{position:fixed;right:18px;bottom:78px;width:320px;max-width:90vw;height:420px;display:flex;flex-direction:column;border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.22);overflow:hidden;background:#fff;color:#111;z-index:9999}
+        .crset-chat-fab{position:fixed;right:18px;bottom:calc(env(safe-area-inset-bottom) + 16px);z-index:9999;background:#111;color:#fff;border:none;border-radius:999px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.2);cursor:pointer;font:600 14px/1 system-ui}
+        .crset-chat-panel{position:fixed;right:18px;bottom:calc(env(safe-area-inset-bottom) + 78px);width:320px;max-width:90vw;height:420px;display:flex;flex-direction:column;border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.22);overflow:hidden;background:#fff;color:#111;z-index:9999}
         .crset-chat-header{padding:10px 12px;background:#0f172a;color:#fff;display:flex;justify-content:space-between;align-items:center;font:600 14px/1 system-ui}
         .crset-chat-body{flex:1;overflow:auto;padding:12px;background:#f8fafc}
         .crset-chat-msg{max-width:80%;margin:6px 0;padding:8px 10px;border-radius:10px;font:14px/1.3 system-ui;white-space:pre-wrap;word-break:break-word}
@@ -76,7 +76,11 @@ export default function ChatWidget() {
         .crset-chat-input button[disabled]{opacity:.6;cursor:not-allowed}
       `}</style>
 
-      <button className="crset-chat-fab" onClick={() => setOpen((v) => !v)}>
+      <button 
+        className="crset-chat-fab" 
+        onClick={() => setOpen((v) => !v)}
+        aria-label={open ? 'Fechar assistente de chat' : 'Abrir assistente de chat'}
+      >
         {open ? 'Fechar chat' : 'Abrir chat'}
       </button>
 
@@ -102,9 +106,12 @@ export default function ChatWidget() {
 
           <div className="crset-chat-input">
             <textarea
+              id="chat-message-input"
+              name="message"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Escreve aqui..."
+              aria-label="Mensagem para o assistente"
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
@@ -117,6 +124,7 @@ export default function ChatWidget() {
               onClick={() => send()}
               type="button"
               aria-busy={busy ? 'true' : 'false'}
+              aria-label="Enviar mensagem"
             >
               {busy ? 'A enviar…' : 'Enviar'}
             </button>
