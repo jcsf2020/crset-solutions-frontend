@@ -104,23 +104,18 @@ export default function Page() {
 
           {/* Mascotes decorativas */}
           <div className="relative justify-self-end">
-            <div className="relative">
-              <img
-                src="/og.png"
-                alt=""
-                className="w-full max-w-md rounded-2xl shadow-elev-4 border border-white/20"
-                loading="lazy"
-                aria-hidden="true"
-              />
+            {/* Ilustração decorativa removida - foco no conteúdo */}
+            <div className="relative w-full max-w-md h-64 rounded-2xl bg-gradient-subtle border border-white/20 shadow-elev-4 flex items-center justify-center" aria-hidden="true">
+              <div className="text-6xl opacity-30">⚡</div>
               {/* Efeito de brilho decorativo */}
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-primary opacity-20 blur-xl" aria-hidden="true" />
+              <div className="absolute -inset-1 rounded-2xl bg-gradient-primary opacity-20 blur-xl" />
             </div>
             
-            {/* Mascotes flutuantes decorativas */}
-            <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full bg-gradient-accent shadow-elev-3 flex items-center justify-center text-2xl animate-bounce" aria-hidden="true" style={{animationDelay: '0.5s'}}>
+            {/* Mascotes flutuantes decorativas com offset consistente */}
+            <div className="absolute -top-2 -right-2 translate-y-2 translate-x-2 w-16 h-16 rounded-full bg-gradient-accent shadow-elev-3 flex items-center justify-center text-2xl animate-bounce" aria-hidden="true" style={{animationDelay: '0.5s'}}>
               🚀
             </div>
-            <div className="absolute -bottom-4 -left-4 w-12 h-12 rounded-full bg-gradient-primary shadow-elev-2 flex items-center justify-center text-lg animate-bounce" aria-hidden="true" style={{animationDelay: '1s'}}>
+            <div className="absolute -bottom-2 -left-2 translate-y-2 translate-x-2 w-12 h-12 rounded-full bg-gradient-primary shadow-elev-2 flex items-center justify-center text-lg animate-bounce" aria-hidden="true" style={{animationDelay: '1s'}}>
               ⚡
             </div>
           </div>
