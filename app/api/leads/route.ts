@@ -1,6 +1,25 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "../../../src/lib/supabaseServer";
 
+export async function GET() {
+  return NextResponse.json({ ok: true, method: "GET", endpoint: "/api/leads" }, { status: 200 });
+}
+
+export async function HEAD() {
+  return new NextResponse(null, { status: 200 });
+}
+
+export async function OPTIONS() {
+  return new NextResponse(null, { 
+    status: 200,
+    headers: {
+      'Allow': 'GET, HEAD, OPTIONS, POST',
+      'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS, POST',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+    }
+  });
+}
+
 export async function POST(req: Request) {
   try {
     const auth = req.headers.get("authorization") || "";
