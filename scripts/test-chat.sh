@@ -19,9 +19,10 @@ cleanup() { rm -f "$TMP_COOKIES" >/dev/null 2>&1 || true; }
 trap cleanup EXIT
 
 # 1) Login -> grava cookie HttpOnly (NÃO imprime o password)
+payload_login=$(printf '{"password":"%s"}' "$PASSWORD")
 resp_login="$(curl -sS -i -c "$TMP_COOKIES" \
   -H 'content-type: application/json' \
-  -d "{\"password\":\"REDACTED\"}" \
+  -d "$payload_login" \
   "$BASE_URL/api/flags/chat/login" | tr -d '\r')"
 
 status_login="$(printf "%s" "$resp_login" | awk 'NR==1{print $2}')"
