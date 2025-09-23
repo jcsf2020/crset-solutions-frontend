@@ -27,6 +27,7 @@ export default function Footer() {
       <div className="border-t text-center py-4 text-gray-500">
         (c) 2025 CRSET Solutions. {t("footer_rights")}  -  <a href="/termos" className="underline mr-3">Termos</a><a href="/privacidade" className="underline">Privacidade</a>
       </div>
-    </footer>
+     · <Link href="/mascotes" className="hover:underline focus-visible:outline-none focus-visible:ring">Mascotes</Link>
+</footer>
   );
 }
