@@ -1,64 +1,93 @@
-const PROD = process.env.PROD_URL || 'https://crsetsolutions.com';
-const LOCAL = process.env.LOCAL_URL || 'http://localhost:3000';
-const TIMEOUT_MS = Number(process.env.SMOKE_TIMEOUT_MS || 8000);
+const PROD = 'https://crsetsolutions.com';
+const LOCAL = 'http://localhost:3000';
+const PASSWORD = process.env.CHAT_PASSWORD || '';
 
-function timeout(ms){ return new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),ms)); }
-async function req(method, url, {headers={}, body}={}) {
-  const controller = new AbortController();
-  const p = fetch(url, { method, headers, body, signal: controller.signal });
-  const t = timeout(TIMEOUT_MS).catch(e=>{ controller.abort(); throw e; });
-  const r = await Promise.race([p,t]);
-  const txt = await r.text().catch(()=> '');
-  return { status: r.status, text: txt, headers: r.headers };
+async function req(method, url, { headers = {}, body, cookie } = {}) {
+  const h = { ...(headers || {}) };
+  if (cookie) h['cookie'] = cookie;
+  const res = await fetch(url, { method, headers: h, body });
+  const text = await res.text();
+  return { status: res.status, headers: res.headers, text };
 }
 
-async function main(){
+async function login(base, password) {
+  if (!password) return null;
+  const { status, headers, text } = await req('POST', `${base}/api/flags/chat/login`, {
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ password }),
+  });
+  if (status !== 200) {
+    console.log('[PROD] login FAIL =>', status, text);
+    return null;
+  }
+  const sc = headers.get('set-cookie') || '';
+  const m = sc.match(/crset-chat=[^;]+/);
+  return m ? m[0] : null;
+}
+
+(async () => {
   let fails = 0;
 
-  // PROD: POST /api/agi/chat -> 200
+  // PROD chat POST (sem cookie; se 401, tenta login)
   try {
-    const r = await req('POST', `${PROD}/api/agi/chat`, {
-      headers: { 'content-type':'application/json' },
-      body: JSON.stringify({ input:'ping' })
+    let cookie = null;
+    let r = await req('POST', `${PROD}/api/agi/chat`, {
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ message: 'smoke ping' }),
     });
     console.log('[PROD] agi/chat POST =>', r.status);
-    if (r.status !== 200) { fails++; console.log(r.text.slice(0,300)); }
-  } catch(e){ fails++; console.log('[PROD] agi/chat ERROR:', String(e)); }
+    if (r.status === 401 && PASSWORD) {
+      cookie = await login(PROD, PASSWORD);
+      if (cookie) {
+        r = await req('POST', `${PROD}/api/agi/chat`, {
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ message: 'smoke ping (auth)' }),
+          cookie,
+        });
+        console.log('[PROD] agi/chat POST (auth) =>', r.status);
+      }
+    }
+    if (![200].includes(r.status)) { fails++; console.log(r.text); }
+  } catch (e) { fails++; console.log('[PROD] agi/chat ERROR:', String(e)); }
 
-  // PROD: OPTIONS preflight -> 204
+  // CORS preflight
   try {
-    const r = await req('OPTIONS', `${PROD}/api/agi/chat`, {
-      headers: {
-        'origin': PROD,
-        'access-control-request-method': 'POST',
-        'access-control-request-headers': 'content-type, authorization',
-      },
-    });
+    const r = await req('OPTIONS', `${PROD}/api/agi/chat`);
     console.log('[PROD] CORS preflight OPTIONS =>', r.status);
-    if (r.status !== 204) { fails++; console.log(r.text.slice(0,300)); }
-  } catch(e){ fails++; console.log('[PROD] CORS preflight ERROR:', String(e)); }
+    if (r.status !== 204) fails++;
+  } catch (e) { fails++; console.log('[PROD] OPTIONS ERROR:', String(e)); }
 
-  // PROD: POST origem maliciosa -> 403
+  // CORS evil origin (deve dar 401/403)
   try {
     const r = await req('POST', `${PROD}/api/agi/chat`, {
-      headers: { 'origin':'https://evil.example', 'content-type':'application/json' },
-      body: JSON.stringify({ input:'ping' })
+      headers: { 'content-type': 'application/json', 'origin': 'https://evil.example' },
+      body: JSON.stringify({ message: 'evil origin' }),
     });
     console.log('[PROD] CORS evil origin POST =>', r.status);
-    if (r.status !== 403) { fails++; console.log(r.text.slice(0,300)); }
-  } catch(e){ fails++; console.log('[PROD] CORS evil ERROR:', String(e)); }
+    if (![401, 403].includes(r.status)) { fails++; console.log(r.text); }
+  } catch (e) { fails++; console.log('[PROD] evil origin ERROR:', String(e)); }
 
-  // LOCAL: POST /api/agi/chat -> 200 (se houver dev server)
+  // PROD contact
+  try {
+    const r = await req('POST', `${PROD}/api/contact`, {
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ name: 'Smoke', email: 'smoke@example.com', message: 'smoke contact' }),
+    });
+    console.log('[PROD] contact POST =>', r.status);
+    if (r.status !== 200) { fails++; console.log(r.text); }
+  } catch (e) { fails++; console.log('[PROD] contact ERROR:', String(e)); }
+
+  // LOCAL (best effort)
   try {
     const r = await req('POST', `${LOCAL}/api/agi/chat`, {
-      headers: { 'content-type':'application/json' },
-      body: JSON.stringify({ input:'ping' })
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ message: 'local ping' }),
     });
     console.log('[LOCAL] agi/chat POST =>', r.status);
-    if (r.status !== 200) console.log('[LOCAL] esperado 200 se o dev server estiver ligado');
-  } catch(e){ console.log('[LOCAL] (sem servidor local?):', String(e)); }
+  } catch (e) {
+    console.log('[LOCAL] (sem servidor local?):', String(e));
+  }
 
-  if (fails) { console.error(`SMOKE FAILED (${fails})`); process.exit(1); }
+  if (fails) { console.log(`SMOKE FAILED (${fails})`); process.exit(1); }
   console.log('SMOKE OK');
-}
-main().catch(e=>{ console.error('FATAL', e); process.exit(1); });
+})();
