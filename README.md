@@ -44,3 +44,5 @@ Este projeto está configurado para deploy automático no Vercel através do Git
 © 2025 CRSET Solutions. Todos os direitos reservados.  
 *Soluções Digitais Inteligentes com Boris, Laya e Irina*
 
+
+[![E2E (Playwright)](https://github.com/jcsf2020/crset-solutions-frontend/actions/workflows/e2e.yml/badge.svg?branch=main)](https://github.com/jcsf2020/crset-solutions-frontend/actions/workflows/e2e.yml)
