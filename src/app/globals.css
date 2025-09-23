@@ -490,3 +490,12 @@ html { overflow-y: scroll; }
 [data-bg-grid] { pointer-events: none !important; } /* garante que a grelha nunca apanha toques */
 a, button { pointer-events: auto !important; touch-action: manipulation; -webkit-touch-callout: none; }
 /* ==== /HOTFIX ==== */
+
+/* CRSET: unificar CTAs */
+a[href="/#contato"],
+a[href="/convite"],
+a[href^="https://wa.me"]{
+  @apply inline-flex items-center justify-center rounded-xl px-4 py-2
+         font-medium bg-blue-600 text-white hover:bg-blue-700
+         focus-visible:outline-none focus-visible:ring transition;
+}
