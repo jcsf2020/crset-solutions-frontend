@@ -1,11 +1,18 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function HomeCTAs() {
   return (
     <div className="mt-8 flex flex-wrap gap-3">
-      <Link href="/servicos" className="px-5 py-3 rounded-md bg-blue-600 text-white">Ver Serviços</Link>
-      <Link href="/precos" className="px-5 py-3 rounded-md border">Planos & Preços</Link>
-      <Link href="/agi-live" className="px-5 py-3 rounded-md border">Demo AGI (JWT)</Link>
+      <Button asChild size="lg">
+        <Link href="/servicos">Ver Serviços</Link>
+      </Button>
+      <Button asChild variant="secondary" size="lg">
+        <Link href="/precos">Planos & Preços</Link>
+      </Button>
+      <Button asChild variant="outline" size="lg">
+        <Link href="/agi-live">Demo AGI (JWT)</Link>
+      </Button>
     </div>
   );
 }

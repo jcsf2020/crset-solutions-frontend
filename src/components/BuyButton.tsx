@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type Props = {
   href: string;
@@ -8,15 +10,13 @@ type Props = {
 };
 
 export default function BuyButton({ href, label, variant = "primary", className = "" }: Props) {
-  const base =
-    "inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2";
-  const styles =
-    variant === "primary"
-      ? "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"
-      : "border border-blue-600 text-blue-700 hover:bg-blue-50 focus:ring-blue-500";
+  const buttonVariant = variant === "primary" ? "default" : "secondary";
+  
   return (
-    <Link href={href} className={`${base} ${styles} ${className}`}>
-      {label}
-    </Link>
+    <Button asChild variant={buttonVariant} className={cn(className)}>
+      <Link href={href}>
+        {label}
+      </Link>
+    </Button>
   );
 }
