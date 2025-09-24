@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
-import { headers, cookies } from "next/headers";
+import { headers } from "next/headers";
 import { ChatFlag } from "../../../lib/chatFlag";
-
-export const dynamic = "force-dynamic";
 
 function getIP(): string | null {
   const h = headers();
@@ -22,7 +20,8 @@ function inAllowlistIP(ip: string | null): boolean {
   return list.includes(ip);
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  // No-cache always
   const resInit: ResponseInit = {
     headers: {
       "Cache-Control": "no-store, max-age=0",
@@ -30,29 +29,33 @@ export async function GET() {
     },
   };
 
-  // 1) Preview / público: liberar SEM login
-  const isPreview =
-    process.env.VERCEL_ENV === "preview" ||
-    process.env.NEXT_PUBLIC_VERCEL_ENV === "preview" ||
-    process.env.NEXT_PUBLIC_CHAT_PUBLIC === "true" ||
-    process.env.CHAT_PUBLIC === "true";
-
-  if (isPreview) {
-    return new NextResponse(JSON.stringify({ ok: true, allowed: true, reason: "preview" }), resInit);
-  }
-
-  // 2) Produção: allowlist de IP opcional
-  const ip = getIP();
-  if (inAllowlistIP(ip)) {
-    return new NextResponse(JSON.stringify({ ok: true, allowed: true, reason: "allowlist_ip" }), resInit);
-  }
-
-  // 3) Produção: exigir segredo + cookie assinado
+  // If secret is missing, default to closed (safer)
   if (!process.env.CHAT_FLAG_SECRET) {
     return new NextResponse(JSON.stringify({ ok: true, allowed: false, reason: "secret_missing" }), resInit);
   }
 
-  const tok = cookies().get(ChatFlag.COOKIE_NAME)?.value;
+  // Check if in preview environment - allow free access
+  const isPreview = process.env.VERCEL_ENV === "preview" || 
+                    process.env.NEXT_PUBLIC_VERCEL_ENV === "preview" ||
+                    process.env.NEXT_PUBLIC_CHAT_PUBLIC === "true";
+
+  if (isPreview) {
+    return new NextResponse(JSON.stringify({ 
+      ok: true, allowed: true, reason: "preview_mode" 
+    }), resInit);
+  }
+
+  const ip = getIP();
+
+  // Allowlist by IP (optional)
+  if (inAllowlistIP(ip)) {
+    return new NextResponse(JSON.stringify({ ok: true, allowed: true, reason: "allowlist_ip" }), resInit);
+  }
+
+  // Verify signed cookie token
+  const cookie = (await import("next/headers")).cookies();
+  const tok = cookie.get(ChatFlag.COOKIE_NAME)?.value;
+
   if (!tok) {
     return new NextResponse(JSON.stringify({ ok: true, allowed: false, reason: "no_cookie" }), resInit);
   }
