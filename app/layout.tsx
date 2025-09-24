@@ -1,4 +1,6 @@
 import "./globals.css"
+import "../src/styles/sci-fi-tokens.css";
+import "../src/styles/sci-fi.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { Oxanium, JetBrains_Mono } from "next/font/google"
