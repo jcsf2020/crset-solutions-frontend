@@ -357,3 +357,41 @@
     color: black;
   }
 }
+/* === SCI-FI CRITICAL INLINE (fallback) === */
+:root{
+  --accent-1:#22d3ee; /* neon cyan */
+  --accent-2:#a78bfa; /* neon violet */
+  --accent-3:#67e8f9;
+  --glow:0 0 24px var(--accent-1),0 0 48px color-mix(in oklab,var(--accent-1) 50%, transparent);
+}
+.glass-card{
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 8px 32px rgba(0,0,0,.3);
+}
+.glass-card:hover{
+  box-shadow:0 0 0 1px color-mix(in oklab,var(--accent-1) 50%, transparent) inset,
+             0 0 18px color-mix(in oklab,var(--accent-1) 22%, transparent);
+}
+.hero-grid{
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(34,211,238,.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,.1) 1px, transparent 1px);
+  background-size:40px 40px;
+  animation:grid-move 20s linear infinite;
+}
+@keyframes grid-move{
+  0%{background-position:0 0,0 0}
+  100%{background-position:0 40px,40px 0}
+}
+.sci-fi-card{
+  position:relative;
+  border:1px solid color-mix(in oklab,var(--accent-1) 50%, transparent);
+  background:linear-gradient(180deg,color-mix(in oklab,var(--accent-1) 22%, #0b1220), #0b1220);
+}
+.sci-fi-card::before{
+  content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none; box-shadow:var(--glow);
+}
+/* === END SCI-FI CRITICAL INLINE === */
