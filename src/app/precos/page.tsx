@@ -1,69 +1,98 @@
-'use client';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import type { Metadata } from 'next';
+import NavigationSciFi from '@/components/NavigationSciFi';
+import FooterSciFi from '@/components/FooterSciFi';
+import PricingSciFi from '@/components/PricingSciFi';
+
+export const metadata: Metadata = {
+  title: 'Preços - CRSET Solutions',
+  description: 'Planos transparentes e flexíveis para empresas de todos os tamanhos. Essential, Professional e Enterprise com suporte 24/7.',
+  keywords: ['preços', 'planos', 'automação', 'IA', 'CRSET Solutions'],
+  openGraph: {
+    title: 'Preços - CRSET Solutions',
+    description: 'Planos transparentes e flexíveis para empresas de todos os tamanhos.',
+    url: 'https://crsetsolutions.com/precos',
+    siteName: 'CRSET Solutions',
+    images: [
+      {
+        url: '/og-pricing.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Preços CRSET Solutions',
+      },
+    ],
+    locale: 'pt_PT',
+    type: 'website',
+  },
+  alternates: {
+    canonical: 'https://crsetsolutions.com/precos',
+  },
+};
 
 export default function PricingPage() {
-  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
-
-  const plans = [
-    { name: 'Essencial', key: 'essencial', price: '49EUR/mes', features: ['CRM de Leads basico','Automacao de contactos (Email + WhatsApp)','1 Agente (Boris OU Laya OU Irina)'] },
-    { name: 'Profissional', key: 'profissional', price: '149EUR/mes', features: ['Tudo do Essencial','Multi-agente (Boris + Laya + Irina)','Dashboards analiticos','Integracao Google Ads + Meta Ads','Ate 5 utilizadores'] },
-    { name: 'Enterprise', key: 'enterprise', price: '499EUR/mes', features: ['Plataforma White-label (branding proprio)','Consultoria + Setup incluido','API privada dedicada','Suporte prioritario'] },
-  ];
-
-  async function subscribe(planKey: string) {
-    try {
-      setLoadingPlan(planKey);
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ plan: planKey }),
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        if (json?.error === 'stripe_unconfigured') {
-          alert('Pagamento desativado neste momento. Quando quiseres ligar o Stripe, define STRIPE_SECRET_KEY e PRICE_* nos envs.');
-        } else {
-          alert('Erro: ' + (json?.error || res.statusText));
-        }
-        return;
-      }
-      if (json?.url) window.location.href = json.url;
-    } finally {
-      setLoadingPlan(null);
-    }
-  }
-
   return (
-    <main className="container py-12 space-y-8">
-      <h1 className="font-heading text-4xl md:text-5xl text-center text-foreground">Planos CRSET Solutions</h1>
-      <p className="text-center text-muted">Escolhe o plano ideal para a tua empresa.</p>
-
-      <div className="grid gap-6 md:grid-cols-3">
-        {plans.map((p) => (
-          <Card key={p.key} className="rounded-2xl p-6">
-            <h2 className="font-heading text-xl text-foreground">{p.name}</h2>
-            <p className="text-3xl font-heading text-primary mt-1 mb-3">{p.price}</p>
-            <ul className="text-sm space-y-2 mb-4">
-              {p.features.map((f, i) => (
-                <li key={i} className="flex gap-2 items-start"><span aria-hidden>v</span><span>{f}</span></li>
+    <>
+      <NavigationSciFi />
+      
+      <main className="min-h-screen pt-24">
+        <div className="container-pro">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-6">
+              Planos Transparentes
+            </h1>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Escolha o plano ideal para a sua empresa. Sem custos ocultos, 
+              com suporte dedicado e garantia de satisfação.
+            </p>
+          </div>
+          
+          <PricingSciFi />
+          
+          {/* FAQ Section */}
+          <section className="mt-24">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-white mb-4">
+                Perguntas Frequentes
+              </h2>
+              <p className="text-gray-300">
+                Esclarecemos as suas dúvidas sobre os nossos planos
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {[
+                {
+                  question: "Posso mudar de plano a qualquer momento?",
+                  answer: "Sim, pode fazer upgrade ou downgrade do seu plano a qualquer momento. As alterações são aplicadas no próximo ciclo de faturação."
+                },
+                {
+                  question: "Existe período de fidelização?",
+                  answer: "Não. Todos os nossos planos são mensais sem período de fidelização. Pode cancelar a qualquer momento."
+                },
+                {
+                  question: "O que acontece se exceder os limites?",
+                  answer: "Contactamos consigo para discutir um upgrade do plano. Nunca interrompemos o serviço sem aviso prévio."
+                },
+                {
+                  question: "Oferecem suporte técnico?",
+                  answer: "Sim. Essential tem suporte 8x5, Professional e Enterprise têm suporte 24x7 com SLA garantido."
+                }
+              ].map((faq, index) => (
+                <div key={index} className="sci-fi-card p-6">
+                  <h3 className="text-white font-semibold mb-3">
+                    {faq.question}
+                  </h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
               ))}
-            </ul>
-            {p.key === 'essencial' ? (
-              <Button className="w-full" size="lg" onClick={() => subscribe(p.key)} disabled={loadingPlan === p.key}>
-                {loadingPlan === p.key ? 'A abrir checkout...' : 'Subscrever'}
-              </Button>
-            ) : (
-              <Button asChild variant="ghost" size="lg" className="w-full">
-                <a href="/start">Fala connosco</a>
-              </Button>
-            )}
-          </Card>
-        ))}
-      </div>
-
-      <p className="text-center text-sm text-muted">Sem fidelizacao. Podes cancelar quando quiseres.</p>
-    </main>
+            </div>
+          </section>
+        </div>
+      </main>
+      
+      <FooterSciFi />
+    </>
   );
 }

@@ -1,57 +1,103 @@
 import dynamic from 'next/dynamic';
 import type { Metadata } from 'next';
+import HeroSciFi from '@/components/HeroSciFi';
+import NavigationSciFi from '@/components/NavigationSciFi';
 
-import Hero from '@/components/hero';
-import Defer from '@/lib/defer';
+// Client components with loading states
+const ServicesGrid = dynamic(() => import('@/components/ServicesGrid'), {
+  ssr: false,
+  loading: () => <div className="min-h-[400px] flex items-center justify-center">
+    <div className="animate-pulse text-gray-400">Carregando serviços...</div>
+  </div>,
+});
 
-// Client bits (adiados; sem SSR) + placeholders com altura para evitar CLS
-const ClientPageRootLazy = dynamic(() => import('./ClientPageRoot'), {
+const ContactSection = dynamic(() => import('@/components/ContactSection'), {
   ssr: false,
-  loading: () => null,
+  loading: () => <div className="min-h-[500px] flex items-center justify-center">
+    <div className="animate-pulse text-gray-400">Carregando contacto...</div>
+  </div>,
 });
-const Contact = dynamic(() => import('@/components/Contact'), {
+
+const FooterSciFi = dynamic(() => import('@/components/FooterSciFi'), {
   ssr: false,
-  loading: () => <div className="min-h-[560px]" aria-hidden />,
-});
-const TestimonialsLazy = dynamic(() => import('@/components/Testimonials'), {
-  ssr: false,
-  loading: () => <div className="min-h-[560px]" aria-hidden />,
-});
-const HomeCTAsLazy = dynamic(() => import('./_components/HomeCTAs'), {
-  ssr: false,
-  loading: () => <div className="min-h-[240px]" aria-hidden />,
+  loading: () => <div className="min-h-[200px]" />,
 });
 
 export const metadata: Metadata = {
-  openGraph: { url: 'https://crset-solutions-frontend.vercel.app/' },
-  alternates: { canonical: 'https://crset-solutions-frontend.vercel.app/' },
+  title: 'CRSET Solutions - Automação Inteligente para Empresas',
+  description: 'Transformamos processos complexos em soluções elegantes e eficientes. IA Conversacional, Automação de Processos e Integração Empresarial.',
+  keywords: ['automação', 'IA', 'inteligência artificial', 'processos empresariais', 'CRSET'],
+  openGraph: {
+    title: 'CRSET Solutions - Automação Inteligente',
+    description: 'Soluções de automação e IA para empresas que pensam no futuro.',
+    url: 'https://crsetsolutions.com',
+    siteName: 'CRSET Solutions',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'CRSET Solutions',
+      },
+    ],
+    locale: 'pt_PT',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CRSET Solutions - Automação Inteligente',
+    description: 'Soluções de automação e IA para empresas que pensam no futuro.',
+    images: ['/og-image.jpg'],
+  },
+  alternates: {
+    canonical: 'https://crsetsolutions.com',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
-export default function Page() {
+export default function HomePage() {
   return (
     <>
-      <Hero />
-
-      <ClientPageRootLazy />
-
-      {/* Testimonials: reserva altura para não empurrar nada antes de montar */}
-      <section aria-label="testimonials" className="h-[560px] overflow-hidden">
-        <Defer rootMargin="200px" idleTimeout={1200}>
-          <TestimonialsLazy />
-        </Defer>
-      </section>
-
-      {/* Contact com placeholder fixo para evitar CLS */}
-      <Contact />
-
-      <div className="px-6">
-        {/* HomeCTAs: reserva altura antes de montar */}
-        <section aria-label="home-ctas" className="h-[240px] overflow-hidden">
-          <Defer rootMargin="200px" idleTimeout={1200}>
-            <HomeCTAsLazy />
-          </Defer>
+      <NavigationSciFi />
+      
+      <main>
+        {/* Hero Section */}
+        <HeroSciFi />
+        
+        {/* Services Section */}
+        <section className="py-24 relative">
+          <div className="container-pro">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-4">
+                Soluções Empresariais
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Descobra como as nossas soluções podem transformar a sua empresa
+              </p>
+            </div>
+            <ServicesGrid />
+          </div>
         </section>
-      </div>
+        
+        {/* Contact Section */}
+        <section className="py-24 relative">
+          <div className="container-pro">
+            <ContactSection />
+          </div>
+        </section>
+      </main>
+      
+      <FooterSciFi />
     </>
   );
 }
