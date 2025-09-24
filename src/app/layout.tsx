@@ -1,4 +1,5 @@
 import "@/styles/sci-fi.css";
+import "@/styles/sci-fi-tokens.css";
 import "@/styles/theme.css";
 import { fontSans, fontHeading } from "./fonts";
 import "./globals.css";
