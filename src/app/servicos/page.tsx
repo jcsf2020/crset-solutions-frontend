@@ -10,6 +10,8 @@ import {
   CheckCircle,
   ExternalLink
 } from "lucide-react";
+import { ServiceSchema } from "@/components/seo/structured-data";
+import { Breadcrumbs, commonBreadcrumbs } from "@/components/ui/breadcrumbs";
 
 export const metadata = {
   title: "Serviços — CRSET Solutions",
@@ -115,6 +117,11 @@ export default function Page() {
     <main className="min-h-screen bg-gradient-subtle">
       {/* Header */}
       <div className="container mx-auto max-w-7xl px-4 py-16">
+        {/* Breadcrumbs */}
+        <div className="mb-8">
+          <Breadcrumbs items={commonBreadcrumbs.servicos} />
+        </div>
+        
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">
             Serviços que{" "}
@@ -255,6 +262,13 @@ export default function Page() {
           </div>
         </div>
       </div>
+      
+      {/* Structured Data for Services */}
+      <ServiceSchema 
+        name="Automação e AGI para Negócios"
+        description="Automação prática e AGI aplicada ao negócio. Ciclos curtos, KPIs visíveis e entrega real em produção."
+        url="https://crsetsolutions.com/servicos"
+      />
     </main>
   );
 }

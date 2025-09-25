@@ -5,9 +5,25 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { Oxanium, JetBrains_Mono } from "next/font/google"
 import ChatWidget from "./components/ChatWidget"
+import { OrganizationSchema, WebsiteSchema } from "@/components/seo/structured-data"
+import { SkipNav } from "@/components/a11y/skip-nav"
 
-const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-oxanium", display: "swap" })
-const jbmono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jbmono", display: "swap" })
+// Optimized font loading with preload
+const oxanium = Oxanium({ 
+  subsets: ["latin"], 
+  variable: "--font-oxanium", 
+  display: "swap",
+  preload: true,
+  fallback: ['system-ui', 'arial']
+})
+
+const jbmono = JetBrains_Mono({ 
+  subsets: ["latin"], 
+  variable: "--font-jbmono", 
+  display: "swap",
+  preload: true,
+  fallback: ['monospace', 'courier']
+})
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_CANONICAL_BASE ?? "https://crset-solutions-frontend.vercel.app"),
@@ -31,9 +47,18 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt" suppressHydrationWarning>
+      <head>
+        {/* Performance optimizations */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://vercel.live" />
+        <link rel="dns-prefetch" href="https://cdn.vercel-insights.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      </head>
       <body className={cn("min-h-dvh bg-background text-foreground", oxanium.variable, jbmono.variable)}>
+        <SkipNav />
         <ThemeProvider>
-          <div className="relative">
+          <div className="relative" style={{ willChange: 'transform' }}>
             {/* Grid background */}
             <div
               data-bg-grid
@@ -49,6 +74,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* Chat privado (aparece só com cookie crset-chat=on) */}
           <ChatWidget />
         </ThemeProvider>
+        
+        {/* Structured Data for SEO */}
+        <OrganizationSchema />
+        <WebsiteSchema />
       </body>
     </html>
   )
