@@ -35,8 +35,8 @@ export default function Page() {
 
       {/* Header */}
       <header className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold tracking-tight">CRSET Solutions</h1>
-        <nav className="flex gap-4 text-sm">
+        <div className="text-xl font-semibold tracking-tight">CRSET Solutions</div>
+        <nav className="flex gap-4 text-sm" role="navigation" aria-label="Navegação principal">
           <Link href="/" className="hover:underline">Início</Link>
           <Link href="/servicos" className="hover:underline">Serviços</Link>
           <Link href="/precos" className="hover:underline">Planos & Preços</Link>
@@ -57,13 +57,13 @@ export default function Page() {
               Foco em resultados • zero drama
             </div>
             
-            <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight text-balance">
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight text-balance">
               Automação prática.
               <br className="hidden md:block" />
               <span className="bg-gradient-primary bg-clip-text text-transparent">
                 Resultado em dias, não meses.
               </span>
-            </h2>
+            </h1>
             
             <p className="text-lg md:text-xl text-neutral-700 max-w-prose leading-relaxed">
               Ciclos curtos, KPIs visíveis em produção e zero circo. Começa pequeno, entrega real.
