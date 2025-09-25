@@ -1,0 +1,15 @@
+[
+  {
+    "url": "https://crsetsolutions.com/",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\jcsf2\\Downloads\\crset-solutions-frontend\\crsetsolutions_com-_-2025_09_24_08_15_46.report.html",
+    "jsonPath": "C:\\Users\\jcsf2\\Downloads\\crset-solutions-frontend\\crsetsolutions_com-_-2025_09_24_08_15_46.report.json",
+    "summary": {
+      "performance": 0.99,
+      "accessibility": null,
+      "best-practices": 1,
+      "seo": 1,
+      "pwa": 0.25
+    }
+  }
+]
