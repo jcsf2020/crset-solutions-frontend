@@ -12,7 +12,7 @@ import {
   Shield,
   Headphones
 } from "lucide-react";
-import { PRICE_FALLBACKS } from "@/src/lib/prices";
+import { PRICE_FALLBACKS } from "@/lib/prices";
 
 export const metadata = {
   title: "Planos & Preços — CRSET Solutions",

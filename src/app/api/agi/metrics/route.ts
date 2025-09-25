@@ -1,5 +1,5 @@
 export const dynamic = 'force-dynamic';
-import { redis } from '../../../../src/lib/redis';
+import { redis } from '@/lib/redis';
 
 function pct(values:number[], p:number){
   if(values.length===0) return 0;

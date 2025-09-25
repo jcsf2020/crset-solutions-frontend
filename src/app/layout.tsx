@@ -1,10 +1,10 @@
 import "./globals.css"
-import "../src/styles/sci-fi-tokens.css";
-import "../src/styles/sci-fi.css";
+import "@/styles/sci-fi-tokens.css";
+import "@/styles/sci-fi.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { Oxanium, JetBrains_Mono } from "next/font/google"
-import ChatWidget from "@/app/components/ChatWidget"
+import ChatWidget from "./components/ChatWidget"
 
 const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-oxanium", display: "swap" })
 const jbmono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jbmono", display: "swap" })
