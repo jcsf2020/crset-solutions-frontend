@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSupabaseAdmin } from "../../../src/lib/supabaseServer";
+import { getSupabaseAdmin } from "@/lib/supabaseServer";
 
 export async function GET() {
   return NextResponse.json({ ok: true, method: "GET", endpoint: "/api/leads" }, { status: 200 });
