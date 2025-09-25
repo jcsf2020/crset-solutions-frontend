@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { ChatFlag } from "../../../lib/chatFlag";
+import { ChatFlag } from "@/lib/chatFlag";
 export const runtime = "nodejs";
 function extractText(body: any) {
   if (!body) return null;
