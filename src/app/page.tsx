@@ -33,10 +33,10 @@ export default function Page() {
     <main className="container mx-auto max-w-6xl px-4 py-12 space-y-14">
       <ForceLight />
 
-      {/* Header */}
-      <header className="flex items-center justify-between">
-        <div className="text-xl font-semibold tracking-tight">CRSET Solutions</div>
-        <nav className="flex gap-4 text-sm" role="navigation" aria-label="Navegação principal">
+      {/* Header Navigation */}
+      <header className="flex items-center justify-between mb-8">
+        <Link href="/" className="text-xl font-bold">CRSET</Link>
+        <nav id="navigation" className="hidden md:flex items-center space-x-6 text-sm" aria-label="Navegação principal">
           <Link href="/" className="hover:underline">Início</Link>
           <Link href="/servicos" className="hover:underline">Serviços</Link>
           <Link href="/precos" className="hover:underline">Planos & Preços</Link>
@@ -46,7 +46,7 @@ export default function Page() {
       </header>
 
       {/* Hero Premium */}
-      <section className="relative overflow-hidden rounded-2xl bg-grid card-glass-medium shadow-elev-3 p-8 md:p-12">
+      <section id="main-content" className="relative overflow-hidden rounded-2xl bg-grid card-glass-medium shadow-elev-3 p-8 md:p-12">
         {/* Background decorativo */}
         <div className="absolute inset-0 bg-gradient-subtle opacity-50" aria-hidden="true" />
         
