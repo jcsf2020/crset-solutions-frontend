@@ -1,4 +1,4 @@
-export const metadata: Metadata = { openGraph: { url: "https://crset-solutions-frontend.vercel.app/success" } };
+export const metadata: Metadata = { openGraph: { url: "https://crsetsolutions.com/success" } };
 import Link from 'next/link';
 import type { Metadata } from "next";
 

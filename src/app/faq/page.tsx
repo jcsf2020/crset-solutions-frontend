@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Dúvidas (FAQ) | CRSET Solutions',
-  description: 'Perguntas frequentes sobre serviços, preços, prazos e suporte.'
+  description: 'Perguntas frequentes sobre serviços, preços, prazos e suporte.',
+  alternates: {
+    canonical: '/faq',
+  },
 };
 const faqs = [
   { q: 'Quais são os preços?', a: 'Temos três pacotes: Website Essencial (€397), Website Profissional (€697) e White Label (€1.497).' },

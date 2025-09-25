@@ -1,4 +1,4 @@
-export const metadata: Metadata = { openGraph: { url: "https://crset-solutions-frontend.vercel.app/mascotes-test" } };
+export const metadata: Metadata = { openGraph: { url: "https://crsetsolutions.com/mascotes-test" } };
 import MascoteBoris from "@/components/MascoteBoris";
 import type { Metadata } from "next";
 

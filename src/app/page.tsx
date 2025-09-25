@@ -3,30 +3,43 @@ import type { Metadata } from 'next';
 import HeroSciFi from '@/components/HeroSciFi';
 import NavigationSciFi from '@/components/NavigationSciFi';
 
-// Client components with loading states
+// Client components with optimized loading states
 const ServicesGrid = dynamic(() => import('@/components/ServicesGrid'), {
   ssr: false,
-  loading: () => <div className="min-h-[400px] flex items-center justify-center">
-    <div className="animate-pulse text-gray-400">Carregando serviços...</div>
-  </div>,
+  loading: () => (
+    <div className="min-h-[400px] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        <div className="text-sm text-muted-foreground animate-pulse">Carregando serviços...</div>
+      </div>
+    </div>
+  ),
 });
 
 const ContactSection = dynamic(() => import('@/components/ContactSection'), {
   ssr: false,
-  loading: () => <div className="min-h-[500px] flex items-center justify-center">
-    <div className="animate-pulse text-gray-400">Carregando contacto...</div>
-  </div>,
+  loading: () => (
+    <div className="min-h-[500px] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        <div className="text-sm text-muted-foreground animate-pulse">Carregando contacto...</div>
+      </div>
+    </div>
+  ),
 });
 
 const FooterSciFi = dynamic(() => import('@/components/FooterSciFi'), {
   ssr: false,
-  loading: () => <div className="min-h-[200px]" />,
+  loading: () => <div className="min-h-[200px] bg-background/50 animate-pulse rounded" />,
 });
 
 export const metadata: Metadata = {
   title: 'CRSET Solutions - Automação Inteligente para Empresas',
   description: 'Transformamos processos complexos em soluções elegantes e eficientes. IA Conversacional, Automação de Processos e Integração Empresarial.',
   keywords: ['automação', 'IA', 'inteligência artificial', 'processos empresariais', 'CRSET'],
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'CRSET Solutions - Automação Inteligente',
     description: 'Soluções de automação e IA para empresas que pensam no futuro.',

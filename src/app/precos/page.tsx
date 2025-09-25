@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'Preços - CRSET Solutions',
   description: 'Planos transparentes e flexíveis para empresas de todos os tamanhos. Essential, Professional e Enterprise com suporte 24/7.',
   keywords: ['preços', 'planos', 'automação', 'IA', 'CRSET Solutions'],
+  alternates: {
+    canonical: '/precos',
+  },
   openGraph: {
     title: 'Preços - CRSET Solutions',
     description: 'Planos transparentes e flexíveis para empresas de todos os tamanhos.',

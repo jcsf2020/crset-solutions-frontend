@@ -4,8 +4,16 @@ import type { Metadata } from "next";
 const Chatbox = dynamic(() => import('@/components/Chatbox'), { ssr: false });
 
 export const metadata = {
-  openGraph: { url: "https://crset-solutions-frontend.vercel.app/agi-test" }, title: 'AGI Test · CRSET',
-  description: 'Chatbox AGI Commander de teste'
+  title: 'AGI Test · CRSET',
+  description: 'Chatbox AGI Commander de teste',
+  alternates: {
+    canonical: '/agi-test',
+  },
+  openGraph: { 
+    url: 'https://crsetsolutions.com/agi-test',
+    title: 'AGI Test · CRSET',
+    description: 'Chatbox AGI Commander de teste'
+  }
 };
 
 export default function Page() {
@@ -17,7 +25,7 @@ export default function Page() {
       </p>
       <Chatbox />
       <div className="text-xs text-gray-500">
-        Dica: se o botão ficar em "...", é o rate-limit ou a chave de teste. Tenta novamente.
+        Dica: se o botão ficar em &ldquo;...&rdquo;, é o rate-limit ou a chave de teste. Tenta novamente.
       </div>
     </main>
   );
