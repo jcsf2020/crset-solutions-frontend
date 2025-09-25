@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 function normalizeBaseUrl(raw: string | undefined): string {
   // remove espaços/quebras (incl. \n), garantir protocolo e tirar trailing slashes
   const cleaned = (raw ?? "").trim().replace(/\s+/g, "");
-  const withProto = /^https?:\/\//i.test(cleaned) ? cleaned : "https://crset.pt";
+  const withProto = /^https?:\/\//i.test(cleaned) ? cleaned : "https://crsetsolutions.com";
   return withProto.replace(/\/+$/, "");
 }
 
