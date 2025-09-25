@@ -7,7 +7,7 @@ const NAV = [
   { href: "/servicos", label: "Serviços" },
   { href: "/precos", label: "Planos & Preços" },
   { href: "/faq", label: "Ajuda" },
-  { href: "/agi", label: "AGI Commander" }
+  { href: "/agi-live?src=nav-agi", label: "AGI Commander", ariaLabel: "Acesse o AGI Commander" }
 ];
 
 export default function Header() {
@@ -27,6 +27,7 @@ export default function Header() {
                 <Link
                   href={item.href}
                   className="inline-flex items-center rounded-md px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-sky-700 dark:hover:text-sky-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                  aria-label={item.ariaLabel}
                 >
                   {item.label}
                 </Link>
@@ -60,6 +61,7 @@ export default function Header() {
                   href={item.href}
                   className="block rounded-md px-3 py-2 text-base font-medium text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                   onClick={() => setOpen(false)}
+                  aria-label={item.ariaLabel}
                 >
                   {item.label}
                 </Link>
