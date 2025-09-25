@@ -27,6 +27,8 @@ function gate(req: NextRequest) {
   if (publicFlag) return null;
   
   try {
+    const publicFlag = process.env.NEXT_PUBLIC_CHAT_PUBLIC === "true" || process.env.VERCEL_ENV === "preview" || process.env.NEXT_PUBLIC_VERCEL_ENV === "preview";
+    if (publicFlag) return null;
     const allow=(process.env.CHAT_ALLOWLIST_IPS||"").split(",").map(s=>s.trim()).filter(Boolean);
     const ip=(req.headers.get("x-forwarded-for")||"").split(",")[0].trim() || (req as any).ip || req.headers.get("x-real-ip") || "";
     if(ip && allow.includes(ip)) return null;
@@ -55,7 +57,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "empty_input" }, { status: 400, headers: JSON_UTF8 });
   }
 
-  // TODO: integrar com backend AGI real
+  // NOTE: endpoint de chat é um stub (eco). Integração com backend AGI real será ligada quando disponível.
   return NextResponse.json(
     { ok: true, reply: `👋 Olá! Recebi: ${String(text).slice(0, 200)}` },
     { headers: JSON_UTF8 }
