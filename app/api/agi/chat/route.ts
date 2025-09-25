@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "empty_input" }, { status: 400, headers: JSON_UTF8 });
   }
 
-  // TODO: integrar com backend AGI real
+  // NOTE: endpoint de chat é um stub (eco). Integração com backend AGI real será ligada quando disponível.
   return NextResponse.json(
     { ok: true, reply: `👋 Olá! Recebi: ${String(text).slice(0, 200)}` },
     { headers: JSON_UTF8 }
