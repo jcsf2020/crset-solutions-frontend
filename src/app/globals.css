@@ -138,3 +138,155 @@ a, button { pointer-events: auto !important; touch-action: manipulation; -webkit
     scroll-behavior: auto !important;
   }
 }
+
+
+/* === Polish Final - Typography & Micro-interactions === */
+
+/* Tipografia refinada */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+}
+
+h1 { font-size: clamp(2rem, 4vw, 3rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
+h3 { font-size: clamp(1.25rem, 2.5vw, 1.875rem); }
+
+p, li {
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* Links com micro-interações */
+a:not(.button):not([class*="btn"]) {
+  transition: all 0.2s ease-out;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:not(.button):not([class*="btn"]):hover {
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transform: translateY(-1px);
+}
+
+/* Focus visível melhorado */
+*:focus-visible {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Micro-interações para elementos interativos */
+[role="button"], button, input, textarea, select {
+  transition: all 0.2s ease-out;
+}
+
+/* Glassmorphism refinado */
+.card-glass {
+  backdrop-filter: blur(16px) saturate(180%);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .card-glass {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Spacing consistente */
+.space-y-section > * + * {
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.space-y-content > * + * {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* === Acessibilidade A11Y === */
+
+/* Contraste melhorado para texto muted */
+.text-muted-foreground, .muted {
+  color: rgb(71 85 105); /* slate-600 - AA compliant */
+}
+
+[data-theme="dark"] .text-muted-foreground,
+[data-theme="dark"] .muted {
+  color: rgb(148 163 184); /* slate-400 - AA compliant */
+}
+
+/* Focus visível consistente */
+*:focus-visible {
+  outline: 2px solid rgb(59 130 246) !important;
+  outline-offset: 2px !important;
+  border-radius: 4px;
+}
+
+/* Skip links para navegação por teclado */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: rgb(59 130 246);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 9999;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Melhor contraste para links */
+a:not(.button):not([class*="btn"]) {
+  color: rgb(37 99 235); /* blue-600 */
+  text-decoration-color: rgb(37 99 235);
+}
+
+[data-theme="dark"] a:not(.button):not([class*="btn"]) {
+  color: rgb(96 165 250); /* blue-400 */
+  text-decoration-color: rgb(96 165 250);
+}
+
+/* Estados de hover com melhor contraste */
+a:not(.button):not([class*="btn"]):hover {
+  color: rgb(29 78 216); /* blue-700 */
+}
+
+[data-theme="dark"] a:not(.button):not([class*="btn"]):hover {
+  color: rgb(147 197 253); /* blue-300 */
+}
+
+/* Indicadores visuais para elementos interativos */
+button, [role="button"], input, textarea, select {
+  position: relative;
+}
+
+button:focus-visible::after,
+[role="button"]:focus-visible::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 2px solid rgb(59 130 246);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Melhor legibilidade para texto pequeno */
+.text-xs, .text-sm {
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+/* Safe area para elementos fixos */
+.fixed-bottom {
+  bottom: calc(env(safe-area-inset-bottom) + 1rem);
+}
+
+.fixed-top {
+  top: calc(env(safe-area-inset-top) + 1rem);
+}

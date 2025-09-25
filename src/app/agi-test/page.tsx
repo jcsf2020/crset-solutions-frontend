@@ -17,7 +17,7 @@ export default function Page() {
       </p>
       <Chatbox />
       <div className="text-xs text-gray-500">
-        Dica: se o botão ficar em "...", é o rate-limit ou a chave de teste. Tenta novamente.
+        Dica: se o botão ficar em &ldquo;...&rdquo;, é o rate-limit ou a chave de teste. Tenta novamente.
       </div>
     </main>
   );

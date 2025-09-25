@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image"
+
 export default function Team(){
   const members=[
     {name:"Boris",role:"Segurança & Automação",img:"/mascotes/oficiais/boris_variacao_1/boris_variacao_1-w200.webp",pitch:"Robusto, confiavel, sem drama."},
@@ -18,7 +20,14 @@ export default function Team(){
             <article key={m.name} className="card p-6 flex flex-col items-center text-center">
               <div className="relative h-24 w-24 rounded-full overflow-hidden bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center text-2xl font-semibold">
                 <span>{m.name.charAt(0)}</span>
-                <img src={m.img} alt={m.name+" avatar"} className="absolute inset-0 h-full w-full object-cover" onError={(e)=>{e.currentTarget.style.display="none";}}/>
+                <Image 
+                  src={m.img} 
+                  alt={`Fotografia de ${m.name}, ${m.role}`} 
+                  width={96}
+                  height={96}
+                  className="absolute inset-0 h-full w-full object-cover" 
+                  onError={(e)=>{e.currentTarget.style.display="none";}}
+                />
               </div>
               <h3 className="mt-4 text-lg font-semibold">{m.name}</h3>
               <div className="text-sm muted">{m.role}</div>
