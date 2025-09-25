@@ -6,7 +6,7 @@ import { pricePair, PRICE_FALLBACKS } from "@/lib/prices";
 import { SERVICES_CONFIG, getServiceBySlug, getAllSlugs } from "@/lib/services-config";
 import type { Metadata } from "next";
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  return { openGraph: { url: `https://crset-solutions-frontend.vercel.app/servicos/${params.slug}` }, alternates: { canonical: `https://crset-solutions-frontend.vercel.app/servicos/${params.slug}` },};
+  return { openGraph: { url: `/servicos/${params.slug}` }, alternates: { canonical: `/servicos/${params.slug}` },};
 }
 
 interface ServicePageProps {

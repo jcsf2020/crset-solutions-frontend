@@ -8,7 +8,7 @@ import Header from "@/components/Header";
 
 function normalizeBaseUrl(raw?: string) {
   const cleaned = (raw ?? "").trim().replace(/\s+/g, "");
-  const withProto = /^https?:\/\//i.test(cleaned) ? cleaned : "https://crset.pt";
+  const withProto = /^https?:\/\//i.test(cleaned) ? cleaned : "https://crsetsolutions.com";
   return withProto.replace(/\/+$/, "");
 }
 

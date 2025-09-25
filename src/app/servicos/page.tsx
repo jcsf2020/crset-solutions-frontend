@@ -6,8 +6,8 @@ import type { Metadata } from "next";
 import ServicosGrid from "./_components/ServicosGrid";
 
 export const metadata: Metadata = { 
-  openGraph: { url: "https://crset-solutions-frontend.vercel.app/servicos" }, 
-  alternates: { canonical: "https://crset-solutions-frontend.vercel.app/servicos" } 
+  openGraph: { url: "/servicos" }, 
+  alternates: { canonical: "/servicos" } 
 };
 
 export default function ServicosPage() {
