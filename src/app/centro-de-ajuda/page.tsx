@@ -1,15 +1,13 @@
-import type { Metadata } from "next";
-
-export const metadata: Metadata = { 
-  openGraph: { url: "https://crset-solutions-frontend.vercel.app/centro-de-ajuda" }, 
-  alternates: { canonical: "https://crset-solutions-frontend.vercel.app/centro-de-ajuda" } 
+export const metadata = {
+  title: "Centro de Ajuda — CRSET",
+  description: "Perguntas frequentes e suporte",
+  alternates: { canonical: "/centro-de-ajuda" },
 };
-
 export default function Page() {
   return (
-    <main className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-4">Centro de ajuda</h1>
-      <p>FAQ e contactos. Adiciona artigos aqui.</p>
+    <main className="container mx-auto max-w-5xl px-4 py-10 space-y-4">
+      <h1 className="text-2xl font-semibold">Centro de Ajuda</h1>
+      <p className="text-muted-foreground">Conteúdo em breve.</p>
     </main>
   );
 }
