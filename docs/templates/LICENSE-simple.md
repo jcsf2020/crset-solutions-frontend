@@ -1,1 +1,0 @@
-CRSET Solutions — Simple License (Showcase Packages)\n\n1) Copyright © 2025 João Fonseca (CRSET Solutions).\n2) No redistribution, sublicensing, or resale of any provided files.\n3) No public posting of ZIPs or code without written permission.\n4) Evaluation use only unless a paid license or contract is signed.\n5) All trademarks/branding remain property of the owner.\n

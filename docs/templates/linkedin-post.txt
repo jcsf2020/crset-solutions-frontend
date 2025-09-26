@@ -1,9 +1,0 @@
-LinkedIn Headline (copy/paste):
-Senior Full-Stack (Next.js + FastAPI) — I build production-ready SaaS fast
-
-LinkedIn Post (copy/paste):
-I built a production-ready SaaS boilerplate: Next.js 14 + FastAPI + CI/CD.
-✅ Live demo: https://crsetsolutions.com
-✅ Email/Leads: Resend + Supabase (dedupe)
-✅ Quality: Sentry + Lighthouse CI (green)
-Looking for remote work or short pilot (3–5 days). DM to review under NDA.

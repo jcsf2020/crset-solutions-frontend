@@ -1,1 +1,0 @@
-# CRSET Solutions — Showcase (safe)\n\nThis branch contains **docs and screenshots only**. The full source code is private.\n\n- Live demo: https://crsetsolutions.com\n- Tech: Next.js 14 (App Router) • FastAPI • Supabase • Resend • Vercel\n- CI/CD: GitHub Actions • Lighthouse CI • Sentry\n\n> Need access for due diligence? Request under NDA.\n
