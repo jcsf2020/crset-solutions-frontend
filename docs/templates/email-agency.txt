@@ -1,8 +1,0 @@
-Subject: Pilot in 3–5 days — Launch your SaaS
-
-Hi <Name>,
-I have a production-ready boilerplate (Next.js + FastAPI) with email, leads, CI/CD.
-I can deliver a pilot in 3–5 days with your branding and basic flows.
-Live demo: https://crsetsolutions.com
-If you want code review, I share details under NDA.
-— João
