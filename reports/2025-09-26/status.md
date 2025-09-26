@@ -11,3 +11,5 @@ Goal: 5 applications today (Next.js + FastAPI)
 
 ## Notes
 
+
+
