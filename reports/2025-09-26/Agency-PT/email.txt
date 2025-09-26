@@ -1,0 +1,18 @@
+﻿Assunto: Full-Stack (Next.js + FastAPI) - disponibilidade remota
+
+Olá,
+
+Sou developer full-stack especializado em Next.js + FastAPI. Entrego produto: performance, SEO e fiabilidade.
+Stack: Next.js 14, FastAPI, Docker, Vercel/Railway, Supabase, Sentry.
+CI/CD: GitHub Actions, testes de fumo, Lighthouse budgets.
+
+Proposta: colaboração remota (PT timezone), part-time ou full-time.
+
+Links:
+- Site: https://crsetsolutions.com
+- Bundle (docs, sem código): em anexo (bundle_showcase.zip)
+
+NDA: partilho código/repos apenas sob NDA.
+
+Obrigado,
+João
