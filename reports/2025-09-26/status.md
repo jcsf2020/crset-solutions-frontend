@@ -10,3 +10,4 @@ Goal: 5 applications today (Next.js + FastAPI)
 - [ ] Spare —
 
 ## Notes
+
