@@ -19,3 +19,8 @@ date,role,platform,company,job_link,status,notes
 2025-09-26,Agency-PT,Full-Stack (Next.js + FastAPI),Agencia PT,<link-da-vaga-ou-landing>,email_drafted,
 2025-09-26,Agency-ES,Full-Stack (Next.js + FastAPI),Agencia ES,<enlace-oferta-o-landing>,email_drafted,
 2025-09-26,Spare,Full-Stack (Next.js + FastAPI),Spare,https://example.com/spare,applied,
+2025-09-27,RemoteOK,,,,todo,
+2025-09-27,WeWorkRemotely,,,,todo,
+2025-09-27,Agency-PT,,,,todo,
+2025-09-27,Agency-ES,,,,todo,
+2025-09-27,Spare,,,,todo,
