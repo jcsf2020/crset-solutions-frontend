@@ -45,4 +45,5 @@ Pending: 0
 - Full-Stack (Next.js + FastAPI):  @ Agencia ES - applied - 
 - Full-Stack (Next.js + FastAPI):  @ Spare - applied - 
 
-PR: 
+PR: #101 https://github.com/jcsf2020/crset-solutions-frontend/pull/101
+
