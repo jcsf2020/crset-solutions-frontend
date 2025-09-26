@@ -1,0 +1,14 @@
+Subject: Pilot 3–5 days — Next.js + FastAPI SaaS (live demo)
+
+Hi <Name>,
+
+I built a production-ready SaaS boilerplate (Next.js 14 + FastAPI) with email/leads, CI/CD, Sentry and SEO in place. I can deliver a tailored pilot in 3–5 days with your branding and working contact flow.
+
+Demo: https://crsetsolutions.com
+Showcase (no source): https://gist.github.com/jcsf2020/eb9e9bbc7e277528e4fbb30380a83c87
+Proof pack attached: bundle_showcase.zip
+Repo access available under NDA.
+
+If it makes sense, I suggest a 20-minute call.
+
+— João Fonseca
