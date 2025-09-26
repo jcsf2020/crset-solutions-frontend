@@ -18,3 +18,4 @@ date,role,platform,company,job_link,status,notes
 2025-09-26,WeWorkRemotely,Full-Stack (Next.js + FastAPI),WeWorkRemotely,https://weworkremotely.com/remote-jobs/12345,applied,
 2025-09-26,Agency-PT,Full-Stack (Next.js + FastAPI),Agencia PT,https://example.com/pt,applied,
 2025-09-26,Agency-ES,Full-Stack (Next.js + FastAPI),Agencia ES,https://example.com/es,applied,
+2025-09-26,Spare,Full-Stack (Next.js + FastAPI),Spare,https://example.com/spare,applied,
