@@ -6,7 +6,14 @@ import { pricePair, PRICE_FALLBACKS } from "@/lib/prices";
 import { SERVICES_CONFIG, getServiceBySlug, getAllSlugs } from "@/lib/services-config";
 import type { Metadata } from "next";
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  return { openGraph: { url: `https://crset-solutions-frontend.vercel.app/servicos/${params.slug}` }, alternates: { canonical: `https://crset-solutions-frontend.vercel.app/servicos/${params.slug}` },};
+  // Use NEXT_PUBLIC_SITE_URL com fallback para crsetsolutions.com
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://crsetsolutions.com';
+  const canonicalUrl = `${SITE_URL}/servicos/${params.slug}`;
+  
+  return { 
+    openGraph: { url: canonicalUrl }, 
+    alternates: { canonical: canonicalUrl },
+  };
 }
 
 interface ServicePageProps {

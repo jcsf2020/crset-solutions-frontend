@@ -146,6 +146,34 @@ export default function Page() {
 
       {/* Mascot Assistant */}
       <MascotBubble />
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "CRSET Solutions",
+            "description": "Automação e AGI aplicada ao negócio. Resultados práticos, sem circo.",
+            "url": "https://crsetsolutions.com",
+            "logo": "https://crsetsolutions.com/logo.png",
+            "sameAs": [
+              "https://agi.crsetsolutions.com"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "url": "https://crsetsolutions.com/#contact"
+            },
+            "offers": {
+              "@type": "AggregateOffer",
+              "description": "Serviços de automação e AGI para empresas",
+              "url": "https://crsetsolutions.com/servicos"
+            }
+          })
+        }}
+      />
     </main>
   );
 }
