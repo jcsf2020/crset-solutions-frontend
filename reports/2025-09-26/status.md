@@ -44,3 +44,5 @@ Pending: 0
 - Full-Stack (Next.js + FastAPI):  @ Agencia PT - applied - 
 - Full-Stack (Next.js + FastAPI):  @ Agencia ES - applied - 
 - Full-Stack (Next.js + FastAPI):  @ Spare - applied - 
+
+PR: 
