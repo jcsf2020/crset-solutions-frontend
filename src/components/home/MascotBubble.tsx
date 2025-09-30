@@ -17,6 +17,10 @@ export function MascotBubble() {
     const stored = localStorage.getItem('crset_show_mascot');
     if (stored !== null) {
       setIsVisible(stored === 'true');
+    } else {
+      // Se não há valor no localStorage, garantir que está visível por padrão
+      setIsVisible(true);
+      localStorage.setItem('crset_show_mascot', 'true');
     }
 
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
