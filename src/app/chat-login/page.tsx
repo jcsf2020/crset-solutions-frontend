@@ -1,62 +1,64 @@
-// app/chat-login/page.tsx
-"use client";
+﻿"use client";
 import { useState } from "react";
 
 export default function ChatLoginPage() {
-  const [pwd, setPwd] = useState("");
+  const [pw, setPw] = useState("");
   const [msg, setMsg] = useState<string | null>(null);
   const [ok, setOk] = useState<boolean | null>(null);
+  const [busy, setBusy] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setBusy(true);
     setMsg(null);
     setOk(null);
     try {
-      const r = await fetch("/api/flags/chat/login", {
+      const res = await fetch("/api/flags/chat/login", {
         method: "POST",
-        credentials: "include",     // 🔑 garante set-cookie HttpOnly
-        cache: "no-store",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: pwd }),
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ password: pw }),
       });
-      const j = await r.json().catch(() => ({}));
-      if (r.ok && (j?.ok ?? false)) {
-        setOk(true);
-        setTimeout(() => location.assign("/?v=" + Date.now()), 600);
-      } else {
-        setOk(false);
-        setMsg(j?.error || j?.reason || "login_failed");
-      }
+      const data = await res.json();
+      setOk(Boolean(data?.ok));
+      setMsg(res.ok ? "login_ok" : (data?.reason || "login_failed"));
     } catch {
       setOk(false);
       setMsg("network_error");
+    } finally {
+      setBusy(false);
     }
   }
 
   return (
-    <main className="mx-auto max-w-md p-6">
-      <h1 className="text-xl font-semibold mb-4">Private chat login</h1>
-      <form onSubmit={onSubmit} className="space-y-3">
-        <input
-          type="password"
-          value={pwd}
-          onChange={(e) => setPwd(e.target.value)}
-          placeholder="Password"
-          className="w-full rounded-md border px-3 py-2 bg-transparent"
-          required
-        />
-        <button type="submit" className="w-full rounded-md border px-3 py-2">
-          Enter
-        </button>
-      </form>
-      {msg && (
-        <p className={"mt-3 text-sm " + (ok ? "text-green-600" : "text-red-600")}>
-          {msg}
-        </p>
-      )}
-      <p className="mt-6 text-xs text-muted-foreground">
-        This sets an HttpOnly cookie for the chat flag.
-      </p>
+    <main className="min-h-screen flex items-center justify-center p-6">
+      <div className="w-full max-w-sm space-y-4">
+        <h1 className="text-xl font-semibold text-center">Chat Login</h1>
+        <form onSubmit={onSubmit} className="space-y-3">
+          <label className="block">
+            <span className="text-sm">Password</span>
+            <input
+              type="password"
+              autoComplete="current-password"
+              className="mt-1 w-full rounded-md border px-3 py-2"
+              value={pw}
+              onChange={(e) => setPw(e.target.value)}
+              required
+            />
+          </label>
+          <button type="submit" disabled={busy} className="w-full rounded-md border px-3 py-2">
+            {busy ? "A validar..." : "Entrar"}
+          </button>
+        </form>
+        {msg && (
+          <p className={`text-sm ${ok ? "text-green-600" : "text-red-600"}`}>
+            [{ok ? "OK" : "ERR"}] {msg}
+          </p>
+        )}
+        <div className="text-center text-sm">
+          <a href="/" className="underline">Voltar ao site</a>
+        </div>
+      </div>
     </main>
   );
 }
+
