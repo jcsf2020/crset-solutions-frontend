@@ -1,22 +1,12 @@
 import Image from "next/image";
 import { MASCOTES } from "../../content/mascotes";
 
-// Função para gerar o caminho da imagem otimizada
-function getOptimizedImagePath(originalPath: string): string {
-  // Extrair o nome do arquivo sem extensão
-  const pathParts = originalPath.split('/');
-  const fileName = pathParts[pathParts.length - 1];
-  const nameWithoutExt = fileName.replace('.png', '');
-  
-  // Construir o caminho otimizado
-  return `/mascotes/optimized${originalPath.replace(fileName, '')}${nameWithoutExt}`;
-}
-
 export default function MascotesGrid() {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {MASCOTES.map((m) => {
-        const optimizedBasePath = getOptimizedImagePath(m.ativo);
+        // Usar as imagens PNG diretamente disponíveis
+        const imageSrc = m.ativo;
         
         return (
           <figure
@@ -25,7 +15,7 @@ export default function MascotesGrid() {
           >
             <div className="overflow-hidden rounded-xl">
               <Image
-                src={`${optimizedBasePath}-w512.webp`}
+                src={imageSrc}
                 alt={m.imagens[0]?.alt ?? `${m.nome} — ${m.funcao}`}
                 width={512}
                 height={512}
