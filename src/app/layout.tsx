@@ -7,6 +7,7 @@ import { Oxanium, JetBrains_Mono } from "next/font/google"
 import ChatWidget from "./components/ChatWidget"
 import { OrganizationSchema, WebsiteSchema } from "@/components/seo/structured-data"
 import { SkipNav } from "@/components/a11y/skip-nav"
+import { FloatingMascots } from "@/components/home/FloatingMascots"
 
 // Optimized font loading with preload
 const oxanium = Oxanium({ 
@@ -73,6 +74,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Chat privado (aparece só com cookie crset-chat=on) */}
           <ChatWidget />
+          
+          {/* Mascotes flutuantes */}
+          <FloatingMascots />
         </ThemeProvider>
         
         {/* Structured Data for SEO */}
