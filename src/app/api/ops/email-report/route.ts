@@ -1,46 +1,37 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
 
-const JSON_UTF8 = { "content-type": "application/json; charset=utf-8" } as const;
+const resend = new Resend(process.env.RESEND_API_KEY || 'dummy-key-for-build');
+
+type Attachment = { filename: string; content: string; mime?: string };
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { subject, to, summary, links } = body;
+    const { subject = 'CRSET — CI audit', to = 'crsetsolutions@gmail.com', summary, links, attachments } = await req.json();
 
-    // Validação básica
-    if (!subject || !to || !summary) {
-      return NextResponse.json(
-        { error: "subject, to, and summary are required" },
-        { status: 400, headers: JSON_UTF8 }
-      );
-    }
+    const html = `<h2>${subject}</h2>
+      <pre>${summary ?? ''}</pre>
+      <ul>${(links ?? []).map((x: string) => `<li><a href="${x}">${x}</a></li>`).join('')}</ul>`;
 
-    // Log do relatório (em produção, aqui enviaria um email real)
-    console.log('Email Report:', {
-      subject,
+    const atts =
+      Array.isArray(attachments)
+        ? attachments.map((a: Attachment) => ({
+            filename: a.filename,
+            content: a.content, // base64
+            contentType: a.mime || 'application/octet-stream'
+          }))
+        : undefined;
+
+    const r = await resend.emails.send({
+      from: 'CRSET <noreply@crsetsolutions.com>',
       to,
-      summary,
-      links: links || [],
-      timestamp: new Date().toISOString(),
+      subject,
+      html,
+      attachments: atts
     });
 
-    // Simular sucesso do envio de email
-    // Em produção, aqui integraria com serviços como SendGrid, AWS SES, etc.
-    
-    return NextResponse.json(
-      { ok: true },
-      { headers: JSON_UTF8 }
-    );
-
-  } catch (error: any) {
-    console.error('Email report error:', error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500, headers: JSON_UTF8 }
-    );
+    return NextResponse.json({ ok: true, id: r.id });
+  } catch (e: any) {
+    return NextResponse.json({ ok: false, error: e.message }, { status: 500 });
   }
-}
-
-export function GET() {
-  return NextResponse.json({ error: "method_not_allowed" }, { status: 405, headers: JSON_UTF8 });
 }
