@@ -1,22 +1,12 @@
-import OpenAI from 'openai';
-
-const EMBEDDING_MODEL = process.env.EMBEDDING_MODEL || 'text-embedding-3-small';
-
-// Preferir um baseURL dedicado a embeddings, senão cair no OPENAI_BASE_URL, senão no default
+import OpenAI from "openai";
+const EMBEDDING_MODEL = process.env.EMBEDDING_MODEL || "text-embedding-3-small";
 const BASE_URL = process.env.EMBEDDINGS_BASE_URL || process.env.OPENAI_BASE_URL || undefined;
-
 export function embeddingsClient() {
-  return new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY!,   // mantém 1 só key para embeddings
-    baseURL: BASE_URL,                     // pode ser undefined -> openai.com/v1
-  });
+  return new OpenAI({ apiKey: process.env.OPENAI_API_KEY!, baseURL: BASE_URL });
+}
+export async function embed(text: string): Promise<number[]> {
+  const c = embeddingsClient();
+  const r = await c.embeddings.create({ model: EMBEDDING_MODEL, input: text });
+  return r.data[0].embedding as number[];
 }
 
-export async function embed(text: string) {
-  const client = embeddingsClient();
-  const res = await client.embeddings.create({
-    model: EMBEDDING_MODEL,
-    input: text,
-  });
-  return res.data[0].embedding as number[];
-}
