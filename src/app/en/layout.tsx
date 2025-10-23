@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import AIChatWidget from "@/components/AIChatWidget";
 
 export const metadata: Metadata = {
   title: {
@@ -53,6 +54,9 @@ export default function EnglishLayout({
 
       {/* Main Content */}
       <main className="flex-1">{children}</main>
+
+      {/* AI Chat Widget */}
+      <AIChatWidget language="en" />
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
