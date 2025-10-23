@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { Oxanium, JetBrains_Mono } from "next/font/google"
 import ChatWidget from "./components/ChatWidget"
+import AIChatWidget from "@/components/AIChatWidget"
 import { OrganizationSchema, WebsiteSchema } from "@/components/seo/structured-data"
 import { SkipNav } from "@/components/a11y/skip-nav"
 
@@ -73,6 +74,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Chat privado (aparece só com cookie crset-chat=on) */}
           <ChatWidget />
+          
+          {/* AI Chat Widget (always visible) */}
+          <AIChatWidget language="pt" />
         </ThemeProvider>
         
         {/* Structured Data for SEO */}
