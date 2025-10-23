@@ -1,0 +1,6 @@
+Cover letter - 2025-09-27
+Role: <paste>
+Company: <paste>
+Why me: Next.js + FastAPI, Docker, Vercel/Railway, Supabase, Sentry.
+Links: bundle_showcase.zip
+NDA: full source only under NDA.
