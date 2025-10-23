@@ -1,0 +1,192 @@
+{
+  "common": {
+    "learnMore": "Saber mais",
+    "getStarted": "Começar",
+    "contactUs": "Contactar",
+    "readMore": "Ler mais",
+    "backToHome": "Voltar ao início",
+    "loading": "A carregar...",
+    "error": "Erro",
+    "success": "Sucesso"
+  },
+  "nav": {
+    "home": "Início",
+    "services": "Serviços",
+    "pricing": "Preços",
+    "help": "Ajuda",
+    "contact": "Contacto",
+    "ragDemo": "RAG Demo"
+  },
+  "footer": {
+    "tagline": "Soluções inteligentes para o seu negócio",
+    "company": "Empresa",
+    "about": "Sobre nós",
+    "services": "Serviços",
+    "pricing": "Preços",
+    "contact": "Contacto",
+    "legal": "Legal",
+    "privacy": "Privacidade",
+    "terms": "Termos",
+    "cookies": "Cookies",
+    "social": "Redes Sociais",
+    "copyright": "© 2025 CRSET Solutions. Todos os direitos reservados."
+  },
+  "homepage": {
+    "hero": {
+      "title": "Automatize o seu negócio com IA",
+      "subtitle": "Soluções inteligentes de automação, cibersegurança e desenvolvimento para empresas que querem crescer.",
+      "cta": "Começar agora",
+      "ctaSecondary": "Ver serviços"
+    },
+    "features": {
+      "title": "Porque escolher a CRSET Solutions?",
+      "subtitle": "Oferecemos soluções completas e personalizadas para o seu negócio",
+      "automation": {
+        "title": "Automação Inteligente",
+        "description": "Automatize processos repetitivos e aumente a produtividade da sua equipa."
+      },
+      "security": {
+        "title": "Cibersegurança",
+        "description": "Proteja os seus dados e sistemas contra ameaças cibernéticas."
+      },
+      "development": {
+        "title": "Desenvolvimento",
+        "description": "Criamos soluções personalizadas para as necessidades do seu negócio."
+      }
+    },
+    "stats": {
+      "title": "Resultados comprovados",
+      "clients": "Clientes satisfeitos",
+      "projects": "Projetos concluídos",
+      "uptime": "Uptime garantido",
+      "support": "Suporte 24/7"
+    },
+    "cta": {
+      "title": "Pronto para transformar o seu negócio?",
+      "subtitle": "Contacte-nos hoje e descubra como podemos ajudar.",
+      "button": "Agendar consulta gratuita"
+    }
+  },
+  "services": {
+    "title": "Serviços",
+    "subtitle": "Soluções completas para o seu negócio",
+    "automation": {
+      "title": "Automação de Processos",
+      "description": "Automatize tarefas repetitivas e aumente a eficiência da sua equipa.",
+      "features": ["RPA (Robotic Process Automation)", "Integração de sistemas", "Workflows personalizados", "Monitorização em tempo real"]
+    },
+    "security": {
+      "title": "Cibersegurança",
+      "description": "Proteja os seus dados e sistemas contra ameaças cibernéticas.",
+      "features": ["Auditorias de segurança", "Testes de penetração", "Formação de equipas", "Monitorização 24/7"]
+    },
+    "development": {
+      "title": "Desenvolvimento de Software",
+      "description": "Criamos soluções personalizadas para as necessidades do seu negócio.",
+      "features": ["Aplicações web e mobile", "APIs e integrações", "Sistemas de gestão", "Consultoria técnica"]
+    },
+    "consulting": {
+      "title": "Consultoria",
+      "description": "Ajudamos a definir a melhor estratégia tecnológica para o seu negócio.",
+      "features": ["Análise de processos", "Arquitetura de sistemas", "Gestão de projetos", "Transformação digital"]
+    }
+  },
+  "pricing": {
+    "title": "Preços",
+    "subtitle": "Escolha o plano ideal para o seu negócio",
+    "essential": {
+      "name": "Essential",
+      "price": "499 EUR/mês",
+      "description": "Ideal para pequenas empresas",
+      "features": ["Automação básica", "Suporte por email", "1 projeto incluído", "Relatórios mensais"]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "999 EUR/mês",
+      "description": "Para empresas em crescimento",
+      "features": ["Automação avançada", "Suporte prioritário", "3 projetos incluídos", "Relatórios semanais", "Consultoria incluída"]
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "Personalizado",
+      "description": "Soluções à medida para grandes empresas",
+      "features": ["Automação ilimitada", "Suporte 24/7", "Projetos ilimitados", "Relatórios em tempo real", "Consultoria dedicada", "SLA garantido"]
+    },
+    "cta": "Escolher plano",
+    "contactSales": "Contactar vendas"
+  },
+  "faq": {
+    "title": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para as suas dúvidas",
+    "q1": {
+      "question": "Quanto tempo demora a implementação?",
+      "answer": "O tempo de implementação varia consoante a complexidade do projeto, mas geralmente entre 2 a 8 semanas."
+    },
+    "q2": {
+      "question": "Oferecem suporte após a implementação?",
+      "answer": "Sim, todos os nossos planos incluem suporte contínuo. O nível de suporte varia consoante o plano escolhido."
+    },
+    "q3": {
+      "question": "Posso cancelar a qualquer momento?",
+      "answer": "Sim, pode cancelar o seu plano a qualquer momento sem penalizações."
+    },
+    "q4": {
+      "question": "Trabalham com que tecnologias?",
+      "answer": "Trabalhamos com as mais recentes tecnologias, incluindo Python, Node.js, React, Next.js, e ferramentas de IA como OpenAI e Anthropic."
+    }
+  },
+  "ragDemo": {
+    "title": "RAG Demo - Busca Inteligente",
+    "subtitle": "Teste o nosso sistema de busca semântica",
+    "inputPlaceholder": "Faça uma pergunta...",
+    "searchButton": "Pesquisar",
+    "examples": {
+      "title": "Exemplos:",
+      "q1": "Quais são os serviços da CRSET Solutions?",
+      "q2": "Como funciona a consultoria em cibersegurança?",
+      "q3": "Quais são os preços dos serviços?"
+    },
+    "results": {
+      "title": "Resultado",
+      "status": "Status:",
+      "success": "Sucesso",
+      "error": "Erro",
+      "embeddingDim": "Dimensão do embedding:",
+      "documentsFound": "Documentos encontrados:",
+      "threshold": "Threshold de similaridade:",
+      "relevantDocs": "Documentos Relevantes:",
+      "similarity": "Similaridade:",
+      "viewJson": "Ver JSON completo",
+      "noResults": "Nenhum documento relevante encontrado. O sistema está funcional, mas ainda não tem documentos indexados."
+    },
+    "about": {
+      "title": "Sobre este Demo",
+      "functional": "Sistema RAG 100% funcional",
+      "embeddings": "Embeddings via OpenAI (text-embedding-3-small)",
+      "rateLimit": "Rate limiting: 10 requisições por minuto",
+      "cors": "CORS habilitado para testes",
+      "knowledge": "Base de conhecimento ainda não populada"
+    }
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Entre em contacto connosco",
+    "form": {
+      "name": "Nome",
+      "email": "Email",
+      "company": "Empresa",
+      "message": "Mensagem",
+      "send": "Enviar",
+      "sending": "A enviar...",
+      "success": "Mensagem enviada com sucesso!",
+      "error": "Erro ao enviar mensagem. Tente novamente."
+    },
+    "info": {
+      "email": "Email:",
+      "phone": "Telefone:",
+      "address": "Morada:",
+      "hours": "Horário:"
+    }
+  }
+}
+
