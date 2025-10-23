@@ -19,6 +19,7 @@ function withCORS(res: Response) {
 
 import { embed } from "../_shared/embeddings";
 import { rateLimiters, checkRateLimit, createRateLimitHeaders } from "@/lib/rateLimit";
+import { getSupabaseAdmin } from "@/lib/supabaseServer";
 
 export async function POST(req: Request) {
   try {
@@ -38,7 +39,7 @@ export async function POST(req: Request) {
       ));
     }
 
-    const { id, source, text } = await req.json();
+    const { text, metadata = {} } = await req.json();
     if (!text) {
       return withCORS(new Response(
         JSON.stringify({ error: "text is required" }), 
@@ -46,10 +47,40 @@ export async function POST(req: Request) {
       ));
     }
 
-    const v = await embed(text);
+    // Generate embedding
+    const embedding = await embed(text);
     
+    // Store in Supabase
+    const supabase = getSupabaseAdmin();
+    const { data, error } = await supabase
+      .from('rag_documents')
+      .insert({
+        content: text,
+        embedding: JSON.stringify(embedding), // Supabase vector type accepts JSON array
+        metadata: metadata
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase insert error:', error);
+      return withCORS(new Response(
+        JSON.stringify({ 
+          ok: false,
+          error: "storage_failed",
+          message: error.message 
+        }), 
+        { status: 500 }
+      ));
+    }
+
     const response = withCORS(new Response(
-      JSON.stringify({ ok: true, id, source, dim: v.length }), 
+      JSON.stringify({ 
+        ok: true, 
+        id: data.id,
+        dim: embedding.length,
+        stored: true
+      }), 
       { status: 200 }
     ));
 
@@ -63,6 +94,7 @@ export async function POST(req: Request) {
 
     return response;
   } catch (e: any) {
+    console.error('Ingest error:', e);
     return withCORS(new Response(
       JSON.stringify({ error: e.message || "ingest failed" }), 
       { status: 500 }
