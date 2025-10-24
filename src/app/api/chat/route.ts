@@ -69,17 +69,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Step 2: Generate response using AGI with context
-    const agiKey = process.env.NEXT_PUBLIC_AGI_TEST_KEY || process.env.AGI_TEST_KEY;
-    
-    if (!agiKey) {
-      return NextResponse.json(
-        { ok: false, error: 'agi_not_configured' },
-        { status: 500 }
-      );
-    }
-
     const systemPrompt = language === 'pt'
-      ? `Você é um assistente virtual da CRSET Solutions, uma empresa especializada em automação inteligente, cibersegurança e desenvolvimento de software. Seja prestativo, profissional e conciso.${context ? `\n\nContexto relevante:\n${context}` : ''}`
+      ? `Voce e um assistente virtual da CRSET Solutions, uma empresa especializada em automacao inteligente, ciberseguranca e desenvolvimento de software. Seja prestativo, profissional e conciso.${context ? `\n\nContexto relevante:\n${context}` : ''}`
       : `You are a virtual assistant for CRSET Solutions, a company specialized in intelligent automation, cybersecurity, and software development. Be helpful, professional, and concise.${context ? `\n\nRelevant context:\n${context}` : ''}`;
 
     try {
@@ -87,21 +78,32 @@ export async function POST(req: NextRequest) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${agiKey}`,
         },
         body: JSON.stringify({
-          input: `${systemPrompt}\n\nUser: ${message}\nAssistant:`,
-          sessionId,
+          input: message,
           agent: 'crset-assistant',
-          strict: true,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: message }
+          ]
         }),
       });
 
-      const responseText = await agiResponse.text();
+      if (!agiResponse.ok) {
+        const errorText = await agiResponse.text();
+        console.error('AGI chat failed:', errorText);
+        return NextResponse.json(
+          { ok: false, error: 'agi_request_failed' },
+          { status: 500 }
+        );
+      }
+
+      const agiData = await agiResponse.json();
+      const responseMessage = agiData.reply || agiData.message || 'Desculpe, nao consegui processar a sua mensagem.';
 
       return NextResponse.json({
         ok: true,
-        message: responseText,
+        message: responseMessage,
         sources: sources.length > 0 ? sources : undefined,
         timestamp: Date.now(),
       });

@@ -108,8 +108,8 @@ export default function ContactPageEN() {
                   <div className="text-2xl mr-4">📧</div>
                   <div>
                     <h3 className="font-bold mb-1">Email</h3>
-                    <a href="mailto:contact@crsetsolutions.com" className="text-blue-600 hover:underline">
-                      contact@crsetsolutions.com
+                    <a href="mailto:crsetsolutions@gmail.com" className="text-blue-600 hover:underline">
+                      crsetsolutions@gmail.com
                     </a>
                   </div>
                 </div>
@@ -117,9 +117,9 @@ export default function ContactPageEN() {
                 <div className="flex items-start">
                   <div className="text-2xl mr-4">📞</div>
                   <div>
-                    <h3 className="font-bold mb-1">Phone</h3>
-                    <a href="tel:+351123456789" className="text-blue-600 hover:underline">
-                      +351 123 456 789
+                    <h3 className="font-bold mb-1">WhatsApp (24/7)</h3>
+                    <a href="https://wa.me/351914423688" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                      +351 914 423 688
                     </a>
                   </div>
                 </div>
@@ -129,7 +129,7 @@ export default function ContactPageEN() {
                   <div>
                     <h3 className="font-bold mb-1">Address</h3>
                     <p className="text-gray-600">
-                      Lisbon, Portugal
+                      Vila Nova de Gaia, Porto, Portugal
                     </p>
                   </div>
                 </div>
@@ -137,10 +137,10 @@ export default function ContactPageEN() {
                 <div className="flex items-start">
                   <div className="text-2xl mr-4">🕐</div>
                   <div>
-                    <h3 className="font-bold mb-1">Business Hours</h3>
+                    <h3 className="font-bold mb-1">Availability</h3>
                     <p className="text-gray-600">
-                      Monday - Friday: 9am - 6pm<br />
-                      Saturday - Sunday: Closed
+                      WhatsApp: 24/7<br />
+                      Email: Response within 24h
                     </p>
                   </div>
                 </div>
@@ -171,7 +171,7 @@ export default function ContactPageEN() {
       <section className="bg-gray-100 py-20">
         <div className="container mx-auto px-4">
           <div className="bg-gray-300 h-96 rounded-lg flex items-center justify-center">
-            <p className="text-gray-600 text-lg">Map placeholder - Lisbon, Portugal</p>
+            <p className="text-gray-600 text-lg">Map placeholder - Vila Nova de Gaia, Porto, Portugal</p>
           </div>
         </div>
       </section>
