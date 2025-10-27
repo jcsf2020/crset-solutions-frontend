@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
         const errorText = await llmResponse.text();
         console.error('LLM failed:', llmResponse.status, errorText);
         return NextResponse.json(
-          { ok: false, error: 'llm_request_failed' },
+          { ok: false, error: 'llm_request_failed', status: llmResponse.status, details: errorText.substring(0, 300) },
           { status: 500 }
         );
       }
@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error('Status endpoint error:', error);
     return NextResponse.json(
-      { ok: false, error: 'internal_server_error', details: error.message },
+      { ok: false, error: 'internal_server_error', details: error.message, stack: error.stack?.substring(0, 500) },
       { status: 500 }
     );
   }
