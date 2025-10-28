@@ -130,7 +130,7 @@ tsconfig.tsbuildinfo
 .lhci*/
 *.report.html
 *.report.json
-package-lock.json
+
 
 .env*.local
 cookies.txt
