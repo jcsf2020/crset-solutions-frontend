@@ -13,11 +13,14 @@ This PR implements comprehensive fixes for critical import errors, CI/CD configu
 
 **Key Achievements:**
 - ✅ Fixed missing exports causing import failures
-- ✅ Updated CI/CD workflows for pnpm compatibility
+- ⚠️ CI/CD workflows for pnpm (requires manual update - see below)
 - ✅ Enhanced API error handling with detailed logging
 - ✅ Added comprehensive smoke test suite
 - ✅ Fixed build-time initialization issues
 - ✅ Local build verification successful
+
+**⚠️ MANUAL ACTION REQUIRED:**
+The `.github/workflows/e2e.yml` file needs to be updated manually because the GitHub App lacks workflow modification permissions. See the "Manual Workflow Update" section below.
 
 ---
 
@@ -78,12 +81,13 @@ const { data } = await supabase.from('table').select('*');
 **Issue:** E2E workflow using npm with pnpm lockfile, causing `npm ci` failures.
 
 **Changes:**
-- ✅ Updated `.github/workflows/e2e.yml` to use pnpm
-- ✅ Added `pnpm/action-setup@v4` with version 8
-- ✅ Replaced `npm ci` with `pnpm install --frozen-lockfile`
+- ⚠️ **MANUAL UPDATE REQUIRED**: `.github/workflows/e2e.yml` needs to be updated to use pnpm
+- ✅ Changes documented below (GitHub App lacks workflow permission)
 - ✅ Verified `ci.yml` and `lighthouse-mobile.yml` already use pnpm
 
 **Location:** `.github/workflows/e2e.yml` (lines 15-19)
+
+**⚠️ IMPORTANT:** This file must be updated manually via GitHub web UI or with user credentials.
 
 **Before:**
 ```yaml
@@ -246,6 +250,58 @@ const client = getOpenAIClient();
 - ✅ Verified all changed files compile without errors
 - ✅ Checked function signatures match usage
 - ✅ Confirmed default exports work correctly
+
+---
+
+## ⚠️ Manual Workflow Update Required
+
+**File:** `.github/workflows/e2e.yml`
+
+Due to GitHub App permission limitations, this file must be updated manually. Please make the following changes:
+
+**Lines to Change (15-16):**
+```yaml
+# BEFORE:
+- run: npm ci || npm i
+
+# AFTER:
+- uses: pnpm/action-setup@v4
+  with:
+    version: 8
+    run_install: false
+- run: pnpm install --frozen-lockfile
+```
+
+**Complete Updated Section:**
+```yaml
+name: E2E (Playwright)
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    env:
+      CHAT_PASSWORD: ${{ secrets.CHAT_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
+          run_install: false
+      - run: pnpm install --frozen-lockfile
+      - run: npx playwright install --with-deps
+      - run: npx playwright test --reporter=line
+```
+
+**How to Update:**
+1. Navigate to: https://github.com/jcsf2020/crset-solutions-frontend/edit/fix/devops-surgical/.github/workflows/e2e.yml
+2. Replace lines 15-16 as shown above
+3. Commit directly to the `fix/devops-surgical` branch
+4. The change will be included when merging this PR
 
 ---
 
