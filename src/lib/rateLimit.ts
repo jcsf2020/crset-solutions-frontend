@@ -98,3 +98,73 @@ export function createRateLimitHeaders(result: {
   };
 }
 
+// In-memory rate limiting fallback (for when Upstash is not available)
+interface Bucket {
+  count: number;
+  resetAt: number;
+}
+
+const inMemoryStore = new Map<string, Bucket>();
+
+/**
+ * Get client key from request with optional fallback
+ */
+export function getClientKey(req: Request, fallback?: string): string {
+  const forwardedFor = req.headers.get("x-forwarded-for");
+  const realIp = req.headers.get("x-real-ip");
+  const ip = forwardedFor?.split(",")[0] || realIp || fallback || "unknown";
+  return ip;
+}
+
+/**
+ * In-memory rate limiting function
+ * @param key - Unique identifier for the client (usually IP address)
+ * @param limit - Maximum number of requests allowed (default: 20)
+ * @param windowMs - Time window in milliseconds (default: 60000ms = 1 minute)
+ */
+export async function rateLimit(
+  key: string,
+  options?: { limit?: number; window?: number }
+): Promise<{ success: boolean; limit: number; remaining: number; reset: number }> {
+  const limit = options?.limit || 20;
+  const windowMs = (options?.window || 60) * 1000; // Convert seconds to ms
+  const now = Date.now();
+  
+  // Get or create bucket
+  let bucket = inMemoryStore.get(key);
+  
+  // Reset bucket if window expired
+  if (!bucket || now >= bucket.resetAt) {
+    bucket = {
+      count: 0,
+      resetAt: now + windowMs,
+    };
+    inMemoryStore.set(key, bucket);
+  }
+  
+  // Increment counter
+  bucket.count++;
+  
+  const remaining = Math.max(0, limit - bucket.count);
+  const success = bucket.count <= limit;
+  
+  // Cleanup old entries periodically (every 1000 requests)
+  if (Math.random() < 0.001) {
+    for (const [k, v] of inMemoryStore.entries()) {
+      if (now >= v.resetAt) {
+        inMemoryStore.delete(k);
+      }
+    }
+  }
+  
+  return {
+    success,
+    limit,
+    remaining,
+    reset: bucket.resetAt,
+  };
+}
+
+// Export as default as well
+export default rateLimit;
+

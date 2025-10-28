@@ -14,6 +14,7 @@
     "check:assets": "bash scripts/check-assets.sh",
     "typecheck": "tsc --noEmit",
     "smoke": "node scripts/smoke.mjs",
+    "test:smoke": "bash scripts/smoke-test.sh",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed"

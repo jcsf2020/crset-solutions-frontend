@@ -3,7 +3,12 @@ import { OpenAI } from 'openai';
 
 export const dynamic = 'force-dynamic';
 
-const client = new OpenAI();
+// Lazy initialization of OpenAI client (only at runtime)
+function getOpenAIClient() {
+  return new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+}
 
 interface Insight {
   id: string;
@@ -73,6 +78,7 @@ Focus on:
 
 Return ONLY valid JSON array, no additional text.`;
 
+    const client = getOpenAIClient();
     const completion = await client.chat.completions.create({
       model: 'gpt-4.1-mini',
       messages: [
