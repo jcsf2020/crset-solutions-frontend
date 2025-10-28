@@ -98,3 +98,18 @@ export function createRateLimitHeaders(result: {
   };
 }
 
+
+
+
+// ---- Compat: named export "rateLimit" expected by older code ----
+
+export function rateLimit(name: keyof typeof rateLimiters = 'default') {
+
+  // devolve o limiter pedido ou o default
+
+  // @ts-ignore - fallback seguro se a chave não existir
+
+  return (rateLimiters as any)[name] ?? rateLimiters.default;
+
+}
+
