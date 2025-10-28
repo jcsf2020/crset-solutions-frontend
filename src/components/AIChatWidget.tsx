@@ -97,7 +97,7 @@ export default function AIChatWidget({ language = 'pt' }: AIChatWidgetProps) {
 
     try {
       // Call intelligent chat endpoint (handles RAG + AGI)
-      const response = await fetch('/api/chat', {
+      const response = await fetch('/api/agi/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
