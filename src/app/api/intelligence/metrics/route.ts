@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabaseServer';
+import { getSupabaseAdmin } from '@/lib/supabaseServer';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,8 +33,13 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const period = searchParams.get('period') || '30'; // 7, 30, 90 days
     
-    // Get Supabase client
-    const supabase = createClient();
+    // Get Supabase client (with fallback if env vars missing)
+    let supabase = null;
+    try {
+      supabase = getSupabaseAdmin();
+    } catch (e) {
+      console.warn('Supabase client unavailable, using mock data:', e);
+    }
     
     // Calculate date range
     const endDate = new Date();
