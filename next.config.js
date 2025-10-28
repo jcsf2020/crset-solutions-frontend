@@ -1,19 +1,49 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   trailingSlash: false,
+  
+  // Performance optimizations
+  swcMinify: true,
+  compress: true,
+  poweredByHeader: false,
+  
+  // Image optimizations
   images: {
     unoptimized: false,
-    formats: ["image/avif","image/webp"],
-    minimumCacheTTL: 31536000,  },
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 31536000,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+  
+  // Bundle optimization (safe features only)
+  experimental: {
+    optimizePackageImports: ['@/components', '@/lib'],
+  },
+  
+  // Build optimizations
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
+  
+  // Environment variables
   env: {
     NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
     NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  },
+  
+  // Portuguese redirects
+  async redirects() {
+    return [
+      { source: '/services', destination: '/servicos', permanent: true },
+      { source: '/contact', destination: '/contacto', permanent: true },
+      { source: '/help', destination: '/ajuda', permanent: true },
+    ];
   },
 }
 

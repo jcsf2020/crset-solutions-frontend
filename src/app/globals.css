@@ -4,343 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Premium Glassmorphism Design for CRSET Solutions */
-:root {
-  --crset-primary: #0066ff;
-  --crset-secondary: #00ccff;
-  --crset-accent: #ff6b35;
-  --crset-dark: #0a0a0a;
-  --crset-glass: rgba(255, 255, 255, 0.1);
-  --crset-glass-border: rgba(255, 255, 255, 0.2);
-  --crset-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --crset-gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --crset-gradient-bg: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--crset-gradient-bg);
-  color: white;
-  min-height: 100vh;
-  position: relative;
-}
-
-/* Glassmorphism Background Effects */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(0, 204, 255, 0.2) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Premium Glass Cards */
-.crset-glass-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.crset-glass-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-}
-
-.crset-glass-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-/* Premium Buttons */
-.crset-button-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  color: white;
-  font-weight: 600;
-  padding: 14px 28px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 4px 15px rgba(102, 126, 234, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.crset-button-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.crset-button-primary:hover::before {
-  left: 100%;
-}
-
-.crset-button-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 8px 25px rgba(102, 126, 234, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.crset-button-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  font-weight: 600;
-  padding: 14px 28px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.crset-button-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-/* Premium Form Elements */
-.crset-input, .crset-textarea {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  padding: 14px 18px;
-  color: white;
-  font-size: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 100%;
-}
-
-.crset-input::placeholder, .crset-textarea::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.crset-input:focus, .crset-textarea:focus {
-  outline: none;
-  border-color: rgba(102, 126, 234, 0.6);
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-}
-
-.crset-textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-/* Mascot Cards Premium */
-.mascot-card {
-  @apply crset-glass-card p-8 text-center;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.mascot-card:hover {
-  transform: translateY(-10px) scale(1.02);
-}
-
-.mascot-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin: 0 auto 20px;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-.mascot-card:hover .mascot-image {
-  border-color: rgba(102, 126, 234, 0.6);
-  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
-}
-
-/* Service Cards Premium */
-.service-card {
-  @apply crset-glass-card p-6;
-  position: relative;
-}
-
-.service-card.popular {
-  background: rgba(255, 215, 0, 0.1);
-  border-color: rgba(255, 215, 0, 0.3);
-}
-
-.service-card.popular::before {
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.6), transparent);
-}
-
-.popular-badge {
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #1a1a2e;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-  position: absolute;
-  top: -10px;
-  right: 20px;
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-}
-
-/* Header Glass Effect */
-.header-glass {
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* WhatsApp Button Premium */
-.whatsapp-btn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  color: white;
-  text-decoration: none;
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
-}
-
-.whatsapp-btn:hover {
-  transform: scale(1.1) translateY(-2px);
-  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
-}
-
-/* Animations */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-}
-
-@keyframes glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6); }
-}
-
-.float-animation {
-  animation: float 4s ease-in-out infinite;
-}
-
-.glow-animation {
-  animation: glow 3s ease-in-out infinite;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .crset-glass-card {
-    padding: 20px;
-    border-radius: 16px;
-  }
-  
-  .mascot-image {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .whatsapp-btn {
-    width: 50px;
-    height: 50px;
-    bottom: 20px;
-    right: 20px;
-    font-size: 20px;
-  }
-  
-  .crset-button-primary, .crset-button-secondary {
-    padding: 12px 24px;
-  }
-}
-
-/* Scrollbar Premium */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-}
-
-/* Loading Animation */
-.loading-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
 /* === CRSET Design Tokens & Base Utilities === */
 @layer base {
   :root{
     --color-bg:        255 255 255;      /* white */
     --color-fg:        17 17 17;         /* near-black */
     --color-muted:     113 113 122;      /* zinc-500 */
-    --color-primary:   0 0 0;            /* black */
+    --color-primary:   37 99 235;        /* blue-600 */
     --color-accent:    16 185 129;       /* emerald-500 */
     --radius-lg:       16px;
     --radius-xl:       20px;
@@ -351,7 +21,14 @@ body::before {
   }
 
   html { color-scheme: light; }
-  body { background: rgb(var(--color-bg)); color: rgb(var(--color-fg)); }
+  body { 
+    background: rgb(var(--color-bg)); 
+    color: rgb(var(--color-fg)); 
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 }
 
 @layer utilities {
@@ -365,25 +42,29 @@ body::before {
     box-shadow: var(--shadow-card);
   }
 
-  .btn { @apply inline-flex items-center justify-center font-semibold rounded-xl transition; transition: var(--transition); }
-
-  .btn-primary {
-    @apply btn px-4 py-2 text-white;
-    background: rgb(var(--color-primary));
-  }
-  .btn-primary:hover { filter: brightness(.95); transform: translateY(-1px); }
-  .btn-primary:active { transform: translateY(0); }
-
-  .btn-secondary {
-    @apply btn px-4 py-2 border;
-    border-color: rgba(0,0,0,.1);
-    background: rgba(255,255,255,.9);
-  }
-  .btn-secondary:hover { background: #f9fafb; }
-
   .muted { color: rgb(var(--color-muted)); }
 }
 
+/* === CLS Prevention === */
+/* cls-hotfix: cookie banner e widgets fora do fluxo */
+:where(.cookie-banner,#cookie-banner,[data-cookie-banner],[data-component="CookieConsentBanner"],#CookieConsentBanner){
+  position: fixed !important; left: 0; right: 0; bottom: 0; z-index: 60; transform: none !important;
+}
+
+/* widgets/CTAs flutuantes nunca causam reflow */
+:where([data-sticky],[data-sticky-cta],.sticky-cta,.whatsapp-widget){
+  position: fixed !important; bottom: 1rem; right: 1rem; z-index: 60;
+}
+
+/* evita "jump" por presença/ausência de scroll */
+html { overflow-y: scroll; }
+
+/* cls-hotfix: reserva espaço do hero para evitar "jump" */
+.hero,[data-hero]{min-height:56vh; contain:layout;}
+.hero img,[data-hero] img{display:block;width:100%;height:auto;}
+.hero [data-hero-media]{aspect-ratio:16/9;}
+
+/* === Responsive Design === */
 @media (max-width: 768px) {
   body { background: #ffffff !important; }
   h1, h2, h3, p, a, span { color: #111 !important; }
@@ -407,86 +88,233 @@ body::before {
   h1, h2, h3, p, a, span { color: #f5f5f5 !important; }
 }
 
-@media (prefers-color-scheme: light) {
-  body { background: #ffffff !important; color: #111 !important; }
-  header, footer { background: #fff !important; }
-  h1, h2, h3, p, a, span { color: #111 !important; }
+/* === Scrollbar Premium === */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-@media (prefers-color-scheme: dark) {
-  body { background: #0a0a0a !important; color: #f5f5f5 !important; }
-  header, footer { background: #0a0a0a !important; }
-  h1, h2, h3, p, a, span { color: #f5f5f5 !important; }
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
 }
 
-/* cls-hotfix: cookie banner e widgets fora do fluxo */
-:where(.cookie-banner,#cookie-banner,[data-cookie-banner],[data-component="CookieConsentBanner"],#CookieConsentBanner){
-  position: fixed !important; left: 0; right: 0; bottom: 0; z-index: 60; transform: none !important;
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-primary));
+  border-radius: 4px;
 }
 
-/* widgets/CTAs flutuantes nunca causam reflow */
-:where([data-sticky],[data-sticky-cta],.sticky-cta,.whatsapp-widget){
-  position: fixed !important; bottom: 1rem; right: 1rem; z-index: 60;
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-primary) / 0.8);
 }
 
-/* evita “jump” por presença/ausência de scroll */
-html { overflow-y: scroll; }
+/* === Loading Animation === */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
 
-/* cls-hotfix: reserva espaço do hero para evitar “jump” */
-.hero,[data-hero]{min-height:56vh; contain:layout;}
-.hero img,[data-hero] img{display:block;width:100%;height:auto;}
-.hero [data-hero-media]{aspect-ratio:16/9;}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
 
-/* cls-hotfix: reserva espaço do hero para evitar “jump” */
-.hero,[data-hero]{min-height:56vh; contain:layout;}
-.hero img,[data-hero] img{display:block;width:100%;height:auto;}
-.hero [data-hero-media]{aspect-ratio:16/9;}
-/* === CRSET tokens (no visual change) === */
-:root {
-  --bg: #0B0F15;
-  --fg: #E6EAF2;
-  --muted: #A3B1C2;
-  --border: #1B2430;
-  --brand: #06B6D4;
-  --brand-600: #0891B2;
-  --accent: #22D3EE;
-  --success: #16A34A;
-  --warning: #F59E0B;
-  --danger: #EF4444;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #070B10;
-    --fg: #E8EEF6;
-    --muted: #9BA9BA;
-    --border: #141C26;
-  }
-}
-/* === end CRSET tokens === */
-/* === CRSET tokens (no visual change) === */
-:root {
-  --bg: #0B0F15;
-  --fg: #E6EAF2;
-  --muted: #A3B1C2;
-  --border: #1B2430;
-  --brand: #06B6D4;
-  --brand-600: #0891B2;
-  --accent: #22D3EE;
-  --success: #16A34A;
-  --warning: #F59E0B;
-  --danger: #EF4444;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #070B10;
-    --fg: #E8EEF6;
-    --muted: #9BA9BA;
-    --border: #141C26;
-  }
-}
-/* === end CRSET tokens === */
-
-/* ==== HOTFIX: taps iOS / links não clicam ==== */
+/* === Accessibility Improvements === */
+/* Hotfix: taps iOS / links não clicam */
 [data-bg-grid] { pointer-events: none !important; } /* garante que a grelha nunca apanha toques */
 a, button { pointer-events: auto !important; touch-action: manipulation; -webkit-touch-callout: none; }
-/* ==== /HOTFIX ==== */
+
+/* Focus improvements */
+:focus-visible {
+  outline: 2px solid rgb(var(--color-primary));
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* === Polish Final - Typography & Micro-interactions === */
+
+/* Tipografia refinada */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+}
+
+h1 { font-size: clamp(2rem, 4vw, 3rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
+h3 { font-size: clamp(1.25rem, 2.5vw, 1.875rem); }
+
+p, li {
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* Links com micro-interações */
+a:not(.button):not([class*="btn"]) {
+  transition: all 0.2s ease-out;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:not(.button):not([class*="btn"]):hover {
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transform: translateY(-1px);
+}
+
+/* Focus visível melhorado */
+*:focus-visible {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Micro-interações para elementos interativos */
+[role="button"], button, input, textarea, select {
+  transition: all 0.2s ease-out;
+}
+
+/* Glassmorphism refinado */
+.card-glass {
+  backdrop-filter: blur(16px) saturate(180%);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .card-glass {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Spacing consistente */
+.space-y-section > * + * {
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.space-y-content > * + * {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* === Acessibilidade A11Y === */
+
+/* Contraste melhorado para texto muted */
+.text-muted-foreground, .muted {
+  color: rgb(71 85 105); /* slate-600 - AA compliant */
+}
+
+[data-theme="dark"] .text-muted-foreground,
+[data-theme="dark"] .muted {
+  color: rgb(148 163 184); /* slate-400 - AA compliant */
+}
+
+/* Focus visível consistente */
+*:focus-visible {
+  outline: 2px solid rgb(59 130 246) !important;
+  outline-offset: 2px !important;
+  border-radius: 4px;
+}
+
+/* Skip links para navegação por teclado */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: rgb(59 130 246);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 9999;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Melhor contraste para links */
+a:not(.button):not([class*="btn"]) {
+  color: rgb(37 99 235); /* blue-600 */
+  text-decoration-color: rgb(37 99 235);
+}
+
+[data-theme="dark"] a:not(.button):not([class*="btn"]) {
+  color: rgb(96 165 250); /* blue-400 */
+  text-decoration-color: rgb(96 165 250);
+}
+
+/* Estados de hover com melhor contraste */
+a:not(.button):not([class*="btn"]):hover {
+  color: rgb(29 78 216); /* blue-700 */
+}
+
+[data-theme="dark"] a:not(.button):not([class*="btn"]):hover {
+  color: rgb(147 197 253); /* blue-300 */
+}
+
+/* Indicadores visuais para elementos interativos */
+button, [role="button"], input, textarea, select {
+  position: relative;
+}
+
+button:focus-visible::after,
+[role="button"]:focus-visible::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 2px solid rgb(59 130 246);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Melhor legibilidade para texto pequeno */
+.text-xs, .text-sm {
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+/* Safe area para elementos fixos */
+.fixed-bottom {
+  bottom: calc(env(safe-area-inset-bottom) + 1rem);
+}
+
+.fixed-top {
+  top: calc(env(safe-area-inset-top) + 1rem);
+}
+
+/* cls-hotfix: reserva espaço do hero para evitar "jump" */
+.hero,[data-hero]{min-height:56vh; contain:layout;}
+.hero img,[data-hero] img{display:block;width:100%;height:auto;}
+.hero [data-hero-media]{aspect-ratio:16/9;}
+
+/* === CRSET tokens (no visual change) === */
+:root {
+  --bg: #0B0F15;
+  --fg: #E6EAF2;
+  --muted: #A3B1C2;
+  --border: #1B2430;
+  --brand: #06B6D4;
+  --brand-600: #0891B2;
+  --accent: #22D3EE;
+  --success: #16A34A;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #070B10;
+    --fg: #E8EEF6;
+    --muted: #9BA9BA;
+    --border: #141C26;
+  }
+}
+/* === end CRSET tokens === */

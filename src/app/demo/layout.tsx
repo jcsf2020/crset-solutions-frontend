@@ -1,8 +1,13 @@
-import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = { openGraph: { url: "https://crset-solutions-frontend.vercel.app/demo" } };
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-export default function Layout({ children }: { children: ReactNode }) {
-  return <> {children} </>;
+export default function DemoLayout({ children }: { children: React.ReactNode }) {
+  const host = headers().get("host")?.toLowerCase().replace(/:\d+$/, "") ?? "";
+  if (host === "crsetsolutions.com" || host === "www.crsetsolutions.com") {
+    redirect("/");
+  }
+  return <>{children}</>;
 }

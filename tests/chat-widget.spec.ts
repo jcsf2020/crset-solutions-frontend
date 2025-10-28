@@ -28,17 +28,52 @@ test('chat widget gated + reply', async ({ page, context }) => {
   // 2) Abre homepage
   await page.goto(BASE, { waitUntil: 'domcontentloaded' });
 
-  // 3) Abre o widget
-  const fab = page.locator('.crset-chat-fab');
-  await expect(fab).toBeVisible();
+  // 3) Aguarda o widget aparecer e abre
+  const fab = page.locator('button:has-text("Chat AGI")');
+  await expect(fab).toBeVisible({ timeout: 10000 });
   await fab.click();
 
-  // 4) Envia mensagem
-  const ta = page.locator('#chat-message-input');
-  await ta.fill('E2E via Playwright');
-  await page.getByRole('button', { name: 'Enviar' }).click();
+  // 4) Aguarda a janela do chat abrir
+  await expect(page.locator('h3:has-text("Chat AGI")')).toBeVisible();
 
-  // 5) Verifica resposta do assistente
-  const lastAssistant = page.locator('.crset-chat-assistant').last();
-  await expect(lastAssistant).toContainText('Recebi', { timeout: 10_000 });
+  // 5) Envia mensagem
+  const input = page.locator('#chat-message-input');
+  await expect(input).toBeVisible();
+  await input.fill('E2E via Playwright');
+  
+  const sendButton = page.locator('button:has-text("Enviar")');
+  await sendButton.click();
+
+  // 6) Verifica resposta do assistente
+  const assistantMessage = page.locator('.crset-chat-assistant').last();
+  await expect(assistantMessage).toContainText('Recebi', { timeout: 10_000 });
+});
+
+test('chat widget preview mode (no login required)', async ({ page }) => {
+  // Simular ambiente de preview
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'process', {
+      value: { env: { NEXT_PUBLIC_VERCEL_ENV: 'preview' } }
+    });
+  });
+
+  // Abre homepage
+  await page.goto(BASE, { waitUntil: 'domcontentloaded' });
+
+  // Widget deve aparecer sem necessidade de login
+  const fab = page.locator('button:has-text("Chat AGI")');
+  await expect(fab).toBeVisible({ timeout: 10000 });
+  await fab.click();
+
+  // Chat deve funcionar diretamente
+  const input = page.locator('#chat-message-input');
+  await expect(input).toBeVisible();
+  await input.fill('Preview test message');
+  
+  const sendButton = page.locator('button:has-text("Enviar")');
+  await sendButton.click();
+
+  // Verifica resposta
+  const assistantMessage = page.locator('.crset-chat-assistant').last();
+  await expect(assistantMessage).toContainText('Recebi', { timeout: 10_000 });
 });

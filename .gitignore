@@ -133,3 +133,4 @@ tsconfig.tsbuildinfo
 package-lock.json
 
 .env*.local
+cookies.txt

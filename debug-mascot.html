@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Mascote - CRSET Solutions</title>
+    <script>
+        // Script para debugar e corrigir problemas de mascote
+        function debugMascot() {
+            console.log('=== DEBUG MASCOTE ===');
+            
+            // Verificar localStorage atual
+            const currentValue = localStorage.getItem('crset_show_mascot');
+            console.log('Valor atual no localStorage:', currentValue);
+            
+            // Remover qualquer configuração
+            localStorage.removeItem('crset_show_mascot');
+            console.log('Valor removido do localStorage');
+            
+            // Definir explicitamente como true
+            localStorage.setItem('crset_show_mascot', 'true');
+            console.log('Valor definido como true');
+            
+            // Verificar novamente
+            const newValue = localStorage.getItem('crset_show_mascot');
+            console.log('Novo valor no localStorage:', newValue);
+            
+            console.log('=== FIM DEBUG ===');
+            
+            // Redirecionar para o site
+            window.location.href = 'https://crsetsolutions.com/';
+        }
+        
+        function clearMascotSettings() {
+            localStorage.removeItem('crset_show_mascot');
+            console.log('Configurações do mascote removidas');
+            alert('Configurações do mascote removidas! Recarregue a página.');
+        }
+    </script>
+</head>
+<body>
+    <h1>Debug Mascote - CRSET Solutions</h1>
+    <p>Use esta página para debugar problemas com o mascote:</p>
+    
+    <button onclick="debugMascot()" style="padding: 10px; margin: 5px; background: #4CAF50; color: white; border: none; cursor: pointer;">
+        Corrigir e Ir para Site
+    </button>
+    
+    <button onclick="clearMascotSettings()" style="padding: 10px; margin: 5px; background: #f44336; color: white; border: none; cursor: pointer;">
+        Apenas Limpar localStorage
+    </button>
+    
+    <hr>
+    
+    <h2>Instruções:</h2>
+    <ol>
+        <li>Clique em "Corrigir e Ir para Site" para limpar localStorage e ir ao site</li>
+        <li>Alternativamente, abra o Console do navegador (F12) no site e execute:</li>
+    </ol>
+    
+    <pre style="background: #f0f0f0; padding: 10px; margin: 10px 0;">
+// Limpar localStorage e forçar mascote visible
+localStorage.removeItem('crset_show_mascot');
+localStorage.setItem('crset_show_mascot', 'true');
+location.reload(); // Recarregar página
+    </pre>
+    
+    <h2>Debug Atual:</h2>
+    <div id="current-status">
+        <script>
+            const current = localStorage.getItem('crset_show_mascot');
+            document.write(`<p><strong>crset_show_mascot:</strong> ${current}</p>`);
+            
+            if (current === null) {
+                document.write('<p style="color: green;">✅ Não há valor definido - mascote deve aparecer por padrão</p>');
+            } else if (current === 'true') {
+                document.write('<p style="color: green;">✅ Mascote configurado para aparecer</p>');
+            } else {
+                document.write('<p style="color: red;">❌ Mascote configurado para NÃO aparecer</p>');
+            }
+        </script>
+    </div>
+</body>
+</html>

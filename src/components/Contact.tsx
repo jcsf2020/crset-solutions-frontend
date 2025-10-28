@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -22,14 +23,15 @@ export default function Contact() {
         <div className="space-y-4">
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Fala connosco</h2>
           <p className="muted max-w-prose">Resposta rapida em horario comercial. Se preferires, usa WhatsApp.</p>
-          <a
-            href="https://wa.me/351914423688?text=Quero%20demo%20CRSET"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-secondary px-5 py-3 inline-flex"
-          >
-            Abrir WhatsApp
-          </a>
+          <Button asChild variant="secondary" size="lg">
+            <a
+              href="https://wa.me/351914423688?text=Quero%20demo%20CRSET"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir WhatsApp
+            </a>
+          </Button>
         </div>
 
         <form onSubmit={onSubmit} className="card p-6 md:p-7 space-y-4">
@@ -67,8 +69,12 @@ export default function Contact() {
             />
           </div>
           <div className="flex gap-3">
-            <button type="submit" className="btn-primary px-5 py-3">Enviar por email</button>
-            <a href="https://wa.me/351914423688?text=Quero%20demo%20CRSET" target="_blank" rel="noopener noreferrer" className="btn-secondary px-5 py-3">WhatsApp</a>
+            <Button type="submit" size="lg">Enviar por email</Button>
+            <Button asChild variant="secondary" size="lg">
+              <a href="https://wa.me/351914423688?text=Quero%20demo%20CRSET" target="_blank" rel="noopener noreferrer">
+                WhatsApp
+              </a>
+            </Button>
           </div>
         </form>
       </div>

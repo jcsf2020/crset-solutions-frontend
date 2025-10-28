@@ -1,0 +1,232 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: CRSET Solutions
+      - navigation "Navegação principal" [ref=e6]:
+        - link "Início" [ref=e7] [cursor=pointer]:
+          - /url: /
+        - link "Serviços" [ref=e8] [cursor=pointer]:
+          - /url: /servicos
+        - link "Planos & Preços" [ref=e9] [cursor=pointer]:
+          - /url: /precos
+        - link "Ajuda" [ref=e10] [cursor=pointer]:
+          - /url: /faq
+        - link "Demo AGI" [ref=e11] [cursor=pointer]:
+          - /url: https://agi.crsetsolutions.com
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]: Foco em resultados • zero drama
+        - heading "Automação prática. Resultado em dias, não meses." [level=1] [ref=e18]:
+          - text: Automação prática.
+          - generic [ref=e19]: Resultado em dias, não meses.
+        - paragraph [ref=e20]: Ciclos curtos, KPIs visíveis em produção e zero circo. Começa pequeno, entrega real.
+        - generic [ref=e21]:
+          - link "Começar agora" [ref=e22] [cursor=pointer]:
+            - /url: /servicos
+          - link "WhatsApp direto" [ref=e23] [cursor=pointer]:
+            - /url: https://wa.me/351912345678?text=Olá! Gostaria de saber mais sobre os serviços CRSET.
+        - generic [ref=e24]:
+          - generic [ref=e25]: ⚡ Entrega rápida
+          - generic [ref=e26]: 📊 KPIs visíveis
+          - generic [ref=e27]: 🎯 Suporte direto
+      - generic [ref=e28]:
+        - generic [ref=e30]: ⚡
+        - generic [ref=e32]: 🚀
+        - generic [ref=e33]: ⚡
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - heading "Métricas que comprovam" [level=2] [ref=e37]:
+          - text: Métricas que
+          - generic [ref=e38]: comprovam
+        - paragraph [ref=e39]: Transparência total • Métricas públicas • Verificação independente
+      - generic [ref=e40]:
+        - link "Lighthouse Desktop 100/100/96/100 Performance máxima" [ref=e41] [cursor=pointer]:
+          - /url: https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1758060570753-93513.report.html
+          - generic [ref=e42] [cursor=pointer]:
+            - img [ref=e44] [cursor=pointer]
+            - generic [ref=e46] [cursor=pointer]:
+              - generic [ref=e47] [cursor=pointer]:
+                - heading "Lighthouse Desktop" [level=3] [ref=e48] [cursor=pointer]
+                - img [ref=e49] [cursor=pointer]
+              - generic [ref=e53] [cursor=pointer]: 100/100/96/100
+              - paragraph [ref=e54] [cursor=pointer]: Performance máxima
+        - link "Lighthouse Mobile 100/100/96/100 Otimizado para mobile" [ref=e55] [cursor=pointer]:
+          - /url: https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1758060659567-47467.report.html
+          - generic [ref=e56] [cursor=pointer]:
+            - img [ref=e58] [cursor=pointer]
+            - generic [ref=e60] [cursor=pointer]:
+              - generic [ref=e61] [cursor=pointer]:
+                - heading "Lighthouse Mobile" [level=3] [ref=e62] [cursor=pointer]
+                - img [ref=e63] [cursor=pointer]
+              - generic [ref=e67] [cursor=pointer]: 100/100/96/100
+              - paragraph [ref=e68] [cursor=pointer]: Otimizado para mobile
+        - link "Security Scan GitGuardian ✓ Código auditado" [ref=e69] [cursor=pointer]:
+          - /url: https://github.com/jcsf2020/crset-solutions-frontend/actions
+          - generic [ref=e70] [cursor=pointer]:
+            - img [ref=e72] [cursor=pointer]
+            - generic [ref=e74] [cursor=pointer]:
+              - generic [ref=e75] [cursor=pointer]:
+                - heading "Security Scan" [level=3] [ref=e76] [cursor=pointer]
+                - img [ref=e77] [cursor=pointer]
+              - generic [ref=e81] [cursor=pointer]: GitGuardian ✓
+              - paragraph [ref=e82] [cursor=pointer]: Código auditado
+        - link "Changelog Público Transparência total" [ref=e83] [cursor=pointer]:
+          - /url: https://github.com/jcsf2020/crset-solutions-frontend/pulls?q=is%3Apr+is%3Amerged
+          - generic [ref=e84] [cursor=pointer]:
+            - img [ref=e86] [cursor=pointer]
+            - generic [ref=e90] [cursor=pointer]:
+              - generic [ref=e91] [cursor=pointer]:
+                - heading "Changelog" [level=3] [ref=e92] [cursor=pointer]
+                - img [ref=e93] [cursor=pointer]
+              - generic [ref=e97] [cursor=pointer]: Público
+              - paragraph [ref=e98] [cursor=pointer]: Transparência total
+        - link "Uptime 99.9% Disponibilidade garantida" [ref=e99] [cursor=pointer]:
+          - /url: https://crsetsolutions.com
+          - generic [ref=e100] [cursor=pointer]:
+            - img [ref=e102] [cursor=pointer]
+            - generic [ref=e105] [cursor=pointer]:
+              - generic [ref=e106] [cursor=pointer]:
+                - heading "Uptime" [level=3] [ref=e107] [cursor=pointer]
+                - img [ref=e108] [cursor=pointer]
+              - generic [ref=e112] [cursor=pointer]: 99.9%
+              - paragraph [ref=e113] [cursor=pointer]: Disponibilidade garantida
+        - link "Suporte < 2h Tempo de resposta" [ref=e114] [cursor=pointer]:
+          - /url: /faq
+          - generic [ref=e115] [cursor=pointer]:
+            - img [ref=e117] [cursor=pointer]
+            - generic [ref=e122] [cursor=pointer]:
+              - generic [ref=e123] [cursor=pointer]:
+                - heading "Suporte" [level=3] [ref=e124] [cursor=pointer]
+                - img [ref=e125] [cursor=pointer]
+              - generic [ref=e129] [cursor=pointer]: < 2h
+              - paragraph [ref=e130] [cursor=pointer]: Tempo de resposta
+      - generic [ref=e132]:
+        - img [ref=e133]
+        - text: Todos os links são públicos • Verificação independente disponível
+    - generic [ref=e136]:
+      - generic [ref=e137]:
+        - heading "Por que escolher a CRSET?" [level=2] [ref=e138]:
+          - text: Por que escolher a
+          - generic [ref=e139]: CRSET?
+        - paragraph [ref=e140]: Automação que funciona, sem drama. Resultados práticos com transparência total e tecnologia de vanguarda.
+      - generic [ref=e141]:
+        - generic [ref=e142]:
+          - img [ref=e144]
+          - heading "Entrega rápida" [level=3] [ref=e147]
+          - paragraph [ref=e148]: Ciclos curtos, impacto visível em dias, não meses. Prototipagem rápida e iteração contínua.
+        - generic [ref=e149]:
+          - img [ref=e151]
+          - heading "KPIs visíveis" [level=3] [ref=e153]
+          - paragraph [ref=e154]: Métricas claras em produção, dashboards transparentes e relatórios automáticos.
+        - generic [ref=e155]:
+          - img [ref=e157]
+          - heading "Sem circo" [level=3] [ref=e161]
+          - paragraph [ref=e162]: Design sóbrio, foco no resultado. Zero buzzwords, máxima eficiência.
+        - generic [ref=e163]:
+          - img [ref=e165]
+          - heading "Suporte direto" [level=3] [ref=e167]
+          - paragraph [ref=e168]: Fala com quem faz, sem camadas. Acesso direto aos técnicos.
+        - generic [ref=e169]:
+          - img [ref=e171]
+          - heading "Automação inteligente" [level=3] [ref=e173]
+          - paragraph [ref=e174]: AGI aplicada onde faz sentido. Processos otimizados com tecnologia de ponta.
+        - generic [ref=e175]:
+          - img [ref=e177]
+          - heading "Segurança garantida" [level=3] [ref=e179]
+          - paragraph [ref=e180]: Código auditado, infraestrutura segura e conformidade com GDPR.
+      - generic [ref=e181]:
+        - generic [ref=e182]: Tudo pronto para começar
+        - paragraph [ref=e184]: Infraestrutura robusta, processos testados e equipa experiente. O próximo passo é seu.
+    - generic [ref=e186]:
+      - generic [ref=e187]:
+        - heading "Como trabalhamos" [level=2] [ref=e188]:
+          - text: Como
+          - generic [ref=e189]: trabalhamos
+        - paragraph [ref=e190]: Processo simples, transparente e focado em resultados mensuráveis. Cada passo é documentado e validado.
+      - generic [ref=e193]:
+        - generic [ref=e194]:
+          - img [ref=e197]
+          - generic [ref=e199]:
+            - generic [ref=e200]:
+              - img [ref=e202]
+              - generic [ref=e205]: "01"
+            - generic [ref=e206]:
+              - generic [ref=e207]:
+                - heading "Diagnóstico" [level=3] [ref=e208]
+                - generic [ref=e209]: ≤48h
+              - paragraph [ref=e210]: Mapa completo de dores e oportunidades. Análise técnica detalhada e identificação de quick wins.
+        - generic [ref=e211]:
+          - img [ref=e214]
+          - generic [ref=e216]:
+            - generic [ref=e217]:
+              - img [ref=e219]
+              - generic [ref=e222]: "02"
+            - generic [ref=e223]:
+              - generic [ref=e224]:
+                - heading "Plano & OKRs" [level=3] [ref=e225]
+                - generic [ref=e226]: Estratégia clara
+              - paragraph [ref=e227]: O que muda, como medimos, quando entregamos. Roadmap detalhado com marcos mensuráveis.
+        - generic [ref=e229]:
+          - generic [ref=e230]:
+            - img [ref=e232]
+            - generic [ref=e243]: "03"
+          - generic [ref=e244]:
+            - generic [ref=e245]:
+              - heading "Entrega & Operação" [level=3] [ref=e246]
+              - generic [ref=e247]: Melhoria contínua
+            - paragraph [ref=e248]: Iterações curtas, monitorização em tempo real e otimização baseada em dados.
+      - generic [ref=e249]:
+        - generic [ref=e250]:
+          - img [ref=e251]
+          - text: Processo testado em dezenas de projetos
+        - paragraph [ref=e266]: Cada etapa é otimizada para máxima eficiência e transparência. Sem surpresas, sem atrasos.
+    - generic [ref=e268]:
+      - generic [ref=e269]:
+        - heading "Perguntas frequentes" [level=2] [ref=e270]
+        - paragraph [ref=e271]: Respostas diretas às dúvidas mais comuns.
+      - generic [ref=e272]:
+        - generic [ref=e273]:
+          - heading "Quanto tempo para ver valor?" [level=3] [ref=e274]
+          - paragraph [ref=e275]: Normalmente na 1.ª sprint (1–2 semanas).
+        - generic [ref=e276]:
+          - heading "Preciso de contrato longo?" [level=3] [ref=e277]
+          - paragraph [ref=e278]: Não. Começamos pequeno, renovável por entrega.
+        - generic [ref=e279]:
+          - heading "Como funcionam os preços?" [level=3] [ref=e280]
+          - paragraph [ref=e281]: Tabela simples em /precos; sem taxas escondidas.
+        - generic [ref=e282]:
+          - heading "Podem integrar com o meu stack?" [level=3] [ref=e283]
+          - paragraph [ref=e284]: Sim, trabalhamos em cima do que já tens.
+        - generic [ref=e285]:
+          - heading "E a demo AGI?" [level=3] [ref=e286]
+          - paragraph [ref=e287]: No apex está bloqueada; usa o subdomínio dedicado.
+        - generic [ref=e288]:
+          - heading "Como começar?" [level=3] [ref=e289]
+          - paragraph [ref=e290]: Abre /servicos, escolhe o primeiro passo.
+      - generic [ref=e291]:
+        - generic [ref=e292]:
+          - heading "Pronto para começar?" [level=3] [ref=e293]
+          - paragraph [ref=e294]: Escolhe o teu ponto de partida. Sem compromissos longos.
+        - generic [ref=e295]:
+          - link "Ver serviços" [ref=e296] [cursor=pointer]:
+            - /url: /servicos
+          - link "Ver preços" [ref=e297] [cursor=pointer]:
+            - /url: /precos
+    - generic [ref=e298]:
+      - text: "© CRSET Solutions. Links rápidos:"
+      - link "Serviços" [ref=e299] [cursor=pointer]:
+        - /url: /servicos
+      - text: ·
+      - link "Preços" [ref=e300] [cursor=pointer]:
+        - /url: /precos
+      - text: ·
+      - link "Ajuda" [ref=e301] [cursor=pointer]:
+        - /url: /faq
+    - complementary "Assistente" [ref=e302]:
+      - button "Abrir assistente" [ref=e303] [cursor=pointer]
+  - button "Abrir assistente de chat" [ref=e305] [cursor=pointer]: Abrir chat
+  - alert [ref=e306]
+```

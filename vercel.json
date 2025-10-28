@@ -1,0 +1,5 @@
+{
+  "env": {
+    "NEXT_PUBLIC_CHAT_PUBLIC": "false"
+  }
+}
