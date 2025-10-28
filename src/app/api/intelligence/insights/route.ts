@@ -3,7 +3,15 @@ import { OpenAI } from 'openai';
 
 export const dynamic = 'force-dynamic';
 
-const client = new OpenAI();
+// Initialize OpenAI client with fallback
+let client: OpenAI | null = null;
+try {
+  if (process.env.OPENAI_API_KEY) {
+    client = new OpenAI();
+  }
+} catch (e) {
+  console.warn('OpenAI client initialization failed:', e);
+}
 
 interface Insight {
   id: string;
@@ -44,8 +52,25 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// GET handler for health checks and HEAD requests
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    endpoint: '/api/intelligence/insights',
+    method: 'POST',
+    description: 'Generate AI-powered insights from metrics data',
+    status: 'operational',
+  });
+}
+
 async function generateAIInsights(metrics: any): Promise<Insight[]> {
   try {
+    // Check if client is available
+    if (!client) {
+      console.warn('OpenAI client not available, using default insights');
+      return getDefaultInsights(metrics);
+    }
+    
     // Use OpenAI to generate intelligent insights based on metrics
     const prompt = `Analyze the following business metrics and generate 4 actionable insights:
 
@@ -73,8 +98,10 @@ Focus on:
 
 Return ONLY valid JSON array, no additional text.`;
 
+    const model = process.env.AGI_OPENAI_MODEL || process.env.AGI_MODEL || 'gpt-4o-mini';
+    
     const completion = await client.chat.completions.create({
-      model: 'gpt-4.1-mini',
+      model,
       messages: [
         {
           role: 'system',
