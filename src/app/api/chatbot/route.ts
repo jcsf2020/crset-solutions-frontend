@@ -6,7 +6,17 @@ import { NextRequest, NextResponse } from 'next/server';
  */
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    // Parse JSON with proper error handling
+    let body;
+    try {
+      body = await req.json();
+    } catch (jsonError) {
+      return NextResponse.json(
+        { ok: false, error: 'invalid_json', message: 'Request body must be valid JSON' },
+        { status: 400 }
+      );
+    }
+    
     const { message, language = 'pt' } = body;
 
     if (!message) {
