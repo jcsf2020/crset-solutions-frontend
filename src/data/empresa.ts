@@ -1,3 +1,5 @@
+export const EMPRESA_EMAIL = 'crsetsolutions@gmail.com';
+
 export const empresa = {
   nome: 'CRSET Solutions',
   telefone: '+351 914 423 688',
