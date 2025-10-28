@@ -36,6 +36,15 @@ const nextConfig = {
     NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
     NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
   },
+  
+  // Portuguese redirects
+  async redirects() {
+    return [
+      { source: '/services', destination: '/servicos', permanent: true },
+      { source: '/contact', destination: '/contacto', permanent: true },
+      { source: '/help', destination: '/ajuda', permanent: true },
+    ];
+  },
 }
 
 module.exports = nextConfig
