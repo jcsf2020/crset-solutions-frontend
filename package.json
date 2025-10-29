@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint || true",
-    "export": "next build && next export",
+    "export:disabled": "next build",
     "deploy": "bash scripts/guard-prod.sh && vercel --prod",
     "rollback": "vercel alias set \\ crsetsolutions.com --scope joao-fonsecas-projects",
     "check:assets": "bash scripts/check-assets.sh",
