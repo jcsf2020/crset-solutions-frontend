@@ -20,23 +20,22 @@ export async function POST(req: Request) {
     return Response.json({ ok: false, error: "bad_request", message: "Missing 'message'" }, { status: 400 });
   }
 
-  const apiKey =
-    pick<string>(
-      process.env.OPENAI_API_KEY,
-      process.env.GROQ_API_KEY,
-      process.env.AGI_OPENAI_KEY
-    ) || "";
-
-  if (!apiKey) {
-    return Response.json({ ok: false, error: "missing_api_key" }, { status: 500 });
-  }
-
+  // 1) Determinar o base primeiro
   const base =
     pick<string>(
       process.env.OPENAI_BASE_URL,
       process.env.AGI_OPENAI_BASE_URL,
       process.env.AGI_UPSTREAM_BASE
     ) || "https://api.groq.com/openai/v1";
+
+  // 2) Escolher a API key correta consoante o base
+  const apiKey = base.includes("api.groq.com")
+    ? (process.env.GROQ_API_KEY || "")
+    : (pick<string>(process.env.OPENAI_API_KEY, process.env.AGI_OPENAI_KEY) || "");
+
+  if (!apiKey) {
+    return Response.json({ ok: false, error: "missing_api_key" }, { status: 500 });
+  }
 
   const model =
     pick<string>(
