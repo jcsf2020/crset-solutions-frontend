@@ -4,7 +4,7 @@ import "@/styles/sci-fi.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { Oxanium, JetBrains_Mono } from "next/font/google"
-import AIChatWidgetEnhanced from "@/components/AIChatWidgetEnhanced"
+import AIChatWidgetEnhanced from "@/app/_components/AIChatWidgetEnhanced"
 import { OrganizationSchema, WebsiteSchema } from "@/components/seo/structured-data"
 import { SkipNav } from "@/components/a11y/skip-nav"
 
