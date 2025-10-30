@@ -134,3 +134,5 @@ tsconfig.tsbuildinfo
 
 .env*.local
 cookies.txt
+
+.vercel
