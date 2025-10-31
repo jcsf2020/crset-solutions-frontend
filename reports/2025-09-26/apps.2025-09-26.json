@@ -1,0 +1,182 @@
+[
+    {
+        "date":  "2025-09-26",
+        "role":  "Full-Stack Engineer",
+        "platform":  "LinkedIn",
+        "company":  "TargetCo-1",
+        "job_link":  "",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Full-Stack Engineer",
+        "platform":  "Email",
+        "company":  "TargetCo-2",
+        "job_link":  "",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Full-Stack Engineer",
+        "platform":  "WeWorkRemotely",
+        "company":  "TargetCo-3",
+        "job_link":  "https://weworkremotely.com/jobs/xxxxx",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Full-Stack Engineer",
+        "platform":  "RemoteOK",
+        "company":  "TargetCo-4",
+        "job_link":  "https://remoteok.com/remote-jobs/xxxxx",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Full-Stack Engineer",
+        "platform":  "Upwork",
+        "company":  "TargetCo-5",
+        "job_link":  "https://www.upwork.com/jobs/~xxxxxx",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Full-Stack Engineer",
+        "platform":  "Arc",
+        "company":  "TargetCo-6",
+        "job_link":  "https://arc.dev/remote-jobs/xxxxx",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Full-Stack Engineer",
+        "platform":  "Email",
+        "company":  "Agency-PT-1",
+        "job_link":  "",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Full-Stack Engineer",
+        "platform":  "Email",
+        "company":  "Agency-ES-1",
+        "job_link":  "",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Full-Stack Engineer",
+        "platform":  "Email",
+        "company":  "Agency-PT-2",
+        "job_link":  "",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Full-Stack Engineer",
+        "platform":  "Email",
+        "company":  "Agency-ES-2",
+        "job_link":  "",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Python Developer",
+        "platform":  "RemoteOK",
+        "company":  "Ampcontrol",
+        "job_link":  "",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Software Engineer",
+        "platform":  "RemoteOK",
+        "company":  "Sticker Mule",
+        "job_link":  "",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Fullstack Engineer",
+        "platform":  "RemoteOK",
+        "company":  "Lumenalta",
+        "job_link":  "",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Senior Backend Engineer",
+        "platform":  "RemoteOK",
+        "company":  "Dacr",
+        "job_link":  "",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Senior Fullstack Engineer",
+        "platform":  "RemoteOK",
+        "company":  "Aguru UK",
+        "job_link":  "",
+        "status":  "queued",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "RemoteOK",
+        "platform":  "Full-Stack (Next.js + FastAPI)",
+        "company":  "RemoteOK",
+        "job_link":  "https://remoteok.com/job/12345",
+        "status":  "applied",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "WeWorkRemotely",
+        "platform":  "Full-Stack (Next.js + FastAPI)",
+        "company":  "WeWorkRemotely",
+        "job_link":  "https://weworkremotely.com/remote-jobs/12345",
+        "status":  "applied",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Agency-PT",
+        "platform":  "Full-Stack (Next.js + FastAPI)",
+        "company":  "Agencia PT",
+        "job_link":  "\u003clink-da-vaga-ou-landing\u003e",
+        "status":  "email_drafted",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Agency-ES",
+        "platform":  "Full-Stack (Next.js + FastAPI)",
+        "company":  "Agencia ES",
+        "job_link":  "\u003cenlace-oferta-o-landing\u003e",
+        "status":  "email_drafted",
+        "notes":  ""
+    },
+    {
+        "date":  "2025-09-26",
+        "role":  "Spare",
+        "platform":  "Full-Stack (Next.js + FastAPI)",
+        "company":  "Spare",
+        "job_link":  "https://example.com/spare",
+        "status":  "applied",
+        "notes":  ""
+    }
+]
