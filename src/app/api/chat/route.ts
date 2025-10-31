@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
   try {
     const completion = await client.chat.completions.create({
-      model: process.env.AGI_OPENAI_MODEL || "gpt-4.1-mini",
+      model: process.env.AGI_OPENAI_MODEL || "gpt-4o-mini",
       messages: [{ role: "user", content: message }],
     });
 
@@ -42,4 +42,8 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
+}
+
+export async function GET() {
+  return NextResponse.json({ ok: true, route: "/api/chat" });
 }

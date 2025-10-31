@@ -322,3 +322,37 @@ button:focus-visible::after,
   }
 }
 /* === end CRSET tokens === */
+
+/* iOS tap fix — impedir overlays decorativos de “roubar” toques */
+[data-bg-grid="true"],
+.bg-grid,
+.bg-gridDark {
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+main, header, footer, nav, .container, .page-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* Widget AGI flutuante: só as áreas clicáveis recebem eventos */
+.agi-widget { pointer-events: none !important; }
+.agi-widget button,
+.agi-widget .interactive,
+.agi-widget [role="button"],
+.agi-widget a,
+.agi-widget input,
+.agi-widget textarea,
+.agi-widget select {
+  pointer-events: auto !important;
+}
+
+/* Evitar que transform/filters em wrappers bloqueiem hit-testing no iOS */
+*[data-ios-hitfix="wrapper"] {
+  transform: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Usabilidade móvel básica */
+a, button { -webkit-tap-highlight-color: rgba(0,0,0,0); }

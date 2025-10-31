@@ -4,7 +4,7 @@ import "@/styles/sci-fi.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { Oxanium, JetBrains_Mono } from "next/font/google"
-import AIChatWidget from "@/components/AIChatWidget"
+import AIChatWidgetEnhanced from "@/app/_components/AIChatWidgetEnhanced"
 import { OrganizationSchema, WebsiteSchema } from "@/components/seo/structured-data"
 import { SkipNav } from "@/components/a11y/skip-nav"
 
@@ -71,9 +71,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </div>
 
-          {/* AI Chat Widget */}
-          <AIChatWidget language="pt" />
-        </ThemeProvider>
+        {/* AI Chat Widget */}
+        <AIChatWidgetEnhanced language="pt" />
+      </ThemeProvider>
         
         {/* Structured Data for SEO */}
         <OrganizationSchema />
