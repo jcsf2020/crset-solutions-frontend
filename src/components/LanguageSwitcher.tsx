@@ -7,7 +7,7 @@ export function LanguageSwitcher() {
   const pathname = usePathname();
 
   // Detect current locale from pathname
-  const currentLocale = pathname.startsWith('/en') ? 'en' : 'pt';
+  const currentLocale = pathname?.startsWith('/en') ? 'en' : 'pt';
 
   const handleLocaleChange = (newLocale: string) => {
     if (newLocale === currentLocale) return;
@@ -16,10 +16,10 @@ export function LanguageSwitcher() {
     
     if (newLocale === 'en') {
       // Switch to English: add /en prefix
-      newPathname = pathname.startsWith('/en') ? pathname : `/en${pathname}`;
-    } else {
+      newPathname = pathname?.startsWith('/en') ? pathname : `/en${pathname || ''}`;
+     } else {
       // Switch to Portuguese: remove /en prefix
-      newPathname = pathname.replace(/^\/en/, '') || '/';
+      newPathname = pathname?.replace(/^\/en/, '') || '/';
     }
 
     router.push(newPathname);
