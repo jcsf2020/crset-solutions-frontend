@@ -1,8 +1,8 @@
 @import "../styles/theme.css";
 @import "../styles/tokens.css";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* If you use Tailwind via PostCSS keep the @tailwind rules and ensure the Tailwind PostCSS plugin is enabled in your build/editor.
+   If the editor still reports "Unknown at rule @tailwind", import the compiled Tailwind output instead: */
+@import "../styles/tailwind.css";
 
 /* === CRSET Design Tokens & Base Utilities === */
 @layer base {

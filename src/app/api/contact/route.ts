@@ -1,176 +1,78 @@
-import { NextResponse } from "next/server";
-import * as Sentry from "@sentry/nextjs";
-import { Resend } from "resend";
-import { acquireContactOnce } from "@/lib/idempotency";
+import { NextRequest, NextResponse } from "next/server";
 
-export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-type Body = { 
-  name?: string; 
-  email?: string; 
-  message?: string; 
-  phone?: string;
-  source?: string;
-  utm?: string | object; 
-  metadata?: object;
-};
 
 function bad(msg: string, code = 400) {
   return NextResponse.json({ ok: false, error: msg }, { status: code });
 }
 
-// Função para normalizar UTM (objeto/string)
-function parseUtm(utm: string | object | undefined): object | null {
-  if (!utm) return null;
-  
-  if (typeof utm === 'string') {
-    try {
-      return JSON.parse(utm);
-    } catch {
-      return { raw: utm };
-    }
-  }
-  
-  if (typeof utm === 'object') {
-    return utm;
-  }
-  
-  return null;
+function esc(s: string) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const { name, email, message, phone, source, utm, metadata }: Body = await req.json().catch(() => ({} as any));
-    if (!name || !email || !message) return bad("bad_request");
+    const body = await req.json().catch(() => ({} as any));
+    const name = String(body?.name ?? "").slice(0, 200);
+    const email = String(body?.email ?? "").slice(0, 320);
+    const message = String(body?.message ?? "").slice(0, 5000);
+    const utm = body?.utm ?? null;
+    const meta = body?.meta ?? null;
+    const source = String(body?.source ?? "contact-form").slice(0, 120);
 
-// Idempotência (120s) — evita duplicados quase simultâneos
-try {
-  const rawForKey = { name, email, message, phone: phone ?? null, source: source ?? null, utm: utm ?? null, metadata: metadata ?? null };
-  if (!(await acquireContactOnce(rawForKey))) {
-    return NextResponse.json({ ok: true, deduped: true });
-  }
-} catch (e) {
-  // Não bloquear o fluxo se o cadeado falhar; só regista
-  Sentry.captureException(e);
-  await Sentry.flush(100);
-}
+    if (!name || !email || !message) return bad("missing_fields");
 
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    if (!supabaseUrl || !serviceKey) return bad("supabase_unconfigured", 503);
+    const RESEND_API_KEY = process.env.RESEND_API_KEY;
+    const CONTACT_FROM = process.env.CONTACT_FROM || "no-reply@crsetsolutions.com";
+    const CONTACT_TO = process.env.CONTACT_TO || "crsetsolutions@gmail.com";
+    if (!RESEND_API_KEY) return bad("missing_resend_key", 500);
 
-    // Processar UTM - aceitar string JSON ou objeto
-    const utmProcessed = parseUtm(utm);
+    const subject = `Novo contacto CRSET • ${name}`;
+    const text =
+`Nome: ${name}
+Email: ${email}
+Fonte: ${source}
 
-    // Embeber metadata em utm._metadata se ambos existirem
-    let finalUtm = utmProcessed;
-    if (utmProcessed && metadata) {
-      finalUtm = { ...utmProcessed, _metadata: metadata };
-    } else if (!utmProcessed && metadata) {
-      finalUtm = { _metadata: metadata };
+Mensagem:
+${message}
+
+UTM: ${JSON.stringify(utm)}
+Meta: ${JSON.stringify(meta)}`;
+
+    const html =
+`<h2>Novo contacto CRSET</h2>
+<p><b>Nome:</b> ${esc(name)}</p>
+<p><b>Email:</b> ${esc(email)}</p>
+<p><b>Fonte:</b> ${esc(source)}</p>
+<pre style="white-space:pre-wrap;font-family:ui-monospace,monospace">${esc(message)}</pre>
+<hr/>
+<pre style="white-space:pre-wrap;font-family:ui-monospace,monospace">UTM: ${esc(JSON.stringify(utm))}</pre>
+<pre style="white-space:pre-wrap;font-family:ui-monospace,monospace">Meta: ${esc(JSON.stringify(meta))}</pre>`;
+
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: `CRSET <${CONTACT_FROM}>`,
+        to: [CONTACT_TO],
+        reply_to: [email],
+        subject,
+        text,
+        html,
+        tags: [{ name: "source", value: source }],
+      }),
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      return bad(`resend_error:${err}`, 502);
     }
-
-    // Preparar dados para Supabase - defensivo para colunas que podem existir
-    const supabaseData: any = {
-      name,
-      email,
-      message
-    };
-
-    // Adicionar campos opcionais se fornecidos
-    if (phone) supabaseData.phone = phone;
-    if (source) supabaseData.source = source;
-    if (finalUtm) supabaseData.utm = finalUtm;
-
-    // Preencher colunas UTM individuais se existirem no objeto UTM (defensivo)
-    if (finalUtm && typeof finalUtm === 'object') {
-      const utmObj = finalUtm as any;
-      if (utmObj.utm_source) supabaseData.utm_source = utmObj.utm_source;
-      if (utmObj.utm_medium) supabaseData.utm_medium = utmObj.utm_medium;
-      if (utmObj.utm_campaign) supabaseData.utm_campaign = utmObj.utm_campaign;
-      if (utmObj.utm_content) supabaseData.utm_content = utmObj.utm_content;
-    }
-
-    // 1) Upsert em Supabase (idempotente por email, numa só chamada)
-    let supabaseSuccess = false;
-    try {
-      const upsert = await fetch(supabaseUrl + '/rest/v1/leads?on_conflict=email', {
-        method: 'POST',
-        headers: {
-          apikey: serviceKey,
-          Authorization: 'Bearer ' + serviceKey,
-          'Content-Type': 'application/json',
-          Prefer: 'resolution=merge-duplicates,return=representation',
-        },
-        body: JSON.stringify(supabaseData),
-        cache: 'no-store',
-      });
-
-      if (upsert.ok) {
-        supabaseSuccess = true;
-      } else {
-        const detail = await upsert.text().catch(() => '');
-        Sentry.captureException(new Error('Supabase upsert failed: ' + upsert.status + ' '+ detail));
-        await Sentry.flush(2000);
-      }
-    } catch (supabaseError) {
-      Sentry.captureException(supabaseError);
-      await Sentry.flush(2000);
-    }
-
-      // 2) Email via Resend (sempre enviar)
-
-    const from = process.env.RESEND_FROM || "CRSET <onboarding@resend.dev>";
-    const to = process.env.CONTACT_TO || process.env.ALERT_TO || "crsetsolutions@gmail.com";
-    
-    let emailSuccess = false;
-    try {
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      
-      const emailResult = await resend.emails.send({
-        from,
-        to,
-        subject: `Novo lead: ${name}`,
-        html: `
-          <h2>Novo lead recebido</h2>
-          <p><strong>Nome:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Telefone:</strong> ${phone || "N/A"}</p>
-          <p><strong>Mensagem:</strong></p>
-          <p>${message}</p>
-          <hr>
-          <p><small>Source: ${source || "N/A"} | UTM: ${JSON.stringify(finalUtm || {})}</small></p>
-        `,
-      });
-
-      if (emailResult.data?.id) {
-        emailSuccess = true;
-      } else {
-        Sentry.captureException(new Error(`Resend failed: ${JSON.stringify(emailResult.error)}`));
-        await Sentry.flush(2000);
-      }
-    } catch (emailError: any) {
-      Sentry.captureException(emailError);
-      await Sentry.flush(2000);
-    }
-
-    // 3) Contrato de resposta
-    if (!supabaseSuccess && !emailSuccess) {
-      // Falha total - não gravou e não enviou
-      return NextResponse.json({ ok: false }, { status: 500 });
-    }
-
-    // Sucesso (pelo menos um funcionou)
-    return NextResponse.json({ ok: true });
+    const data = await res.json().catch(() => ({}));
+    return NextResponse.json({ ok: true, id: data?.id ?? null });
   } catch (e: any) {
-    Sentry.captureException(e);
-    await Sentry.flush(2000);
-    return NextResponse.json({ ok: false }, { status: 500 });
+    return bad(`unexpected:${e?.message ?? "error"}`, 500);
   }
-}
-
-// Opcional: health check
-export async function GET() {
-  return NextResponse.json({ ok: true, endpoint: "contact" });
 }

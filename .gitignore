@@ -136,3 +136,6 @@ tsconfig.tsbuildinfo
 cookies.txt
 
 .vercel
+.resend_key
+.contact_from
+.contact_to
