@@ -21,7 +21,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
   process.exit(1);
 }
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY, {
+const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_KEY!, {
   auth: { persistSession: false }
 });
 
@@ -122,7 +122,7 @@ async function setupDatabase() {
       console.log('   1. Acesse o Supabase Dashboard');
       console.log('   2. Va em SQL Editor');
       console.log('   3. Execute o conteudo de scripts/rag-ingestion/setup-supabase.sql');
-      console.log(`   4. URL: ${SUPABASE_URL.replace('//', '//app.')}/project/_/sql`);
+      console.log(`   4. URL: ${SUPABASE_URL!.replace('//', '//app.')}/project/_/sql`);
     } else {
       console.log('❌ Erro ao validar tabela:', tablesError.message);
     }
