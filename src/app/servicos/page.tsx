@@ -13,10 +13,28 @@ import {
 import { ServiceSchema } from "@/components/seo/structured-data";
 import { Breadcrumbs, commonBreadcrumbs } from "@/components/ui/breadcrumbs";
 
+const CANONICAL_BASE = process.env.NEXT_PUBLIC_CANONICAL_BASE || 'https://crsetsolutions.com';
+
 export const metadata = {
   title: "Serviços — CRSET Solutions",
   description: "Automação prática e AGI aplicada ao negócio. Ciclos curtos, KPIs visíveis e entrega real em produção.",
+  metadataBase: new URL(CANONICAL_BASE),
   alternates: { canonical: "/servicos" },
+  openGraph: {
+    title: "Serviços — CRSET Solutions",
+    description: "Automação prática e AGI aplicada ao negócio. Ciclos curtos, KPIs visíveis e entrega real em produção.",
+    url: `${CANONICAL_BASE}/servicos`,
+    siteName: "CRSET Solutions",
+    images: [{ url: `${CANONICAL_BASE}/og-image.png`, width: 1200, height: 630, alt: "CRSET Solutions" }],
+    locale: "pt_PT",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Serviços — CRSET Solutions",
+    description: "Automação prática e AGI aplicada ao negócio. Ciclos curtos, KPIs visíveis e entrega real em produção.",
+    images: [`${CANONICAL_BASE}/og-image.png`],
+  },
 };
 
 const services = [

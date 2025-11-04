@@ -1,9 +1,27 @@
 import Link from "next/link";
 
+const CANONICAL_BASE = process.env.NEXT_PUBLIC_CANONICAL_BASE || 'https://crsetsolutions.com';
+
 export const metadata = {
   title: "FAQ — CRSET Solutions",
   description: "Perguntas frequentes sobre os nossos serviços, preços, prazos e processo de trabalho. Encontre respostas rápidas ou contacte-nos diretamente.",
+  metadataBase: new URL(CANONICAL_BASE),
   alternates: { canonical: "/faq" },
+  openGraph: {
+    title: "FAQ — CRSET Solutions",
+    description: "Perguntas frequentes sobre os nossos serviços, preços, prazos e processo de trabalho. Encontre respostas rápidas ou contacte-nos diretamente.",
+    url: `${CANONICAL_BASE}/faq`,
+    siteName: "CRSET Solutions",
+    images: [{ url: `${CANONICAL_BASE}/og-image.png`, width: 1200, height: 630, alt: "CRSET Solutions" }],
+    locale: "pt_PT",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FAQ — CRSET Solutions",
+    description: "Perguntas frequentes sobre os nossos serviços, preços, prazos e processo de trabalho. Encontre respostas rápidas ou contacte-nos diretamente.",
+    images: [`${CANONICAL_BASE}/og-image.png`],
+  },
 };
 
 const faqs = [
