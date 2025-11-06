@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 const BASE = 'https://crsetsolutions.com';
-const PASS = process.env.CHAT_PASSWORD || 'Gocrsetsolutions2025';
+const PASS = process.env.CHAT_PASSWORD || 'Financeflow2025';
 
 test('chat widget gated + reply', async ({ page, context }) => {
   // 1) Login para obter cookie crset-chat
