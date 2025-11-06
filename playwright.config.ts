@@ -30,8 +30,6 @@ export default defineConfig({
       name: 'chromium',
       use: { 
         ...devices['Desktop Chrome'],
-        // Tenta usar o Chrome do sistema se disponível
-        channel: 'chrome',
       },
     },
 
