@@ -1,8 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "../styles/theme.css";
 @import "../styles/tokens.css";
-/* If you use Tailwind via PostCSS keep the @tailwind rules and ensure the Tailwind PostCSS plugin is enabled in your build/editor.
-   If the editor still reports "Unknown at rule @tailwind", import the compiled Tailwind output instead: */
-@import "../styles/tailwind.css";
 
 /* === CRSET Design Tokens & Base Utilities === */
 @layer base {
@@ -323,7 +324,7 @@ button:focus-visible::after,
 }
 /* === end CRSET tokens === */
 
-/* iOS tap fix — impedir overlays decorativos de “roubar” toques */
+/* iOS tap fix — impedir overlays decorativos de "roubar" toques */
 [data-bg-grid="true"],
 .bg-grid,
 .bg-gridDark {
