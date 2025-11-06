@@ -103,7 +103,7 @@ export function createRateLimitHeaders(result: {
 
 // ---- Compat: named export "rateLimit" expected by older code ----
 
-export function rateLimit(name: keyof typeof rateLimiters = 'default') {
+export function rateLimit(name: keyof typeof rateLimiters = 'api') {
 
   // devolve o limiter pedido ou o default
 

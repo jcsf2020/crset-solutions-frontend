@@ -16,7 +16,7 @@ export interface SEOConfig {
   description: string;
   url?: string;
   image?: string;
-  type?: 'website' | 'article' | 'product';
+  type?: 'website' | 'article';
   keywords?: string[];
   author?: string;
   publishedTime?: string;
