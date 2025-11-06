@@ -22,7 +22,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
+      ease: [0.4, 0, 0.2, 1] as const
     }
   }
 };
@@ -35,7 +35,7 @@ const glowVariants = {
     transition: {
       duration: 4,
       repeat: Infinity,
-      ease: "easeInOut"
+      ease: [0.42, 0, 0.58, 1] as const
     }
   }
 };
@@ -161,7 +161,7 @@ export default function HeroSciFi() {
           <span className="text-xs uppercase tracking-wide">Scroll</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 2, repeat: Infinity, ease: [0.42, 0, 0.58, 1] as const }}
           >
             <svg 
               width="20" 

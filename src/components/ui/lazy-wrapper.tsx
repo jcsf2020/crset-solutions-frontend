@@ -34,7 +34,7 @@ export function withLazyLoading<P extends object>(
   return function WrappedComponent(props: P) {
     return (
       <Suspense fallback={fallback || <Skeleton className="h-32 w-full" />}>
-        <LazyComponent {...props} />
+        <LazyComponent {...(props as any)} />
       </Suspense>
     )
   }
