@@ -230,6 +230,7 @@ export default function AIChatWidget({ language = 'pt' }: AIChatWidgetProps) {
           <div className="p-4 border-t border-gray-200 bg-white rounded-b-lg">
             <div className="flex space-x-2">
               <input
+                id="chat-message-input"
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
