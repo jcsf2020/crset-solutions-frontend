@@ -34,7 +34,7 @@ test('chat widget gated + reply', async ({ page, context }) => {
   await fab.click();
 
   // 4) Aguarda a janela do chat abrir
-  await expect(page.locator('h3:has-text("Chat AGI")')).toBeVisible();
+  await expect(page.locator('h3:has-text("Assistente CRSET")')).toBeVisible();
 
   // 5) Envia mensagem
   const input = page.locator('#chat-message-input');
