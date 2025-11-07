@@ -12,17 +12,17 @@ export function LanguageSwitcher() {
   const handleLocaleChange = (newLocale: string) => {
     if (newLocale === currentLocale) return;
 
-    let newPathname: string;
+    let newPathname: string | null;
     
     if (newLocale === 'en') {
       // Switch to English: add /en prefix
       newPathname = pathname?.startsWith('/en') ? pathname : `/en${pathname || ''}`;
-     } else {
+    } else {
       // Switch to Portuguese: remove /en prefix
       newPathname = pathname?.replace(/^\/en/, '') || '/';
     }
 
-    router.push(newPathname);
+    router.push(newPathname || '/');
   };
 
   return (

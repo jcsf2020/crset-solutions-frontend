@@ -34,7 +34,7 @@ export default function NavigationSciFi() {
       opacity: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.4, 0, 0.2, 1] as const
       }
     }
   };
@@ -45,7 +45,7 @@ export default function NavigationSciFi() {
       height: 0,
       transition: {
         duration: 0.3,
-        ease: "easeInOut"
+        ease: [0.42, 0, 0.58, 1] as const
       }
     },
     visible: {
@@ -53,7 +53,7 @@ export default function NavigationSciFi() {
       height: "auto",
       transition: {
         duration: 0.3,
-        ease: "easeOut"
+        ease: [0.4, 0, 0.2, 1] as const
       }
     }
   };
@@ -97,7 +97,7 @@ export default function NavigationSciFi() {
                     className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-600"
                     layoutId="activeTab"
                     initial={false}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    transition={{ duration: 0.3, ease: [0.42, 0, 0.58, 1] as const }}
                   />
                 )}
               </Link>

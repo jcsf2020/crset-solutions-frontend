@@ -67,7 +67,6 @@ export function getWebSiteSchema(): WebSite {
         '@type': 'EntryPoint',
         urlTemplate: 'https://crsetsolutions.com/rag-demo?q={search_term_string}',
       },
-      'query-input': 'required name=search_term_string',
     },
   };
 }
