@@ -29,7 +29,7 @@ test('chat widget gated + reply', async ({ page, context }) => {
   await page.goto(BASE, { waitUntil: 'domcontentloaded' });
 
   // 3) Aguarda o widget aparecer e abre
-  const fab = page.locator('button:has-text("Chat AGI")');
+  const fab = page.locator('button[aria-label*="Assistente"]');
   await expect(fab).toBeVisible({ timeout: 10000 });
   await fab.click();
 
@@ -61,7 +61,7 @@ test('chat widget preview mode (no login required)', async ({ page }) => {
   await page.goto(BASE, { waitUntil: 'domcontentloaded' });
 
   // Widget deve aparecer sem necessidade de login
-  const fab = page.locator('button:has-text("Chat AGI")');
+  const fab = page.locator('button[aria-label*="Assistente"]');
   await expect(fab).toBeVisible({ timeout: 10000 });
   await fab.click();
 
