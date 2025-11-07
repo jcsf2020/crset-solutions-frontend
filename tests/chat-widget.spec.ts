@@ -42,7 +42,8 @@ test('chat widget gated + reply', async ({ page, context }) => {
   await expect(input).toBeVisible();
   await input.fill('E2E via Playwright');
   
-  const sendButton = page.locator('button:has-text("Enviar")');
+  // Botão de enviar é o próximo botão após o input (não tem texto, só ícone)
+  const sendButton = page.locator('input#chat-message-input + button');
   await sendButton.click();
 
   // 6) Verifica resposta do assistente
@@ -74,7 +75,8 @@ test('chat widget preview mode (no login required)', async ({ page }) => {
   await expect(input).toBeVisible();
   await input.fill('Preview test message');
   
-  const sendButton = page.locator('button:has-text("Enviar")');
+  // Botão de enviar é o próximo botão após o input (não tem texto, só ícone)
+  const sendButton = page.locator('input#chat-message-input + button');
   await sendButton.click();
 
   // Verifica resposta
