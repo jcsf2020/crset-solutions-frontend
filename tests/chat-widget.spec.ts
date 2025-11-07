@@ -33,8 +33,9 @@ test('chat widget gated + reply', async ({ page, context }) => {
   await expect(fab).toBeVisible({ timeout: 10000 });
   await fab.click();
 
-  // 4) Aguarda a janela do chat abrir
-  await expect(page.locator('h3:has-text("Assistente CRSET")')).toBeVisible();
+  // 4) Aguarda a janela do chat abrir (com tempo suficiente para animação)
+  await page.waitForTimeout(1000);
+  await expect(page.locator('h3:has-text("Assistente CRSET")')).toBeVisible({ timeout: 5000 });
 
   // 5) Envia mensagem
   const input = page.locator('#chat-message-input');
@@ -64,6 +65,9 @@ test('chat widget preview mode (no login required)', async ({ page }) => {
   const fab = page.locator('button[aria-label*="Assistente"]');
   await expect(fab).toBeVisible({ timeout: 10000 });
   await fab.click();
+
+  // Aguarda chat abrir (animação)
+  await page.waitForTimeout(1000);
 
   // Chat deve funcionar diretamente
   const input = page.locator('#chat-message-input');
