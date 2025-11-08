@@ -145,7 +145,7 @@ export default function RAGDemoPage() {
                         >
                           <p className="text-sm text-gray-700">{match.text}</p>
                           <p className="text-xs text-gray-500 mt-1">
-                            Similaridade: {(match.score * 100).toFixed(1)}%
+                            Similaridade: {match.score != null && !isNaN(match.score) ? (match.score * 100).toFixed(1) + '%' : 'N/A'}
                           </p>
                         </div>
                       ))}
