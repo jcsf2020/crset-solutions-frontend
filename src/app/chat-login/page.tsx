@@ -21,6 +21,9 @@ export default function ChatLoginPage() {
       const data = await res.json();
       setOk(Boolean(data?.ok));
       setMsg(res.ok ? "login_ok" : (data?.reason || "login_failed"));
+      if (res.ok && data?.ok) {
+        setTimeout(() => window.location.href = "/", 1000);
+      }
     } catch {
       setOk(false);
       setMsg("network_error");
