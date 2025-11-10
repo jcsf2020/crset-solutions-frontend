@@ -14,10 +14,28 @@ import {
 } from "lucide-react";
 import { PRICE_FALLBACKS } from "@/lib/prices";
 
+const CANONICAL_BASE = process.env.NEXT_PUBLIC_CANONICAL_BASE || 'https://crsetsolutions.com';
+
 export const metadata = {
   title: "Planos & Preços — CRSET Solutions",
   description: "Planos simples e transparentes. Foco em resultado, sem surpresas. Valores sem IVA, personalizações sob orçamento.",
+  metadataBase: new URL(CANONICAL_BASE),
   alternates: { canonical: "/precos" },
+  openGraph: {
+    title: "Planos & Preços — CRSET Solutions",
+    description: "Planos simples e transparentes. Foco em resultado, sem surpresas. Valores sem IVA, personalizações sob orçamento.",
+    url: `${CANONICAL_BASE}/precos`,
+    siteName: "CRSET Solutions",
+    images: [{ url: `${CANONICAL_BASE}/og-image.png`, width: 1200, height: 630, alt: "CRSET Solutions" }],
+    locale: "pt_PT",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Planos & Preços — CRSET Solutions",
+    description: "Planos simples e transparentes. Foco em resultado, sem surpresas. Valores sem IVA, personalizações sob orçamento.",
+    images: [`${CANONICAL_BASE}/og-image.png`],
+  },
 };
 
 const mainPlans = [

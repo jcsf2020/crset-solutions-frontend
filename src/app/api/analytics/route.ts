@@ -23,6 +23,7 @@ interface PageView {
   utm_source?: string;
   utm_medium?: string;
   utm_campaign?: string;
+  timestamp?: string;
 }
 
 // Simulação de armazenamento de eventos (em produção usar base de dados)

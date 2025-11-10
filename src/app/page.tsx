@@ -20,11 +20,36 @@ function ForceLight() {
   );
 }
 
+const CANONICAL_BASE = process.env.NEXT_PUBLIC_CANONICAL_BASE || 'https://crsetsolutions.com';
+
 export const metadata = {
   title: "CRSET Solutions — Automação prática. Sem circo.",
   description: "Automação e AGI aplicada ao negócio. Resultados práticos, sem circo.",
+  metadataBase: new URL(CANONICAL_BASE),
   alternates: {
     canonical: "/",
+  },
+  openGraph: {
+    title: "CRSET Solutions — Automação prática. Sem circo.",
+    description: "Automação e AGI aplicada ao negócio. Resultados práticos, sem circo.",
+    url: `${CANONICAL_BASE}/`,
+    siteName: "CRSET Solutions",
+    images: [
+      {
+        url: `${CANONICAL_BASE}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "CRSET Solutions",
+      },
+    ],
+    locale: "pt_PT",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CRSET Solutions — Automação prática. Sem circo.",
+    description: "Automação e AGI aplicada ao negócio. Resultados práticos, sem circo.",
+    images: [`${CANONICAL_BASE}/og-image.png`],
   },
 };
 
