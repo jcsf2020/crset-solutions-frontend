@@ -16,7 +16,7 @@ const img = {
 export default function MascoteCard({ m }: { m: Mascote }) {
   const openChat = () => {
     window.dispatchEvent(
-      new CustomEvent("crset:chat:open", { detail: { mascot: m.id, greeting: `Ola, sou ${m.name}` } })
+      new CustomEvent("crset:chat:open", { detail: { mascot: m.id, greeting: `Ola! Sou ${m.name}.` } })
     );
   };
 
