@@ -31,6 +31,11 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   
+  // Force fresh build ID (cache busting)
+  generateBuildId: async () => {
+    return `build-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+  },
+  
   // Environment variables
   env: {
     NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
