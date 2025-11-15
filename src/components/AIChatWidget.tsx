@@ -97,6 +97,7 @@ export default function AIChatWidget({ language = 'pt' }: AIChatWidgetProps) {
 
     try {
       // Call OpenAI chat endpoint (simple and reliable)
+      // Using /api/chat with credentials for authentication
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
