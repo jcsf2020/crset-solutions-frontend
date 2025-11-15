@@ -100,6 +100,7 @@ export default function AIChatWidget({ language = 'pt' }: AIChatWidgetProps) {
       const response = await fetch('/api/agi/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // Include cookies for authentication
         body: JSON.stringify({
           message: userMessage.content,
           language,
