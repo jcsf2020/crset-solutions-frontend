@@ -96,7 +96,7 @@ export default function Page() {
                 size="lg"
                 className="px-8 py-6 text-lg font-bold rounded-2xl border-2 border-purple-300 text-purple-700 hover:bg-purple-50 hover:border-purple-400 transition-all duration-300 hover:scale-105"
               >
-                <Link href="https://wa.me/351912345678?text=Olá! Gostaria de saber mais sobre os serviços CRSET.">
+                <Link href="https://wa.me/351914423688?text=Olá! Gostaria de saber mais sobre os serviços CRSET.">
                   WhatsApp direto
                 </Link>
               </Button>

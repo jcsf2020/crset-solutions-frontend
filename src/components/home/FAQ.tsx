@@ -36,7 +36,7 @@ export function FAQ() {
           <h2 className="text-3xl font-semibold mb-4">
             Perguntas frequentes
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-slate-600">
             Respostas diretas às dúvidas mais comuns.
           </p>
         </div>
@@ -47,7 +47,7 @@ export function FAQ() {
               <h3 className="font-semibold mb-3 text-sm">
                 {faq.question}
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-slate-700 leading-relaxed">
                 {faq.answer}
               </p>
             </div>
@@ -60,7 +60,7 @@ export function FAQ() {
             <h3 className="text-2xl font-semibold mb-3">
               Pronto para começar?
             </h3>
-            <p className="text-muted-foreground mb-6">
+            <p className="text-slate-700 mb-6">
               Escolhe o teu ponto de partida. Sem compromissos longos.
             </p>
           </div>

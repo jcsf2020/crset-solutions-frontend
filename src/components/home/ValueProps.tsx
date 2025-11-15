@@ -44,7 +44,7 @@ export function ValueProps() {
               CRSET?
             </span>
           </h2>
-          <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-700 max-w-3xl mx-auto leading-relaxed">
             Automação que funciona, sem drama. Resultados práticos com transparência total 
             e tecnologia de vanguarda.
           </p>
@@ -62,7 +62,7 @@ export function ValueProps() {
                   <Icon className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold mb-4 text-neutral-900">{prop.title}</h3>
-                <p className="text-neutral-600 leading-relaxed">
+                <p className="text-slate-700 leading-relaxed">
                   {prop.description}
                 </p>
               </div>
@@ -76,7 +76,7 @@ export function ValueProps() {
             <span className="h-2 w-2 rounded-full bg-green-500" />
             Tudo pronto para começar
           </div>
-          <p className="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-700 mb-8 max-w-2xl mx-auto">
             Infraestrutura robusta, processos testados e equipa experiente. 
             O próximo passo é seu.
           </p>
