@@ -110,12 +110,14 @@ export default function AIChatWidget({ language = 'pt' }: AIChatWidgetProps) {
 
       const data = await response.json();
 
+      console.log('Chat response:', response.status, data);
+
       if (data.ok) {
         const assistantMessage: Message = {
           id: `assistant-${Date.now()}`,
           role: 'assistant',
-          content: data.message,
-          timestamp: data.timestamp,
+          content: data.message || data.reply,
+          timestamp: Date.now(),
           sources: data.sources,
         };
 
@@ -128,7 +130,7 @@ export default function AIChatWidget({ language = 'pt' }: AIChatWidgetProps) {
       const errorMessage: Message = {
         id: `error-${Date.now()}`,
         role: 'assistant',
-        content: t.errorMessage,
+        content: error instanceof Error ? error.message : t.errorMessage,
         timestamp: Date.now(),
       };
       setMessages(prev => [...prev, errorMessage]);
