@@ -3,7 +3,7 @@ import "@/styles/sci-fi-tokens.css";
 import "@/styles/sci-fi.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
-import { Oxanium, JetBrains_Mono } from "next/font/google"
+import { Oxanium, JetBrains_Mono, Poppins } from "next/font/google"
 import AIChatWidgetEnhanced from "@/app/_components/AIChatWidgetEnhanced"
 import { OrganizationSchema, WebsiteSchema } from "@/components/seo/structured-data"
 import { SkipNav } from "@/components/a11y/skip-nav"
@@ -23,6 +23,15 @@ const jbmono = JetBrains_Mono({
   display: "swap",
   preload: true,
   fallback: ['monospace', 'courier']
+})
+
+const poppins = Poppins({ 
+  subsets: ["latin"], 
+  variable: "--font-poppins", 
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  preload: true,
+  fallback: ['system-ui', 'arial']
 })
 
 export const metadata = {
@@ -55,7 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://cdn.vercel-insights.com" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
-      <body className={cn("min-h-dvh bg-background text-foreground", oxanium.variable, jbmono.variable)}>
+      <body className={cn("min-h-dvh bg-background text-foreground", oxanium.variable, jbmono.variable, poppins.variable)}>
         <SkipNav />
         <ThemeProvider>
           <div className="relative" style={{ willChange: 'transform' }}>
