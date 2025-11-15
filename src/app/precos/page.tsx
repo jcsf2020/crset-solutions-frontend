@@ -202,11 +202,11 @@ export default function Page() {
               Preços
             </span>
           </h1>
-          <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl text-gray-800 max-w-3xl mx-auto leading-relaxed mb-8">
             Valores transparentes, sem surpresas. Foco em resultado, 
             com suporte incluído e garantia de satisfação.
           </p>
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-sm border border-neutral-200 px-6 py-3 text-sm font-medium text-neutral-700">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-sm border border-neutral-200 px-6 py-3 text-sm font-medium text-gray-900">
             <Headphones className="h-4 w-4 text-green-600" />
             Valores sem IVA • Personalizações sob orçamento
           </div>
@@ -241,7 +241,7 @@ export default function Page() {
                     </div>
                     <h3 className="text-2xl font-bold text-neutral-900 mb-2">{plan.name}</h3>
                     {!plan.highlight && (
-                      <p className="text-sm text-neutral-600 font-medium">{plan.subtitle}</p>
+                      <p className="text-sm text-gray-800 font-medium">{plan.subtitle}</p>
                     )}
                   </div>
 
@@ -249,12 +249,12 @@ export default function Page() {
                     <div className="text-4xl font-bold text-neutral-900 mb-2">
                       {plan.setup}
                     </div>
-                    <div className="text-lg text-neutral-600">
+                    <div className="text-lg text-gray-800">
                       + {plan.monthly}
                     </div>
                   </div>
 
-                  <p className="text-neutral-600 text-center mb-8 leading-relaxed">
+                  <p className="text-gray-800 text-center mb-8 leading-relaxed">
                     {plan.description}
                   </p>
 
@@ -262,7 +262,7 @@ export default function Page() {
                     {plan.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-3">
                         <Check className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-neutral-700">{feature}</span>
+                        <span className="text-sm text-gray-900">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -288,7 +288,7 @@ export default function Page() {
             <h2 className="text-3xl font-bold mb-4 text-neutral-900">
               Soluções Especializadas
             </h2>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-800 max-w-2xl mx-auto">
               Pacotes otimizados para sectores específicos com funcionalidades dedicadas.
             </p>
           </div>
@@ -317,14 +317,14 @@ export default function Page() {
                     </div>
                     <h3 className="text-lg font-bold text-neutral-900 mb-2">{service.name}</h3>
                     <div className="text-2xl font-bold text-neutral-900">{service.setup}</div>
-                    <div className="text-sm text-neutral-600">+ {service.monthly}</div>
+                    <div className="text-sm text-gray-800">+ {service.monthly}</div>
                   </div>
 
                   <ul className="space-y-2 mb-6">
                     {service.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2">
                         <Check className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-xs text-neutral-700">{feature}</span>
+                        <span className="text-xs text-gray-900">{feature}</span>
                       </li>
                     ))}
                   </ul>
