@@ -96,15 +96,13 @@ export default function AIChatWidget({ language = 'pt' }: AIChatWidgetProps) {
     setLoading(true);
 
     try {
-      // Call intelligent chat endpoint (handles RAG + AGI)
-      const response = await fetch('/api/agi/chat', {
+      // Call OpenAI chat endpoint (simple and reliable)
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include', // Include cookies for authentication
         body: JSON.stringify({
           message: userMessage.content,
-          language,
-          sessionId: 'web-chat',
         }),
       });
 
