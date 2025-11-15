@@ -19,9 +19,10 @@ const nextConfig = {
   },
   
   // Bundle optimization (safe features only)
-  experimental: {
-    optimizePackageImports: ['@/components', '@/lib'],
-  },
+  // Disabled optimizePackageImports to prevent tree-shaking of framer-motion
+  // experimental: {
+  //   optimizePackageImports: ['@/components', '@/lib'],
+  // },
   
   // Build optimizations
   eslint: {
