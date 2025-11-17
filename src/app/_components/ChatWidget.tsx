@@ -57,7 +57,7 @@ export default function ChatWidget() {
     setSending(true);
 
     try {
-      const response = await fetch('/api/agi/chat', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         credentials: 'include',
         cache: 'no-store',
