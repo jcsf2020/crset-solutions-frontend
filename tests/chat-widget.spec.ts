@@ -52,18 +52,11 @@ test('chat widget gated + reply', async ({ page, context }) => {
   // Teste valida apenas que a UI funciona corretamente
 });
 
-test('chat widget preview mode (no login required)', async ({ page }) => {
-  // Simular ambiente de preview
-  await page.addInitScript(() => {
-    Object.defineProperty(window, 'process', {
-      value: { env: { NEXT_PUBLIC_VERCEL_ENV: 'preview' } }
-    });
-  });
-
-  // Abre homepage
+test('chat widget always visible (shows login prompt when unauthorized)', async ({ page }) => {
+  // Abre homepage sem login
   await page.goto(BASE, { waitUntil: 'networkidle' });
 
-  // Widget deve aparecer sem necessidade de login
+  // Widget deve aparecer mesmo sem login
   const fab = page.locator('button[aria-label*="Assistente"]');
   await expect(fab).toBeVisible({ timeout: 10000 });
   await fab.click();
@@ -71,17 +64,13 @@ test('chat widget preview mode (no login required)', async ({ page }) => {
   // Aguarda chat abrir (animação)
   await page.waitForTimeout(1000);
 
-  // Chat deve funcionar diretamente
-  const input = page.locator('#chat-message-input');
-  await expect(input).toBeVisible();
-  await input.fill('Preview test message');
+  // Deve mostrar mensagem de login (não input de chat)
+  const loginPrompt = page.locator('text=/Chat privado|Private chat/');
+  await expect(loginPrompt).toBeVisible({ timeout: 5000 });
   
-  // Botão de enviar é o próximo botão após o input (não tem texto, só ícone)
-  const sendButton = page.locator('input#chat-message-input + button');
-  await expect(sendButton).toBeVisible();
+  // Deve ter botão de login
+  const loginButton = page.locator('a[href="/chat-login"]');
+  await expect(loginButton).toBeVisible();
   
-  // Verifica que o chat widget está funcional
-  // Nota: AIChatWidgetEnhanced é um componente de UI mockup
-  // Não tem backend real de chat implementado
-  // Teste valida apenas que a UI funciona corretamente
+  // Verifica que o chat widget mostra UI apropriada para estado unauthorized
 });
