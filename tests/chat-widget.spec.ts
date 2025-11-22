@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = 'https://crsetsolutions.com';
+const BASE = process.env.BASE_URL || 'https://agi.crsetsolutions.com';
 const PASS = process.env.CHAT_PASSWORD || 'Financeflow2025';
 
 test('chat widget gated + reply', async ({ page, context }) => {
@@ -18,7 +18,7 @@ test('chat widget gated + reply', async ({ page, context }) => {
   await context.addCookies([{
     name: 'crset-chat',
     value: m![1],
-    domain: 'crsetsolutions.com',
+    domain: '.crsetsolutions.com',
     path: '/',
     httpOnly: true,
     secure: true,
