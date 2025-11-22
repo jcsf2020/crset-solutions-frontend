@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.BASE_URL || 'https://agi.crsetsolutions.com';
+const BASE = process.env.BASE_URL || 'https://crsetsolutions.com';
 const PASS = process.env.CHAT_PASSWORD || 'Financeflow2025';
 
 test('chat widget gated + reply', async ({ page, context }) => {
@@ -26,7 +26,7 @@ test('chat widget gated + reply', async ({ page, context }) => {
   }]);
 
   // 2) Abre homepage
-  await page.goto(BASE, { waitUntil: 'domcontentloaded' });
+  await page.goto(BASE, { waitUntil: 'networkidle' });
 
   // 3) Aguarda o widget aparecer e abre
   const fab = page.locator('button[aria-label*="Assistente"]');
@@ -61,7 +61,7 @@ test('chat widget preview mode (no login required)', async ({ page }) => {
   });
 
   // Abre homepage
-  await page.goto(BASE, { waitUntil: 'domcontentloaded' });
+  await page.goto(BASE, { waitUntil: 'networkidle' });
 
   // Widget deve aparecer sem necessidade de login
   const fab = page.locator('button[aria-label*="Assistente"]');
