@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
       try {
         if (action.delay) {
           // Em produção, usar uma queue (Redis/Bull) para delays
-          console.log(`Ação ${action.type} agendada para ${action.delay}s`);
+          // console.log(`Ação ${action.type} agendada para ${action.delay}s`);
         }
 
         const result = await executeAction(action, data.event_data);
@@ -250,7 +250,7 @@ async function executeAction(action: WorkflowAction, eventData: Record<string, a
   switch (action.type) {
     case 'email':
       // TODO: Integrar com Resend
-      console.log('Email enviado:', {
+      // console.log('Email enviado:', {
         to: interpolateTemplate(action.config.to, eventData),
         subject: interpolateTemplate(action.config.subject, eventData)
       });
@@ -258,17 +258,17 @@ async function executeAction(action: WorkflowAction, eventData: Record<string, a
 
     case 'webhook':
       // TODO: Implementar chamada HTTP
-      console.log('Webhook chamado:', action.config.url);
+      // console.log('Webhook chamado:', action.config.url);
       return { called: true, status: 200 };
 
     case 'database':
       // TODO: Integrar com Supabase
-      console.log('Operação na base de dados:', action.config);
+      // console.log('Operação na base de dados:', action.config);
       return { executed: true, affected_rows: 1 };
 
     case 'slack':
       // TODO: Integrar com Slack
-      console.log('Mensagem Slack:', {
+      // console.log('Mensagem Slack:', {
         channel: action.config.channel,
         message: interpolateTemplate(action.config.message, eventData)
       });
@@ -276,7 +276,7 @@ async function executeAction(action: WorkflowAction, eventData: Record<string, a
 
     case 'discord':
       // TODO: Integrar com Discord
-      console.log('Mensagem Discord:', {
+      // console.log('Mensagem Discord:', {
         message: interpolateTemplate(action.config.message, eventData)
       });
       return { sent: true };

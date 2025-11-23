@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
     const { plan } = await req.json();
     const _snap = priceEnvSnapshot();
-    console.log('[checkout] plan', plan, 'env', _snap, 'origin', origin);
+    // console.log('[checkout] plan', plan, 'env', _snap, 'origin', origin);
 
     // Stripe desligado -> 503 controlado
     if (!hasStripe) {

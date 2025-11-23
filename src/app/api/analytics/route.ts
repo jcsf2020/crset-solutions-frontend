@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       };
 
       pageViews.push(pageView);
-      console.log('PageView registada:', pageView);
+      // console.log('PageView registada:', pageView);
 
       return NextResponse.json({
         ok: true,
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       };
 
       events.push(event);
-      console.log('Evento registado:', event);
+      // console.log('Evento registado:', event);
 
       return NextResponse.json({
         ok: true,

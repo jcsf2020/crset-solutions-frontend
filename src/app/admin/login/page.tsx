@@ -5,7 +5,7 @@ export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState<string>("");
 
-  async function onSubmit(e: any) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setMsg("A autenticar...");
     const r = await fetch("/api/admin/login", {

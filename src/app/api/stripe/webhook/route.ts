@@ -44,7 +44,7 @@ export async function POST(req: Request) {
     }
 
     // Minimal handler (log and 200). Expand as needed.
-    console.log("stripe.webhook event:", event.type);
+    // console.log("stripe.webhook event:", event.type);
     return NextResponse.json({ ok: true });
   } catch (e: any) {
     console.error("stripe.webhook fatal:", e);

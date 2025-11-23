@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       }
     };
 
-    console.log('Sessão de pagamento criada:', mockSession);
+    // console.log('Sessão de pagamento criada:', mockSession);
 
     return NextResponse.json({
       ok: true,

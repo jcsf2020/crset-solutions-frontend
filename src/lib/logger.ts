@@ -14,7 +14,7 @@ class Logger {
       ...ctx
     };
     if(entry.stack && level!=='error') delete entry.stack;
-    console.log(JSON.stringify(entry));
+    // console.log(JSON.stringify(entry));
   }
   info(m:string,c?:Ctx){ this.out('info',m,c) }
   warn(m:string,c?:Ctx){ this.out('warn',m,c) }
