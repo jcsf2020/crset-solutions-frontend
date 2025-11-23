@@ -21,8 +21,9 @@ test.describe('Pricing Page', () => {
     const pageContent = await page.textContent('body');
     
     // Should mention key prices (flexible matching for different formats)
-    expect(pageContent).toMatch(/2[.,\s]?500/);
-    expect(pageContent).toMatch(/4[.,\s]?000|3[.,\s]?200/); // Either price is fine
+    expect(pageContent).toMatch(/2[.,\s]?500/); // Catálogo
+    expect(pageContent).toMatch(/3[.,\s]?900/); // Imobiliária
+    expect(pageContent).toMatch(/3[.,\s]?500/); // E-commerce
   });
 
   test('should have working CTA buttons', async ({ page }) => {
