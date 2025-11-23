@@ -139,3 +139,10 @@ cookies.txt
 .resend_key
 .contact_from
 .contact_to
+
+# Security - Password and key files
+*.pass
+*.key
+*.pem
+*.p12
+*.pfx
