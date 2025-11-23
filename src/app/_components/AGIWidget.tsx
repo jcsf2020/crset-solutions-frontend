@@ -1,5 +1,5 @@
-import ChatWidget from './ChatWidget';
+import AIChatWidgetEnhanced from './AIChatWidgetEnhanced';
 
 export default function AGIWidget() {
-  return <ChatWidget />;
+  return <AIChatWidgetEnhanced />;
 }

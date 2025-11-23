@@ -251,9 +251,9 @@ async function executeAction(action: WorkflowAction, eventData: Record<string, a
     case 'email':
       // TODO: Integrar com Resend
       // console.log('Email enviado:', {
-        to: interpolateTemplate(action.config.to, eventData),
-        subject: interpolateTemplate(action.config.subject, eventData)
-      });
+      //   to: interpolateTemplate(action.config.to, eventData),
+      //   subject: interpolateTemplate(action.config.subject, eventData)
+      // });
       return { sent: true, provider: 'resend' };
 
     case 'webhook':
