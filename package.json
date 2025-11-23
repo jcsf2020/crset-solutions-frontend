@@ -14,6 +14,9 @@
     "check:assets": "bash scripts/check-assets.sh",
     "typecheck": "tsc --noEmit",
     "smoke": "node scripts/smoke.mjs",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed"
@@ -56,16 +59,21 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.0",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.0.0",
+    "jsdom": "^27.2.0",
     "jsonwebtoken": "^9.0.2",
     "postcss": "^8.4.0",
     "schema-dts": "^1.1.5",
     "tailwindcss": "^3.3.0",
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4.20.6",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^4.0.13"
   },
   "engines": {
     "node": "22.x",
