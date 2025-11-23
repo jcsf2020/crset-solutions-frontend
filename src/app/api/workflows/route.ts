@@ -269,16 +269,16 @@ async function executeAction(action: WorkflowAction, eventData: Record<string, a
     case 'slack':
       // TODO: Integrar com Slack
       // console.log('Mensagem Slack:', {
-        channel: action.config.channel,
-        message: interpolateTemplate(action.config.message, eventData)
-      });
+      //   channel: action.config.channel,
+      //   message: interpolateTemplate(action.config.message, eventData)
+      // });
       return { sent: true, channel: action.config.channel };
 
     case 'discord':
       // TODO: Integrar com Discord
       // console.log('Mensagem Discord:', {
-        message: interpolateTemplate(action.config.message, eventData)
-      });
+      //   message: interpolateTemplate(action.config.message, eventData)
+      // });
       return { sent: true };
 
     default:
