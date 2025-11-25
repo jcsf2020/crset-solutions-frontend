@@ -151,7 +151,7 @@ export default function RAGDemoPageEN() {
                       {result.documents.length === 0 && (
                         <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                           <p className="text-yellow-800">
-                            No relevant documents found. The system is functional, but doesndoesn'tapos;t have indexed documents yet.
+                            No relevant documents found. The system is functional, but doesn&apos;t have indexed documents yet.
                           </p>
                         </div>
                       )}
