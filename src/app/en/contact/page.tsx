@@ -21,7 +21,7 @@ export default function ContactPageEN() {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-5xl font-bold mb-6">Contact Us</h1>
             <p className="text-xl">
-              Get in touch with us. We&apos;re here to help transform your business.
+              Get in touch with us. We're here to help transform your business.
             </p>
           </div>
         </div>

@@ -59,7 +59,7 @@ export default function HomePageEN() {
               <div className="text-4xl mb-4">🤖</div>
               <h3 className="text-2xl font-bold mb-4">Intelligent Automation</h3>
               <p className="text-gray-600">
-                Automate repetitive processes and increase your team&apos;s productivity.
+                Automate repetitive processes and increase your team's productivity.
               </p>
             </div>
 
