@@ -28,7 +28,7 @@ export interface HealthCheck {
       latency?: number;
     };
   };
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 /**
@@ -53,7 +53,7 @@ export class PerformanceTracker {
     this.startTime = Date.now();
   }
 
-  end(metadata?: Record<string, any>): number {
+  end(metadata?: Record<string, unknown>): number {
     const duration = Date.now() - this.startTime;
     
     logger.info(`Performance: ${this.operation}`, {
@@ -186,7 +186,7 @@ export async function checkDatabase(): Promise<{
       status: 'healthy',
       latency,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       status: 'unhealthy',
       message: error.message,
@@ -221,7 +221,7 @@ export async function checkRedis(): Promise<{
       status: 'healthy',
       latency,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       status: 'unhealthy',
       message: error.message,
@@ -267,7 +267,7 @@ export async function checkOpenAI(): Promise<{
       status: 'healthy',
       latency,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       status: 'unhealthy',
       message: error.message,
@@ -394,9 +394,9 @@ export function recordAPIRequest(
  * Get API metrics summary
  */
 export function getAPIMetrics(): {
-  requests: any;
-  errors: any;
-  duration: any;
+  requests: unknown;
+  errors: unknown;
+  duration: unknown;
 } {
   const collector = getMetricsCollector();
   

@@ -178,7 +178,7 @@ export function getBreadcrumbSchema(items: Array<{ name: string; url: string }>)
 /**
  * Generate JSON-LD script tag content
  */
-export function generateJSONLD(schema: any): string {
+export function generateJSONLD(schema: unknown): string {
   return JSON.stringify({
     '@context': 'https://schema.org',
     ...schema,
@@ -188,7 +188,7 @@ export function generateJSONLD(schema: any): string {
 /**
  * Combine multiple schemas into a graph
  */
-export function combineSchemas(...schemas: any[]): string {
+export function combineSchemas(...schemas: unknown[]): string {
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': schemas,

@@ -75,7 +75,7 @@ export default function AdminDashboard() {
       setSystemStatus(statuses);
 
     } catch (error) {
-      console.error('Erro ao carregar dados do dashboard:', error);
+      // console.error('Erro ao carregar dados do dashboard:', error);
     } finally {
       setLoading(false);
     }

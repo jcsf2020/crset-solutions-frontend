@@ -12,7 +12,7 @@ interface ErrorReport {
   user_agent?: string;
   level: 'error' | 'warning' | 'info';
   tags?: Record<string, string>;
-  extra?: Record<string, any>;
+  extra?: Record<string, unknown>;
 }
 
 export async function POST(request: NextRequest) {
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     // });
 
     // Por agora, registar no console
-    console.error('Erro capturado:', errorData);
+    // console.error('Erro capturado:', errorData);
 
     return NextResponse.json({
       ok: true,
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('Erro ao processar relatório de erro:', error);
+    // console.error('Erro ao processar relatório de erro:', error);
     return NextResponse.json(
       { ok: false, error: 'Erro interno do servidor' },
       { status: 500 }

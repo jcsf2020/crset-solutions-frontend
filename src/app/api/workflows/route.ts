@@ -8,20 +8,20 @@ interface WorkflowTrigger {
   name: string;
   description: string;
   event: string;
-  conditions?: Record<string, any>;
+  conditions?: Record<string, unknown>;
   actions: WorkflowAction[];
   enabled: boolean;
 }
 
 interface WorkflowAction {
   type: 'email' | 'webhook' | 'database' | 'notification' | 'slack' | 'discord';
-  config: Record<string, any>;
+  config: Record<string, unknown>;
   delay?: number; // em segundos
 }
 
 interface WorkflowExecution {
   trigger_id: string;
-  event_data: Record<string, any>;
+  event_data: Record<string, unknown>;
   timestamp: string;
 }
 
@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
       try {
         if (action.delay) {
           // Em produção, usar uma queue (Redis/Bull) para delays
-          // console.log(`Ação ${action.type} agendada para ${action.delay}s`);
+          // // console.log(`Ação ${action.type} agendada para ${action.delay}s`);
         }
 
         const result = await executeAction(action, data.event_data);
@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
           result
         });
       } catch (error) {
-        console.error(`Erro ao executar ação ${action.type}:`, error);
+        // console.error(`Erro ao executar ação ${action.type}:`, error);
         executionResults.push({
           type: action.type,
           success: false,
@@ -179,7 +179,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('Erro ao executar workflow:', error);
+    // console.error('Erro ao executar workflow:', error);
     return NextResponse.json(
       { ok: false, error: 'Erro interno do servidor' },
       { status: 500 }
@@ -231,7 +231,7 @@ export async function GET(request: NextRequest) {
   });
 }
 
-function checkConditions(conditions: Record<string, any>, eventData: Record<string, any>): boolean {
+function checkConditions(conditions: Record<string, unknown>, eventData: Record<string, unknown>): boolean {
   // Implementação simples de verificação de condições
   for (const [key, expectedValue] of Object.entries(conditions)) {
     const actualValue = getNestedValue(eventData, key);
@@ -242,15 +242,15 @@ function checkConditions(conditions: Record<string, any>, eventData: Record<stri
   return true;
 }
 
-function getNestedValue(obj: any, path: string): any {
+function getNestedValue(obj: unknown, path: string): unknown {
   return path.split('.').reduce((current, key) => current?.[key], obj);
 }
 
-async function executeAction(action: WorkflowAction, eventData: Record<string, any>): Promise<any> {
+async function executeAction(action: WorkflowAction, eventData: Record<string, unknown>): Promise<unknown> {
   switch (action.type) {
     case 'email':
       // TODO: Integrar com Resend
-      // console.log('Email enviado:', {
+      // // console.log('Email enviado:', {
       //   to: interpolateTemplate(action.config.to, eventData),
       //   subject: interpolateTemplate(action.config.subject, eventData)
       // });
@@ -258,17 +258,17 @@ async function executeAction(action: WorkflowAction, eventData: Record<string, a
 
     case 'webhook':
       // TODO: Implementar chamada HTTP
-      // console.log('Webhook chamado:', action.config.url);
+      // // console.log('Webhook chamado:', action.config.url);
       return { called: true, status: 200 };
 
     case 'database':
       // TODO: Integrar com Supabase
-      // console.log('Operação na base de dados:', action.config);
+      // // console.log('Operação na base de dados:', action.config);
       return { executed: true, affected_rows: 1 };
 
     case 'slack':
       // TODO: Integrar com Slack
-      // console.log('Mensagem Slack:', {
+      // // console.log('Mensagem Slack:', {
       //   channel: action.config.channel,
       //   message: interpolateTemplate(action.config.message, eventData)
       // });
@@ -276,7 +276,7 @@ async function executeAction(action: WorkflowAction, eventData: Record<string, a
 
     case 'discord':
       // TODO: Integrar com Discord
-      // console.log('Mensagem Discord:', {
+      // // console.log('Mensagem Discord:', {
       //   message: interpolateTemplate(action.config.message, eventData)
       // });
       return { sent: true };
@@ -286,7 +286,7 @@ async function executeAction(action: WorkflowAction, eventData: Record<string, a
   }
 }
 
-function interpolateTemplate(template: string, data: Record<string, any>): string {
+function interpolateTemplate(template: string, data: Record<string, unknown>): string {
   return template.replace(/\{\{([^}]+)\}\}/g, (match, path) => {
     const value = getNestedValue(data, path.trim());
     return value !== undefined ? String(value) : match;

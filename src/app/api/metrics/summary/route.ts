@@ -57,7 +57,7 @@ export async function GET(req: Request) {
         },
       }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     return new Response(
       JSON.stringify({ error: error.message }),
       {

@@ -54,7 +54,7 @@ export default function Hub() {
   useEffect(() => { checkAll(); }, [checkAll]);
 
   const anyDown = pings.some(p => p.ok === false);
-  const statusLabel = pings.length===0 ? 'sem dados' : anyDown ? '⚠️ problemas' : '✅ ok';
+  const statusLabel = pings.length===0 ? 'sem dados' : unknownDown ? '⚠️ problemas' : '✅ ok';
 
   return (
     <Gate>

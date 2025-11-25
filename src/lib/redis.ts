@@ -11,6 +11,6 @@ export async function incr(key: string) {
 export async function getJSON<T = unknown>(key: string) {
   return redis.get<T>(key);
 }
-export async function hset(key: string, data: Record<string, any>) {
+export async function hset(key: string, data: Record<string, unknown>) {
   return redis.hset(key, data);
 }

@@ -69,7 +69,7 @@ export default function AIChatWidgetEnhanced({ language = "pt" }: AIChatWidgetEn
       const data = await response.json();
       setState(data.allowed ? 'authorized' : 'unauthorized');
     } catch (error) {
-      console.error('Failed to check chat authorization:', error);
+      // console.error('Failed to check chat authorization:', error);
       setState('error');
     }
   }
@@ -112,7 +112,7 @@ export default function AIChatWidgetEnhanced({ language = "pt" }: AIChatWidgetEn
 
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
-      console.error('Failed to send message:', error);
+      // console.error('Failed to send message:', error);
       const errorMessage: ChatMessage = {
         role: 'assistant',
         content: t.error + '. Tenta novamente.',

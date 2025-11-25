@@ -2,12 +2,13 @@ export const runtime = 'nodejs';
 
 import { NextResponse } from 'next/server';
 import { isAuthorized } from '@/lib/authGuard';
+import { requiredEnv } from '@/lib/env';
 
 const NOTION_VERSION = '2022-06-28';
 
 type NotionPage = {
   created_time: string;
-  properties?: Record<string, any>;
+  properties?: Record<string, unknown>;
 };
 type NotionQueryResult = {
   results: NotionPage[];
@@ -17,10 +18,9 @@ type NotionQueryResult = {
 
 type Item = { when: string; utm: string };
 
-async function fetchAll(): Promise<{ results: NotionPage[] } | null | { error: string; detail: string; items: any[]; total: number }> {
-  const key = process.env.NOTION_API_KEY as string | undefined;
-  const db  = process.env.NOTION_DATABASE_ID as string | undefined;
-  if (!key || !db) return null;
+async function fetchAll(): Promise<{ results: NotionPage[] } | null | { error: string; detail: string; items: unknown[]; total: number }> {
+  const key = requiredEnv('NOTION_API_KEY');
+  const db = requiredEnv('NOTION_DATABASE_ID');
 
   const headers: Record<string, string> = {
     Authorization: `Bearer ${key}`,
@@ -34,7 +34,7 @@ async function fetchAll(): Promise<{ results: NotionPage[] } | null | { error: s
 
   // Ate 5 paginas de 100 = 500 itens max (protecao de custo/latencia)
   for (let i = 0; i < 5 && hasMore; i++) {
-    const body: Record<string, any> = {
+    const body: Record<string, unknown> = {
       page_size: 100,
       sorts: [{ timestamp: 'created_time', direction: 'descending' }],
     };
@@ -116,7 +116,7 @@ export async function GET() {
     const by_day = days.map((d: string) => ({ date: d, count: by_day_raw[d] || 0 }));
 
     return NextResponse.json({ total, last24h, last7d, top_utm, by_day });
-  } catch (e: any) {
+  } catch (e: unknown) {
     return NextResponse.json({ error: 'metrics_failed', detail: String(e?.message || e) }, { status: 500 });
   }
 }
@@ -124,7 +124,7 @@ export async function POST(req: Request) {
   try {
     const data = await req.json().catch(() => ({}));
     return NextResponse.json({ ok: true, received: data, ts: new Date().toISOString() }, { status: 200 });
-  } catch (e: any) {
+  } catch (e: unknown) {
     return NextResponse.json({ ok: false, error: "metrics_post_failed", detail: String(e?.message || e) }, { status: 500 });
   }
 }

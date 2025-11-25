@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
       // Query RAG for context
       let context = '';
-      let sources: any[] = [];
+      let sources: unknown[] = [];
 
       try {
         const ragResponse = await fetch(`${req.nextUrl.origin}/api/rag/query`, {
@@ -38,10 +38,10 @@ export async function POST(req: NextRequest) {
           if (ragData.ok && ragData.documents && ragData.documents.length > 0) {
             context = ragData.documents
               .slice(0, 3)
-              .map((doc: any) => doc.content)
+              .map((doc: unknown) => doc.content)
               .join('\n\n');
 
-            sources = ragData.documents.slice(0, 3).map((doc: any) => ({
+            sources = ragData.documents.slice(0, 3).map((doc: unknown) => ({
               title: doc.metadata?.title || 'Document',
               url: doc.metadata?.url || '#',
               similarity: doc.similarity,
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
           }
         }
       } catch (error) {
-        console.error('RAG query failed:', error);
+        // console.error('RAG query failed:', error);
       }
 
       // Call LLM
@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
 
       if (!llmResponse.ok) {
         const errorText = await llmResponse.text();
-        console.error('LLM failed:', llmResponse.status, errorText);
+        // console.error('LLM failed:', llmResponse.status, errorText);
         return NextResponse.json(
           { ok: false, error: 'llm_request_failed', status: llmResponse.status, details: errorText.substring(0, 300) },
           { status: 500 }
@@ -110,8 +110,8 @@ export async function POST(req: NextRequest) {
     // Default response for non-chat POST requests
     return NextResponse.json({ ok: true, ts: new Date().toISOString() });
 
-  } catch (error: any) {
-    console.error('Status endpoint error:', error);
+  } catch (error: unknown) {
+    // console.error('Status endpoint error:', error);
     return NextResponse.json(
       { ok: false, error: 'internal_server_error', details: error.message, stack: error.stack?.substring(0, 500) },
       { status: 500 }

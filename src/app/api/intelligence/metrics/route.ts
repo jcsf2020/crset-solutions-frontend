@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     try {
       supabase = getSupabaseAdmin();
     } catch (e) {
-      console.warn('Supabase client unavailable, using mock data:', e);
+      // console.warn('Supabase client unavailable, using mock data:', e);
     }
     
     // Calculate date range
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error fetching intelligence metrics:', error);
+    // console.error('Error fetching intelligence metrics:', error);
     return NextResponse.json(
       { ok: false, error: 'Failed to fetch metrics' },
       { status: 500 }

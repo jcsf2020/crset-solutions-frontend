@@ -76,7 +76,7 @@ export async function checkRateLimit(
     
     return { success, limit, remaining, reset };
   } catch (error) {
-    console.error("Rate limit check failed:", error);
+    // console.error("Rate limit check failed:", error);
     // On error, allow the request (fail open)
     return null;
   }

@@ -26,10 +26,10 @@ const nextConfig = {
   
   // Build optimizations
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   
   // Force fresh build ID (cache busting)

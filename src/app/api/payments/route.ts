@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       }
     };
 
-    // console.log('Sessão de pagamento criada:', mockSession);
+    // // console.log('Sessão de pagamento criada:', mockSession);
 
     return NextResponse.json({
       ok: true,
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('Erro ao criar sessão de pagamento:', error);
+    // console.error('Erro ao criar sessão de pagamento:', error);
     return NextResponse.json(
       { ok: false, error: 'Erro interno do servidor' },
       { status: 500 }

@@ -95,7 +95,7 @@ export async function GET(){
     res.headers.set('Permissions-Policy','camera=(), microphone=(), geolocation=()');
     res.headers.set('X-Robots-Tag','noindex');
     return res;
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Graceful error handling
     return new Response(JSON.stringify({
       ok: false,

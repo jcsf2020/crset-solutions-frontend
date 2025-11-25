@@ -83,7 +83,7 @@ export function PostHogPageView(): null {
  */
 export function trackEvent(
   eventName: string,
-  properties?: Record<string, any>
+  properties?: Record<string, unknown>
 ) {
   if (posthog) {
     posthog.capture(eventName, properties);
@@ -95,7 +95,7 @@ export function trackEvent(
  */
 export function identifyUser(
   userId: string,
-  properties?: Record<string, any>
+  properties?: Record<string, unknown>
 ) {
   if (posthog) {
     posthog.identify(userId, properties);

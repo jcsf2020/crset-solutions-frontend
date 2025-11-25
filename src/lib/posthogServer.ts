@@ -15,7 +15,7 @@ export function getPostHogClient(): PostHog | null {
   const apiHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.posthog.com';
 
   if (!apiKey) {
-    console.warn('PostHog API key not configured');
+    // console.warn('PostHog API key not configured');
     return null;
   }
 
@@ -34,7 +34,7 @@ export function getPostHogClient(): PostHog | null {
 export async function trackServerEvent(
   distinctId: string,
   eventName: string,
-  properties?: Record<string, any>
+  properties?: Record<string, unknown>
 ): Promise<void> {
   const client = getPostHogClient();
   if (!client) return;
@@ -51,7 +51,7 @@ export async function trackServerEvent(
       await client.flush();
     }
   } catch (error) {
-    console.error('PostHog server tracking error:', error);
+    // console.error('PostHog server tracking error:', error);
   }
 }
 
@@ -60,7 +60,7 @@ export async function trackServerEvent(
  */
 export async function identifyUserServer(
   distinctId: string,
-  properties?: Record<string, any>
+  properties?: Record<string, unknown>
 ): Promise<void> {
   const client = getPostHogClient();
   if (!client) return;
@@ -72,7 +72,7 @@ export async function identifyUserServer(
     });
     await client.flush();
   } catch (error) {
-    console.error('PostHog server identify error:', error);
+    // console.error('PostHog server identify error:', error);
   }
 }
 

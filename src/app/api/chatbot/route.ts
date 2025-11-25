@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
       timestamp: Date.now(),
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { ok: false, error: 'internal_error', message: error.message },
       { status: 500 }
