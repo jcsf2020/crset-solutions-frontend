@@ -5,6 +5,7 @@ import { ValueProps } from "@/components/home/ValueProps";
 import { HowWeWork } from "@/components/home/HowWeWork";
 import { FAQ } from "@/components/home/FAQ";
 import { MascotBubble } from "@/components/home/MascotBubble";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 /**
  * Forca o tema LIGHT no 1o paint (sem tocar em layout.tsx)
@@ -45,6 +46,7 @@ export default function Page() {
             <Link href="/precos" className="hover:text-purple-600 transition-colors">Planos & Preços</Link>
             <Link href="/faq" className="hover:text-purple-600 transition-colors">Ajuda</Link>
             <Link href="https://agi.crsetsolutions.com" className="hover:text-purple-600 transition-colors">Demo AGI</Link>
+            <LanguageSwitcher />
           </nav>
         </div>
       </header>

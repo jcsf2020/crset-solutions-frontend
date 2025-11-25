@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { ServiceSchema } from "@/components/seo/structured-data";
 import { Breadcrumbs, commonBreadcrumbs } from "@/components/ui/breadcrumbs";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export const metadata = {
   title: "Serviços — CRSET Solutions",
@@ -96,9 +97,10 @@ export default function Page() {
     <main className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/20 to-pink-50/10">
       {/* Header */}
       <div className="container mx-auto max-w-7xl px-4 py-16">
-        {/* Breadcrumbs */}
-        <div className="mb-8">
+        {/* Breadcrumbs e Language Switcher */}
+        <div className="mb-8 flex items-center justify-between">
           <Breadcrumbs items={commonBreadcrumbs.servicos} />
+          <LanguageSwitcher />
         </div>
         
         <div className="text-center mb-20">
