@@ -38,7 +38,7 @@ export function FocusRing({
   children: React.ReactNode
   variant?: keyof typeof focusStyles
   className?: string
-  [key: string]: any
+  [key: string]: unknown
 }) {
   return (
     <div 
@@ -64,7 +64,7 @@ export function AccessibleButton({
   size?: 'default' | 'sm' | 'lg'
   className?: string
   disabled?: boolean
-  [key: string]: any
+  [key: string]: unknown
 }) {
   const baseStyles = "inline-flex items-center justify-center rounded-md font-medium transition-all duration-200"
   
@@ -111,7 +111,7 @@ export function AccessibleLink({
   children: React.ReactNode
   className?: string
   external?: boolean
-  [key: string]: any
+  [key: string]: unknown
 }) {
   return (
     <a

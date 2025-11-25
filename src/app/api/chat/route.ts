@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true, reply });
   } catch (err) {
     captureException(err);
-    console.error("chat_error", err);
+    // console.error("chat_error", err);
     return NextResponse.json(
       { ok: false, error: "internal_server_error" },
       { status: 500 }

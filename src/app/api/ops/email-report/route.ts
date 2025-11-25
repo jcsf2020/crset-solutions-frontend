@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ ok: true, id: r.id });
-  } catch (e: any) {
+  } catch (e: unknown) {
     return NextResponse.json({ ok: false, error: e.message }, { status: 500 });
   }
 }

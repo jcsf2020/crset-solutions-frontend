@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
       }
     });
     
-  } catch (error: any) {
+  } catch (error: unknown) {
     logs.push(`ERROR: ${error.message}`);
     logs.push(`ERROR Stack: ${error.stack?.substring(0, 500)}`);
     

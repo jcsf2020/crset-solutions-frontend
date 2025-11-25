@@ -29,10 +29,10 @@ interface CacheConfig {
  * Fast but ephemeral (cleared on restart)
  */
 class MemoryCache {
-  private cache: Map<string, { value: any; expires: number }> = new Map();
+  private cache: Map<string, { value: unknown; expires: number }> = new Map();
   private maxSize: number = 1000; // Max entries
 
-  get(key: string): any | null {
+  get(key: string): unknown | null {
     const entry = this.cache.get(key);
     if (!entry) return null;
 
@@ -45,7 +45,7 @@ class MemoryCache {
     return entry.value;
   }
 
-  set(key: string, value: any, ttl: number = 300): void {
+  set(key: string, value: unknown, ttl: number = 300): void {
     // Evict oldest entry if cache is full
     if (this.cache.size >= this.maxSize) {
       const firstKey = this.cache.keys().next().value;
@@ -85,7 +85,7 @@ class RedisCache {
     if (url && token) {
       this.client = new Redis({ url, token });
     } else {
-      console.warn('Redis not configured, caching will be memory-only');
+      // console.warn('Redis not configured, caching will be memory-only');
     }
   }
 
@@ -96,18 +96,18 @@ class RedisCache {
       const value = await this.client.get<T>(key);
       return value;
     } catch (error) {
-      console.error('Redis get error:', error);
+      // console.error('Redis get error:', error);
       return null;
     }
   }
 
-  async set(key: string, value: any, ttl: number = 300): Promise<void> {
+  async set(key: string, value: unknown, ttl: number = 300): Promise<void> {
     if (!this.client) return;
 
     try {
       await this.client.setex(key, ttl, JSON.stringify(value));
     } catch (error) {
-      console.error('Redis set error:', error);
+      // console.error('Redis set error:', error);
     }
   }
 
@@ -117,7 +117,7 @@ class RedisCache {
     try {
       await this.client.del(key);
     } catch (error) {
-      console.error('Redis delete error:', error);
+      // console.error('Redis delete error:', error);
     }
   }
 
@@ -131,7 +131,7 @@ class RedisCache {
         await this.client.del(...keys);
       }
     } catch (error) {
-      console.error('Redis deletePattern error:', error);
+      // console.error('Redis deletePattern error:', error);
     }
   }
 
@@ -141,7 +141,7 @@ class RedisCache {
     try {
       await this.client.flushdb();
     } catch (error) {
-      console.error('Redis clear error:', error);
+      // console.error('Redis clear error:', error);
     }
   }
 }
@@ -182,7 +182,7 @@ class CacheManager {
   /**
    * Set value in cache (writes to both memory and Redis)
    */
-  async set(key: string, value: any, config: CacheConfig = {}): Promise<void> {
+  async set(key: string, value: unknown, config: CacheConfig = {}): Promise<void> {
     const ttl = config.ttl || 300; // Default 5 minutes
 
     // Write to memory cache

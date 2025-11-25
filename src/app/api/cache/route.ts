@@ -5,13 +5,13 @@ export const dynamic = 'force-dynamic';
 
 interface CacheEntry {
   key: string;
-  value: any;
+  value: unknown;
   ttl?: number; // Time to live em segundos
   tags?: string[];
 }
 
 // Simulação de cache em memória (em produção usar Redis/Cloudflare KV)
-const cache = new Map<string, { value: any; expires: number; tags: string[] }>();
+const cache = new Map<string, { value: unknown; expires: number; tags: string[] }>();
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('Erro ao armazenar no cache:', error);
+    // console.error('Erro ao armazenar no cache:', error);
     return NextResponse.json(
       { ok: false, error: 'Erro interno do servidor' },
       { status: 500 }

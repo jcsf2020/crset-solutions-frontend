@@ -14,7 +14,7 @@ function isPreview() {
   return process.env.VERCEL_ENV === "preview" || process.env.NEXT_PUBLIC_VERCEL_ENV === "preview" || process.env.NODE_ENV !== "production";
 }
 
-function json(body: any, init: ResponseInit = {}) {
+function json(body: unknown, init: ResponseInit = {}) {
   return new NextResponse(JSON.stringify(body), {
     ...init,
     headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", ...(init.headers || {}) },
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
     });
     if (error) return json({ ok: false, error: "resend_error", detail: String(error) }, { status: 502 });
     return json({ ok: true, id: data?.id || null });
-  } catch (e: any) {
+  } catch (e: unknown) {
     return json({ ok: false, error: "send_exception", detail: e?.message || String(e) }, { status: 500 });
   }
 }

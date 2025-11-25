@@ -1,34 +1,47 @@
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-export async function OPTIONS() {
+import { getCORSHeaders } from '@/lib/cors';
+
+export async function OPTIONS(req: Request) {
+  const origin = new URL(req.url).origin;
+  const headers = getCORSHeaders(origin);
   return new Response(null, {
     status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
-      'Access-Control-Allow-Headers': 'content-type,user-agent',
-    },
+    headers,
   });
 }
 
-function withCORS(res: Response) { 
-  res.headers.set('Access-Control-Allow-Origin','*'); 
+function withCORS(res: Response, origin: string | null) { 
+  const headers = getCORSHeaders(origin);
+  Object.entries(headers).forEach(([key, value]) => {
+    if (value) res.headers.set(key, value);
+  });
   return res; 
 }
 
 import { embed } from "../_shared/embeddings";
 import { getSupabaseAdmin } from "@/lib/supabaseServer";
+import { z } from 'zod';
+import { apiErrorHandler } from '@/lib/apiErrorHandler';
+
+const QuerySchema = z.object({
+  message: z.string().min(1).max(1000),
+  match_count: z.number().min(1).max(10).default(3),
+  similarity_threshold: z.number().min(0).max(1).default(0.2),
+});
 
 export async function POST(req: Request) {
   try {
-    const { message, match_count = 3, similarity_threshold = 0.2 } = await req.json();
+    const origin = new URL(req.url).origin;
+    const body = await req.json();
+    const { message, match_count, similarity_threshold } = QuerySchema.parse(body);
     
     if (!message) {
       return withCORS(new Response(
         JSON.stringify({ error: "message is required" }), 
         { status: 400 }
-      ));
+      ), origin);
     }
 
     // Generate embedding for the query
@@ -43,29 +56,29 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      console.error('Supabase RPC error:', error);
+      // console.error('Supabase RPC error:', error);
       
       // If function doesn't exist, return helpful error
       if (error.message.includes('function') && error.message.includes('does not exist')) {
-        return withCORS(new Response(
-          JSON.stringify({ 
-            ok: false,
-            error: "database_not_configured",
-            message: "RAG database not configured. Please run setup-supabase.sql first.",
-            hint: "See scripts/rag-ingestion/setup-supabase.sql"
-          }), 
-          { status: 500 }
-        ));
-      }
-      
       return withCORS(new Response(
         JSON.stringify({ 
           ok: false,
-          error: "query_failed",
-          message: error.message 
+          error: "database_not_configured",
+          message: "RAG database not configured. Please run setup-supabase.sql first.",
+          hint: "See scripts/rag-ingestion/setup-supabase.sql"
         }), 
         { status: 500 }
-      ));
+      ), origin);
+    }
+      
+    return withCORS(new Response(
+      JSON.stringify({ 
+        ok: false,
+        error: "query_failed",
+        message: error.message 
+      }), 
+        { status: 500 }
+      ), origin);
     }
 
     return withCORS(new Response(
@@ -77,13 +90,9 @@ export async function POST(req: Request) {
         matches: matches || []
       }), 
       { status: 200 }
-    ));
-  } catch (e: any) {
-    console.error('Query error:', e);
-    return withCORS(new Response(
-      JSON.stringify({ error: e.message || "query failed" }), 
-      { status: 500 }
-    ));
+    ), origin);
+} catch (e: unknown) {
+    return apiErrorHandler(e);
   }
 }
 

@@ -7,7 +7,7 @@ const SUPABASE_KEY =
   process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || "";
 
 // stringify estável (ordena chaves)
-function stableStringify(x: any): string {
+function stableStringify(x: unknown): string {
   if (x === null || typeof x !== "object") return JSON.stringify(x);
   if (Array.isArray(x)) return `[${x.map(stableStringify).join(",")}]`;
   return `{${Object.keys(x).sort().map(k => JSON.stringify(k)+":"+stableStringify(x[k])).join(",")}}`;

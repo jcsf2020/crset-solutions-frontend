@@ -14,7 +14,7 @@ export async function GET(req: Request) {
       const r = await fetch(u.url, { cache: 'no-store' });
       const ms = Date.now() - t0;
       return { name: u.name, url: u.url, ok: r.ok, status: r.status, ms };
-    } catch (e: any) {
+    } catch (e: unknown) {
       return { name: u.name, url: u.url, ok: false, status: 0, ms: -1, error: String(e?.message || e) };
     }
   }));

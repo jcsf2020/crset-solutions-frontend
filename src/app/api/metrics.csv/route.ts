@@ -15,7 +15,7 @@ export async function GET(req: Request) {
     const m = await res.json();
     const rows = [
       ["date", "count"],
-      ...((m.by_day || []).map((d: any) => [d.date, String(d.count)])),
+      ...((m.by_day || []).map((d: unknown) => [d.date, String(d.count)])),
     ];
 
     const csv = rows
@@ -35,7 +35,7 @@ export async function GET(req: Request) {
         "Cache-Control": "no-store, max-age=0, must-revalidate",
       },
     });
-  } catch (e: any) {
+  } catch (e: unknown) {
     return new Response(`error: ${e?.message || String(e)}`, { status: 500 });
   }
 }

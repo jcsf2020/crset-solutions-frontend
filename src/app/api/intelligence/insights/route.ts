@@ -10,7 +10,7 @@ try {
     client = new OpenAI();
   }
 } catch (e) {
-  console.warn('OpenAI client initialization failed:', e);
+  // console.warn('OpenAI client initialization failed:', e);
 }
 
 interface Insight {
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error generating AI insights:', error);
+    // console.error('Error generating AI insights:', error);
     return NextResponse.json(
       { ok: false, error: 'Failed to generate insights' },
       { status: 500 }
@@ -63,11 +63,11 @@ export async function GET() {
   });
 }
 
-async function generateAIInsights(metrics: any): Promise<Insight[]> {
+async function generateAIInsights(metrics: unknown): Promise<Insight[]> {
   try {
     // Check if client is available
     if (!client) {
-      console.warn('OpenAI client not available, using default insights');
+      // console.warn('OpenAI client not available, using default insights');
       return getDefaultInsights(metrics);
     }
     
@@ -123,7 +123,7 @@ Return ONLY valid JSON array, no additional text.`;
     try {
       aiInsights = JSON.parse(content);
     } catch (e) {
-      console.error('Failed to parse AI insights:', e);
+      // console.error('Failed to parse AI insights:', e);
       // Fallback to default insights
       aiInsights = getDefaultInsights(metrics);
     }
@@ -135,13 +135,13 @@ Return ONLY valid JSON array, no additional text.`;
     }));
     
   } catch (error) {
-    console.error('Error calling OpenAI:', error);
+    // console.error('Error calling OpenAI:', error);
     // Fallback to default insights
     return getDefaultInsights(metrics);
   }
 }
 
-function getDefaultInsights(metrics: any): Insight[] {
+function getDefaultInsights(metrics: unknown): Insight[] {
   const insights: Insight[] = [];
   
   // Revenue insight

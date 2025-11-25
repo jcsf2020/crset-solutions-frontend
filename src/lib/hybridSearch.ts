@@ -14,7 +14,7 @@
 interface SearchResult {
   id: number;
   content: string;
-  metadata: any;
+  metadata: unknown;
   similarity?: number;
   bm25Score?: number;
   hybridScore?: number;

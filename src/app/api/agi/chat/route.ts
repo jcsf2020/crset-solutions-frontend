@@ -15,7 +15,7 @@ const JSON_UTF8 = { "content-type": "application/json; charset=utf-8" } as const
 
 
 
-function extractText(body: any): { agent: string; input: string } {
+function extractText(body: unknown): { agent: string; input: string } {
 
   if (!body) return { agent: "boris", input: "" };
 
@@ -27,7 +27,7 @@ function extractText(body: any): { agent: string; input: string } {
 
       ? body.messages
 
-          .map((m: any) => (typeof m === "string" ? m : (m?.content ?? "")))
+          .map((m: unknown) => (typeof m === "string" ? m : (m?.content ?? "")))
 
           .filter(Boolean)
 
@@ -169,7 +169,7 @@ async function askUpstream(base: string, key: string, model: string, agent: stri
 
     }
 
-    const json: any = await res.json();
+    const json: unknown = await res.json();
 
     const reply = String(json?.choices?.[0]?.message?.content ?? "").trim();
 
@@ -193,7 +193,7 @@ export async function POST(req: NextRequest) {
 
 
 
-  let body: any = {};
+  let body: unknown = {};
 
   try {
 
@@ -257,7 +257,7 @@ export async function POST(req: NextRequest) {
 
       used = "openai";
 
-    } catch (e: any) {
+    } catch (e: unknown) {
 
       used = "mock";
 

@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function RAGDemoPage() {
   const [query, setQuery] = useState("");
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<unknown>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -32,7 +32,7 @@ export default function RAGDemoPage() {
       }
 
       setResult(data);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message || "Erro desconhecido");
     } finally {
       setLoading(false);
@@ -138,7 +138,7 @@ export default function RAGDemoPage() {
                       Documentos Relevantes:
                     </h4>
                     <div className="space-y-2">
-                      {result.matches.map((match: any, idx: number) => (
+                      {result.matches.map((match: unknown, idx: number) => (
                         <div
                           key={idx}
                           className="bg-white rounded p-3 border border-green-200"

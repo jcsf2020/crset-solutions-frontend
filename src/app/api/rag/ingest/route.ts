@@ -63,7 +63,7 @@ export async function POST(req: Request) {
       .single();
 
     if (error) {
-      console.error('Supabase insert error:', error);
+      // console.error('Supabase insert error:', error);
       return withCORS(new Response(
         JSON.stringify({ 
           ok: false,
@@ -93,8 +93,8 @@ export async function POST(req: Request) {
     }
 
     return response;
-  } catch (e: any) {
-    console.error('Ingest error:', e);
+  } catch (e: unknown) {
+    // console.error('Ingest error:', e);
     return withCORS(new Response(
       JSON.stringify({ error: e.message || "ingest failed" }), 
       { status: 500 }

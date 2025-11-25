@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     );
   }
 
-  let body: any = {};
+  let body: unknown = {};
   try { body = await req.json(); } catch {}
   const pwd = (body?.password ?? "") as string;
   if (!pwd) {

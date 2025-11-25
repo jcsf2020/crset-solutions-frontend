@@ -8,7 +8,7 @@ export async function GET(req: Request) {
   const debug = url.searchParams.get("debug") === "1";
 
   const backend = process.env.AGI_BACKEND || "openai";
-  const body: any = {
+  const body: unknown = {
     ok: true,
     backend,
     gated: false,

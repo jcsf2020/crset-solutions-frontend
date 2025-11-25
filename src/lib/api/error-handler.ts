@@ -37,7 +37,7 @@ export async function withErrorHandling(
 
     // Log to console in development
     if (process.env.NODE_ENV === 'development') {
-      console.error('[API Error]', error);
+      // console.error('[API Error]', error);
     }
 
     // Return standardized error response

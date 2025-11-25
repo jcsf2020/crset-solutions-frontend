@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      console.error('Supabase RPC error:', error);
+      // console.error('Supabase RPC error:', error);
       
       if (error.message.includes('function') && error.message.includes('does not exist')) {
         return withCORS(new Response(
@@ -94,7 +94,7 @@ export async function POST(req: Request) {
         // Limit to requested count
         finalMatches = hybridResults.slice(0, match_count);
       } catch (hybridError) {
-        console.error('Hybrid search error:', hybridError);
+        // console.error('Hybrid search error:', hybridError);
         // Fallback to semantic-only results
         finalMatches = (semanticMatches || []).slice(0, match_count);
       }
@@ -117,8 +117,8 @@ export async function POST(req: Request) {
       }), 
       { status: 200 }
     ));
-  } catch (e: any) {
-    console.error('Query error:', e);
+  } catch (e: unknown) {
+    // console.error('Query error:', e);
     return withCORS(new Response(
       JSON.stringify({ error: e.message || "query failed" }), 
       { status: 500 }

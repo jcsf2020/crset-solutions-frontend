@@ -1,4 +1,4 @@
-interface Ctx { requestId?: string; duration?: number; ip?: string; error?: string; stack?: string; [k:string]: any }
+interface Ctx { requestId?: string; duration?: number; ip?: string; error?: string; stack?: string; [k:string]: unknown }
 type Level = 'info'|'warn'|'error'|'debug';
 
 class Logger {
@@ -14,7 +14,7 @@ class Logger {
       ...ctx
     };
     if(entry.stack && level!=='error') delete entry.stack;
-    // console.log(JSON.stringify(entry));
+    // // console.log(JSON.stringify(entry));
   }
   info(m:string,c?:Ctx){ this.out('info',m,c) }
   warn(m:string,c?:Ctx){ this.out('warn',m,c) }

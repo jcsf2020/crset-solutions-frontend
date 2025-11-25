@@ -44,7 +44,7 @@ export default function HelpPageEN() {
         },
         {
           q: "Do you offer refunds?",
-          a: "We offer a 30-day money-back guarantee for all plans. If you're not satisfied, we'll refund your payment."
+          a: "We offer a 30-day money-back guarantee for all plans. If youyou'reapos;re not satisfied, we'll refund your payment."
         },
         {
           q: "Are there any setup fees?",

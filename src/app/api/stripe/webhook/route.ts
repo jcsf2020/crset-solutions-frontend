@@ -1,4 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
+import { apiErrorHandler } from '@/lib/apiErrorHandler';
+import Stripe from 'stripe';
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -29,14 +31,14 @@ export async function POST(req: Request) {
     }
 
     const raw = await req.text();
-    const { default: Stripe } = await import("stripe");
+    
     // @ts-expect-error apiVersion typing can differ by package version
     const stripe = new Stripe(key, { apiVersion: "2024-06-20" });
 
-    let event: any;
+    let event: unknown;
     try {
       event = stripe.webhooks.constructEvent(raw, sig, secret);
-    } catch (e: any) {
+    } catch (e: unknown) {
       return NextResponse.json(
         { ok: false, error: "invalid_signature", detail: e?.message },
         { status: 400 },
@@ -44,14 +46,10 @@ export async function POST(req: Request) {
     }
 
     // Minimal handler (log and 200). Expand as needed.
-    // console.log("stripe.webhook event:", event.type);
+    // // console.log("stripe.webhook event:", event.type);
     return NextResponse.json({ ok: true });
-  } catch (e: any) {
-    console.error("stripe.webhook fatal:", e);
-    return NextResponse.json(
-      { ok: false, error: "stripe_error", detail: e?.message },
-      { status: 500 },
-    );
+  } catch (e: unknown) {
+    return apiErrorHandler(e);
   }
 }
 

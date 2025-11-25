@@ -38,7 +38,7 @@ export async function GET(req: Request) {
         currency: (sess as any).currency,
       },
     });
-  } catch (e: any) {
+  } catch (e: unknown) {
     return NextResponse.json(
       { ok: false, error: "stripe_error", detail: e?.message },
       { status: 500 },

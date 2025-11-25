@@ -7,7 +7,7 @@ function b64url(input: Buffer | string) {
   return b.toString("base64").replace(/=/g,"").replace(/\+/g,"-").replace(/\//g,"_");
 }
 
-export function sign(payload: Record<string, any>, secret: string, expSec = 60*60*8) {
+export function sign(payload: Record<string, unknown>, secret: string, expSec = 60*60*8) {
   const header = { alg: ALG, typ: "JWT" };
   const now = Math.floor(Date.now()/1000);
   const body = { iat: now, exp: now + expSec, ...payload };
@@ -18,7 +18,7 @@ export function sign(payload: Record<string, any>, secret: string, expSec = 60*6
   return `${data}.${b64url(sig)}`;
 }
 
-export function verify(token: string, secret: string): null | Record<string, any> {
+export function verify(token: string, secret: string): null | Record<string, unknown> {
   try {
     const [head, bod, sig] = token.split(".");
     if (!head || !bod || !sig) return null;

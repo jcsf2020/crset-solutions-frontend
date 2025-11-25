@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 interface AnalyticsEvent {
   event: string;
-  properties?: Record<string, any>;
+  properties?: Record<string, unknown>;
   user_id?: string;
   session_id?: string;
   timestamp?: string;
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       };
 
       pageViews.push(pageView);
-      // console.log('PageView registada:', pageView);
+      // // console.log('PageView registada:', pageView);
 
       return NextResponse.json({
         ok: true,
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       };
 
       events.push(event);
-      // console.log('Evento registado:', event);
+      // // console.log('Evento registado:', event);
 
       return NextResponse.json({
         ok: true,
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
     );
 
   } catch (error) {
-    console.error('Erro ao processar analytics:', error);
+    // console.error('Erro ao processar analytics:', error);
     return NextResponse.json(
       { ok: false, error: 'Erro interno do servidor' },
       { status: 500 }

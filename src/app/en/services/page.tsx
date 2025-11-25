@@ -18,7 +18,7 @@ export default function ServicesPageEN() {
     {
       icon: "🤖",
       title: "Process Automation",
-      description: "Automate repetitive tasks and increase your team's efficiency.",
+      description: "Automate repetitive tasks and increase your team'sapos;s efficiency.",
       features: [
         "RPA (Robotic Process Automation)",
         "System integration",

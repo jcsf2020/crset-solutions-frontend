@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export default function RAGDemoPageEN() {
   const [query, setQuery] = useState('');
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<unknown>(null);
   const [loading, setLoading] = useState(false);
 
   const exampleQueries = [
@@ -123,7 +123,7 @@ export default function RAGDemoPageEN() {
                         <div className="mt-6">
                           <h3 className="font-bold text-lg mb-4">Relevant Documents:</h3>
                           <div className="space-y-4">
-                            {result.documents.map((doc: any, index: number) => (
+                            {result.documents.map((doc: unknown, index: number) => (
                               <div key={index} className="border border-gray-200 rounded-lg p-4">
                                 <div className="flex justify-between items-start mb-2">
                                   <h4 className="font-bold">{doc.metadata?.title || 'Document'}</h4>

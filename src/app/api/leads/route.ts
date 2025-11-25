@@ -41,13 +41,13 @@ export async function POST(req: Request) {
     const supabase = getSupabaseAdmin(); // cria só em runtime
     const { error } = await supabase.from("leads").insert(lead);
     if (error) {
-      console.error("supabase.insert error:", error);
+      // console.error("supabase.insert error:", error);
       return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
     }
 
     return NextResponse.json({ ok: true, lead }, { status: 200 });
-  } catch (e: any) {
-    console.error("leads.POST fatal:", e);
+  } catch (e: unknown) {
+    // console.error("leads.POST fatal:", e);
     return NextResponse.json({ ok: false, error: e?.message ?? "fatal" }, { status: 500 });
   }
 }
