@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export const metadata: Metadata = {
   title: "Help & FAQ - CRSET Solutions",
@@ -6,7 +8,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://crsetsolutions.com/en/help",
     languages: {
-      'pt': 'https://crsetsolutions.com/centro-de-ajuda',
+      'pt': 'https://crsetsolutions.com/ajuda',
       'en': 'https://crsetsolutions.com/en/help',
     },
   },
@@ -107,8 +109,24 @@ export default function HelpPageEN() {
 
   return (
     <div className="min-h-screen">
+      {/* Header Navigation */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <Link href="/en" className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            CRSET<br />Solutions
+          </Link>
+          <nav className="hidden md:flex gap-8">
+            <Link href="/en" className="text-gray-600 hover:text-purple-600 transition">Home</Link>
+            <Link href="/en/services" className="text-gray-600 hover:text-purple-600 transition">Services</Link>
+            <Link href="/en/pricing" className="text-gray-600 hover:text-purple-600 transition">Pricing</Link>
+            <Link href="/en/help" className="text-purple-600 font-semibold">Help</Link>
+          </nav>
+          <LanguageSwitcher />
+        </div>
+      </header>
+
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+      <section className="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-5xl font-bold mb-6">Help & FAQ</h1>
@@ -125,13 +143,13 @@ export default function HelpPageEN() {
           <div className="max-w-4xl mx-auto space-y-12">
             {faqs.map((category, catIndex) => (
               <div key={catIndex}>
-                <h2 className="text-3xl font-bold mb-6 text-blue-600">
+                <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   {category.category}
                 </h2>
                 <div className="space-y-6">
                   {category.questions.map((faq, qIndex) => (
-                    <div key={qIndex} className="bg-white p-6 rounded-lg shadow">
-                      <h3 className="font-bold text-xl mb-3">{faq.q}</h3>
+                    <div key={qIndex} className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+                      <h3 className="font-bold text-xl mb-3 text-gray-900">{faq.q}</h3>
                       <p className="text-gray-600">{faq.a}</p>
                     </div>
                   ))}
@@ -143,23 +161,58 @@ export default function HelpPageEN() {
       </section>
 
       {/* Contact CTA */}
-      <section className="bg-gray-100 py-20">
+      <section className="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-4">
             Didn't find what you were looking for?
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl mb-8">
             Our team is here to help answer your questions
           </p>
-          <a
+          <Link
             href="/en/contact"
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition inline-block"
+            className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition inline-block"
           >
             Contact us
-          </a>
+          </Link>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-300 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="text-white font-bold mb-4">CRSET Solutions</h3>
+              <p className="text-sm">Smart solutions for your business</p>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Company</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/en" className="hover:text-white transition">Home</Link></li>
+                <li><Link href="/en/services" className="hover:text-white transition">Services</Link></li>
+                <li><Link href="/en/pricing" className="hover:text-white transition">Pricing</Link></li>
+                <li><Link href="/en/contact" className="hover:text-white transition">Contact</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/privacy" className="hover:text-white transition">Privacy</Link></li>
+                <li><Link href="/terms" className="hover:text-white transition">Terms</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Contact</h4>
+              <p className="text-sm">Email: crsetsolutions@gmail.com</p>
+              <p className="text-sm">WhatsApp: +351 914 423 688</p>
+            </div>
+          </div>
+          <div className="border-t border-gray-700 pt-8 text-center text-sm">
+            <p>&copy; 2025 CRSET Solutions. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
-

@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Contact - CRSET Solutions",
@@ -15,8 +18,24 @@ export const metadata: Metadata = {
 export default function ContactPageEN() {
   return (
     <div className="min-h-screen">
+      {/* Header Navigation */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <Link href="/en" className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            CRSET<br />Solutions
+          </Link>
+          <nav className="hidden md:flex gap-8">
+            <Link href="/en" className="text-gray-600 hover:text-purple-600 transition">Home</Link>
+            <Link href="/en/services" className="text-gray-600 hover:text-purple-600 transition">Services</Link>
+            <Link href="/en/pricing" className="text-gray-600 hover:text-purple-600 transition">Pricing</Link>
+            <Link href="/en/contact" className="text-purple-600 font-semibold">Contact</Link>
+          </nav>
+          <LanguageSwitcher />
+        </div>
+      </header>
+
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+      <section className="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-5xl font-bold mb-6">Contact Us</h1>
@@ -34,7 +53,7 @@ export default function ContactPageEN() {
             {/* Contact Form */}
             <div>
               <h2 className="text-3xl font-bold mb-6">Send us a message</h2>
-              <form className="space-y-6">
+              <form className="space-y-6" action="/api/contact" method="POST">
                 <div>
                   <label htmlFor="name" className="block font-medium mb-2">
                     Name *
@@ -44,7 +63,7 @@ export default function ContactPageEN() {
                     id="name"
                     name="name"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="Your name"
                   />
                 </div>
@@ -58,7 +77,7 @@ export default function ContactPageEN() {
                     id="email"
                     name="email"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -71,7 +90,7 @@ export default function ContactPageEN() {
                     type="text"
                     id="company"
                     name="company"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="Your company"
                   />
                 </div>
@@ -85,14 +104,14 @@ export default function ContactPageEN() {
                     name="message"
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="Tell us about your project..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition"
                 >
                   Send message
                 </button>
@@ -100,82 +119,122 @@ export default function ContactPageEN() {
             </div>
 
             {/* Contact Info */}
-            <div>
-              <h2 className="text-3xl font-bold mb-6">Contact Information</h2>
-              
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold mb-6">Get in touch</h3>
+                <p className="text-gray-600 mb-8">
+                  Have a question or want to discuss your project? We'd love to hear from you. Reach out using any of the methods below.
+                </p>
+              </div>
+
+              {/* Contact Methods */}
               <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="text-2xl mr-4">📧</div>
+                {/* Phone */}
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600">
+                      <Phone className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
                   <div>
-                    <h3 className="font-bold mb-1">Email</h3>
-                    <a href="mailto:crsetsolutions@gmail.com" className="text-blue-600 hover:underline">
-                      crsetsolutions@gmail.com
-                    </a>
+                    <h4 className="text-lg font-semibold text-gray-900">Phone</h4>
+                    <p className="text-gray-600">+351 914 423 688</p>
                   </div>
                 </div>
 
-                <div className="flex items-start">
-                  <div className="text-2xl mr-4">📞</div>
+                {/* Email */}
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600">
+                      <Mail className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
                   <div>
-                    <h3 className="font-bold mb-1">WhatsApp (24/7)</h3>
-                    <a href="https://wa.me/351914423688" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
-                      +351 914 423 688
-                    </a>
+                    <h4 className="text-lg font-semibold text-gray-900">Email</h4>
+                    <p className="text-gray-600">crsetsolutions@gmail.com</p>
                   </div>
                 </div>
 
-                <div className="flex items-start">
-                  <div className="text-2xl mr-4">📍</div>
+                {/* Location */}
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600">
+                      <MapPin className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
                   <div>
-                    <h3 className="font-bold mb-1">Address</h3>
-                    <p className="text-gray-600">
-                      Vila Nova de Gaia, Porto, Portugal
-                    </p>
+                    <h4 className="text-lg font-semibold text-gray-900">Location</h4>
+                    <p className="text-gray-600">Vila Nova de Gaia, Porto, Portugal</p>
                   </div>
                 </div>
 
-                <div className="flex items-start">
-                  <div className="text-2xl mr-4">🕐</div>
+                {/* Hours */}
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600">
+                      <Clock className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
                   <div>
-                    <h3 className="font-bold mb-1">Availability</h3>
-                    <p className="text-gray-600">
-                      WhatsApp: 24/7<br />
-                      Email: Response within 24h
-                    </p>
+                    <h4 className="text-lg font-semibold text-gray-900">24/7 Service</h4>
+                    <p className="text-gray-600">We're available around the clock to support your needs</p>
                   </div>
                 </div>
               </div>
 
-              {/* Social Links */}
-              <div className="mt-12">
-                <h3 className="font-bold mb-4">Follow us</h3>
-                <div className="flex gap-4">
-                  <a href="#" className="text-gray-600 hover:text-blue-600 transition">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-600 hover:text-blue-600 transition">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-                    </svg>
-                  </a>
-                </div>
+              {/* WhatsApp CTA */}
+              <div className="mt-8 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
+                <h4 className="font-semibold text-gray-900 mb-2">Prefer WhatsApp?</h4>
+                <p className="text-gray-600 mb-4">Chat with us directly on WhatsApp for quick responses.</p>
+                <a
+                  href="https://wa.me/351914423688?text=Hi! I would like to know more about CRSET services."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition"
+                >
+                  WhatsApp direct
+                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Map Section (Placeholder) */}
-      <section className="bg-gray-100 py-20">
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-300 py-12">
         <div className="container mx-auto px-4">
-          <div className="bg-gray-300 h-96 rounded-lg flex items-center justify-center">
-            <p className="text-gray-600 text-lg">Map placeholder - Vila Nova de Gaia, Porto, Portugal</p>
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="text-white font-bold mb-4">CRSET Solutions</h3>
+              <p className="text-sm">Smart solutions for your business</p>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Company</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/en" className="hover:text-white transition">Home</Link></li>
+                <li><Link href="/en/services" className="hover:text-white transition">Services</Link></li>
+                <li><Link href="/en/pricing" className="hover:text-white transition">Pricing</Link></li>
+                <li><Link href="/en/help" className="hover:text-white transition">Help</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/privacy" className="hover:text-white transition">Privacy</Link></li>
+                <li><Link href="/terms" className="hover:text-white transition">Terms</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Contact</h4>
+              <p className="text-sm">Email: crsetsolutions@gmail.com</p>
+              <p className="text-sm">WhatsApp: +351 914 423 688</p>
+            </div>
+          </div>
+          <div className="border-t border-gray-700 pt-8 text-center text-sm">
+            <p>&copy; 2025 CRSET Solutions. All rights reserved.</p>
           </div>
         </div>
-      </section>
+      </footer>
     </div>
   );
 }
-
