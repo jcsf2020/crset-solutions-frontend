@@ -14,12 +14,32 @@ export function LanguageSwitcher() {
 
     let newPathname: string | null;
     
+    // Route mapping between PT and EN
+    const ptToEnMap: Record<string, string> = {
+      '/': '/en',
+      '/servicos': '/en/services',
+      '/precos': '/en/pricing',
+      '/centro-de-ajuda': '/en/help',
+      '/faq': '/en/help',
+      '/contacto': '/en/contact',
+      '/rag-demo': '/en/rag-demo',
+    };
+
+    const enToPtMap: Record<string, string> = {
+      '/en': '/',
+      '/en/services': '/servicos',
+      '/en/pricing': '/precos',
+      '/en/help': '/centro-de-ajuda',
+      '/en/contact': '/contacto',
+      '/en/rag-demo': '/rag-demo',
+    };
+    
     if (newLocale === 'en') {
-      // Switch to English: add /en prefix
-      newPathname = pathname?.startsWith('/en') ? pathname : `/en${pathname || ''}`;
+      // Switch to English
+      newPathname = ptToEnMap[pathname || '/'] || '/en';
     } else {
-      // Switch to Portuguese: remove /en prefix
-      newPathname = pathname?.replace(/^\/en/, '') || '/';
+      // Switch to Portuguese
+      newPathname = enToPtMap[pathname || '/en'] || '/';
     }
 
     router.push(newPathname || '/');
@@ -44,4 +64,3 @@ export function LanguageSwitcher() {
     </div>
   );
 }
-
