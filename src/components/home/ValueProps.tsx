@@ -1,36 +1,41 @@
+'use client';
+
 import { Clock, BarChart3, Target, MessageCircle, Zap, Shield } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function ValueProps() {
+  const t = useTranslations();
+  
   const props = [
     {
       icon: Clock,
-      title: "Entrega rápida",
-      description: "Ciclos curtos, impacto visível em dias, não meses. Prototipagem rápida e iteração contínua."
+      title: t('homepage.features.fastDelivery.title'),
+      description: t('homepage.features.fastDelivery.description')
     },
     {
       icon: BarChart3,
-      title: "KPIs visíveis",
-      description: "Métricas claras em produção, dashboards transparentes e relatórios automáticos."
+      title: t('homepage.features.visibleKPIs.title'),
+      description: t('homepage.features.visibleKPIs.description')
     },
     {
       icon: Target,
-      title: "Sem circo",
-      description: "Design sóbrio, foco no resultado. Zero buzzwords, máxima eficiência."
+      title: t('homepage.features.noNonsense.title'),
+      description: t('homepage.features.noNonsense.description')
     },
     {
       icon: MessageCircle,
-      title: "Suporte direto",
-      description: "Fala com quem faz, sem camadas. Acesso direto aos técnicos."
+      title: t('homepage.features.directSupport.title'),
+      description: t('homepage.features.directSupport.description')
     },
     {
       icon: Zap,
-      title: "Automação inteligente",
-      description: "AGI aplicada onde faz sentido. Processos otimizados com tecnologia de ponta."
+      title: t('homepage.features.intelligentAutomation.title'),
+      description: t('homepage.features.intelligentAutomation.description')
     },
     {
       icon: Shield,
-      title: "Segurança garantida",
-      description: "Código auditado, infraestrutura segura e conformidade com GDPR."
+      title: t('homepage.features.guaranteedSecurity.title'),
+      description: t('homepage.features.guaranteedSecurity.description')
     }
   ];
 
@@ -39,14 +44,13 @@ export function ValueProps() {
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-            Por que escolher a{" "}
+            {t('homepage.features.title')}{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
               CRSET?
             </span>
           </h2>
           <p className="text-xl text-slate-700 max-w-3xl mx-auto leading-relaxed">
-            Automação que funciona, sem drama. Resultados práticos com transparência total 
-            e tecnologia de vanguarda.
+            {t('homepage.features.subtitle')}
           </p>
         </div>
 
@@ -74,11 +78,10 @@ export function ValueProps() {
         <div className="mt-16 text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-green-50 border border-green-200 px-4 py-2 text-sm font-medium text-green-700 mb-4">
             <span className="h-2 w-2 rounded-full bg-green-500" />
-            Tudo pronto para começar
+            {t('homepage.cta.readyToStart')}
           </div>
           <p className="text-lg text-slate-700 mb-8 max-w-2xl mx-auto">
-            Infraestrutura robusta, processos testados e equipa experiente. 
-            O próximo passo é seu.
+            {t('homepage.cta.description')}
           </p>
         </div>
       </div>

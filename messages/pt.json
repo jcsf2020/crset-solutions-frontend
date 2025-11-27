@@ -64,7 +64,9 @@
     "cta": {
       "title": "Pronto para transformar o seu negócio?",
       "subtitle": "Contacte-nos hoje e descubra como podemos ajudar.",
-      "button": "Agendar consulta gratuita"
+      "button": "Agendar consulta gratuita",
+      "readyToStart": "Tudo pronto para começar",
+      "description": "Infraestrutura robusta, processos testados e equipa experiente. O próximo passo é seu."
     }
   },
   "services": {

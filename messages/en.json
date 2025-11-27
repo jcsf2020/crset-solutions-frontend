@@ -39,19 +39,31 @@
       "ctaSecondary": "View services"
     },
     "features": {
-      "title": "Why choose CRSET Solutions?",
-      "subtitle": "We offer complete and customized solutions for your business",
-      "automation": {
-        "title": "Intelligent Automation",
-        "description": "Automate repetitive processes and increase your team's productivity."
+      "title": "Why choose",
+      "subtitle": "Automation that works, no drama. Practical results with total transparency and cutting-edge technology.",
+      "fastDelivery": {
+        "title": "Fast delivery",
+        "description": "Short cycles, visible impact in days, not months. Rapid prototyping and continuous iteration."
       },
-      "security": {
-        "title": "Cybersecurity",
-        "description": "Protect your data and systems against cyber threats."
+      "visibleKPIs": {
+        "title": "Visible KPIs",
+        "description": "Clear metrics in production, transparent dashboards and automated reports."
       },
-      "development": {
-        "title": "Development",
-        "description": "We create customized solutions for your business needs."
+      "noNonsense": {
+        "title": "No nonsense",
+        "description": "Sober design, focus on results. Zero buzzwords, maximum efficiency."
+      },
+      "directSupport": {
+        "title": "Direct support",
+        "description": "Talk to those who do it, no layers. Direct access to technicians."
+      },
+      "intelligentAutomation": {
+        "title": "Intelligent automation",
+        "description": "AGI applied where it makes sense. Optimized processes with cutting-edge technology."
+      },
+      "guaranteedSecurity": {
+        "title": "Guaranteed security",
+        "description": "Audited code, secure infrastructure and GDPR compliance."
       }
     },
     "stats": {
@@ -64,7 +76,9 @@
     "cta": {
       "title": "Ready to transform your business?",
       "subtitle": "Contact us today and discover how we can help.",
-      "button": "Schedule free consultation"
+      "button": "Schedule free consultation",
+      "readyToStart": "Everything ready to start",
+      "description": "Robust infrastructure, tested processes and experienced team. The next step is yours."
     }
   },
   "services": {
@@ -189,4 +203,3 @@
     }
   }
 }
-
