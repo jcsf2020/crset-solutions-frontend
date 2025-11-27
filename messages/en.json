@@ -182,6 +182,33 @@
       "knowledge": "Knowledge base not yet populated"
     }
   },
+  "hero": {
+    "subtitle": "Practical automation. No nonsense.",
+    "agiCta": "Questions? Talk to AGI Commander",
+    "mascots": "Mascots"
+  },
+  "howWeWork": {
+    "title": "How we",
+    "titleHighlight": "work",
+    "subtitle": "Simple, transparent process focused on measurable results. Every step is documented and validated.",
+    "step1": {
+      "title": "Diagnosis",
+      "subtitle": "≤48h",
+      "description": "Complete map of pain points and opportunities. Detailed technical analysis and quick wins identification."
+    },
+    "step2": {
+      "title": "Plan & OKRs",
+      "subtitle": "Clear strategy",
+      "description": "What changes, how we measure, when we deliver. Detailed roadmap with measurable milestones."
+    },
+    "step3": {
+      "title": "Delivery & Operation",
+      "subtitle": "Continuous improvement",
+      "description": "Short iterations, real-time monitoring and data-driven optimization."
+    },
+    "cta": "Process tested on dozens of projects",
+    "ctaDescription": "Every step is optimized for maximum efficiency and transparency. No surprises, no delays."
+  },
   "contact": {
     "title": "Contact",
     "subtitle": "Get in touch with us",

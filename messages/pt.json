@@ -170,6 +170,33 @@
       "knowledge": "Base de conhecimento ainda não populada"
     }
   },
+  "hero": {
+    "subtitle": "Automação prática. Sem circo.",
+    "agiCta": "Dúvidas? Fale com o AGI Commander",
+    "mascots": "Mascotes"
+  },
+  "howWeWork": {
+    "title": "Como",
+    "titleHighlight": "trabalhamos",
+    "subtitle": "Processo simples, transparente e focado em resultados mensuráveis. Cada passo é documentado e validado.",
+    "step1": {
+      "title": "Diagnóstico",
+      "subtitle": "≤48h",
+      "description": "Mapa completo de dores e oportunidades. Análise técnica detalhada e identificação de quick wins."
+    },
+    "step2": {
+      "title": "Plano & OKRs",
+      "subtitle": "Estratégia clara",
+      "description": "O que muda, como medimos, quando entregamos. Roadmap detalhado com marcos mensuráveis."
+    },
+    "step3": {
+      "title": "Entrega & Operação",
+      "subtitle": "Melhoria contínua",
+      "description": "Iterações curtas, monitorização em tempo real e otimização baseada em dados."
+    },
+    "cta": "Processo testado em dezenas de projetos",
+    "ctaDescription": "Cada etapa é otimizada para máxima eficiência e transparência. Sem surpresas, sem atrasos."
+  },
   "contact": {
     "title": "Contacto",
     "subtitle": "Entre em contacto connosco",
