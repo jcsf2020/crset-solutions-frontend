@@ -2,27 +2,24 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
 
 export function FAQ() {
-  const t = useTranslations();
-
   const faqs = [
     {
-      question: t('faq.q1.question'),
-      answer: t('faq.q1.answer')
+      question: "How long does implementation take?",
+      answer: "Implementation time varies depending on project complexity, but typically between 2 to 8 weeks."
     },
     {
-      question: t('faq.q2.question'),
-      answer: t('faq.q2.answer')
+      question: "Do you offer support after implementation?",
+      answer: "Yes, all our plans include ongoing support. The level of support varies depending on the chosen plan."
     },
     {
-      question: t('faq.q3.question'),
-      answer: t('faq.q3.answer')
+      question: "Can I cancel at any time?",
+      answer: "Yes, you can cancel your plan at any time without penalties."
     },
     {
-      question: t('faq.q4.question'),
-      answer: t('faq.q4.answer')
+      question: "What technologies do you work with?",
+      answer: "We work with the latest technologies, including Python, Node.js, React, Next.js, and AI tools like OpenAI and Anthropic."
     }
   ];
 
@@ -31,10 +28,10 @@ export function FAQ() {
       <div className="container mx-auto max-w-4xl px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-semibold mb-4">
-            {t('faq.title')}
+            Frequently Asked Questions
           </h2>
           <p className="text-slate-600">
-            {t('faq.subtitle')}
+            Find answers to your questions
           </p>
         </div>
 
@@ -55,19 +52,19 @@ export function FAQ() {
         <div className="text-center space-y-6">
           <div>
             <h3 className="text-2xl font-semibold mb-3">
-              {t('homepage.cta.readyToStart')}
+              Ready to get started?
             </h3>
             <p className="text-slate-700 mb-6">
-              {t('homepage.cta.description')}
+              Choose your starting point. No long-term commitments.
             </p>
           </div>
           
           <div className="flex flex-wrap gap-4 justify-center">
             <Button asChild size="lg" className="rounded-xl px-8 py-3">
-              <Link href="/servicos">{t('nav.services')}</Link>
+              <Link href="/en/services">View Services</Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="rounded-xl px-8 py-3">
-              <Link href="/precos">{t('nav.pricing')}</Link>
+              <Link href="/en/pricing">View Pricing</Link>
             </Button>
           </div>
         </div>

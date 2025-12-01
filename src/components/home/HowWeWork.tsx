@@ -1,32 +1,29 @@
 'use client';
 
 import { Search, FileText, Cog, ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 export function HowWeWork() {
-  const t = useTranslations();
-
   const steps = [
     {
       number: "01",
       icon: Search,
-      title: t('howWeWork.step1.title'),
-      subtitle: t('howWeWork.step1.subtitle'),
-      description: t('howWeWork.step1.description')
+      title: "Diagnosis",
+      subtitle: "≤48h",
+      description: "Complete map of pain points and opportunities. Detailed technical analysis and quick wins identification."
     },
     {
       number: "02", 
       icon: FileText,
-      title: t('howWeWork.step2.title'),
-      subtitle: t('howWeWork.step2.subtitle'),
-      description: t('howWeWork.step2.description')
+      title: "Plan & OKRs",
+      subtitle: "Clear strategy",
+      description: "What changes, how we measure, when we deliver. Detailed roadmap with measurable milestones."
     },
     {
       number: "03",
       icon: Cog,
-      title: t('howWeWork.step3.title'), 
-      subtitle: t('howWeWork.step3.subtitle'),
-      description: t('howWeWork.step3.description')
+      title: "Delivery & Operation", 
+      subtitle: "Continuous improvement",
+      description: "Short iterations, real-time monitoring and data-driven optimization."
     }
   ];
 
@@ -35,13 +32,13 @@ export function HowWeWork() {
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-            {t('howWeWork.title')}{" "}
+            How we{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              {t('howWeWork.titleHighlight')}
+              work
             </span>
           </h2>
           <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
-            {t('howWeWork.subtitle')}
+            Simple, transparent process focused on measurable results. Every step is documented and validated.
           </p>
         </div>
 
@@ -97,10 +94,10 @@ export function HowWeWork() {
         <div className="mt-16 text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-gradient-subtle border border-neutral-200 px-6 py-3 text-sm font-medium text-neutral-700 mb-6">
             <Cog className="h-4 w-4 text-primary animate-spin" style={{animationDuration: '3s'}} />
-            {t('howWeWork.cta')}
+            Process tested on dozens of projects
           </div>
           <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-            {t('howWeWork.ctaDescription')}
+            Every step is optimized for maximum efficiency and transparency. No surprises, no delays.
           </p>
         </div>
       </div>
