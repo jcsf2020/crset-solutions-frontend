@@ -1,102 +1,167 @@
 # CRSET Solutions Frontend
 
-🚀 **Sistema de automação inteligente com design sci-fi premium**
+Production-ready SaaS boilerplate with Next.js 14, FastAPI, and enterprise integrations.
 
-## 🎯 Sobre o Projeto
+## 🚀 Features
 
-Plataforma empresarial completa construída com Next.js 14, apresentando soluções de automação inteligente com design sci-fi premium, glassmorphism e animações suaves.
+- **Modern Stack:** Next.js 14 + React 18 + TypeScript + TailwindCSS
+- **Multi-language:** Portuguese & English with i18n
+- **Performance:** Lighthouse 100/100 (Desktop & Mobile)
+- **Security:** Row Level Security (RLS), GDPR compliant
+- **Integrations:** Stripe, Sentry, Vercel, Cloudflare, Notion
+- **CI/CD:** Automated deployments with Vercel
+- **Monitoring:** Error tracking with Sentry
+- **Database:** Supabase with PostgreSQL
 
-## ✨ Características
+## 📋 Project Structure
 
-- **Design Sci-Fi Premium**: Interface moderna com glassmorphism e efeitos visuais
-- **Chat IA Funcional**: Sistema de chat com gating por ambiente (preview/produção)
-- **Automação Empresarial**: Soluções completas para empresas de todos os tamanhos
-- **Performance Otimizada**: Lighthouse 100/100/100/100 (Performance/A11y/Best Practices/SEO)
-- **Totalmente Responsivo**: Experiência perfeita em desktop, tablet e mobile
-- **Acessibilidade AA**: Conformidade total com WCAG 2.1
-
-## 🛠️ Stack Tecnológica
-
-- **Framework**: Next.js 14 (App Router)
-- **Linguagem**: TypeScript
-- **Estilização**: Tailwind CSS + CSS Custom Properties
-- **Animações**: Framer Motion
-- **UI Components**: Radix UI + shadcn/ui
-- **Backend**: Supabase + Prisma
-- **Pagamentos**: Stripe
-- **Email**: Resend
-- **Monitorização**: Sentry
-- **Deploy**: Vercel
-
-## 📋 Variáveis de Ambiente Obrigatórias
-
-```env
-# Chat System
-CHAT_FLAG_SECRET=your-secret-key-for-hmac-signing
-
-# Email (Resend)
-RESEND_API_KEY=re_xxxxxxxxxx
-RESEND_FROM="CRSET <no-reply@crsetsolutions.com>"
-CONTACT_TO="crsetsolutions@gmail.com"
-
-# Database (Supabase)
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-
-# Monitoring (Sentry)
-SENTRY_DSN=https://your-dsn@sentry.io/project-id
+```
+crset-solutions-frontend/
+├── src/
+│   ├── app/              # Next.js app directory
+│   │   ├── pt/          # Portuguese pages
+│   │   ├── en/          # English pages
+│   │   └── layout.tsx   # Root layout
+│   ├── components/       # Reusable components
+│   │   ├── home/        # Homepage components
+│   │   ├── header.tsx   # Header with language switcher
+│   │   └── ...
+│   └── styles/          # Global styles
+├── messages/            # i18n translations
+│   ├── pt.json         # Portuguese
+│   └── en.json         # English
+├── public/              # Static assets
+└── package.json
 ```
 
-## 🚀 Instalação e Desenvolvimento
+## 🛠️ Installation
+
+### Prerequisites
+- Node.js 18+
+- pnpm (recommended) or npm
+
+### Setup
 
 ```bash
-# Clone o repositório
+# Clone repository
 git clone https://github.com/jcsf2020/crset-solutions-frontend.git
 cd crset-solutions-frontend
 
-# Instale as dependências
-npm install
+# Install dependencies
+pnpm install
 
-# Configure as variáveis de ambiente
+# Create .env.local
 cp .env.example .env.local
 
-# Execute em modo de desenvolvimento
-npm run dev
+# Run development server
+pnpm dev
 ```
 
-## 🔒 Sistema de Chat
+Visit http://localhost:3000
 
-### Preview (Desenvolvimento)
-- Chat liberado automaticamente quando `VERCEL_ENV=preview`
+## 📦 Environment Variables
 
-### Produção
-- Chat protegido por cookie HMAC
-- Login via `/chat-login` com password
-- Verificação através de `GET /api/flags/chat`
+```env
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
 
-## 📊 APIs Principais
+# Stripe
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
 
-- `GET /api/health` - Status do sistema
-- `GET /api/flags/chat` - Autorização do chat
-- `POST /api/contact` - Formulário de contacto
-- `GET /api/debug/sentry` - Debug do Sentry
-- `GET /api/metrics` - Métricas do sistema
+# Sentry
+NEXT_PUBLIC_SENTRY_DSN=
 
-## 📞 Contacto
+# Vercel
+VERCEL_PROJECT_ID=
+VERCEL_ORG_ID=
+```
 
-- **Email**: crsetsolutions@gmail.com
-- **WhatsApp**: +351 914 423 688
-- **Website**: https://crsetsolutions.com
-- **Localização**: Portugal
+## 🚀 Deployment
 
-## 🚀 Deploy
+### Vercel (Recommended)
 
-Este projeto está configurado para deploy automático no Vercel através do GitHub com CI/CD completo.
+```bash
+# Push to GitHub
+git push origin main
+
+# Vercel auto-deploys on push
+# Monitor at: https://vercel.com/dashboard
+```
+
+### Manual Build
+
+```bash
+pnpm build
+pnpm start
+```
+
+## 🧪 Testing
+
+```bash
+# Run tests
+pnpm test
+
+# Run Lighthouse audit
+pnpm lighthouse
+```
+
+## 📊 Performance Metrics
+
+- **Lighthouse Desktop:** 100/100/96/100
+- **Lighthouse Mobile:** 100/100/96/100
+- **Core Web Vitals:** All green
+- **Page Load:** <2s
+
+## 🔒 Security
+
+### Row Level Security (RLS)
+- Enabled on all public tables
+- Policies for authenticated users
+- Service role for admin operations
+
+### GDPR Compliance
+- Data encryption at rest
+- Secure authentication
+- Privacy policy included
+
+## 📝 Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+### Development Workflow
+
+1. Create feature branch: `git checkout -b feat/feature-name`
+2. Make changes and commit: `git commit -m "feat: description"`
+3. Push to GitHub: `git push origin feat/feature-name`
+4. Create Pull Request
+5. Wait for review and CI/CD checks
+6. Merge when approved
+
+## 🐛 Bug Reports
+
+Report bugs via [GitHub Issues](https://github.com/jcsf2020/crset-solutions-frontend/issues)
+
+## 📄 License
+
+MIT License - see LICENSE file
+
+## 👥 Authors
+
+- João Fonseca ([@jcsf2020](https://github.com/jcsf2020))
+- CRSET Solutions Team
+
+## 🙏 Acknowledgments
+
+- Next.js team for the amazing framework
+- Vercel for hosting and deployment
+- Supabase for backend infrastructure
+- All contributors and supporters
 
 ---
 
-© 2025 CRSET Solutions. Todos os direitos reservados.  
-*Soluções Digitais Inteligentes com Boris, Laya e Irina*
-
-
-[![E2E (Playwright)](https://github.com/jcsf2020/crset-solutions-frontend/actions/workflows/e2e.yml/badge.svg?branch=main)](https://github.com/jcsf2020/crset-solutions-frontend/actions/workflows/e2e.yml)
+**Last Updated:** December 1, 2025  
+**Version:** v3.1.0  
+**Status:** ✅ Production Ready
