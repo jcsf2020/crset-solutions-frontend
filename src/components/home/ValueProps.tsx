@@ -1,53 +1,99 @@
 'use client';
 
 import { Clock, BarChart3, Target, MessageCircle, Zap, Shield } from "lucide-react";
+import { useLocale } from "next-intl";
 
 export function ValueProps() {
-  const props = [
-    {
-      icon: Clock,
-      title: "Fast delivery",
-      description: "Short cycles, visible impact in days, not months. Rapid prototyping and continuous iteration."
-    },
-    {
-      icon: BarChart3,
-      title: "Visible KPIs",
-      description: "Clear metrics in production, transparent dashboards and automated reports."
-    },
-    {
-      icon: Target,
-      title: "No nonsense",
-      description: "Sober design, focus on results. Zero buzzwords, maximum efficiency."
-    },
-    {
-      icon: MessageCircle,
-      title: "Direct support",
-      description: "Talk to those who do it, no layers. Direct access to technicians."
-    },
-    {
-      icon: Zap,
-      title: "Intelligent automation",
-      description: "AGI applied where it makes sense. Optimized processes with cutting-edge technology."
-    },
-    {
-      icon: Shield,
-      title: "Guaranteed security",
-      description: "Audited code, secure infrastructure and GDPR compliance."
-    }
-  ];
+  const locale = useLocale();
+
+  const propsData = {
+    pt: [
+      {
+        icon: Clock,
+        title: "Entrega rápida",
+        description: "Ciclos curtos, impacto visível em dias, não meses. Prototipagem rápida e iteração contínua."
+      },
+      {
+        icon: BarChart3,
+        title: "KPIs visíveis",
+        description: "Métricas claras em produção, dashboards transparentes e relatórios automatizados."
+      },
+      {
+        icon: Target,
+        title: "Sem circo",
+        description: "Design sóbrio, foco em resultados. Zero buzzwords, máxima eficiência."
+      },
+      {
+        icon: MessageCircle,
+        title: "Suporte direto",
+        description: "Fale com quem faz, sem intermediários. Acesso direto aos técnicos."
+      },
+      {
+        icon: Zap,
+        title: "Automação inteligente",
+        description: "AGI aplicada onde faz sentido. Processos otimizados com tecnologia de ponta."
+      },
+      {
+        icon: Shield,
+        title: "Segurança garantida",
+        description: "Código auditado, infraestrutura segura e conformidade GDPR."
+      }
+    ],
+    en: [
+      {
+        icon: Clock,
+        title: "Fast delivery",
+        description: "Short cycles, visible impact in days, not months. Rapid prototyping and continuous iteration."
+      },
+      {
+        icon: BarChart3,
+        title: "Visible KPIs",
+        description: "Clear metrics in production, transparent dashboards and automated reports."
+      },
+      {
+        icon: Target,
+        title: "No nonsense",
+        description: "Sober design, focus on results. Zero buzzwords, maximum efficiency."
+      },
+      {
+        icon: MessageCircle,
+        title: "Direct support",
+        description: "Talk to those who do it, no layers. Direct access to technicians."
+      },
+      {
+        icon: Zap,
+        title: "Intelligent automation",
+        description: "AGI applied where it makes sense. Optimized processes with cutting-edge technology."
+      },
+      {
+        icon: Shield,
+        title: "Guaranteed security",
+        description: "Audited code, secure infrastructure and GDPR compliance."
+      }
+    ]
+  };
+
+  const props = locale === 'pt' ? propsData.pt : propsData.en;
+  
+  const headingText = locale === 'pt' ? 'Por que escolher' : 'Why choose';
+  const headingHighlight = 'CRSET?';
+  const subheadingText = locale === 'pt' 
+    ? 'Automação que funciona, sem drama. Resultados práticos com total transparência e tecnologia de ponta.'
+    : 'Automation that works, no drama. Practical results with total transparency and cutting-edge technology.';
+  const readyText = locale === 'pt' ? 'Tudo pronto para começar' : 'Everything ready to start';
 
   return (
     <section className="py-20">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-            Why choose{" "}
+            {headingText}{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              CRSET?
+              {headingHighlight}
             </span>
           </h2>
           <p className="text-xl text-slate-700 max-w-3xl mx-auto leading-relaxed">
-            Automation that works, no drama. Practical results with total transparency and cutting-edge technology.
+            {subheadingText}
           </p>
         </div>
 
@@ -75,10 +121,13 @@ export function ValueProps() {
         <div className="mt-16 text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-green-50 border border-green-200 px-4 py-2 text-sm font-medium text-green-700 mb-4">
             <span className="h-2 w-2 rounded-full bg-green-500" />
-            Everything ready to start
+            {readyText}
           </div>
           <p className="text-lg text-slate-700 mb-8 max-w-2xl mx-auto">
-            Robust infrastructure, tested processes and experienced team. The next step is yours.
+            {locale === 'pt'
+              ? 'Infraestrutura robusta, processos testados e equipa experiente. O próximo passo é seu.'
+              : 'Robust infrastructure, tested processes and experienced team. The next step is yours.'
+            }
           </p>
         </div>
       </div>

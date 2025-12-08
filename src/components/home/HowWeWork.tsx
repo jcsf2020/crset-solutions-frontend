@@ -1,44 +1,83 @@
 'use client';
 
 import { Search, FileText, Cog, ArrowRight } from "lucide-react";
+import { useLocale } from "next-intl";
 
 export function HowWeWork() {
-  const steps = [
-    {
-      number: "01",
-      icon: Search,
-      title: "Diagnosis",
-      subtitle: "≤48h",
-      description: "Complete map of pain points and opportunities. Detailed technical analysis and quick wins identification."
-    },
-    {
-      number: "02", 
-      icon: FileText,
-      title: "Plan & OKRs",
-      subtitle: "Clear strategy",
-      description: "What changes, how we measure, when we deliver. Detailed roadmap with measurable milestones."
-    },
-    {
-      number: "03",
-      icon: Cog,
-      title: "Delivery & Operation", 
-      subtitle: "Continuous improvement",
-      description: "Short iterations, real-time monitoring and data-driven optimization."
-    }
-  ];
+  const locale = useLocale();
+
+  const stepsData = {
+    pt: [
+      {
+        number: "01",
+        icon: Search,
+        title: "Diagnóstico",
+        subtitle: "≤48h",
+        description: "Mapa completo de dores e oportunidades. Análise técnica detalhada e identificação de quick wins."
+      },
+      {
+        number: "02", 
+        icon: FileText,
+        title: "Plano & OKRs",
+        subtitle: "Estratégia clara",
+        description: "O que muda, como medimos, quando entregamos. Roadmap detalhado com marcos mensuráveis."
+      },
+      {
+        number: "03",
+        icon: Cog,
+        title: "Entrega & Operação", 
+        subtitle: "Melhoria contínua",
+        description: "Iterações curtas, monitorização em tempo real e otimização baseada em dados."
+      }
+    ],
+    en: [
+      {
+        number: "01",
+        icon: Search,
+        title: "Diagnosis",
+        subtitle: "≤48h",
+        description: "Complete map of pain points and opportunities. Detailed technical analysis and quick wins identification."
+      },
+      {
+        number: "02", 
+        icon: FileText,
+        title: "Plan & OKRs",
+        subtitle: "Clear strategy",
+        description: "What changes, how we measure, when we deliver. Detailed roadmap with measurable milestones."
+      },
+      {
+        number: "03",
+        icon: Cog,
+        title: "Delivery & Operation", 
+        subtitle: "Continuous improvement",
+        description: "Short iterations, real-time monitoring and data-driven optimization."
+      }
+    ]
+  };
+
+  const steps = locale === 'pt' ? stepsData.pt : stepsData.en;
+  const headingText = locale === 'pt' ? 'Como' : 'How we';
+  const headingHighlight = locale === 'pt' ? 'trabalhamos' : 'work';
+  const subtitleText = locale === 'pt'
+    ? 'Processo simples, transparente e focado em resultados mensuráveis. Cada passo é documentado e validado.'
+    : 'Simple, transparent process focused on measurable results. Every step is documented and validated.';
+  const ctaText = locale === 'pt' ? 'Processo testado em dezenas de projetos' : 'Process tested on dozens of projects';
+  const ctaDescriptionText = locale === 'pt'
+    ? 'Cada etapa é otimizada para máxima eficiência e transparência. Sem surpresas, sem atrasos.'
+    : 'Every step is optimized for maximum efficiency and transparency. No surprises, no delays.';
 
   return (
     <section id="como-trabalhamos" className="py-20 bg-white">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-            How we{" "}
+            {headingText}{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              work
+              {headingHighlight}
             </span>
           </h2>
           <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
-            Simple, transparent process focused on measurable results. Every step is documented and validated.
+            {subtitleText}
           </p>
         </div>
 
@@ -94,10 +133,10 @@ export function HowWeWork() {
         <div className="mt-16 text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-gradient-subtle border border-neutral-200 px-6 py-3 text-sm font-medium text-neutral-700 mb-6">
             <Cog className="h-4 w-4 text-primary animate-spin" style={{animationDuration: '3s'}} />
-            Process tested on dozens of projects
+            {ctaText}
           </div>
           <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-            Every step is optimized for maximum efficiency and transparency. No surprises, no delays.
+            {ctaDescriptionText}
           </p>
         </div>
       </div>

@@ -2,36 +2,67 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useLocale } from "next-intl";
 
 export function FAQ() {
-  const faqs = [
-    {
-      question: "How long does implementation take?",
-      answer: "Implementation time varies depending on project complexity, but typically between 2 to 8 weeks."
-    },
-    {
-      question: "Do you offer support after implementation?",
-      answer: "Yes, all our plans include ongoing support. The level of support varies depending on the chosen plan."
-    },
-    {
-      question: "Can I cancel at any time?",
-      answer: "Yes, you can cancel your plan at any time without penalties."
-    },
-    {
-      question: "What technologies do you work with?",
-      answer: "We work with the latest technologies, including Python, Node.js, React, Next.js, and AI tools like OpenAI and Anthropic."
-    }
-  ];
+  const locale = useLocale();
+
+  const faqsData = {
+    pt: [
+      {
+        question: "Quanto tempo demora a implementação?",
+        answer: "O tempo de implementação varia consoante a complexidade do projeto, mas geralmente entre 2 a 8 semanas."
+      },
+      {
+        question: "Oferecem suporte após a implementação?",
+        answer: "Sim, todos os nossos planos incluem suporte contínuo. O nível de suporte varia consoante o plano escolhido."
+      },
+      {
+        question: "Posso cancelar a qualquer momento?",
+        answer: "Sim, pode cancelar o seu plano a qualquer momento sem penalizações."
+      },
+      {
+        question: "Trabalham com que tecnologias?",
+        answer: "Trabalhamos com as mais recentes tecnologias, incluindo Python, Node.js, React, Next.js, e ferramentas de IA como OpenAI e Anthropic."
+      }
+    ],
+    en: [
+      {
+        question: "How long does implementation take?",
+        answer: "Implementation time varies depending on project complexity, but typically between 2 to 8 weeks."
+      },
+      {
+        question: "Do you offer support after implementation?",
+        answer: "Yes, all our plans include ongoing support. The level of support varies depending on the chosen plan."
+      },
+      {
+        question: "Can I cancel at any time?",
+        answer: "Yes, you can cancel your plan at any time without penalties."
+      },
+      {
+        question: "What technologies do you work with?",
+        answer: "We work with the latest technologies, including Python, Node.js, React, Next.js, and AI tools like OpenAI and Anthropic."
+      }
+    ]
+  };
+
+  const faqs = locale === 'pt' ? faqsData.pt : faqsData.en;
+  const titleText = locale === 'pt' ? 'Perguntas Frequentes' : 'Frequently Asked Questions';
+  const subtitleText = locale === 'pt' ? 'Encontre respostas para as suas dúvidas' : 'Find answers to your questions';
+  const ctaTitleText = locale === 'pt' ? 'Pronto para começar?' : 'Ready to get started?';
+  const ctaSubtitleText = locale === 'pt' ? 'Escolha o seu ponto de partida. Sem compromissos a longo prazo.' : 'Choose your starting point. No long-term commitments.';
+  const servicesButtonText = locale === 'pt' ? 'Ver Serviços' : 'View Services';
+  const pricingButtonText = locale === 'pt' ? 'Ver Preços' : 'View Pricing';
 
   return (
     <section className="py-16">
       <div className="container mx-auto max-w-4xl px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-semibold mb-4">
-            Frequently Asked Questions
+            {titleText}
           </h2>
           <p className="text-slate-600">
-            Find answers to your questions
+            {subtitleText}
           </p>
         </div>
 
@@ -52,19 +83,23 @@ export function FAQ() {
         <div className="text-center space-y-6">
           <div>
             <h3 className="text-2xl font-semibold mb-3">
-              Ready to get started?
+              {ctaTitleText}
             </h3>
             <p className="text-slate-700 mb-6">
-              Choose your starting point. No long-term commitments.
+              {ctaSubtitleText}
             </p>
           </div>
           
           <div className="flex flex-wrap gap-4 justify-center">
             <Button asChild size="lg" className="rounded-xl px-8 py-3">
-              <Link href="/en/services">View Services</Link>
+              <Link href={locale === 'pt' ? '/servicos' : '/en/services'}>
+                {servicesButtonText}
+              </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="rounded-xl px-8 py-3">
-              <Link href="/en/pricing">View Pricing</Link>
+              <Link href={locale === 'pt' ? '/precos' : '/en/pricing'}>
+                {pricingButtonText}
+              </Link>
             </Button>
           </div>
         </div>
