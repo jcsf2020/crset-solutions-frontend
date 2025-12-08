@@ -1,4 +1,5 @@
-import "./globals.css"
+'use client';
+
 import "@/styles/sci-fi-tokens.css";
 import "@/styles/sci-fi.css";
 import { ThemeProvider } from "@/components/theme-provider"
@@ -7,6 +8,9 @@ import { Oxanium, JetBrains_Mono, Poppins } from "next/font/google"
 import AIChatWidgetEnhanced from "@/app/_components/AIChatWidgetEnhanced"
 import { OrganizationSchema, WebsiteSchema } from "@/components/seo/structured-data"
 import { SkipNav } from "@/components/a11y/skip-nav"
+import { NextIntlClientProvider } from 'next-intl';
+import { useLocale } from 'next-intl';
+import { ReactNode } from 'react';
 
 // Optimized font loading with preload
 const oxanium = Oxanium({ 
@@ -53,9 +57,11 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+function RootLayoutContent({ children }: { children: ReactNode }) {
+  const locale = useLocale();
+
   return (
-    <html lang="pt" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         {/* Performance optimizations */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -81,7 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
 
         {/* AI Chat Widget */}
-        <AIChatWidgetEnhanced language="pt" />
+        <AIChatWidgetEnhanced language={locale} />
       </ThemeProvider>
         
         {/* Structured Data for SEO */}
@@ -89,5 +95,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <WebsiteSchema />
       </body>
     </html>
-  )
+  );
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <NextIntlClientProvider>
+      <RootLayoutContent>{children}</RootLayoutContent>
+    </NextIntlClientProvider>
+  );
 }
