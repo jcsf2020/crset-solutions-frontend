@@ -1,5 +1,3 @@
-'use client';
-
 import "@/styles/sci-fi-tokens.css";
 import "@/styles/sci-fi.css";
 import { ThemeProvider } from "@/components/theme-provider"
@@ -9,7 +7,7 @@ import AIChatWidgetEnhanced from "@/app/_components/AIChatWidgetEnhanced"
 import { OrganizationSchema, WebsiteSchema } from "@/components/seo/structured-data"
 import { SkipNav } from "@/components/a11y/skip-nav"
 import { NextIntlClientProvider } from 'next-intl';
-import { useLocale } from 'next-intl';
+import { getRequestConfig } from 'next-intl/server';
 import { ReactNode } from 'react';
 
 // Optimized font loading with preload
@@ -57,8 +55,8 @@ export const metadata = {
   },
 }
 
-function RootLayoutContent({ children }: { children: ReactNode }) {
-  const locale = useLocale();
+async function RootLayoutContent({ children, locale }: { children: ReactNode; locale: string }) {
+  const config = await getRequestConfig({ locale: locale as any });
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -98,10 +96,20 @@ function RootLayoutContent({ children }: { children: ReactNode }) {
   );
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ 
+  children,
+  params 
+}: { 
+  children: React.ReactNode;
+  params: Promise<{ locale?: string }>;
+}) {
+  // Get locale from params - default to 'pt' if not provided
+  const { locale = 'pt' } = await params;
+  const config = await getRequestConfig({ locale: locale as any });
+
   return (
-    <NextIntlClientProvider>
-      <RootLayoutContent>{children}</RootLayoutContent>
+    <NextIntlClientProvider locale={locale} messages={config.messages}>
+      <RootLayoutContent locale={locale}>{children}</RootLayoutContent>
     </NextIntlClientProvider>
   );
 }
