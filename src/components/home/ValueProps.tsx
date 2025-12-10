@@ -1,10 +1,11 @@
 'use client';
 
 import { Clock, BarChart3, Target, MessageCircle, Zap, Shield } from "lucide-react";
-import { useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
 
 export function ValueProps() {
-  const locale = useLocale();
+  const pathname = usePathname();
+  const isEnglish = pathname.startsWith('/en');
 
   const propsData = {
     pt: [
@@ -73,14 +74,14 @@ export function ValueProps() {
     ]
   };
 
-  const props = locale === 'pt' ? propsData.pt : propsData.en;
+  const props = isEnglish ? propsData.en : propsData.pt;
   
-  const headingText = locale === 'pt' ? 'Por que escolher' : 'Why choose';
+  const headingText = isEnglish ? 'Why choose' : 'Por que escolher';
   const headingHighlight = 'CRSET?';
-  const subheadingText = locale === 'pt' 
-    ? 'Automação que funciona, sem drama. Resultados práticos com total transparência e tecnologia de ponta.'
-    : 'Automation that works, no drama. Practical results with total transparency and cutting-edge technology.';
-  const readyText = locale === 'pt' ? 'Tudo pronto para começar' : 'Everything ready to start';
+  const subheadingText = isEnglish
+    ? 'Automation that works, no drama. Practical results with total transparency and cutting-edge technology.'
+    : 'Automação que funciona, sem drama. Resultados práticos com total transparência e tecnologia de ponta.';
+  const readyText = isEnglish ? 'Everything ready to start' : 'Tudo pronto para começar';
 
   return (
     <section className="py-20">
@@ -124,9 +125,9 @@ export function ValueProps() {
             {readyText}
           </div>
           <p className="text-lg text-slate-700 mb-8 max-w-2xl mx-auto">
-            {locale === 'pt'
-              ? 'Infraestrutura robusta, processos testados e equipa experiente. O próximo passo é seu.'
-              : 'Robust infrastructure, tested processes and experienced team. The next step is yours.'
+            {isEnglish
+              ? 'Robust infrastructure, tested processes and experienced team. The next step is yours.'
+              : 'Infraestrutura robusta, processos testados e equipa experiente. O próximo passo é seu.'
             }
           </p>
         </div>

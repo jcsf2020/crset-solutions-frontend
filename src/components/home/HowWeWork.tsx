@@ -1,10 +1,11 @@
 'use client';
 
 import { Search, FileText, Cog, ArrowRight } from "lucide-react";
-import { useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
 
 export function HowWeWork() {
-  const locale = useLocale();
+  const pathname = usePathname();
+  const isEnglish = pathname.startsWith('/en');
 
   const stepsData = {
     pt: [
@@ -55,16 +56,16 @@ export function HowWeWork() {
     ]
   };
 
-  const steps = locale === 'pt' ? stepsData.pt : stepsData.en;
-  const headingText = locale === 'pt' ? 'Como' : 'How we';
-  const headingHighlight = locale === 'pt' ? 'trabalhamos' : 'work';
-  const subtitleText = locale === 'pt'
-    ? 'Processo simples, transparente e focado em resultados mensuráveis. Cada passo é documentado e validado.'
-    : 'Simple, transparent process focused on measurable results. Every step is documented and validated.';
-  const ctaText = locale === 'pt' ? 'Processo testado em dezenas de projetos' : 'Process tested on dozens of projects';
-  const ctaDescriptionText = locale === 'pt'
-    ? 'Cada etapa é otimizada para máxima eficiência e transparência. Sem surpresas, sem atrasos.'
-    : 'Every step is optimized for maximum efficiency and transparency. No surprises, no delays.';
+  const steps = isEnglish ? stepsData.en : stepsData.pt;
+  const headingText = isEnglish ? 'How we' : 'Como';
+  const headingHighlight = isEnglish ? 'work' : 'trabalhamos';
+  const subtitleText = isEnglish
+    ? 'Simple, transparent process focused on measurable results. Every step is documented and validated.'
+    : 'Processo simples, transparente e focado em resultados mensuráveis. Cada passo é documentado e validado.';
+  const ctaText = isEnglish ? 'Process tested on dozens of projects' : 'Processo testado em dezenas de projetos';
+  const ctaDescriptionText = isEnglish
+    ? 'Every step is optimized for maximum efficiency and transparency. No surprises, no delays.'
+    : 'Cada etapa é otimizada para máxima eficiência e transparência. Sem surpresas, sem atrasos.';
 
   return (
     <section id="como-trabalhamos" className="py-20 bg-white">

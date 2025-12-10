@@ -2,21 +2,22 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
 
 export default function HomeHero() {
-  const locale = useLocale();
+  const pathname = usePathname();
+  const isEnglish = pathname.startsWith('/en');
 
-  const agiText = locale === 'pt' ? 'Dúvidas? Fale com AGI Commander' : 'Questions? Talk to AGI Commander';
+  const agiText = isEnglish ? 'Questions? Talk to AGI Commander' : 'Dúvidas? Fale com AGI Commander';
   const mainHeading = 'CRSET Solutions';
-  const mainSubtitle = locale === 'pt' ? 'Automação prática. Sem circo.' : 'Practical automation. No nonsense.';
-  const getStartedText = locale === 'pt' ? 'Começar' : 'Get Started';
-  const faqText = locale === 'pt' ? 'FAQ' : 'FAQ';
-  const mascotsText = locale === 'pt' ? 'Mascotes' : 'Mascots';
+  const mainSubtitle = isEnglish ? 'Practical automation. No nonsense.' : 'Automação prática. Sem circo.';
+  const getStartedText = isEnglish ? 'Get Started' : 'Começar';
+  const faqText = 'FAQ';
+  const mascotsText = isEnglish ? 'Mascots' : 'Mascotes';
 
-  const getStartedLink = locale === 'pt' ? '/comeco' : '/en/start';
-  const faqLink = locale === 'pt' ? '/ajuda' : '/en/help';
-  const mascotsLink = locale === 'pt' ? '/mascotes-all' : '/en/mascots-all';
+  const getStartedLink = isEnglish ? '/en/start' : '/comeco';
+  const faqLink = isEnglish ? '/en/help' : '/ajuda';
+  const mascotsLink = isEnglish ? '/en/mascots-all' : '/mascotes-all';
 
   return (<>
       {/* AGI CTA */}

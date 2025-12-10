@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
 
 export function FAQ() {
-  const locale = useLocale();
+  const pathname = usePathname();
+  const isEnglish = pathname.startsWith('/en');
 
   const faqsData = {
     pt: [
@@ -46,13 +47,13 @@ export function FAQ() {
     ]
   };
 
-  const faqs = locale === 'pt' ? faqsData.pt : faqsData.en;
-  const titleText = locale === 'pt' ? 'Perguntas Frequentes' : 'Frequently Asked Questions';
-  const subtitleText = locale === 'pt' ? 'Encontre respostas para as suas dúvidas' : 'Find answers to your questions';
-  const ctaTitleText = locale === 'pt' ? 'Pronto para começar?' : 'Ready to get started?';
-  const ctaSubtitleText = locale === 'pt' ? 'Escolha o seu ponto de partida. Sem compromissos a longo prazo.' : 'Choose your starting point. No long-term commitments.';
-  const servicesButtonText = locale === 'pt' ? 'Ver Serviços' : 'View Services';
-  const pricingButtonText = locale === 'pt' ? 'Ver Preços' : 'View Pricing';
+  const faqs = isEnglish ? faqsData.en : faqsData.pt;
+  const titleText = isEnglish ? 'Frequently Asked Questions' : 'Perguntas Frequentes';
+  const subtitleText = isEnglish ? 'Find answers to your questions' : 'Encontre respostas para as suas dúvidas';
+  const ctaTitleText = isEnglish ? 'Ready to get started?' : 'Pronto para começar?';
+  const ctaSubtitleText = isEnglish ? 'Choose your starting point. No long-term commitments.' : 'Escolha o seu ponto de partida. Sem compromissos a longo prazo.';
+  const servicesButtonText = isEnglish ? 'View Services' : 'Ver Serviços';
+  const pricingButtonText = isEnglish ? 'View Pricing' : 'Ver Preços';
 
   return (
     <section className="py-16">
@@ -92,12 +93,12 @@ export function FAQ() {
           
           <div className="flex flex-wrap gap-4 justify-center">
             <Button asChild size="lg" className="rounded-xl px-8 py-3">
-              <Link href={locale === 'pt' ? '/servicos' : '/en/services'}>
+              <Link href={isEnglish ? '/en/services' : '/servicos'}>
                 {servicesButtonText}
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="rounded-xl px-8 py-3">
-              <Link href={locale === 'pt' ? '/precos' : '/en/pricing'}>
+              <Link href={isEnglish ? '/en/pricing' : '/precos'}>
                 {pricingButtonText}
               </Link>
             </Button>
