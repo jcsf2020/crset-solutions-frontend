@@ -1,5 +1,5 @@
 'use client';
-
+// Force rebuild - usePathname language detection v2
 import { Clock, BarChart3, Target, MessageCircle, Zap, Shield } from "lucide-react";
 import { usePathname } from "next/navigation";
 
