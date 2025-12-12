@@ -158,22 +158,22 @@ export default function HomePageEN() {
 
       {/* Social Proof */}
       <div className="container mx-auto max-w-7xl px-4 py-12">
-        <SocialProof />
+        <SocialProof locale="en" />
       </div>
 
       {/* Value Props */}
       <div className="container mx-auto max-w-7xl px-4 py-12">
-        <ValueProps />
+        <ValueProps locale="en" />
       </div>
 
       {/* How We Work */}
       <div className="container mx-auto max-w-7xl px-4 py-12">
-        <HowWeWork />
+        <HowWeWork locale="en" />
       </div>
 
       {/* FAQ */}
       <div className="container mx-auto max-w-7xl px-4 py-12">
-        <FAQ />
+        <FAQ locale="en" />
       </div>
 
       {/* Footer */}

@@ -153,22 +153,22 @@ export default function Page() {
 
       {/* Social Proof */}
       <div className="container mx-auto max-w-7xl px-4 py-12">
-        <SocialProof />
+        <SocialProof locale="pt" />
       </div>
 
       {/* Value Props */}
       <div className="container mx-auto max-w-7xl px-4 py-12">
-        <ValueProps />
+        <ValueProps locale="pt" />
       </div>
 
       {/* How We Work */}
       <div className="container mx-auto max-w-7xl px-4 py-12">
-        <HowWeWork />
+        <HowWeWork locale="pt" />
       </div>
 
       {/* FAQ */}
       <div className="container mx-auto max-w-7xl px-4 py-12">
-        <FAQ />
+        <FAQ locale="pt" />
       </div>
 
       {/* Footer */}

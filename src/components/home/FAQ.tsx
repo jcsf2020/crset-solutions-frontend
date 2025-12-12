@@ -4,9 +4,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 
-export function FAQ() {
+export function FAQ({ locale }: { locale?: string } = {}) {
   const pathname = usePathname();
-  const isEnglish = pathname.startsWith('/en');
+  // Use prop if provided, otherwise detect from pathname
+  const isEnglish = locale === 'en' || (!locale && pathname.startsWith('/en'));
 
   const faqsData = {
     pt: [

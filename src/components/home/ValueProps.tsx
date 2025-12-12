@@ -3,9 +3,10 @@
 import { Clock, BarChart3, Target, MessageCircle, Zap, Shield } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-export function ValueProps() {
+export function ValueProps({ locale }: { locale?: string } = {}) {
   const pathname = usePathname();
-  const isEnglish = pathname.startsWith('/en');
+  // Use prop if provided, otherwise detect from pathname
+  const isEnglish = locale === 'en' || (!locale && pathname.startsWith('/en'));
 
   const propsData = {
     pt: [

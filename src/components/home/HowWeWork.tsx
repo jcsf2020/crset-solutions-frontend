@@ -3,9 +3,10 @@
 import { Search, FileText, Cog, ArrowRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-export function HowWeWork() {
+export function HowWeWork({ locale }: { locale?: string } = {}) {
   const pathname = usePathname();
-  const isEnglish = pathname.startsWith('/en');
+  // Use prop if provided, otherwise detect from pathname
+  const isEnglish = locale === 'en' || (!locale && pathname.startsWith('/en'));
 
   const stepsData = {
     pt: [
