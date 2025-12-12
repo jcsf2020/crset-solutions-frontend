@@ -1,5 +1,19 @@
 {
   "env": {
     "NEXT_PUBLIC_CHAT_PUBLIC": "false"
-  }
+  },
+  "github": {
+    "silent": false
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
 }
