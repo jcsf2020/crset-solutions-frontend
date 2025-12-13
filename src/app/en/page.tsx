@@ -22,6 +22,10 @@ function ForceLight() {
   );
 }
 
+// Force dynamic rendering to bypass cache
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "CRSET Solutions — Automation that impresses",
   description: "Automation and AGI applied to business. Modern design, real results.",

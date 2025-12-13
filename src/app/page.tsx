@@ -21,6 +21,10 @@ function ForceLight() {
   );
 }
 
+// Force dynamic rendering to bypass cache
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata = {
   title: "CRSET Solutions — Automação que impressiona",
   description: "Automação e AGI aplicada ao negócio. Design moderno, resultados reais.",
